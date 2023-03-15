@@ -1,0 +1,128 @@
+<div class="m-4" [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
+
+
+  <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">{{"ADD" | translate }}
+    Customer</button>
+
+  <mat-form-field  >
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+    </mat-form-field> 
+ 
+</div>
+<mat-card  style="border: 5px; "  [@animate]="{value:'*',params:{y:'10px',delay:'500ms'}}">
+  <mat-card-content class="p-0">
+    <mat-table [dataSource]="dataSource" matSort  >
+
+
+      <ng-container matColumnDef="logo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> logo </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="email"> {{row.logo}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="staffNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> staffNumber </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="staffNumber"> {{row.staffNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ceoName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ceoName </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="ceoName"> {{row.ceoName}} </mat-cell>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="parentCompany">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> parentCompany </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="parentCompany"> {{row.parentCompany}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> phoneNumber </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="phoneNumber"> {{row.phoneNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumberTwo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> phoneNumberTwo </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="phoneNumberTwo"> {{row.phoneNumberTwo}} </mat-cell>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="postCode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> postCode </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="postCode"> {{row.phoneNumberTwo}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Country"> {{row.Country}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> city </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="city"> {{row.city}} </mat-cell>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> description </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="description"> {{row.description}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="activityStartDat">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> activityStartDat </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="activityStartDat"> {{row.activityStartDat}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="partnerShipDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> partnerShipDate </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="partnerShipDate"> {{row.partnerShipDate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CompanyStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> CompanyStatus </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="CompanyStatus"> {{row.CompanyStatus}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="RefPhoneNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> RefPhoneNumber </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="RefPhoneNumber"> {{row.RefPhoneNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="WorkField">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> WorkField </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="WorkField"> {{row.WorkField}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="LegalStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> LegalStatus </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="LegalStatus"> {{row.LegalStatus}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Provenance">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Provenance </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Provenance"> {{row.Provenance}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+
+  </mat-card-content>
+</mat-card>

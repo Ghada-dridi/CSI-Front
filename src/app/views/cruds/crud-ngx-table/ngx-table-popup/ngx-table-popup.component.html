@@ -100,8 +100,8 @@
 
             <mat-form-field class="full-width">
               <mat-label>WorkField</mat-label>
-              <mat-select  [formControlName]="'WorkField'">
-                <mat-option *ngFor="let WorkField of WorkField" [value]="WorkField">{{ WorkField }}</mat-option>
+              <mat-select  [formControlName]="'workField'">
+                <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
               </mat-select>
             </mat-form-field>
         </div>
@@ -110,8 +110,8 @@
 
           <mat-form-field class="full-width">
             <mat-label>LegalStatus</mat-label>
-            <mat-select  [formControlName]="'LegalStatus'">
-              <mat-option *ngFor="let LegalStatus of LegalStatus" [value]="LegalStatus">{{ LegalStatus }}</mat-option>
+            <mat-select  [formControlName]="'legalStatus'">
+              <mat-option *ngFor="let x of LegalStatus" [value]="x">{{ x }}</mat-option>
             </mat-select>
           </mat-form-field>
       </div>
@@ -120,8 +120,8 @@
 
         <mat-form-field class="full-width">
           <mat-label>Provenance</mat-label>
-          <mat-select  [formControlName]="'LegalStatus'">
-            <mat-option *ngFor="let Provenance of Provenance" [value]="Provenance">{{ Provenance }}</mat-option>
+          <mat-select  [formControlName]="'provenance'">
+            <mat-option *ngFor="let x of Provenance" [value]="x">{{x }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -130,8 +130,8 @@
 
         <mat-form-field class="full-width">
           <mat-label>CompanyStatus</mat-label>
-          <mat-select  [formControlName]="'CompanyStatus'">
-            <mat-option *ngFor="let CompanyStatus of CompanyStatus" [value]="CompanyStatus">{{ CompanyStatus }}</mat-option>
+          <mat-select  [formControlName]="'companyStatus'">
+            <mat-option *ngFor="let x of CompanyStatus" [value]="x">{{ x }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -140,7 +140,7 @@
 
         <mat-form-field class="full-width">
           <mat-label>Country</mat-label>
-          <mat-select  [formControlName]="'Country'">
+          <mat-select  [formControlName]="'country'">
             <mat-option *ngFor="let country of countries" [value]="country.shortName">{{ country.name }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -193,7 +193,7 @@
 
 
     <div fxFlex="100" class="mt-16">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE" | translate }}</button>
+      <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>

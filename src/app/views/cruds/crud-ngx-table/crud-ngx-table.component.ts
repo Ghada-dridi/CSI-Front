@@ -28,12 +28,13 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   public displayedColumns: any;
   public getItemSub: Subscription;
   constructor(
+
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private crudService: CrudService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService
-  ) { }
+  ) {     this.dataSource = new MatTableDataSource<Partner>([]);}
 
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
@@ -66,7 +67,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
 
   }
 
-  openPopUp(data: any , isNew?) {
+  openPopUp(data:  Partner[] , isNew?) {
     let title = isNew ? 'Add new Partner' : 'Update Partner';
     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
       width: '720px',

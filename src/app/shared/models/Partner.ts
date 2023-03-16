@@ -12,16 +12,19 @@ export interface Partner {
     logo : string ;
     activityStartDate : string;
     partnerShipDate : string;
-    CompanyStatus :CompanyStatus,
+    companyStatus :CompanyStatus,
     RefPhoneNumber: string,
     Country :string ,
-    WorkField :WorkField,
-    LegalStatus:LegalStatus,
-    Provenance:Provenance,
+    workField :WorkField,
+    legalStatus:LegalStatus,
+    provenance:Provenance,
 
 
   }
 
+
+
+  
   export interface Country {
     shortName: string;
     name: string;

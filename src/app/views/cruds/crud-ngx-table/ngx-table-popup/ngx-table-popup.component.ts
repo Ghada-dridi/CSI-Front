@@ -12,7 +12,7 @@ import { CrudService } from '../../crud.service';
 export class NgxTablePopupComponent implements OnInit {
   public itemForm: FormGroup;;
   CompanyStatus = Object.values(CompanyStatus);
-  WorkField = Object.values(WorkField);
+  WorkField :string []= Object.values(WorkField);
   LegalStatus = Object.values(LegalStatus);
   Provenance = Object.values(Provenance);
   countries: Country[];
@@ -48,12 +48,12 @@ export class NgxTablePopupComponent implements OnInit {
       logo : [item.logo || '', Validators.required],
       activityStartDate : [item.activityStartDate || '', Validators.required],
       partnerShipDate : [item.partnerShipDate || '', Validators.required],
-      CompanyStatus : [item.CompanyStatus || '', Validators.required],
+      companyStatus : [item.CompanyStatus || '', Validators.required],
       RefPhoneNumber : [item.RefPhoneNumber || '', Validators.required],
       Country : [item.Country || '', Validators.required],
-      WorkField : [item.WorkField || '', Validators.required],
-      LegalStatus : [item.LegalStatus || '', Validators.required],
-      Provenance : [item.Provenance || '', Validators.required],
+      workField : [item.WorkField || '', Validators.required],
+      legalStatus : [item.LegalStatus || '', Validators.required],
+      provenance : [item.Provenance || '', Validators.required],
 
       
   
@@ -68,7 +68,7 @@ export class NgxTablePopupComponent implements OnInit {
   ngOnInit() {
     this.buildItemForm(this.data.payload)
     
-    this.itemForm.get("Country").valueChanges.subscribe((country) => {
+    this.itemForm.get("country").valueChanges.subscribe((country) => {
       this.itemForm.get("city").reset();
       if (country) {
         this.states = this.crudService.getStatesByCountry(country);
@@ -81,6 +81,8 @@ export class NgxTablePopupComponent implements OnInit {
   submit() {
     
     this.dialogRef.close(this.itemForm.value)
+    console.log(this.itemForm.get("country").value)
+    console.log(this.itemForm.get("name").value)
 
   }
 

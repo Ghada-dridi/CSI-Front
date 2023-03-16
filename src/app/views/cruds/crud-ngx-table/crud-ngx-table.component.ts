@@ -67,7 +67,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
 
   }
 
-  openPopUp(data:  Partner[] , isNew?) {
+  openPopUp(data:  any , isNew?) {
     let title = isNew ? 'Add new Partner' : 'Update Partner';
     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
       width: '720px',
@@ -83,7 +83,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
         if (isNew) {
           this.loader.open('Adding new Partner');
           this.crudService.addItem(res)
-            .subscribe((data:any) => {
+            .subscribe(data => {
               this.dataSource = data;
               this.loader.close();
               this.snack.open('Partner Added!', 'OK', { duration: 2000 });
@@ -91,9 +91,9 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
             })
         } else {
           this.loader.open('Updating Partner');
-          this.crudService.updateItem(res.id,res)
+          this.crudService.updateItem(data.id,res)
             .subscribe((data:any) => {
-              this.dataSource = data;
+              this.dataSource = data ;
               this.loader.close();
               this.snack.open('Partner Updated!', 'OK', { duration: 2000 });
               this.getItems();

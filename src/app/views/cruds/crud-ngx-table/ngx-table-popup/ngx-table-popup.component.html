@@ -77,10 +77,10 @@
         <div fxFlex="50"  class="pr-16">
           <mat-form-field class="full-width">
               <mat-label>RefPhoneNumber</mat-label>
-              <input matInput formControlName="RefPhoneNumber" placeholder="+1 1234567890">
-              <mat-error *ngIf="itemForm.get('RefPhoneNumber').invalid && itemForm.get('RefPhoneNumber').touched">
-                <div *ngIf="itemForm.get('RefPhoneNumber').errors.required">Phone number is required</div>
-                <div *ngIf="itemForm.get('RefPhoneNumber').errors.pattern">Invalid phone number format</div>
+              <input matInput formControlName="refPhoneNumber" placeholder="+1 1234567890">
+              <mat-error *ngIf="itemForm.get('refPhoneNumber').invalid && itemForm.get('refPhoneNumber').touched">
+                <div *ngIf="itemForm.get('refPhoneNumber').errors.required">Phone number is required</div>
+                <div *ngIf="itemForm.get('refPhoneNumber').errors.pattern">Invalid phone number format</div>
               </mat-error>
             </mat-form-field>
           </div>
@@ -111,7 +111,7 @@
           <mat-form-field class="full-width">
             <mat-label>LegalStatus</mat-label>
             <mat-select  [formControlName]="'legalStatus'">
-              <mat-option *ngFor="let x of LegalStatus" [value]="x">{{ x }}</mat-option>
+              <mat-option *ngFor="let legalStatuss of LegalStatus" [value]="legalStatuss">{{ legalStatuss }}</mat-option>
             </mat-select>
           </mat-form-field>
       </div>
@@ -121,7 +121,7 @@
         <mat-form-field class="full-width">
           <mat-label>Provenance</mat-label>
           <mat-select  [formControlName]="'provenance'">
-            <mat-option *ngFor="let x of Provenance" [value]="x">{{x }}</mat-option>
+            <mat-option *ngFor="let provenances of Provenance" [value]="provenances">{{provenances }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -131,7 +131,7 @@
         <mat-form-field class="full-width">
           <mat-label>CompanyStatus</mat-label>
           <mat-select  [formControlName]="'companyStatus'">
-            <mat-option *ngFor="let x of CompanyStatus" [value]="x">{{ x }}</mat-option>
+            <mat-option *ngFor="let companyStatuss of CompanyStatus" [value]="companyStatuss">{{ companyStatuss }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

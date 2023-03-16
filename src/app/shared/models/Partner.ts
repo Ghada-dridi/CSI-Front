@@ -13,7 +13,7 @@ export interface Partner {
     activityStartDate : string;
     partnerShipDate : string;
     companyStatus :CompanyStatus,
-    RefPhoneNumber: string,
+    refPhoneNumber: number,
     Country :string ,
     workField :WorkField,
     legalStatus:LegalStatus,

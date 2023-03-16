@@ -49,7 +49,7 @@ export class NgxTablePopupComponent implements OnInit {
       activityStartDate : [item.activityStartDate || '', Validators.required],
       partnerShipDate : [item.partnerShipDate || '', Validators.required],
       companyStatus : [item.CompanyStatus || '', Validators.required],
-      RefPhoneNumber : [item.RefPhoneNumber || '', Validators.required],
+      refPhoneNumber : [item.refPhoneNumber || '', Validators.required],
       Country : [item.Country || '', Validators.required],
       workField : [item.WorkField || '', Validators.required],
       legalStatus : [item.LegalStatus || '', Validators.required],

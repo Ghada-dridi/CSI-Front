@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable,  throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Customer } from 'app/shared/models/Customer';
+import { Partner } from 'app/shared/models/Partner';
 import * as countrycitystatejson from 'countrycitystatejson';
 
 @Injectable()
 export class CrudService {
-  private apiUrl = 'http://localhost:8085/customers';
+  private apiUrl = 'http://localhost:8085/crm/partners';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -15,40 +15,40 @@ export class CrudService {
 
 
   //******* Implement your APIs ********
-  getItems(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.apiUrl).pipe(
+  getItems(): Observable<Partner[]> {
+    return this.http.get<Partner[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     );
   }
 
 
    // GET an item by id
-   getItem(id: number): Observable<Customer> {
+   getItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Customer>(url).pipe(
+    return this.http.get<Partner>(url).pipe(
       catchError(this.handleError)
     );
   }
 
   // POST a new item
-  addItem(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(this.apiUrl, customer).pipe(
+  addItem(customer: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, customer).pipe(
       catchError(this.handleError)
     );
   }
 
   // PUT an existing item
-  updateItem(id: number, customer: Customer): Observable<Customer> {
+  updateItem(id: number, customer: Partner): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Customer>(url, customer).pipe(
+    return this.http.put<Partner>(url, customer).pipe(
       catchError(this.handleError)
     );
   }
 
   // DELETE an item by id
-  deleteItem(id: number): Observable<Customer> {
+  deleteItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<Customer>(url).pipe(
+    return this.http.delete<Partner>(url).pipe(
       catchError(this.handleError)
     );
   }
@@ -73,13 +73,11 @@ export class CrudService {
     return this.countryData.getCountries();
   }
 
-  getStatesByCountry(countryShotName: string) {
-    return this.countryData.getStatesByShort(countryShotName);
+  getStatesByCountry(name: string) {
+    return this.countryData.getStatesByShort(name);
   }
 
-  getCitiesByState(country: string, state: string) {
-    return this.countryData.getCities(country, state);
-  }
+
 
   
 }

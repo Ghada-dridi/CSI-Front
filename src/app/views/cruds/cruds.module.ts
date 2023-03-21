@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DetailCrudComponent } from './crud-detail/detail-crud/detail-crud.component';
 
 
 
@@ -62,7 +63,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent],
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent],
   providers: [CrudService]
 })
 export class CrudsModule { }

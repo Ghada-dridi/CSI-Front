@@ -48,12 +48,12 @@ export class NgxTablePopupComponent implements OnInit {
       logo : [item.logo || '', Validators.required],
       activityStartDate : [item.activityStartDate || '', Validators.required],
       partnerShipDate : [item.partnerShipDate || '', Validators.required],
-      companyStatus : [item.CompanyStatus || '', Validators.required],
+      companyStatus : [item.companyStatus || '', Validators.required],
       refPhoneNumber : [item.refPhoneNumber || '', Validators.required ,],
-      country : [item.Country || '', Validators.required],
-      workField : [item.WorkField || '', Validators.required],
-      legalStatus : [item.LegalStatus || '', Validators.required],
-      provenance : [item.Provenance || '', Validators.required],
+      country : [item.country || '', Validators.required],
+      workField : [item.workField || '', Validators.required],
+      legalStatus : [item.legalStatus || '', Validators.required],
+      provenance : [item.provenance || '', Validators.required],
 
       
   
@@ -81,8 +81,7 @@ export class NgxTablePopupComponent implements OnInit {
   submit() {
     
     this.dialogRef.close(this.itemForm.value)
-    console.log(this.itemForm.get("country").value)
-    console.log(this.itemForm.get("name").value)
+
 
   }
 
@@ -94,5 +93,3 @@ export class NgxTablePopupComponent implements OnInit {
 
 
 }
-
-

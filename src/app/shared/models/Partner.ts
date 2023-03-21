@@ -1,23 +1,23 @@
 export interface Partner {
-     id :number;
-    name: string;
-    staffNumber : number;
-    parentCompany: string;
-    ceoName : string;
-    phoneNumber :number;
-    phoneNumberTwo : number;
-    postCode: number ;
-    city : string;
-    description : string ;
-    logo : string ;
-    activityStartDate : string;
-    partnerShipDate : string;
-    companyStatus :CompanyStatus,
-    refPhoneNumber: number,
-    Country :string ,
-    workField :WorkField,
-    legalStatus:LegalStatus,
-    provenance:Provenance,
+     id ?:number;
+    name?: string;
+    staffNumber? : number;
+    parentCompany?: string;
+    ceoName ?: string;
+    phoneNumber? :number;
+    phoneNumberTwo ?: number;
+    postCode?: number ;
+    city? : string;
+    description ?: string ;
+    logo ?: string ;
+    activityStartDate? : string;
+    partnerShipDate ?: string;
+    companyStatus ?:CompanyStatus,
+    refPhoneNumber?: number,
+    country? :string ,
+    workField ?:WorkField,
+    legalStatus?:LegalStatus,
+    provenance?:Provenance,
 
 
   }

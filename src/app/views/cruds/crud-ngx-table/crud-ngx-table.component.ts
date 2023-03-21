@@ -42,7 +42,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['logo','name','staffNumber','parentCompany','ceoName','phoneNumber','phoneNumberTwo','postCode','Country','city','description','activityStartDat','partnerShipDate','CompanyStatus','RefPhoneNumber','WorkField','LegalStatus','Provenance','actions'];
+    return ['name','parentCompany','ceoName','phoneNumber','Country','city','CompanyStatus','actions'];
   }
 
 
@@ -83,7 +83,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
         if (isNew) {
           this.loader.open('Adding new Partner');
           this.crudService.addItem(res)
-            .subscribe(data => {
+            .subscribe((data :any)=> {
               this.dataSource = data;
               this.loader.close();
               this.snack.open('Partner Added!', 'OK', { duration: 2000 });

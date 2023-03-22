@@ -59,7 +59,11 @@ export const rootRouterConfig: Routes = [
         path: 'tables',
         loadChildren: () => import('./views/tables/tables.module').then(m => m.TablesModule),
         data: { title: 'Tables', breadcrumb: 'TABLES'}
-      },
+      },{
+      path: 'contact',
+      loadChildren: () => import('./views/contact/contact.module').then(m => m.ContactModule),
+      data: { title: 'Tables', breadcrumb: 'TABLES'}
+    },
       {
         path: 'tour',
         loadChildren: () => import('./views/app-tour/app-tour.module').then(m => m.AppTourModule),

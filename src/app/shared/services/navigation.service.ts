@@ -74,7 +74,8 @@ export class NavigationService {
       sub: [
         {name: 'Basic Table', state: 'tables/mat-table'},
         {name: 'CRUD Table', state: 'gg/ahmed'},
-        {name: 'Table variations', state: 'material/table'}
+        {name: 'Table variations', state: 'material/table'},
+        {name: 'contact', state: 'contact/contact-table'}
       ]
     },
     {

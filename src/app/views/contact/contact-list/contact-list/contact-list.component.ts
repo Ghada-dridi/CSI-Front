@@ -1,126 +1,87 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { ContactPopComponent } from '../../contact-pop/contact-pop/contact-pop.component';
+import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { egretAnimations } from 'app/shared/animations/egret-animations';
+import { ContactService } from '../../contact.service';
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
+import { contact } from 'app/shared/models/Contact';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-
+  animations: egretAnimations
 })
-export class ContactListComponent implements OnInit {
+export class ContactListComponent implements OnInit,OnDestroy {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  users = [
-    {
-      'name': 'Snow Benton',
-      'membership': 'Paid Member',
-      'phone': '+1 (956) 486-2327',
-      'photo': 'assets/images/face-1.jpg',
-      'address': '329 Dictum Court, Minnesota',
-      'registered': '2016-07-09'
-    },
-    {
-      'name': 'Kay Sellers',
-      'membership': 'Paid Member',
-      'phone': '+1 (929) 406-3172',
-      'photo': 'assets/images/face-2.jpg',
-      'address': '893 Garden Place, American Samoa',
-      'registered': '2017-02-16'
-    },
-    {
-      'name': 'Robert Middleton',
-      'membership': 'Paid Member',
-      'phone': '+1 (995) 451-2205',
-      'photo': 'assets/images/face-3.jpg',
-      'address': '301 Hazel Court, West Virginia',
-      'registered': '2017-01-22'
-    },
-    {
-      'name': 'Delaney Randall',
-      'membership': 'Paid Member',
-      'phone': '+1 (922) 599-2410',
-      'photo': 'assets/images/face-4.jpg',
-      'address': '128 Kensington Walk, Ohio',
-      'registered': '2016-12-08'
-    },
-    {
-      'name': 'Melendez Lawrence',
-      'membership': 'Paid Member',
-      'phone': '+1 (824) 589-2029',
-      'photo': 'assets/images/face-5.jpg',
-      'address': '370 Lincoln Avenue, Florida',
-      'registered': '2015-03-29'
-    },
-    {
-      'name': 'Galloway Fitzpatrick',
-      'membership': 'Paid Member',
-      'phone': '+1 (907) 477-2375',
-      'photo': 'assets/images/face-6.jpg',
-      'address': '296 Stuyvesant Avenue, Iowa',
-      'registered': '2015-12-12'
-    },
-    {
-      'name': 'Watson Joyce',
-      'membership': 'Paid Member',
-      'phone': '+1 (982) 500-3137',
-      'photo': 'assets/images/face-7.jpg',
-      'address': '224 Visitation Place, Illinois',
-      'registered': '2015-08-19'
-    },
-    {
-      'name': 'Ada Kidd',
-      'membership': 'Paid Member',
-      'phone': '+1 (832) 531-2385',
-      'photo': 'assets/images/face-1.jpg',
-      'address': '230 Oxford Street, South Dakota',
-      'registered': '2016-08-11'
-    },
-    {
-      'name': 'Raquel Mcintyre',
-      'membership': 'Paid Member',
-      'phone': '+1 (996) 443-2102',
-      'photo': 'assets/images/face-2.jpg',
-      'address': '393 Sullivan Street, Palau',
-      'registered': '2014-09-03'
-    },
-    {
-      'name': 'Juliette Hunter',
-      'membership': 'Paid Member',
-      'phone': '+1 (876) 568-2964',
-      'photo': 'assets/images/face-3.jpg',
-      'address': '191 Stryker Court, New Jersey',
-      'registered': '2017-01-18'
-    },
-    {
-      'name': 'Workman Floyd',
-      'membership': 'Paid Member',
-      'phone': '+1 (996) 481-2712',
-      'photo': 'assets/images/face-4.jpg',
-      'address': '350 Imlay Street, Utah',
-      'registered': '2017-05-01'
-    },
-    {
-      'name': 'Amanda Bean',
-      'membership': 'Paid Member',
-      'phone': '+1 (894) 512-3907',
-      'photo': 'assets/images/face-5.jpg',
-      'address': '254 Stockton Street, Vermont',
-      'registered': '2014-08-30'
+ 
+  public dataSource: MatTableDataSource<any>;
+  public displayedColumns: any;
+  public getItemSub: Subscription;
+
+  
+  constructor( private snack: MatSnackBar,private dialog: MatDialog,
+   private loader: AppLoaderService,private ContactService :ContactService,private confirmService: AppConfirmService ) {
+    this.dataSource = new MatTableDataSource<contact>([]);
     }
-  ]
-  public dataSource: any
-  constructor(      private snack: MatSnackBar,private dialog: MatDialog, private loader: AppLoaderService ) { }
+   
+   
+   getDisplayedColumns() {
+    return ['firstName','lastName','function','emailOne','emailTwo','phoneNumberOne','phoneNumberTwo','actions'];
+  }
 
 
   ngOnInit(): void {
+  
+    this.displayedColumns = this.getDisplayedColumns();
+    this.getItems()
   }
-  openPopUp(data:  any , isNew?) {
-    let title = isNew ? 'Add new Contact' : 'Update Partner';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
-      width: '720px',
-      disableClose: true,
-      data: { title: title, payload: data }
+
+  getItems() {    
+    this.getItemSub =this.ContactService.getItems().subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  ngOnDestroy() {
+    if (this.getItemSub) {
+      this.getItemSub.unsubscribe()
+    }
+  }
+
+  applyFilter(event :Event){
+    const FilterValue = (event.target as HTMLInputElement).value ;
+     this.dataSource.filter = FilterValue.trim().toLowerCase();
+ 
+ }
+ deleteItem(row) {
+  this.confirmService.confirm({message: `Delete ${row.name}?`})
+    .subscribe(res => {
+      if (res) {
+        this.loader.open('Deleting Partner');
+        this.ContactService.deleteItem(row)
+          .subscribe((data:any)=> {
+            this.dataSource = data;
+            this.loader.close();
+            this.snack.open('Partner deleted!', 'OK', { duration: 2000 });
+            this.getItems();
+          })
+      }
     })
-    
-  }
 }
+
+
+}
+
+

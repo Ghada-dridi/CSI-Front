@@ -95,6 +95,11 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Drag and Drop', breadcrumb: 'DND'}
       },
       {
+        path: 'ggg',
+        loadChildren: () => import('./views/Requirement/req.module').then(m => m.ReqModule),
+        data: { title: 'Tables', breadcrumb: 'TABLES'}
+      },
+      {
         path: 'inbox',
         loadChildren: () => import('./views/app-inbox/app-inbox.module').then(m => m.AppInboxModule),
         data: { title: 'Inbox', breadcrumb: 'INBOX'}

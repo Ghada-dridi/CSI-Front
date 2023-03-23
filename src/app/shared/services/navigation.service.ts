@@ -72,10 +72,11 @@ export class NavigationService {
       type: 'dropDown',
       icon: 'list',
       sub: [
-        {name: 'Basic Table', state: 'tables/mat-table'},
-        {name: 'CRUD Table', state: 'gg/ahmed'},
-        {name: 'Table variations', state: 'material/table'},
-        {name: 'contact', state: 'contact/contact-table'}
+        //{name: 'Basic Table', state: 'tables/mat-table'},
+        {name: 'Partner', state: 'gg/ahmed'},
+        //{name: 'Table variations', state: 'material/table'},
+        //{name: 'contact', state: 'contact/contact-table'},
+        {name: 'Req', state: 'ggg/ahmed'}
       ]
     },
     {

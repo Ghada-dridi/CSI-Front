@@ -1,15 +1,14 @@
-export interface conatact {
-    id :number,
-    firstName :string,
-    lastName:string,
-    emailOne:string,
-    emailTwo:string,
-    comment:string,
-    phoneNumberOne:number ,
-    phoneNumberTwo:number ,
-    privilege : Privilege,
-    civility : Civility,
-    service:Service,
+export interface contact {
+    id :number;
+    firstName :string;
+    lastName:string;
+    emailOne:string;
+    emailTwo:string;
+    comment:string;
+    phoneNumberOne:number ;
+    phoneNumberTwo:number ;
+
+
 }
 
 export enum Privilege {

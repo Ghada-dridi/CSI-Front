@@ -4,11 +4,19 @@ import { Observable,  throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Partner } from 'app/shared/models/Partner';
 import * as countrycitystatejson from 'countrycitystatejson';
+import { FormGroup } from '@angular/forms';
+import { FileModel } from 'app/shared/models/file';
 
 @Injectable()
 export class CrudService {
+  private headers = new HttpHeaders().set('Content-Type', 'application/json');
   private apiUrl = 'http://localhost:8085/crm/partners';
   private countryData = countrycitystatejson;
+  choixMenu : string = "A";
+  listData : Partner[];
+  public dataForm : FormGroup;
+
+
   constructor(private http: HttpClient)
      {  }
 
@@ -31,11 +39,19 @@ export class CrudService {
   }
 
   // POST a new item
-  addItem(customer: any): Observable<any> {
-    
-    return this.http.post<any>(this.apiUrl, customer).pipe(
-      catchError(this.handleError)
-    );
+  // addItem(partner:Partner , /* file: File*/): Observable<any> {
+  //   const formData: FormData = new FormData();
+  //   formData.append('partner',JSON.stringify(partner));
+  //   const headers = new HttpHeaders();
+  //   headers.append('Accept', 'application/json');
+  //   return this.http.post<any>(this.apiUrl,formData, 
+  //     { headers }).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+  addItem(data:any):Observable<any>{
+    console.log('test11')
+    return this.http.post<any>(this.apiUrl,data)
   }
 
   // PUT an existing item
@@ -77,9 +93,22 @@ export class CrudService {
   getStatesByCountry(name: string) {
     return this.countryData.getStatesByShort(name);
   }
-
-
-
+  convertFileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const FileInfo :FileModel= {
+          fileContent: reader.result as string,
+          filename: encodeURIComponent(file.name),
+          mimetype: file.type,
+          id: 0
+        }
+        resolve(FileInfo);
+      };
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
   
 }
 

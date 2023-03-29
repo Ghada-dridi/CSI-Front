@@ -1,3 +1,5 @@
+import { FileModel } from "./file";
+
 export interface Partner {
      id ?:number;
     name?: string;
@@ -9,9 +11,9 @@ export interface Partner {
     postCode?: number ;
     city? : string;
     description ?: string ;
-    logo ?: string ;
-    activityStartDate? : string;
-    partnerShipDate ?: string;
+    logo ?: FileModel ;
+    activityStartDate? : Date;
+    partnerShipDate ?: Date;
     companyStatus ?:CompanyStatus,
     refPhoneNumber?: number,
     country? :string ,

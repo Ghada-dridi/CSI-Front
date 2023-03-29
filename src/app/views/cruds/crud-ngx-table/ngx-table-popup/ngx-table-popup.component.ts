@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {  Validators,  FormGroup, FormBuilder } from '@angular/forms';
 import { Partner,CompanyStatus,WorkField,LegalStatus,Provenance ,Country} from 'app/shared/models/Partner';
 import { CrudService } from '../../crud.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,12 +19,18 @@ export class NgxTablePopupComponent implements OnInit {
   countries: Country[];
   states: string[];
   selectedFile: File;
-
+  userFile;
+  public imagePath;
+  imgURL: any;
+  public message: string; 
+  logo:File=null
+  logoName:string='';
   formWidth = 200; // declare and initialize formWidth property
   formHeight = 700; // declare and initialize formHeight property
 
 
   constructor(
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NgxTablePopupComponent>,
     private fb: FormBuilder,
@@ -62,9 +69,36 @@ export class NgxTablePopupComponent implements OnInit {
 
   }
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
+  // onFileSelected(event) {
+  //   if (event.target.files.length > 0){
+  //     const file = event.target.files[0];
+  //     this.userFile = file;
+
+  //     var mimeType = event.target.files[0].type;
+  //     if (mimeType.match(/image\/*/) == null){
+  //       this.message = "Only images are supported.";
+  //       return;
+  //     }
+
+  //     var reader = new FileReader();
+  //     this.imagePath = file;
+  //     reader.readAsDataURL(file);
+  //     reader.onload = (_event)=>{
+  //       this.imgURL = reader.result;
+  //     }
+  //   }
+  // }
+  onFileSelected(event:any,fileName = '') {
+    if (event.target.files[0] && event.target.files.length > 0){
+      const base64String =  this.crudService.convertFileToBase64(event.target.files[0])
+      if (fileName === 'logo') {
+      this.logo== event.target.files[0]
+      this.itemForm.patchValue({logo:base64String})
+      this.logoName=this.logo.name
+    }
   }
+  }
+
   ngOnInit() {
     this.buildItemForm(this.data.payload)
     
@@ -79,10 +113,21 @@ export class NgxTablePopupComponent implements OnInit {
   }
 
   submit() {
-    
+    console.log("----")
+    console.log(this.itemForm.value)
+    this.addData();
     this.dialogRef.close(this.itemForm.value)
+  }
 
-
+  addData(){
+    const partner = this.crudService.dataForm.value;
+console.log('test1')
+    this.crudService.addItem(partner).subscribe( response => {
+      console.log("succes",response);
+      alert("succes")
+      this.router.navigate(['/gg/ahmed']);
+    });
+   
   }
 
   onCountryChange(countryShotName: string) {

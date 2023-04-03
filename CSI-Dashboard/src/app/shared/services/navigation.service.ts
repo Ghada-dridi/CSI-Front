@@ -67,7 +67,8 @@ export class NavigationService {
       sub: [
         { name: 'Candidats', state: 'cruds/ngx-table' },
         { name: 'Entretiens & Recrutement', state: 'cruds/ngx-table' },
-        { name: 'Ressources', state: 'shop/products/5a9ae2106f155194e5c95d67' },
+        { name: 'Ressources', state: 'resource/resource-crud' },
+        { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
         { name: 'Congés Empoyées', state: 'time-off-employee/timeOffEmployee-crud' },

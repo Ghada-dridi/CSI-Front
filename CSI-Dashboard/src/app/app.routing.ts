@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
@@ -177,6 +178,16 @@ export const rootRouterConfig: Routes = [
         path: 'requirement',
         loadChildren: () => import('./views/Component/Sales/Requirement/req.module').then(m => m.ReqModule),
         data: { title: 'Tables', breadcrumb: 'TABLES'}
+      },
+      {
+        path: 'resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'Resource', breadcrumb: 'Resources'}
+      },
+      {
+        path: 'add-resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/createResource/add-resource.module').then(m => m.AddResourceModule),
+        data: { title: 'AddResource', breadcrumb: 'AddResources'}
       },
       
     ]

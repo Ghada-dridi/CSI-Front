@@ -83,7 +83,7 @@ export class NavigationService {
       icon: 'shopping_cart',
       sub: [
         { name: 'Contact', state: 'contact/contact-table' },
-        { name: 'Rendez-vous', state: 'shop/cart' },
+        { name: 'Rendez-vous', state: 'rendezVous/rendezVous' },
         { name:  'Partenaires', state: 'partner/partner-crud'},
         { name: 'Contrats', state: 'shop' },
         { name: 'Prestation', state: 'shop/cart' },

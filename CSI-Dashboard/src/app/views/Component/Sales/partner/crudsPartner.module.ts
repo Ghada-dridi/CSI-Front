@@ -62,7 +62,7 @@ import { ContactsDetailsComponent } from './crud-ngx-table/contacts-details/cont
     SharedModule,
     MatFormFieldModule,
     FormsModule,
-    Ng2TelInputModule,
+    
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,

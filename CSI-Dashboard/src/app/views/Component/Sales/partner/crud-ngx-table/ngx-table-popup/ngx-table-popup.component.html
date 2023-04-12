@@ -23,7 +23,65 @@
                 placeholder="Nom">
               </mat-form-field>
             </div>
+            <div fxFlex="50"  class="pr-16">
+              <mat-form-field class="full-width">
+                <input
+                matInput
+                name="ceoName"
+                [formControlName]="'ceoName'"
+                placeholder="Nom du CEO">
+              </mat-form-field>
+            </div>
+            <div fxFlex="50"  class="pr-16">
+              <mat-form-field class="full-width">
+                <input
+                matInput
+                name="parentCompany"
+                [formControlName]="'parentCompany'"
+                placeholder="Société mère">
+              </mat-form-field>
+            </div>
+          
+            <div fxFlex="50"  class="pr-16">
 
+              <mat-form-field class="full-width">
+                <mat-label>Pays</mat-label>
+                <mat-select  [formControlName]="'country'">
+                  <mat-option *ngFor="let country of countries" [value]="country.shortName">{{ country.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+        
+          <div fxFlex="50"  class="pr-16">
+        
+            <mat-form-field class="full-width">
+              <mat-label>Ville</mat-label>
+              <mat-select  [formControlName]="'city'">
+                <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            </div>
+            <div fxFlex="50"  class="pr-16">
+              <mat-form-field class="full-width">
+                <input
+                matInput
+                type="number"
+                name="postCode"
+                [formControlName]="'postCode'"
+                placeholder="Code Postal">
+              </mat-form-field>
+            </div>
+            <div fxFlex="50"  class="pr-16">
+
+              <mat-form-field class="full-width">
+                <mat-label>Secteur d'activité</mat-label>
+                <mat-select  [formControlName]="'workField'">
+                  <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+  
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
@@ -35,15 +93,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
-        <input
-        matInput
-        name="parentCompany"
-        [formControlName]="'parentCompany'"
-        placeholder="Société mère">
-      </mat-form-field>
-    </div>
+   
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
@@ -54,16 +104,55 @@
         placeholder="description">
       </mat-form-field>
     </div>
-
     <div fxFlex="50"  class="pr-16">
+
       <mat-form-field class="full-width">
-        <input
-        matInput
-        name="ceoName"
-        [formControlName]="'ceoName'"
-        placeholder="Nom du CEO">
+        <mat-label>Statut juridique</mat-label>
+        <mat-select  [formControlName]="'legalStatus'">
+          <mat-option *ngFor="let legalStatuss of LegalStatus" [value]="legalStatuss">{{ legalStatuss }}</mat-option>
+        </mat-select>
       </mat-form-field>
-    </div>
+  </div>
+
+ 
+
+  <div fxFlex="50"  class="pr-16">
+
+    <mat-form-field class="full-width">
+      <mat-label>Statut de la société</mat-label>
+      <mat-select  [formControlName]="'companyStatus'">
+        <mat-option *ngFor="let companyStatuss of CompanyStatus" [value]="companyStatuss">{{ companyStatuss }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div  fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input
+        formControlName="activityStartDate"
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Date de début d'activité"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div  fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input
+        formControlName="partnerShipDate"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Date de partenairiat"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+   
     <div fxFlex="50"  class="pr-16">
 
       <mat-form-field class="full-width">
@@ -73,36 +162,8 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div fxFlex="50"  class="pr-16">
-
-      <mat-form-field class="full-width">
-        <mat-label>Pays</mat-label>
-        <mat-select  [formControlName]="'country'">
-          <mat-option *ngFor="let country of countries" [value]="country.shortName">{{ country.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-  </div>
-
-  <div fxFlex="50"  class="pr-16">
-
-    <mat-form-field class="full-width">
-      <mat-label>Ville</mat-label>
-      <mat-select  [formControlName]="'city'">
-        <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    </div>
-    <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
-        <input
-        matInput
-        type="number"
-        name="postCode"
-        [formControlName]="'postCode'"
-        placeholder="Code Postal">
-      </mat-form-field>
-    </div>
+   
+    
 
     
 
@@ -119,7 +180,7 @@
 <mat-tab>
            
   <ng-template mat-tab-label>
-    <mat-icon style="color: #0077C2;">person_pin</mat-icon>
+    <mat-icon style="color: #0077C2;">share</mat-icon>
     <span class="tab-label" style="color: #0077C2;">Coordonnées</span>
   </ng-template>
   <mat-card-content class="mt-16">
@@ -160,71 +221,24 @@
       </mat-tab>
       <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon style="color: #0077C2;">work</mat-icon>
-        <span class="tab-label" style="color: #0077C2;">Informations légales</span>
+        <mat-icon style="color: #0077C2;">attach_money</mat-icon>
+        <span class="tab-label" style="color: #0077C2;">Informations financiéres</span>
       </ng-template>
      
       <mat-card-content class="mt-16">
         <div fxLayout="row wrap" fxLayout.lt-sm="column">
-          
           <div fxFlex="50"  class="pr-16">
-
             <mat-form-field class="full-width">
-              <mat-label>Secteur d'activité</mat-label>
-              <mat-select  [formControlName]="'workField'">
-                <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
-              </mat-select>
+              <input
+              matInput
+              name="devise"
+              type="number"
+              [formControlName]="'devise'"
+              placeholder="devise">
             </mat-form-field>
-        </div>
-
-        <div fxFlex="50"  class="pr-16">
-
-          <mat-form-field class="full-width">
-            <mat-label>Statut juridique</mat-label>
-            <mat-select  [formControlName]="'legalStatus'">
-              <mat-option *ngFor="let legalStatuss of LegalStatus" [value]="legalStatuss">{{ legalStatuss }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
-
-     
-
-      <div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width">
-          <mat-label>Statut de la société</mat-label>
-          <mat-select  [formControlName]="'companyStatus'">
-            <mat-option *ngFor="let companyStatuss of CompanyStatus" [value]="companyStatuss">{{ companyStatuss }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-      </div>
-      <div  fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width">
-          <input
-            formControlName="activityStartDate"
-            matInput
-            [matDatepicker]="picker"
-            placeholder="Date de début d'activité"
-            required
-          />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div  fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width">
-          <input
-            formControlName="partnerShipDate"
-            matInput
-            [matDatepicker]="picker2"
-            placeholder="Date de partenairiat"
-            required
-          />
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
-      </div>
+          </div>
+          
+       
     </div>
 
 </mat-card-content>
@@ -537,7 +551,35 @@
           placeholder="Critère">
         </mat-form-field>
       </div>
+      <div fxFlex="50"  class="pr-16">
   
+        <mat-form-field class="full-width">
+          <mat-label>Disponibilité</mat-label>
+          <mat-select  [formControlName]="'availability'">
+            <mat-option *ngFor="let availability of Availability" [value]="availability">{{ availability }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-16">
+  
+      <mat-form-field class="full-width">
+        <mat-label>Type de Besoin</mat-label>
+        <mat-select  [formControlName]="'requirementType'">
+          <mat-option *ngFor="let requirementType of RequirementType" [value]="requirementType">{{requirementType }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+
+      <mat-form-field class="full-width">
+        <mat-label>Statut de besoin</mat-label>
+        <mat-select  [formControlName]="'requirementStatus'">
+          <mat-option *ngFor="let requirementStatus of RequirementStatus" [value]="requirementStatus">{{ requirementStatus }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
       <div fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
           <input
@@ -559,7 +601,15 @@
           placeholder="Revenu prévu">
         </mat-form-field>
       </div>
+      <div fxFlex="50"  class="pr-16">
   
+        <mat-form-field class="full-width">
+          <mat-label>Secteur d'activité</mat-label>
+          <mat-select  [formControlName]="'workField'">
+            <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
       <div fxFlex="50"  class="pr-16">
           <mat-form-field class="full-width">
             <input
@@ -571,61 +621,7 @@
           </mat-form-field>
         </div>
   
-      
-        
-            <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
-                <input
-                matInput
-                name="description"
-                type="text"
-                [formControlName]="'description'"
-                placeholder="description">
-              </mat-form-field>
-            </div>
-  
-            <div fxFlex="50"  class="pr-16">
-  
-              <mat-form-field class="full-width">
-                <mat-label>Secteur d'activité</mat-label>
-                <mat-select  [formControlName]="'workField'">
-                  <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
-  
-  
-  
-        <div fxFlex="50"  class="pr-16">
-  
-          <mat-form-field class="full-width">
-            <mat-label>Type de Besoin</mat-label>
-            <mat-select  [formControlName]="'requirementType'">
-              <mat-option *ngFor="let requirementType of RequirementType" [value]="requirementType">{{requirementType }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <div fxFlex="50"  class="pr-16">
-  
-          <mat-form-field class="full-width">
-            <mat-label>Statut de besoin</mat-label>
-            <mat-select  [formControlName]="'requirementStatus'">
-              <mat-option *ngFor="let requirementStatus of RequirementStatus" [value]="requirementStatus">{{ requirementStatus }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <div fxFlex="50"  class="pr-16">
-  
-          <mat-form-field class="full-width">
-            <mat-label>Disponibilité</mat-label>
-            <mat-select  [formControlName]="'availability'">
-              <mat-option *ngFor="let availability of Availability" [value]="availability">{{ availability }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
- 
+       
         <div fxFlex="100" class="mt-16">
           <button mat-raised-button color="primary" >{{"Enregsitrer" | translate }}</button>
           <span fxFlex></span>

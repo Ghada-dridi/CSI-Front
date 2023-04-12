@@ -39,7 +39,7 @@ import { ContactService } from "./contact.service";
 import { CrudPartnerService } from "../partner/crudPartner.service";
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ContactNoteComponent } from './contact-note/contact-note.component';
-//import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
 
@@ -49,7 +49,7 @@ import { ContactNoteComponent } from './contact-note/contact-note.component';
     ContactPopComponent,
     AppointmentComponent,
     ContactNoteComponent,
-    //ContactDetailComponent
+    ContactDetailComponent
   ],
   providers: [ContactService, CrudPartnerService],
   imports: [

@@ -10,7 +10,6 @@ import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ContactService } from '../../contact.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
 import { contact } from 'app/shared/models/contact';
-import { NgxTablePopupComponent } from 'app/views/cruds/crud-ngx-table/ngx-table-popup/ngx-table-popup.component';
 import { ContactPopComponent } from '../../contact-pop/contact-pop/contact-pop.component';
 @Component({
   selector: 'app-contact-list',

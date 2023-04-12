@@ -22,6 +22,7 @@ export interface Partner {
     legalStatus?:LegalStatus,
     provenance?:Provenance,
     contacts?: contact[],
+    devise?: Number,
     requirements?:req[]
 
   }

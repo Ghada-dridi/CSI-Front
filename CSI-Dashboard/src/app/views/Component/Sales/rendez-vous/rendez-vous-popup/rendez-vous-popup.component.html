@@ -1,0 +1,75 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"ajouter" | translate }} {{"rendez-vous" | translate }}
+  <form [formGroup]="itemForm" (ngSubmit)="submit()" >
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div>
+            <mat-form-field class="full-width">
+                <mat-label>ContactNum</mat-label>
+                <mat-select  [formControlName]="'contactNum'">
+                  <mat-option *ngFor="let contactNum of listcontact" [value]="contactNum.id">{{ contactNum.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+          
+      <div  fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+            formControlName="Date"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Date"
+            required
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        formControlName ="time"
+        [ngxMatTimepicker]="timepicker" 
+        placeholder="tttt"
+      />
+      <ngx-mat-timepicker-toggle matSuffix [for]="timepicker"></ngx-mat-timepicker-toggle>
+      <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+    
+      </mat-form-field>
+    </div>
+
+  
+
+   
+
+   
+
+    
+      
+          <div fxFlex="50"  class="pr-16">
+            <mat-form-field class="full-width">
+              <input
+              matInput
+              name="description"
+              type="text"
+              [formControlName]="'description'"
+              placeholder="description">
+            </mat-form-field>
+          </div>
+
+         
+
+
+
+     
+
+    
+
+     
+
+
+
+
+
+    

@@ -13,6 +13,7 @@ export interface contact {
     privilege: Privilege
     civility: Civility
     service: Service
+    partnerN : string
 }
 
 export enum Privilege {

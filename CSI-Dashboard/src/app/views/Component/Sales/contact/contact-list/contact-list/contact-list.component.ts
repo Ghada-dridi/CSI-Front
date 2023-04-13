@@ -35,7 +35,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
    
    
    getDisplayedColumns() {
-    return ['firstName','lastName','function','actions'];
+    return ['partner','firstName','lastName','function','actions'];
   }
 
 

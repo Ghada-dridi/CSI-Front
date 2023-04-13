@@ -31,10 +31,10 @@ export class RendezVousPopupComponent implements OnInit {
   buildItemForm(item){
     this.itemForm = this.fb.group({
      
-      date: [item.Date ||'', Validators.required, ],
-      time : [item.time|| '', Validators.required],
-     duration : [item.duration|| '', Validators.required],
-     subject : [item.subject|| '', Validators.required],
+      date: [item.date ||'', Validators.required, ],
+      time: [item.time|| '', Validators.required],
+     duration: [item.duration|| '', Validators.required],
+     subject: [item.subject|| '', Validators.required],
       contactNum : [item.contactId|| '', Validators.required],
     });
     

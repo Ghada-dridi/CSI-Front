@@ -20,7 +20,7 @@
 
           <ng-container matColumnDef="Date">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="Date"> {{row.Date}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="Date"> {{row.date}} </mat-cell>
           </ng-container>
 
         
@@ -30,20 +30,25 @@
           
           <ng-container matColumnDef="Time">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="Time"> {{row.Time}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="Time"> {{row.time}} </mat-cell>
           </ng-container>
 
                     
           <ng-container matColumnDef="Duration">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Duration</mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="Duration"> {{row.Duartion}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="Duration"> {{row.duration}} </mat-cell>
           </ng-container>
 
                     
          
           <ng-container matColumnDef="Subject">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> availability </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="Subject"> {{row.Subject}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Subject"> {{row.subject}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Contact">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Contact </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Subject" > {{ row.contactN  }} </mat-cell>
           </ng-container>
   
   

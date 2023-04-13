@@ -177,7 +177,7 @@ export const rootRouterConfig: Routes = [
       {
         path: 'requirement',
         loadChildren: () => import('./views/Component/Sales/Requirement/req.module').then(m => m.ReqModule),
-        data: { title: 'Tables', breadcrumb: 'TABLES'}
+        data: { title: 'Requirement', breadcrumb: 'Besoins'}
       },
 
       {

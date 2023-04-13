@@ -37,13 +37,19 @@ import { ContactPopComponent } from "./contact-pop/contact-pop/contact-pop.compo
 import { contactRoutes } from "./contact.routing";
 import { ContactService } from "./contact.service";
 import { CrudPartnerService } from "../partner/crudPartner.service";
+import { AppointmentComponent } from './appointment/appointment.component';
+import { ContactNoteComponent } from './contact-note/contact-note.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
 
 @NgModule({
   declarations: [
     ContactListComponent,
-    ContactPopComponent
+    ContactPopComponent,
+    AppointmentComponent,
+    ContactNoteComponent,
+    ContactDetailComponent
   ],
   providers: [ContactService, CrudPartnerService],
   imports: [

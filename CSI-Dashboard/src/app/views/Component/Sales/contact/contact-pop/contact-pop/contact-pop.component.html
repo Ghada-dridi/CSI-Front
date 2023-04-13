@@ -1,6 +1,6 @@
 
 <h1 matDialogTitle>{{data.title}}</h1>
-{{"ADD" | translate }} {{"Partner" | translate }}
+Nouveau contact
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
@@ -10,7 +10,7 @@
         matInput
         name="firstName"
         [formControlName]="'firstName'"
-        placeholder="firstName">
+        placeholder="Nom">
       </mat-form-field>
     </div>
 
@@ -21,7 +21,7 @@
         name="lastName"
         type="text"
         [formControlName]="'lastName'"
-        placeholder="lastName">
+        placeholder="Prénom">
       </mat-form-field>
     </div>
 
@@ -31,7 +31,7 @@
         matInput
         name="function"
         [formControlName]="'function'"
-        placeholder="function">
+        placeholder="fonction">
       </mat-form-field>
     </div>
 
@@ -42,7 +42,7 @@
         name="emailOne"
         type="email"
         [formControlName]="'emailOne'"
-        placeholder="emailOne">
+        placeholder="Email 1">
       </mat-form-field>
     </div>
 
@@ -53,7 +53,7 @@
           name="emailTwo"
           type="email"
           [formControlName]="'emailTwo'"
-          placeholder="emailTwo">
+          placeholder="Email 2">
         </mat-form-field>
       </div>
 
@@ -61,7 +61,7 @@
 
       <div fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
-            <mat-label>phoneNumberOne</mat-label>
+            <mat-label>Téléphone 1</mat-label>
             <input matInput formControlName="phoneNumberOne" placeholder="+1 1234567890">
             <mat-error *ngIf="itemForm.get('phoneNumberOne').invalid && itemForm.get('phoneNumberOne').touched">
               <div *ngIf="itemForm.get('phoneNumberOne').errors.required">Phone number is required</div>
@@ -72,7 +72,7 @@
 
         <div fxFlex="50"  class="pr-16">
           <mat-form-field class="full-width">
-              <mat-label>phoneNumberTwo</mat-label>
+              <mat-label>Téléphone 2</mat-label>
               <input matInput formControlName="phoneNumberTwo" placeholder="+1 1234567890">
               <mat-error *ngIf="itemForm.get('phoneNumberTwo').invalid && itemForm.get('phoneNumberTwo').touched">
                 <div *ngIf="itemForm.get('phoneNumberTwo').errors.required">Phone number is required</div>
@@ -88,14 +88,14 @@
               name="comment"
               type="text"
               [formControlName]="'comment'"
-              placeholder="comment">
+              placeholder="Commentaire">
             </mat-form-field>
           </div>
 
           <div fxFlex="50"  class="pr-16">
 
             <mat-form-field class="full-width">
-              <mat-label>privilege</mat-label>
+              <mat-label>Privilège</mat-label>
               <mat-select  [formControlName]="'privilege'">
                 <mat-option *ngFor="let x of Privilege" [value]="x">{{ x }}</mat-option>
               </mat-select>
@@ -105,7 +105,7 @@
         <div fxFlex="50"  class="pr-16">
 
           <mat-form-field class="full-width">
-            <mat-label>civility</mat-label>
+            <mat-label>Civilité</mat-label>
             <mat-select  [formControlName]="'civility'">
               <mat-option *ngFor="let x of Civility" [value]="x">{{ x }}</mat-option>
             </mat-select>
@@ -115,7 +115,7 @@
       <div fxFlex="50"  class="pr-16">
 
         <mat-form-field class="full-width">
-          <mat-label>service</mat-label>
+          <mat-label>Service</mat-label>
           <mat-select  [formControlName]="'service'">
             <mat-option *ngFor="let service of Service" [value]="service">{{service }}</mat-option>
           </mat-select>
@@ -124,7 +124,7 @@
 
       <div>
         <mat-form-field class="full-width">
-            <mat-label>partnerNum</mat-label>
+            <mat-label>Partenaire</mat-label>
             <mat-select  [formControlName]="'partnerNum'">
               <mat-option *ngFor="let partnerNum of listPartner" [value]="partnerNum.id">{{ partnerNum.name}}</mat-option>
             </mat-select>

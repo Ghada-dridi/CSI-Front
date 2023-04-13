@@ -96,7 +96,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
             .subscribe((data :any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Partenaire ajouté avec succées !', 'OK', { duration: 2000 });
+              this.snack.open('Partenaire ajouté avec succès!', 'OK', { duration: 2000 });
               this.getItems();
             })
         } else {

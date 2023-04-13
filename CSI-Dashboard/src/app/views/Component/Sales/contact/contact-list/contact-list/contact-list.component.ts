@@ -10,7 +10,6 @@ import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ContactService } from '../../contact.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
 import { contact } from 'app/shared/models/contact';
-import { NgxTablePopupComponent } from 'app/views/cruds/crud-ngx-table/ngx-table-popup/ngx-table-popup.component';
 import { ContactPopComponent } from '../../contact-pop/contact-pop/contact-pop.component';
 @Component({
   selector: 'app-contact-list',
@@ -87,7 +86,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
 }
 
 openPopUp(data: any = {}, isNew?) {
-  let title = isNew ? 'Add new contact' : 'Update Contact';
+  let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
   let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
     width: '720px',
     disableClose: true,
@@ -100,29 +99,25 @@ openPopUp(data: any = {}, isNew?) {
         return;
       }
       if (isNew) {
-        this.loader.open('Adding new Contact');
+        this.loader.open('Ajout en cours');
         this.contactService.addItem(res)
           .subscribe((data:any) => {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Contact Added!', 'OK', { duration: 4000 })
+            this.snack.open('Contact ajouté avec succès!', 'OK', { duration: 4000 })
             this.getItems();
           })
       } else {
-        this.loader.open('Updating Contact');
+        this.loader.open('Mise à jour');
         this.contactService.updateItem(data._id, res)
           .subscribe((data :any) => {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Contatc Updated!', 'OK', { duration: 4000 })
+            this.snack.open('Contact mis à jour avec succès!', 'OK', { duration: 4000 })
             this.getItems();
           })
       }
     })
-}
-
-moreAboutItem(row) {
-  
 }
 
 }

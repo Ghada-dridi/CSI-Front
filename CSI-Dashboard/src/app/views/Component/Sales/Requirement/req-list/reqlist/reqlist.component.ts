@@ -46,9 +46,8 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['title','description','Criteria','plannedBudget','plannedIncome',
-    'startDate','expectedEndDate','responseDate',
-    'totalCandidateNumber','requirementType','requirementStatus','workField','availability','actions',
+    return [
+      'title','description','Criteria','requirementType','requirementStatus','workField','actions',
     ];
   }
 
@@ -79,12 +78,12 @@ export class ReqlistComponent implements OnInit , OnDestroy {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('Deleting Partner');
+          this.loader.open('Suppression besoin en cours');
           this.ReqService.deleteItem(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Req deleted!', 'OK', { duration: 2000 });
+              this.snack.open('Besoin supprimé !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -98,7 +97,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
  }
 
  openPopUp(data:  any , isNew?) {
-  let title = isNew ? 'Add new Req' : 'Update Req';
+  let title = isNew ? 'Ajouter besoin' : 'Mettre à jour besoin';
   let dialogRef: MatDialogRef<any> = this.dialog.open(ReqpopComponent, {
     width: '720px',
     disableClose: true,
@@ -111,21 +110,21 @@ export class ReqlistComponent implements OnInit , OnDestroy {
         return;
       }
       if (isNew) {
-        this.loader.open('Adding new Req');
+        this.loader.open('Ajout besoin en cours');
         this.ReqService.addItem(res)
           .subscribe((data :any)=> {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Req Added!', 'OK', { duration: 2000 });
+            this.snack.open('Besoin ajouté avec succès !', 'OK', { duration: 2000 });
             this.getItems();
           })
       } else {
-        this.loader.open('Updating Req');
+        this.loader.open('Mise à jour besoin');
         this.ReqService.updateItem(data.id, res)
           .subscribe((data:any) => {
             this.dataSource = data ;
             this.loader.close();
-            this.snack.open('Req Updated!', 'OK', { duration: 2000 });
+            this.snack.open('Besoin mis à jour !', 'OK', { duration: 2000 });
             this.getItems();
           })
       }

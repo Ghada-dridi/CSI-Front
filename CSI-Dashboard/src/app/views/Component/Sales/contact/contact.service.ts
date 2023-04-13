@@ -55,4 +55,13 @@ export class ContactService {
       catchError(this.handleError)
     );
   }
+  
+
+  // GET an item by id
+  getItem(id: number): Observable<contact> {
+    const url = `${this.apiUrl2}/${id}`;
+    return this.http.get<contact>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

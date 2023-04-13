@@ -4,8 +4,7 @@ import { CrudPartnerService } from '../../crudPartner.service';
 import { Partner } from 'app/shared/models/Partner';
 @Component({
   selector: 'app-detail-crud',
-  templateUrl: './detail-crud.component.html',
-  styleUrls: ['./detail-crud.component.scss']
+  templateUrl: './detail-crud.component.html'
 })
 export class DetailCrudComponent implements OnInit {
 id: number

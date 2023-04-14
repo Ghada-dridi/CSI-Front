@@ -11,10 +11,6 @@
     <mat-table [dataSource]="dataSource" matSort  >
   
   
-      <ng-container matColumnDef="partner">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Partner </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="partner"> {{row.partnerN}} </mat-cell>
-      </ng-container>
   
       <ng-container matColumnDef="firstName">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>

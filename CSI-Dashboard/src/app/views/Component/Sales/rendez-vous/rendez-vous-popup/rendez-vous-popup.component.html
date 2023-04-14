@@ -1,7 +1,7 @@
 <h1 matDialogTitle>{{data.title}}</h1>
 {{"ajouter" | translate }} {{"rendez-vous" | translate }}
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
-    <mat-card class="p-0">
+   
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
       <div  fxFlex="50"  class="pr-16">
             <mat-form-field class="full-width">
@@ -14,15 +14,22 @@
           
       <div  fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
-          <input
+         <!--- <input
             formControlName="date"
             matInput
+          
             [matDatepicker]="picker"
             placeholder="Date"
             required
           />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker #picker></mat-datepicker>-->
+          <input
+          matInput
+          name="date"
+          type="date" 
+          [formControlName]="'date'"
+          placeholder="date">
         </mat-form-field>
       </div>
 
@@ -41,7 +48,16 @@
     </div> --> 
 
   
-
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="time"
+          type="time" 
+          [formControlName]="'time'"
+          placeholder="time">
+      </mat-form-field>
+    </div>
    
 
    

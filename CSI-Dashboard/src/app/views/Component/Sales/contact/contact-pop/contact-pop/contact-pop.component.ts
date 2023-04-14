@@ -1,6 +1,6 @@
 import { Component, OnInit ,Inject}  from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {  Validators,  FormGroup, FormBuilder } from '@angular/forms';
+import {  Validators,  FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Privilege,Civility,Service } from 'app/shared/models/contact';
 import { ContactService } from '../../contact.service';
 import { Partner } from 'app/shared/models/Partner';
@@ -11,6 +11,10 @@ import { CrudPartnerService } from '../../../partner/crudPartner.service';
 
 })
 export class ContactPopComponent implements OnInit {
+  showDiv = false; 
+  toggleDiv() {
+    this.showDiv = !this.showDiv;
+  }
   public itemForm: FormGroup;
   Privilege :string []= Object.values(Privilege);
   Civility :string []= Object.values(Civility);

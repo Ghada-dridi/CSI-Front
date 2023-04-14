@@ -23,7 +23,8 @@ export class ContactsDetailsComponent implements OnInit {
   
    // Declare requirements as an empty array
     public dataSource: MatTableDataSource<any>;
-id: number
+ id: number
+ partner :Partner
 
   constructor( private route: ActivatedRoute,
     private crudService: CrudPartnerService,private dialog: MatDialog,

@@ -16,6 +16,12 @@ export class ContactService {
       catchError(this.handleError)
     );
   }
+  getItem(id: number): Observable<contact> {
+    const url = `${this.apiUrl2}/${id}`;
+    return this.http.get<contact>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -51,11 +57,5 @@ export class ContactService {
   }
   
 
-  // GET an item by id
-  getItem(id: number): Observable<contact> {
-    const url = `${this.apiUrl2}/${id}`;
-    return this.http.get<contact>(url).pipe(
-      catchError(this.handleError)
-    );
-  }
+
 }

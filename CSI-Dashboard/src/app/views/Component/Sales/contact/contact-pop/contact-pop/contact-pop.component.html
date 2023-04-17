@@ -121,8 +121,12 @@ Nouveau contact
           </mat-select>
         </mat-form-field>
       </div>
-
-      <div>
+      <label>
+        Contact d'un partenaire
+        <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
+      </label>
+      
+      <div *ngIf="showDiv">
         <mat-form-field class="full-width">
             <mat-label>Partenaire</mat-label>
             <mat-select  [formControlName]="'partnerNum'">
@@ -131,19 +135,7 @@ Nouveau contact
           </mat-form-field>
       </div>
 
-
-
-
-
-
-
-        
-
-
-  
-
-
-    <div fxFlex="100" class="mt-16">
+  <div fxFlex="100" class="mt-16">
       <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>

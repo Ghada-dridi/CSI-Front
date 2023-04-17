@@ -109,7 +109,7 @@ openPopUp(data: any = {}, isNew?) {
           })
       } else {
         this.loader.open('Mise à jour');
-        this.contactService.updateItem(data._id, res)
+        this.contactService.updateItem(data.id, res)
           .subscribe((data :any) => {
             this.dataSource = data;
             this.loader.close();

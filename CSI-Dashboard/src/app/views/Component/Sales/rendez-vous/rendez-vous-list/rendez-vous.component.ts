@@ -13,6 +13,8 @@ import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { RendezVousPopupComponent } from '../rendez-vous-popup/rendez-vous-popup.component';
 import { RendezVousService } from '../rendez-vous.service';
 import { RendezVous } from 'app/shared/models/rendez-vous';
+import { ContactService } from '../../contact/contact.service';
+import { contact } from 'app/shared/models/contact';
 
 
 @Component({
@@ -27,8 +29,8 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   public dataSource: MatTableDataSource<RendezVous>;
   public displayedColumns: any;
   public getItemSub: Subscription;
- 
-
+  private ContactId : number; 
+  private contact : contact ;
 
   constructor(
     
@@ -36,7 +38,8 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
     private snack: MatSnackBar,
     private rendezVousService: RendezVousService,
     private confirmService: AppConfirmService,
-    private loader: AppLoaderService
+    private loader: AppLoaderService,
+    private contactService: ContactService
   ) {     this.dataSource = new MatTableDataSource<RendezVous>([]);}
 
   ngOnInit() {
@@ -48,11 +51,11 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['Date','Time','Duration','Subject'];
+    return ['Date','Time','Duration','Subject','Contact','actions'];
   }
 
 
-
+ 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -78,12 +81,12 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('Deleting Partner');
+          this.loader.open('supprission du rendez-vous');
           this.rendezVousService.deleteItem(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Req deleted!', 'OK', { duration: 2000 });
+              this.snack.open('rendez-vous supprimé !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -110,21 +113,21 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
         return;
       }
       if (isNew) {
-        this.loader.open('Adding new Req');
+        this.loader.open('ajout du nouveau rendez-vous');
         this.rendezVousService.addItem(res)
           .subscribe((data :any)=> {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Req Added!', 'OK', { duration: 2000 });
+            this.snack.open('Rendez-vouz ajouté !', 'OK', { duration: 2000 });
             this.getItems();
           })
       } else {
-        this.loader.open('Updating Req');
+        this.loader.open('mise a jour du rendez-vous');
         this.rendezVousService.updateItem(data.id, res)
           .subscribe((data:any) => {
             this.dataSource = data ;
             this.loader.close();
-            this.snack.open('Req Updated!', 'OK', { duration: 2000 });
+            this.snack.open('rendez-vous mis a jour!', 'OK', { duration: 2000 });
             this.getItems();
           })
       }

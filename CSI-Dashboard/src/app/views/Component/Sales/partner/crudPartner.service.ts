@@ -43,6 +43,18 @@ export class CrudPartnerService {
     );
   }
 
+  getItemReq(id: number): Observable<req[]> {
+    const url = `${this.apiUrl}/${id}/requirements`;
+    return this.http.get<req[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getItemContact(id: number): Observable<contact[]> {
+    const url = `${this.apiUrl}/${id}/contacts`;
+    return this.http.get<contact[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
   /*getrequirement(id: number): Observable<req[]> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Partner>(url).pipe(map(partner => partner.requirements),

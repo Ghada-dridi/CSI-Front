@@ -1,9 +1,10 @@
 export interface RendezVous {
     date ?: string;
     time ?: string;
-    duration ?: number;
+    duration ?:string;
     subject ?: string;
-    appointmentNum :number ;
-    appointmentId :number ;
+    contactNum :number ;
+    contactN : string;
+    contactId : number
 
 }

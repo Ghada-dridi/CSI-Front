@@ -28,7 +28,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
   constructor( private snack: MatSnackBar,
               private dialog: MatDialog,
               private loader: AppLoaderService,
-              private contactService :ContactService,
+              private contactService: ContactService,
               private confirmService: AppConfirmService ) {
     this.dataSource = new MatTableDataSource<contact>([]);
     }

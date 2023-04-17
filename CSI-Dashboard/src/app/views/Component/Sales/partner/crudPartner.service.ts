@@ -7,10 +7,12 @@ import { catchError, tap } from 'rxjs/operators';
 import * as countrycitystatejson from 'countrycitystatejson';
 import { req } from 'app/shared/models/req';
 import { map } from 'rxjs-compat/operator/map';
+import { contact } from 'app/shared/models/contact';
 
 @Injectable()
 export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
+  private apiUrl2 = 'http://localhost:8085/crm/partnerContacts';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -32,6 +34,15 @@ export class CrudPartnerService {
       catchError(this.handleError)
     );
   }
+
+  // GET contacts list by partner id
+  getContactsByPartnerId(partnerId: number): Observable<contact[]> {
+    const url = `${this.apiUrl2}/${partnerId}/partner`;
+    return this.http.get<contact[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   /*getrequirement(id: number): Observable<req[]> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Partner>(url).pipe(map(partner => partner.requirements),

@@ -26,7 +26,7 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { RouterModule } from '@angular/router';
 
-import { NgxMatTimepickerModule } from 'ngx-mat-timepicker'; 
+//import { NgxMatTimepickerModule } from 'ngx-mat-timepicker'; 
 import { CrudPartnerService } from '../partner/crudPartner.service';
 import { RendezVousService } from './rendez-vous.service';
 import { RendezVousPopupComponent } from './rendez-vous-popup/rendez-vous-popup.component';
@@ -70,7 +70,7 @@ import { ContactService } from '../contact/contact.service';
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
-    NgxMatTimepickerModule,
+    //NgxMatTimepickerModule,
     
     RouterModule.forChild(RendezVousRoutes)
   ]

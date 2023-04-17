@@ -147,10 +147,70 @@
                 </div>
               </mat-expansion-panel>
               
+              <!--contacts here-->
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon Orders
+                    color="primary">contact_phone</mat-icon>
+                    <h6 class="text-18 mb-4"> <strong>Contacts</strong></h6>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <mat-table [dataSource]="dataSource" matSort >
+  
+  
+  
+  
+                  <ng-container matColumnDef="firstName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="firstName"> {{row.firstName}} </mat-cell>
+                  </ng-container>
+              
+              
+              
+                  <ng-container matColumnDef="lastName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="lastName"> {{row.lastName}} </mat-cell>
+                  </ng-container>
+              
+                    
+                  <ng-container matColumnDef="function">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Fonction </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="function"> {{row.function}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+            
+                      <button mat-icon-button 
+                        routerLink="/contact/{{ row.id }}" 
+                        routerLinkActive="router-link-active" 
+                        color="basic"
+                      >
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+            
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+            
+                      <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              
+              </mat-expansion-panel>
             </mat-accordion>
   </mat-card-content>
 </mat-card>
-  <mat-card class="p-0">
+  <!--mat-card class="p-0">
     <mat-card-title class="">
       <div fxLyout="row wrap" >
         <div class="card-title-text">
@@ -172,8 +232,10 @@
           <mat-card class="user-card p-0">
             <mat-card-title class="mb-16">
               <div class="card-title-text">
+
                 <!--<a href="" class="toolbar-avatar sm mr-16"><img [src]="user.photo" alt=""></a>-->
-                <span class="text-16">FirstaName LastName</span>
+
+                <!--span class="text-16">FirstaName LastName</span>
                 <span fxFlex></span>
                 <button mat-icon-button [matMenuTriggerFor]="userMenu" class="">
                     <mat-icon class="text-muted text-18">more_vert</mat-icon>
@@ -187,9 +249,11 @@
               </div>
               <mat-divider></mat-divider>
             </mat-card-title>
-            <mat-card-content>
+            <mat-card-content-->
+
               <!-- user detail lines-->
-              <mat-list>
+
+              <!--mat-list>
                 <mat-list-item><mat-icon class="mr-16">card_membership</mat-icon> Funstion Here</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">date_range</mat-icon> Email Here</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">phone</mat-icon> Phone Number Here</mat-list-item>
@@ -201,4 +265,4 @@
         </div>
       </div>
     </mat-card-content>
-  </mat-card>
+  </mat-card-->

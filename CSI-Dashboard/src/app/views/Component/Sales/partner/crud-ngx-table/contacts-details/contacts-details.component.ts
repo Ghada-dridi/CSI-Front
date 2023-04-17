@@ -13,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CrudPartnerService } from '../../crudPartner.service';
+import { contact } from 'app/shared/models/contact';
 @Component({
   selector: 'app-contacts-details',
   templateUrl: './contacts-details.component.html',
@@ -22,7 +23,7 @@ export class ContactsDetailsComponent implements OnInit {
     displayedColumns: any;
   
    // Declare requirements as an empty array
-    public dataSource: MatTableDataSource<any>;
+    public dataSource: MatTableDataSource<contact>;
  id: number
  partner :Partner
 
@@ -31,10 +32,10 @@ export class ContactsDetailsComponent implements OnInit {
     private snack: MatSnackBar,
   
     private confirmService: AppConfirmService,
-    private loader: AppLoaderService) {   this.dataSource = new MatTableDataSource<any>([]);}
+    private loader: AppLoaderService) {   this.dataSource = new MatTableDataSource<contact>([]);}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['contacts/:iiid'];
+    this.id = this.route.snapshot.params['iiiid'];
     this.getRequirements();
     this.displayedColumns = this.getDisplayedColumns();
     
@@ -44,8 +45,8 @@ getDisplayedColumns() {
   }
   getRequirements() {
     
-    this.crudService.getItem(this.id).subscribe((data: Partner) => {
-      this.dataSource.data = data.contacts;
+    this.crudService.getItemContact(this.id).subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
  
     });
   }}

@@ -7,6 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import * as countrycitystatejson from 'countrycitystatejson';
 import { req } from 'app/shared/models/req';
 import { map } from 'rxjs-compat/operator/map';
+import { contact } from 'app/shared/models/contact';
 
 @Injectable()
 export class CrudPartnerService {
@@ -29,6 +30,18 @@ export class CrudPartnerService {
    getItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Partner>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getItemReq(id: number): Observable<req[]> {
+    const url = `${this.apiUrl}/${id}/requirements`;
+    return this.http.get<req[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getItemContact(id: number): Observable<contact[]> {
+    const url = `${this.apiUrl}/${id}/contacts`;
+    return this.http.get<contact[]>(url).pipe(
       catchError(this.handleError)
     );
   }

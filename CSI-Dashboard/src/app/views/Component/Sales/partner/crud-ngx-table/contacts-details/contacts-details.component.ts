@@ -20,7 +20,7 @@ import { contact } from 'app/shared/models/contact';
   
 })
 export class ContactsDetailsComponent implements OnInit {
-    displayedColumns: any;
+    displayedColumns: string[];
   
    // Declare requirements as an empty array
     public dataSource: MatTableDataSource<contact>;
@@ -35,18 +35,25 @@ export class ContactsDetailsComponent implements OnInit {
     private loader: AppLoaderService) {   this.dataSource = new MatTableDataSource<contact>([]);}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['iiiid'];
-    this.getRequirements();
+    this.id = this.route.snapshot.params['iiid'];
+    this.getContacts();
     this.displayedColumns = this.getDisplayedColumns();
     
 }
 getDisplayedColumns() {
-  return ['firstName','lastName','function','actions'];
+  return ['firstName','lastName','function'];
   }
-  getRequirements() {
+  getContacts() {
     
     this.crudService.getItemContact(this.id).subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
- 
-    });
-  }}
+      {
+        this.dataSource = new MatTableDataSource(data);
+     
+       
+      }
+    },
+    
+      (error) => {
+        console.error(error);
+        this.loader.close(); // Close loader if there is an error
+      })}}

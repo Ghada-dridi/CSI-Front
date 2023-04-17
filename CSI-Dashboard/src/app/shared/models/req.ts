@@ -5,7 +5,7 @@ export interface req {
     id ?:number;
     title?: string;
     description? : number;
-    Criteria?: string;
+    criteria?: string;
     requirementType :RequirementType;
     requirementStatus ?:RequirementStatus,
     workField ?:WorkField,

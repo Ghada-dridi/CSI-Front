@@ -41,9 +41,9 @@ public getItemSub: Subscription;
     
 }
 getDisplayedColumns() {
-    return ['title','description','Criteria','plannedBudget',
+    return ['title','description','criteria',
     
-    'totalCandidateNumber','requirementType','requirementStatus','workField','availability','actions',
+    'totalCandidateNumber','requirementType','requirementStatus','availability'
     ];
   }
   getRequirements() {

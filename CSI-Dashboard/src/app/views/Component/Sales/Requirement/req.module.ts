@@ -29,13 +29,15 @@ import { RouterModule } from '@angular/router';
 import { ReqRoutes } from './req.routing';
 
 import { CrudPartnerService } from '../partner/crudPartner.service';
+import { ReqDetailComponent } from './req-detail/req-detail.component';
 
 
 
 @NgModule({
   declarations: [
     ReqpopComponent,
-    ReqlistComponent
+    ReqlistComponent,
+    ReqDetailComponent
   ],
   providers: [ReqService,CrudPartnerService],
   imports: [

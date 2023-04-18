@@ -1,7 +1,7 @@
 <mat-card class="p-0">
   <mat-card-title class="">
      <div class="card-title-text"><mat-icon>
-      info_outline </mat-icon>General Informations </div>
+      info_outline </mat-icon>General Informations</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -16,7 +16,7 @@
               <div class="main-title">{{ contact.firstName }} {{ contact.lastName }}</div>
               <div class="subtitle mb-8"><strong>Fonction:</strong> {{ contact.function }}</div>
               <!--<div class="subtitle mb-8"><strong>name: </strong>  {{ partner.ceoName }}</div>-->
-              <div class="text-muted">{{ contact.comment }}</div>
+              <!--div class="text-muted">{{ contact.comment }}</div-->
             </div>
             <div class="profile-actions mb-16" fxLayoutAlign="center center">
               <button mat-raised-button color="primary">Mail</button>
@@ -35,8 +35,8 @@
             <mat-list>
               <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{ contact.phoneNumberOne }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{ contact.phoneNumberTwo }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">add_location</mat-icon> {{ contact.emailOne }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">public</mat-icon> {{ contact.emailTwo }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ contact.emailOne }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ contact.emailTwo }}</mat-list-item>
               <!--mat-list-item><mat-icon class="mr-16">devices</mat-icon> <strong>Provenance:</strong> {{ partner.provenance }}</mat-list-item-->
             </mat-list>
           </mat-card-content>
@@ -50,18 +50,18 @@
           </mat-card-title>
           <mat-card-content>
             <mat-list>
-              <mat-list-item><mat-icon class="mr-16">date_range</mat-icon> <strong>Activity Start Date:</strong> {{ partner.activityStartDate }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">perm_contact_calendar</mat-icon> <strong>Partnership Date :</strong>  {{ partner.partnerShipDate }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">add_location</mat-icon> <strong>Company Status:</strong> {{ partner.companyStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">domain</mat-icon>  <strong>Legal Status:</strong>{{ partner.legalStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">portrait</mat-icon> <strong>Civilité: </strong> {{ contact.civility }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">star_half</mat-icon> <strong>Privilège: </strong>  {{ contact.privilege }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Service: </strong> {{ contact.service }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">comment</mat-icon>  <strong>Commentaire:</strong>{{ contact.comment }}</mat-list-item>
+              <!--mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item-->
             </mat-list>
           </mat-card-content>
         </mat-card>
       </div>
     </div>
-          <mat-accordion multi="false">
+          <!--mat-accordion multi="false">
             
               <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
@@ -147,10 +147,10 @@
                 </div>
               </mat-expansion-panel>
               
-            </mat-accordion>
+            </mat-accordion-->
   </mat-card-content>
 </mat-card>
-  <mat-card class="p-0">
+  <!--mat-card class="p-0">
     <mat-card-title class="">
       <div fxLyout="row wrap" >
         <div class="card-title-text">
@@ -171,9 +171,11 @@
         fxFlex.sm="50">
           <mat-card class="user-card p-0">
             <mat-card-title class="mb-16">
-              <div class="card-title-text">
+              <div class="card-title-text"-->
+
                 <!--<a href="" class="toolbar-avatar sm mr-16"><img [src]="user.photo" alt=""></a>-->
-                <span class="text-16">FirstaName LastName</span>
+
+                <!--span class="text-16">FirstaName LastName</span>
                 <span fxFlex></span>
                 <button mat-icon-button [matMenuTriggerFor]="userMenu" class="">
                     <mat-icon class="text-muted text-18">more_vert</mat-icon>
@@ -187,9 +189,11 @@
               </div>
               <mat-divider></mat-divider>
             </mat-card-title>
-            <mat-card-content>
+            <mat-card-content-->
+
               <!-- user detail lines-->
-              <mat-list>
+
+              <!--mat-list>
                 <mat-list-item><mat-icon class="mr-16">card_membership</mat-icon> Funstion Here</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">date_range</mat-icon> Email Here</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">phone</mat-icon> Phone Number Here</mat-list-item>
@@ -201,4 +205,4 @@
         </div>
       </div>
     </mat-card-content>
-  </mat-card>
+  </mat-card-->

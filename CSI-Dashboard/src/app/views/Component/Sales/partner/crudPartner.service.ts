@@ -8,6 +8,8 @@ import * as countrycitystatejson from 'countrycitystatejson';
 import { req } from 'app/shared/models/req';
 import { map } from 'rxjs-compat/operator/map';
 import { contact } from 'app/shared/models/contact';
+import { socialMedia } from 'app/shared/models/socialMedia';
+import { address } from 'app/shared/models/address';
 
 @Injectable()
 export class CrudPartnerService {
@@ -35,23 +37,30 @@ export class CrudPartnerService {
     );
   }
 
-  // GET contacts list by partner id
-  getContactsByPartnerId(partnerId: number): Observable<contact[]> {
-    const url = `${this.apiUrl2}/${partnerId}/partner`;
-    return this.http.get<contact[]>(url).pipe(
-      catchError(this.handleError)
-    );
-  }
-
+  // GET requirements list by partner id
+  
   getItemReq(id: number): Observable<req[]> {
     const url = `${this.apiUrl}/${id}/requirements`;
     return this.http.get<req[]>(url).pipe(
       catchError(this.handleError)
     );
   }
+  // GET contacts list by partner id
   getItemContact(id: number): Observable<contact[]> {
     const url = `${this.apiUrl}/${id}/contacts`;
     return this.http.get<contact[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getItemSocialMedias(id: number): Observable<socialMedia[]> {
+    const url = `${this.apiUrl}/${id}/socialMedias`;
+    return this.http.get<contact[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+   getItemAddresses(id: number): Observable<address[]> {
+    const url = `${this.apiUrl}/${id}/addresses`;
+    return this.http.get<address[]>(url).pipe(
       catchError(this.handleError)
     );
   }

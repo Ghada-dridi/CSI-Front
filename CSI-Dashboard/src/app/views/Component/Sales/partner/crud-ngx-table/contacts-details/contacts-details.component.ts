@@ -21,6 +21,7 @@ import { contact } from 'app/shared/models/contact';
 })
 export class ContactsDetailsComponent implements OnInit {
     displayedColumns: string[];
+    displayedColumns2: string[];
   
    // Declare requirements as an empty array
     public dataSource: MatTableDataSource<contact>;
@@ -38,10 +39,17 @@ export class ContactsDetailsComponent implements OnInit {
     this.id = this.route.snapshot.params['iiid'];
     this.getContacts();
     this.displayedColumns = this.getDisplayedColumns();
+    this.displayedColumns2 = this.getDisplayedColumns2();
     
 }
 getDisplayedColumns() {
   return ['firstName','lastName','function'];
+  }
+  getDisplayedColumns2() {
+    return ['title','description','criteria',
+    
+    'totalCandidateNumber','requirementType','requirementStatus','availability'
+    ];
   }
   getContacts() {
     

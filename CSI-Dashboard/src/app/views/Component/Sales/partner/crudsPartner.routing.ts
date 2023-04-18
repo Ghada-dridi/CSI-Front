@@ -16,12 +16,12 @@ export const CrudsRoutes: Routes = [
     pathMatch: "full"
   },
   {
-    path: ":besoins/:iiid",
+    path: "besoins/:iiid",
     component:RequirementDetailsComponent ,
     pathMatch: "full"
   },
   {
-    path: "contacts/:iiiid",
+    path: "contacts/:iiid",
     component:ContactsDetailsComponent ,
     pathMatch: "full"
   },

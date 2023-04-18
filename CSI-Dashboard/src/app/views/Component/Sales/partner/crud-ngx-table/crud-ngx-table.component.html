@@ -79,12 +79,13 @@
             <mat-icon>delete</mat-icon>
           </button>
           <button mat-icon-button mat-sm-button color="basic" [matMenuTriggerFor]="menu" >
-            <mat-icon>more_horiz</mat-icon>
+            <mat-icon>more_horiz</mat-icon>   
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/partner/besoins', row.id]"
             routerLinkActive="router-link-active"
             color="primary">Besoins</button>
+
             <button mat-menu-item [routerLink]="['/partner/contacts', row.id]"
             routerLinkActive="router-link-active">Contacts</button>
           </mat-menu>

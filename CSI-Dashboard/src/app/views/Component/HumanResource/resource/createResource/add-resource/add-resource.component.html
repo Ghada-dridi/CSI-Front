@@ -1,393 +1,910 @@
 <mat-card class="p-0">
-    <mat-tab-group mat-stretch-tabs>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon style="color: #0077C2;">account_circle</mat-icon>
-          <span class="tab-label" style="color: #0077C2;">Informations générales</span>
-        </ng-template>
-        <mat-card-content class="mt-16">
+  <mat-tab-group mat-stretch-tabs  #tabGroup>
+    
+    <form [formGroup]="myForm">
+<!-- tab des informations générales-->
+    <mat-tab>
+    
+         <ng-template mat-tab-label>
+           <mat-icon style="color: #0077C2;">account_circle</mat-icon>
+           <span class="tab-label" style="color: #0077C2;">Informations générales</span>
+         </ng-template>
+      <mat-card-content class="mt-16">
+        <mat-card-title class=""> </mat-card-title>
+          <mat-card-content> 
+            <div fxLayout="row wrap">
+              <div fxFlex="100" fxFlex.gt-xs="50" >
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Nom </mat-label>
+                    <input matInput name="lastName" formControlName="lastName" placeholder="Nom" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Email 1 </mat-label>
+                    <input matInput type="email" name="emailOne" formControlName="emailOne" placeholder="Email 1" />
+                    <mat-icon matPrefix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Téléphone 1 </mat-label>
+                    <input matInput name="phoneNumberOne" formControlName="phoneNumberOne" placeholder=" Téléphone 1" />
+                    <mat-icon matPrefix>call</mat-icon>
+                  </mat-form-field>
+                </div>      
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Date de naissance </mat-label>
+                    <input matInput name="birthDate" formControlName="birthDate" placeholder="Date de naissance" [matDatepicker]="appDatepicker" />
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+                  </mat-form-field>
+                    <mat-datepicker #appDatepicker></mat-datepicker>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Situation familiale </mat-label>
+                    <mat-select formControlName="maritalSituation">
+                      <mat-option *ngFor="let maritalSituation of MaritalSituation" [value]="maritalSituation">{{ maritalSituation }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Pays </mat-label>
+                    <mat-select formControlName="country">
+                      <mat-option *ngFor="let country of Country" [value]="country">{{ country }}</mat-option>
+                     </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Code postal </mat-label>
+                    <input matInput name="postCode" formControlName="postCode" placeholder="Code Postale" />
+                  </mat-form-field>
+                </div>
+              </div>
+                <!-- Partie 2 du formulaire -->
+                  
+              <div fxFlex="100" fxFlex.gt-xs="50">
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Prénom </mat-label>
+                    <input
+                      matInput
+                      name="firstName"
+                      formControlName="firstName"
+                      placeholder="Prénom"/>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Email 2 </mat-label>
+                      <input
+                        matInput
+                        type="email"
+                        name="emailTwo"
+                        formControlName="emailTwo"
+                        placeholder="Email 2"/>
+                        <mat-icon matPrefix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Téléphone 2 </mat-label>
+                      <input
+                        matInput
+                        name="phoneNumberTwo"
+                        formControlName="phoneNumberTwo"
+                        placeholder=" Téléphone "/>
+                        <mat-icon matPrefix>call</mat-icon>
+                  </mat-form-field>
+                </div>   
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                     <mat-label>Civilité</mat-label>
+                      <mat-select [formControlName]="'civility'">
+                        <mat-option *ngFor="let civility of civilities" [value]="civility">{{ civility }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Adresse </mat-label>
+                      <input
+                         matInput
+                         name="address"
+                         formControlName="address"
+                         placeholder=" Adresse " />
+                   </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Ville </mat-label>
+                      <input
+                        matInput
+                        name="city"
+                        formControlName="city"
+                        placeholder="Ville"/>
+                  </mat-form-field>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                 <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Titre</mat-label>
+                      <mat-select [formControlName]="'title'">
+                        <mat-option *ngFor="let title of Title" [value]="title">{{ title }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+                      
+                        
+            </div>
+                       
+           <div>      
+            <button mat-raised-button color="primary" style="margin-left: auto;" (click)="nextTab(tabGroup)">Suivant</button>
            
-                <mat-card-title class="">
-          
-                    
-                </mat-card-title>
-                <mat-card-content>
-                    <form >
-                        <div fxLayout="row wrap">
-                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                        <input
-                                        matInput
-                                        name="username"
-                                        formControlName="username"
-                                        placeholder="Nom (Min Length: 4, Max Length: 9)"
-                                        value="">
-                                    </mat-form-field>
-                                   
-                                </div>
-            
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                        <input
-                                        matInput
-                                        name="firstname"
-                                        formControlName="firstname"
-                                        placeholder="Prénom"
-                                        value="">
-                                    </mat-form-field>
-                                    
-                                </div>
-            
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                    <input
-                                        matInput
-                                        type="email"
-                                        name="email"
-                                        formControlName="email"
-                                        placeholder="Email 1"
-                                        value="">
-                                    </mat-form-field>
-                                    
-                                </div>
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                    <input
-                                        matInput
-                                        type="email"
-                                        name="email"
-                                        formControlName="email"
-                                        placeholder="Email 2"
-                                        value="">
-                                    </mat-form-field>
-                                    
-                                </div>
 
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                        <input 
-                                        matInput
-                                        name="date"
-                                        formControlName="date"
-                                        placeholder="Date de naissance" 
-                                        [matDatepicker]="appDatepicker">
-                                        
-                                        <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
-                                    </mat-form-field>
-                                    <mat-datepicker #appDatepicker></mat-datepicker>
-                                </div>
-                                <div class="pb-16">
-                                <mat-form-field  class="full-width"> 
-                                    <mat-label>Civilité</mat-label>
-                                    <mat-select disableRipple>
-                                      <mat-option value="1">Option 1</mat-option>
-                                      <mat-option value="2">Option 2</mat-option>
-                                      <mat-option value="3">Option 3</mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                                  </div>
-                                  <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                        <input
-                                        matInput
-                                        name="phone"
-                                        placeholder=" Téléphone 1"
-                                        value="">
-
-                                    </mat-form-field>
-                                </div>
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                        <input
-                                        matInput
-                                        name="phone"
-                                        placeholder=" Téléphone 2 "
-                                        value="">
-
-                                    </mat-form-field>
-                                </div>
-                            </div>
-            
-                            <div fxFlex="100" fxFlex.gt-xs="50">
-                                <div class="pb-16">
-                                      <mat-form-field class="full-width">
-                                        <input
-                                        matInput
-                                        name="address"
-                                        placeholder="Adressse"
-                                        value="">
-
-                                      </mat-form-field>
-                                </div>
-                                <div class="pb-16">
-                                    <mat-form-field  class="full-width"> 
-                                        <mat-label>Pays</mat-label>
-                                        <mat-select disableRipple>
-                                          <mat-option value="1">Option 1</mat-option>
-                                          <mat-option value="2">Option 2</mat-option>
-                                          <mat-option value="3">Option 3</mat-option>
-                                        </mat-select>
-                                      </mat-form-field>
-                                      </div>
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                      <input
-                                      matInput
-                                      name="ville"
-                                      placeholder="Ville"
-                                      value="">
-
-                                    </mat-form-field>
-                              </div>
-
-                                
-                                <div class="pb-16">
-                                    <mat-form-field class="full-width">
-                                      <input
-                                      matInput
-                                      name="codePostal"
-                                      placeholder="Code Postale"
-                                      value="">
-                                    </mat-form-field>
-                              </div>
-                              <div class="pb-16">
-                                <mat-form-field  class="full-width"> 
-                                    <mat-label>Titre</mat-label>
-                                    <mat-select disableRipple>
-                                      <mat-option value="1">Option 1</mat-option>
-                                      <mat-option value="2">Option 2</mat-option>
-                                      <mat-option value="3">Option 3</mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                                  </div>
-                                  <div class="pb-16">
-                                    <mat-form-field  class="full-width"> 
-                                        <mat-label>Type</mat-label>
-                                        <mat-select disableRipple>
-                                          <mat-option value="1">Option 1</mat-option>
-                                          <mat-option value="2">Option 2</mat-option>
-                                          <mat-option value="3">Option 3</mat-option>
-                                        </mat-select>
-                                      </mat-form-field>
-                                      </div>
-          
-                                <div class="pb-16">
-                                    <mat-form-field  class="full-width"> 
-                                        <mat-label>Situation Familiale</mat-label>
-                                        <mat-select disableRipple>
-                                          <mat-option value="1">Option 1</mat-option>
-                                          <mat-option value="2">Option 2</mat-option>
-                                          <mat-option value="3">Option 3</mat-option>
-                                        </mat-select>
-                                      </mat-form-field>
-                                </div>
-                                <div class="pb-16">
-                                    <Label>Gender*</Label>
-                                    <mat-radio-group 
-                                    name="gender" 
-                                    formControlName="gender" >
-                                        <mat-radio-button value="male" class="mx-12">Male</mat-radio-button>
-                                        <mat-radio-button value="female">Female</mat-radio-button>
-                                    </mat-radio-group>
-                                </div>
-                            </div>
-                        </div>
-                        <button 
-                        mat-raised-button 
-                        color="primary">Submit</button>
-                    </form>
-                </mat-card-content>
+          </div>  
+          </mat-card-content>
         </mat-card-content>
+
       </mat-tab>
 
 
-      
+
+<!-- tab des informations administratives-->
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon style="color: #0077C2;">work</mat-icon>
           <span class="tab-label" style="color: #0077C2;">Informations Administratives</span>
         </ng-template>
         <mat-card-content>
-          <form >
-            <div fxLayout="row wrap">
-                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
-                   
-                    <div class="pb-16">
-                        <mat-form-field class="full-width">
-                            <input
-                            matInput
-                            name="matricule"
-                            formControlName="matricule"
-                            placeholder="Matricule"
-                            value="">
-                        </mat-form-field>
-                   
-                    </div>
+          <mat-card-title class="">   </mat-card-title>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="50" >
+           <!-- <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                  <mat-label>Matricule</mat-label>
+                <input matInput name="serialNumber" formControlName="serialNumber" placeholder="Matricule" />
+              </mat-form-field>
+          </div>-->
+          <div class="form-group mb-1 col-sm-12 col-md-3">
+            <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+              <mat-label>Local </mat-label>
+                <mat-select formControlName="workLocation" (selectionChange)="onFraisTypeSelectionChange($event)">
+                  <mat-option *ngFor="let worklocation of WorkLocation" [value]="worklocation">{{ worklocation }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+         </div>
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <div class="form-group mb-1 col-sm-12 col-md-3">
+            <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+              <mat-label>Numéro CNSS </mat-label>
+              <input matInput type="socialSecurityNumber" name="socialSecurityNumber" formControlName="socialSecurityNumber" placeholder="Numéro CNSS" />
+            </mat-form-field>
+          </div>
+          <div class="form-group mb-1 col-sm-12 col-md-3"  *ngIf="showLocationName" >
+            <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+              <mat-label>Nom du local </mat-label>
+              <input matInput type="locationName" name="locationName" formControlName="locationName" placeholder="Nom du local" />
+            </mat-form-field>
+          </div>
+        </div>
+       </div>
+       <div>
+       <button mat-raised-button color="primary" style="margin-left: auto;" (click)="nextTab(tabGroup)">Suivant</button>
+       <button  mat-raised-button color="primary"(click)="addResource()">Enregistrer</button>
+    
+ 
 
-                    <div class="pb-16">
-                    <mat-form-field  class="full-width"> 
-                        <mat-label>Local</mat-label>
-                        <mat-select disableRipple>
-                          <mat-option value="1">Option 1</mat-option>
-                          <mat-option value="2">Option 2</mat-option>
-                          <mat-option value="3">Option 3</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      </div>
-                     
-                 
-                </div>
+      </div>
+     </mat-card-content>
+  </mat-tab>
+  </form>
 
-                <div fxFlex="100" fxFlex.gt-xs="50">
-                 
-
-                  <div class="pb-16">
-                    <mat-form-field class="full-width">
-                      <input
-                      matInput
-                      name="numCnss"
-                      placeholder="Numéro CNSS"
-                      value="">
-
-                    </mat-form-field>
-              </div>
-
-                    <div class="pb-16">
-                        <mat-form-field class="full-width">
-                          <input
-                          matInput
-                          name="Local"
-                          placeholder="Nom du Local"
-                          value="">
-
-                        </mat-form-field>
-                  </div>
-
-
-                    
-                </div>
-            </div>
-            <button 
-            mat-raised-button 
-            color="primary">Submit</button>
-        </form>
-        </mat-card-content>
-      </mat-tab>
-
-
-      
-
-
-
-
-      <mat-tab>
+  <!--tab des documents-->
+     <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon style="color: #0077C2;">attachment</mat-icon>
           <span class="tab-label" style="color: #0077C2;">Documents</span>
         </ng-template>
         <mat-card-content>
-          <form [formGroup]="repeatForm" class="repeat-form">
-            <div class="card-body" formArrayName="repeatArray">
-              <div class="row">
-                <div class="col-12" *ngFor="let repeatForm of repeatFormGroup.controls; let i = index;">
-                  <div class="repeater-default">
-                    <div [formGroupName]="i" class="row align-items-center">
-                      <div class="form-group mb-1 col-sm-12 col-md-3">
-                        <mat-form-field>
-                          <mat-label>Document</mat-label>
-                          <mat-select formControlName="profession" id="profession">
-                            <mat-option *ngFor="let doc of documents " [value]="doc">{{doc}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group mb-1 col-sm-12 col-md-3">
-                        
-                      </div>
-                      <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                        <button mat-icon-button color="warn" type="button" (click)="handleRemoveRepeatForm(i)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" type="button" (click)="handleAddRepeatForm()">
-                          <mat-icon>add</mat-icon>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        
+          <mat-card-title class="">
+            <div class="card-title-text">Téléchargement de documents</div>
+            <mat-divider></mat-divider>
+            </mat-card-title>
+       
+          <div class="mb-16">
+            <p>Sélection multiple</p>
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+    
+            <p>Sélection unique</p>
+            <input type="file" ng2FileSelect [uploader]="uploader" />
+          </div>
+    
+          <div class="mb-16">
+            <div ng2FileDrop
+            [ngClass]="{'dz-file-over': hasBaseDropZoneOver}"
+            (fileOver)="fileOverBase($event)"
+            [uploader]="uploader"
+            class="fileupload-drop-zone mb-24">
+            Déposer le fichier ici
             </div>
-          </form>
-          
-          
-          
-          
+          </div>
+    
+          <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+            <thead>
+            <tr>
+                <th width="30%">Nom du fichier</th>
+                <th>Taille</th>
+                <th>Progrès</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="uploader.queue.length; else tableNoData">
+            <tr *ngFor="let item of uploader.queue">
+                <td>{{ item?.file?.name }}</td>
+                <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                <td>
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        <mat-progress-bar
+                          class=""
+                          color="primary"
+                          mode="determinate"
+                          [value]="item.progress">
+                        </mat-progress-bar>
+                    </div>
+                </td>
+                <td class="">
+                    <mat-icon *ngIf="item.isSuccess" color="primary">check</mat-icon>
+                    <mat-icon *ngIf="item.isCancel" color="accent">cancel</mat-icon>
+                    <mat-icon *ngIf="item.isError" color="warn">error</mat-icon>
+                </td>
+                <td nowrap>
+                    <button 
+                    mat-raised-button
+                    color="primary"
+                    class="mx-4"
+                    (click)="item.upload()"
+                    [disabled]="item.isReady || item.isUploading || item.isSuccess">Télécharger</button>
+                    <button 
+                    mat-raised-button
+                    color="accent"
+                    class="mx-4"
+                    (click)="item.cancel()"
+                    [disabled]="!item.isUploading">Annuler</button>
+    
+                    <button 
+                    mat-raised-button
+                    color="warn"
+                    class="mx-4"
+                    (click)="item.remove()">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+            <ng-template #tableNoData>
+              <p [ngStyle]="{padding: '0 1.2rem'}">file d'attente vide !</p>
+            </ng-template>
+        </table>
+    
+    
+          <div>
+            <p>Progression de la file d'attente :</p>
+            <div class="progress mb-16" >
+                <mat-progress-bar
+                  class=""
+                  color="primary"
+                  mode="determinate"
+                  [value]="uploader.progress">
+                </mat-progress-bar>
+            </div>
+    
+          <button 
+          mat-raised-button
+          color="primary"
+          class="mx-4"
+          (click)="uploader.uploadAll()"
+          [disabled]="!uploader.getNotUploadedItems().length">Télécharger tous</button>
+    
+          <button 
+          mat-raised-button
+          color="accent"
+          class="mx-4"
+          (click)="uploader.cancelAll()"
+          [disabled]="!uploader.isUploading">Annuler tous</button>
+    
+          <button 
+          mat-raised-button
+          color="warn"
+          class="mx-4"
+          (click)="uploader.clearQueue()"
+          [disabled]="!uploader.queue.length">Supprimer tous</button>
+        </div>
           
               
         </mat-card-content>
       </mat-tab>
-
+    
+    
       <!--Partie contrat -->
+      
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon style="color: #0077C2;">description</mat-icon>
           <span class="tab-label" style="color: #0077C2;">Contrat</span>
         </ng-template>
         <mat-card-content>
-          <div class="mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__supporting-text">
-              <div class="mdl-stepper-horizontal-alternative">
-                <div class="mdl-stepper-step active-step step-done">
-                  <div class="mdl-stepper-circle"><span>1</span></div>
-                  <div class="mdl-stepper-title">Add pets</div>
-                  <div class="mdl-stepper-bar-left"></div>
-                  <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step active-step editable-step">
-                  <div class="mdl-stepper-circle"><span>2</span></div>
-                  <div class="mdl-stepper-title">Set location</div>
-                  <div class="mdl-stepper-optional">Optional</div>
-                  <div class="mdl-stepper-bar-left"></div>
-                  <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step active-step">
-                  <div class="mdl-stepper-circle"><span>3</span></div>
-                  <div class="mdl-stepper-title">Invite friends</div>
-                  <div class="mdl-stepper-optional">Optional</div>
-                  <div class="mdl-stepper-bar-left"></div>
-                  <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                  <div class="mdl-stepper-circle"><span>4</span></div>
-                  <div class="mdl-stepper-title">Share</div>
-                  <div class="mdl-stepper-optional">Optional</div>
-                  <div class="mdl-stepper-bar-left"></div>
-                  <div class="mdl-stepper-bar-right"></div>
-                </div>
-              </div>
+      <!--  <mat-horizontal-stepper  [formGroup]="myFormContract">-->  
+        <mat-horizontal-stepper >
+          <form [formGroup]="myFormContract">
+            <mat-step label="Informations générales" >  
           
-              <div class="mdl-card__actions">
-                <button 
-                mat-raised-button 
-                color="primary">Back</button>
-                <button 
-                mat-raised-button 
-                color="primary">Next</button>
-                <button 
-                mat-raised-button 
-                color="primary">Complete Step</button>
-              </div>
-              <button 
-                mat-raised-button 
-                color="primary">Finish</button>
+
+              <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                  <mat-label>Employé</mat-label>
+                
+                  <input
+                    matInput
+                    name="resourceId"
+                   
+                    [(ngModel)]="selectedEmployee.id"
+                    placeholder="Employé"
+                    formControlName="resourceId"
+                    disabled="true"
+                  />
+                </mat-form-field>
               </div>
               
+            
+              <div class="form-group mb-1 col-sm-12 col-md-3   text-center">
+                <mat-form-field appearance="outline" [style.width.cm]=16 style="padding-right: 1cm;">
+                  <mat-label>Titre du contrat </mat-label>
+                  <input
+                    matInput
+                    name="contractTitle"
+                    formControlName="contractTitle"
+                    placeholder="Titre du contrat"
+                  />
+                </mat-form-field>
+              </div> 
+              <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50">
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Date  début</mat-label>
+                    <input matInput name="startDate" formControlName="startDate" placeholder="Date début" [matDatepicker]="appDatepicker1" />
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker1></mat-datepicker>
+                </div>
+          
+                  
+              </div>
+              <div fxFlex="100" fxFlex.gt-xs="50">
+                
+                  <div class="form-group mb-1 col-sm-12 col-md-3">
+                    <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                      <mat-label>Date fin </mat-label>
+                      <input matInput name="endDate" formControlName="endDate" placeholder="Date fin" [matDatepicker]="appDatepicker2" />
+                      <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #appDatepicker2></mat-datepicker>
+                  </div>
             </div>
+                
+                </div>
+            <div>
+               <!--<button  mat-raised-button 
+                color="primary"(click)="saveContract()">Save
+              </button>--> 
+
+              <button  mat-raised-button 
+                color="primary" (click)="addContract()">Save
+              </button>
+            </div>
+              <div fxFlex="100"  class="pr-16">
+                <mat-card class="p-0">
+                  <mat-card-content class="p-0">
+                    <quill-editor theme="snow" formControlName="campanyArticle" ></quill-editor>
+                  </mat-card-content>
+                </mat-card>
+                </div>
+              <div>
+                <button mat-raised-button color="primary" matStepperNext>Suivant</button>
+              
+
+              </div>
+      
+            </mat-step>
+            <mat-step label="Détails de contrat" >
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 1 : Objet du contrat
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article1"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false" style="margin-top: 20px;">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 2 : Durée du contrat
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article2"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 3 : Lieu de travail
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article3"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 4 : Horaires de Travail
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article4" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 5 : Rémunération
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article5"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 6 : Congés payés
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article6" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 7 : Absence et indisponibilité
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article7"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 8 : Fonctions et acceptation des missions
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article8" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 9 : Avantages sociaux
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article9" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 10 : Obligations professionnelles
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article10" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 11 : Fin du contrat de travail
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow"  formControlName="article11"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 12 : Clause de non concurrence sans contrepartie financière
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article12" ></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 13 : Documentation et proprietés intellectuelles 
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article13"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 14 : Formations
+                    </mat-panel-title>
+
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article14"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion multi="false">
+                <mat-expansion-panel expanded="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Article 15 : Dispositions diverses
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+                  <div class="border-bottom pb-16 mb-16">
+                    <mat-card class="p-0">
+                      <mat-card-content class="p-0">
+                        <quill-editor theme="snow" formControlName="article15"></quill-editor>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <div>
+                <button mat-raised-button color="primary" style="margin-top: 30px;"  matStepperPrevious>Précédent</button>
+                <span style="margin: 0 10px;"></span>
+                <button mat-raised-button color="primary"  matStepperNext>Suivant</button>
+              </div>
+            </mat-step>
+
+  <!--          <mat-step label="Avantages">
+              <mat-card-title class="light-gray mb-16">
+                <div class="card-title-text">
+                  <div class="">Frais Exceptionnels</div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+
+
+                <form [formGroup]="repeatForm" class="repeat-form">
+                  <div class="card-body" formArrayName="repeatArray">
+                    <div class="row" *ngFor="let repeatFormGroup of repeatForm.get('repeatArray')['controls']; let i = index;">
+                      <div class="repeater-default">
+                        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                        <div [formGroupName]="i">
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                              <mat-label>Contrat</mat-label>
+                            
+                              <input
+                                matInput
+                                name="contractId"
+                               
+                                [(ngModel)]="selectedContract.id"
+                                placeholder="Contrat"
+                                formControlName="contractId"
+                                disabled="true"
+                              />
+                            </mat-form-field>
+                          </div>
+                          
+                          <div class="d-flex ">
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                              <mat-form-field appearance="outline" [style.width.cm]="12" style="padding-right: 1cm;">
+                                <mat-label>Type de Frais</mat-label>
+                                <mat-select formControlName="feeType" placeholder="Ex. Déplacement" required>
+                                  <mat-option *ngFor="let feeType of FeeTypes" [value]="feeType">{{feeType}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                              <mat-form-field appearance="outline" [style.width.cm]=12>
+                                <mat-label>Nom du frais </mat-label>
+                                <input matInput name="name" formControlName="name" placeholder="" value="" required>
+                              </mat-form-field>
+                            </div>
+                            </div>
+                         
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                              <mat-form-field appearance="outline" [style.width.cm]=25>
+                                <mat-label>Description du frais </mat-label>
+                                <input matInput name="shortDescription" formControlName="shortDescription" placeholder="" value="" required>
+                              </mat-form-field>
+                            </div>
+                            <div class="d-flex ">
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                              <mat-form-field appearance="outline" [style.width.cm]=12  style="padding-right: 1cm;">
+                                <mat-label>Montant </mat-label>
+                                <input matInput name="amount" formControlName="amount" placeholder="" value="" required>
+                              </mat-form-field>
+                            </div>
+                            
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                              <mat-form-field appearance="outline" [style.width.cm]="12" style="padding-right: 1cm;">
+                                <mat-label>Devise</mat-label>
+                                <mat-select formControlName="currency" placeholder="Ex. " required>
+                                  <mat-option *ngFor="let currency of Currency" [value]="currency">{{currency}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                            <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
+                          
+                              <button mat-icon-button color="warn" type="button" [disabled]="i === 0" (click)="handleRemoveRepeatForm(i)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                              <button mat-icon-button color="primary" type="button" (click)="handleAddRepeatForm()">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                             
+                            </div>
+                            <div>
+                            <span style="margin: 0 10px;"></span>
+                            <button mat-raised-button color="primary"   (click)=" addExceptionalFee()">Save</button>
+                          </div>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                   
+                </form>
+                
+          
+             </mat-card-content>
+
+             <mat-card-title class="light-gray mb-16">
+              <div class="card-title-text">
+                <div class="">Bénéfices</div>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+
+              <form [formGroup]="repeatForm" class="repeat-form">
+                <div class="card-body" formArrayName="repeatArray">
+                  <div class="row" *ngFor="let repeatForm of repeatFormGroup.controls; let i = index;">
+                    <div class="repeater-default">
+                      <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                      <div [formGroupName]="i">
+                        <div class="d-flex ">
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                              <mat-label>Titre </mat-label>
+                              <input matInput name="titleBenifit" formControlName="titleBenifit" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                          
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]="12" >
+                              <mat-label>Type</mat-label>
+                              <mat-select formControlName="typeBenifit" placeholder="Ex. " required>
+                                <mat-option *ngFor="let typeBenifit of typeBenifits" [value]="typeBenifit">{{typeBenifit}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                       
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=25>
+                              <mat-label>Description du frais </mat-label>
+                              <input matInput name="fraisDescription" formControlName="fraisDescription" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                         
+                          <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
+                            <button mat-icon-button color="warn" type="button" [disabled]="i === 0" (click)="handleRemoveRepeatForm(i)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" type="button" (click)="handleAddRepeatForm()">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+              </form>
+              
+
+           </mat-card-content>
+
+               <div>
+                <button mat-raised-button color="primary"   matStepperPrevious>Précédent</button>
+                <span style="margin: 0 10px;"></span>
+                <button mat-raised-button color="primary"   matStepperNext>Suivant</button>
+              
+              </div>
+            </mat-step>
+            <mat-step label="Confirmation">
+              <div fxLayout="row wrap">
+              <div fxFlex="100" fxFlex.gt-xs="50" >
+              <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                  <mat-label>Date du contrat </mat-label>
+                  <input matInput name="contactDate" formControlName="contractDate" placeholder="Date de contart" [matDatepicker]="appDatepicker" />
+                  <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #appDatepicker></mat-datepicker>
+              </div>
+              </div>
+              <div fxFlex="100" fxFlex.gt-xs="50">
+              <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                  <mat-label>Lieu du contrat </mat-label>
+                  <input
+                    matInput
+                    name="contractPlace"
+                    formControlName="contractPlace"
+                    placeholder="Lieu du contrat"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="mb-16">
+                
+  
+                <p>Signature société</p>
+                <input type="file" ng2FileSelect [uploader]="uploader" />
+              </div>
+              
+              </div>
+              <div>
+              <button mat-raised-button color="primary" (click)="confirmer()">Confirmer</button>
+            </div>
+            </div>
+            
+            </mat-step>
+          -->
+          
+            
+          </form>
+          </mat-horizontal-stepper>
+            
           
           
           
         </mat-card-content>
       </mat-tab>
+
     </mat-tab-group>
+
   </mat-card>
+
+
+
+
   
+
+
+

@@ -65,9 +65,8 @@ export class NgxTablePopupComponent implements OnInit {
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
   }
+
   ngOnInit() {
-    this.buildItemForm(this.data.payload)
-    
     this.itemForm.get("country").valueChanges.subscribe((country) => {
       this.itemForm.get("city").reset();
       if (country) {
@@ -79,10 +78,7 @@ export class NgxTablePopupComponent implements OnInit {
   }
 
   submit() {
-    
     this.dialogRef.close(this.itemForm.value)
-
-
   }
 
   onCountryChange(countryShotName: string) {

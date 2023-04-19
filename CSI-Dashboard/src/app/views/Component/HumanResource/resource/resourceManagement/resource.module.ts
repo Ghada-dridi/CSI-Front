@@ -26,12 +26,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { Ng2TelInputModule } from 'ng2-tel-input';
+import { BackOfficeComponent } from './back-office/back-office.component';
+import { ExternalComponent } from './external/external.component';
+
 
 
 
 @NgModule({
   declarations: [
-    ResourceComponent
+    ResourceComponent,
+    BackOfficeComponent,
+    ExternalComponent,
+   
    
   ],
   imports: [

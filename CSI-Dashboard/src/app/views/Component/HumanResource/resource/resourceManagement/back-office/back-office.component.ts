@@ -1,22 +1,22 @@
-import { Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { ResourceService } from './../resource.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
-import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { ResourceService } from '../resource.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Resource } from 'app/shared/models/Resource';
-
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-resource',
-  templateUrl: './resource.component.html',
-  styleUrls: ['./resource.component.scss']
+  selector: 'app-back-office',
+  templateUrl: './back-office.component.html',
+  styleUrls: ['./back-office.component.scss']
 })
-export class ResourceComponent implements OnInit,OnDestroy{
+export class BackOfficeComponent implements OnInit {
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
@@ -58,7 +58,7 @@ export class ResourceComponent implements OnInit,OnDestroy{
   }
   
   getItems() {    
-    this.getItemSub = this.resourceService.getItems()
+    this.getItemSub = this.resourceService.getItemsBackOffice()
       .subscribe((data:any)  => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -66,51 +66,17 @@ export class ResourceComponent implements OnInit,OnDestroy{
       })
 
   }
-/*
-  openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Add new Candidat' : 'Update Candidat';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-      width: '720px',
-      disableClose: true,
-      data: { title: title, payload: data }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if(!res) {
-          // If user press cancel
-          return;
-        }
-        if (isNew) {
-          this.loader.open('Adding new Candidat');
-          this.resourceService.addItem(res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Candidat Added!', 'OK', { duration: 4000 })
-            })
-        } else {
-          this.loader.open('Updating Candidat');
-          this.resourceService.updateItem(data._id, res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Candidat Updated!', 'OK', { duration: 4000 })
-            })
-        }
-      })
-  }
-  */
   deleteItem(row) {
     
     this.confirmService.confirm({message: `Delete ${row.firstName} ${row.lastName}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('supprimer ressource interne');
+          this.loader.open('supprimer ressource back-office');
           this.resourceService.deleteItem(row.id)
           .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Ressource interne supprimée!', 'OK', { duration: 4000 })
+              this.snack.open('Ressource back-office supprimée!', 'OK', { duration: 4000 })
               this.getItems();
             })
         }

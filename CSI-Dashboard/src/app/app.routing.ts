@@ -161,7 +161,7 @@ export const rootRouterConfig: Routes = [
       },
       {
         path: 'time-off',
-        loadChildren: () => import('./views/Component/HumanResource/timeOff/TimeOff.module').then(m => m.TimeOffModule),
+        loadChildren: () => import('./views/Component/HumanResource/timeOff/timeOff.module').then(m => m.TimeOffModule),
         data: { title: 'TimeOff', breadcrumb: 'TimeOffs'}
       },
       {
@@ -185,10 +185,25 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Resource', breadcrumb: 'Resources'}
       },
       {
+        path: 'externalResource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'External Resource', breadcrumb: 'External Resources'}
+      },
+      {
+        path: 'backOfficeResource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'Back Office Resource', breadcrumb: 'Back Office Resources'}
+      },
+      {
         path: 'add-resource',
         loadChildren: () => import('./views/Component/HumanResource/resource/createResource/add-resource.module').then(m => m.AddResourceModule),
         data: { title: 'AddResource', breadcrumb: 'AddResources'}
       },
+      {
+        path: 'contractEmployee',
+        loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
+        data: { title: 'AddResource', breadcrumb: 'AddResources'}
+      }
       
     ]
   },

@@ -3,7 +3,7 @@ import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -34,6 +34,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SharedPipesModule } from 'app/shared/pipes/shared-pipes.module';
 import { NgChartsModule } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MatStepperModule } from '@angular/material/stepper';
+import { QuillModule } from 'ngx-quill';
+import { MatTree, MatTreeModule } from '@angular/material/tree';
 
 
 
@@ -75,6 +78,14 @@ import { FileUploadModule } from 'ng2-file-upload';
     NgChartsModule,
     FileUploadModule,
     SharedPipesModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatTreeModule,
+    QuillModule.forRoot(),
+    
+    
+    
+  
     RouterModule.forChild(AddResourceRoutes)
   ],
   

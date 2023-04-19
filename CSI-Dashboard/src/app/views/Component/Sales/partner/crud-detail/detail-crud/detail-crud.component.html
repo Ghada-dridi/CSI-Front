@@ -68,18 +68,28 @@
                   <mat-panel-title>
                     <mat-icon color="primary">location_on </mat-icon>
                     <h6 class="text-18 mb-4"> <strong>Adresses</strong></h6>
+                    
+                    
                   </mat-panel-title>
+                 
                 </mat-expansion-panel-header>
+               
+                <button mat-icon-button color="primary" type="button" >
+                  <mat-icon>add</mat-icon>
+                </button>
                 <div *ngFor="let address of addresses" class="border-bottom pb-16 mb-16">
                     <div fxLyout="row wrap" class="text-blue font-weight-bold">
                        <span>{{address.addressTitle}}</span>
                         <span fxFlex></span>
-                        <span><mat-icon class="mr-16">map</mat-icon></span>
+                        <button mat-icon-button mat-sm-button color="warn" (click)="deleteAddress(address.id)">
+                          
+                          <mat-icon>delete</mat-icon>
+                        </button>
                       </div>
                       <div fxLyout="row wrap" class="text-muted">
                         <small>{{address.street}}</small>
-                        <span fxFlex></span>
-                        <small class="text-green">Current Adress</small>
+                        
+                        
                       </div>
                 </div>
                 
@@ -141,27 +151,7 @@
                     <mat-cell *matCellDef="let row" data-label="function"> {{row.function}} </mat-cell>
                   </ng-container>
               
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-            
-                      <button mat-icon-button 
-                        routerLink="/contact/{{ row.id }}" 
-                        routerLinkActive="router-link-active" 
-                        color="basic"
-                      >
-                        <mat-icon>visibility</mat-icon>
-                      </button>
-            
-                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
-                        <mat-icon>edit</mat-icon>
-                      </button>
-            
-                      <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </mat-cell>
-                  </ng-container>
+                
               
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -175,7 +165,7 @@
                   <mat-panel-title>
                     <mat-icon Orders
                     color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4"> <strong>Requirements</strong></h6>
+                    <h6 class="text-18 mb-4"> <strong>Besoins</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 
@@ -253,6 +243,58 @@
               
                   <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+                </mat-table>
+              
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon Orders
+                    color="primary">contact_phone</mat-icon>
+                    <h6 class="text-18 mb-4"> <strong>addresses</strong></h6>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <mat-table [dataSource]="dataSource3" matSort >
+  
+  
+  
+  
+                  <ng-container matColumnDef="ville">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ville </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="ville"> {{row.addressTitle}} </mat-cell>
+                  </ng-container>
+              
+              
+              
+                  <ng-container matColumnDef="street">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> street </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="street"> {{row.street}} </mat-cell>
+                  </ng-container>
+              
+                    
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+            
+                   
+            
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+            
+                      <button mat-icon-button mat-sm-button color="warn" (click)="deleteAddress(row.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+              
+                
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
                 </mat-table>
               
               </mat-expansion-panel>

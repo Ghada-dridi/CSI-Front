@@ -14,7 +14,7 @@ import { address } from 'app/shared/models/address';
 @Injectable()
 export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
-  private apiUrl2 = 'http://localhost:8085/crm/partnerContacts';
+  private apiUrl2 = 'http://localhost:8085/crm/addresses';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -93,6 +93,12 @@ export class CrudPartnerService {
   deleteItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<Partner>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteAddress(id: number): Observable<address> {
+    const url = `${this.apiUrl2}/${id}`;
+    return this.http.delete<address>(url).pipe(
       catchError(this.handleError)
     );
   }

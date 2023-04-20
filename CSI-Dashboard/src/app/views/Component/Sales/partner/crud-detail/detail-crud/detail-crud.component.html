@@ -63,7 +63,7 @@
     </div>
           <mat-accordion multi="false">
             
-              <mat-expansion-panel expanded="true">
+              <mat-expansion-panel >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon color="primary">location_on </mat-icon>
@@ -127,7 +127,9 @@
                     <h6 class="text-18 mb-4"> <strong>Contacts</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp2({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
                 <mat-table [dataSource]="dataSource" matSort >
   
   
@@ -151,7 +153,17 @@
                     <mat-cell *matCellDef="let row" data-label="function"> {{row.function}} </mat-cell>
                   </ng-container>
               
-                
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+            
+                    
+            
+                      <button mat-icon-button mat-sm-button color="warn" (click)="deleteContact(row.contactId)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
               
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -159,7 +171,7 @@
               
               </mat-expansion-panel>
                 
-              <!--contacts here-->
+              <!--Besoins here-->
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -168,7 +180,9 @@
                     <h6 class="text-18 mb-4"> <strong>Besoins</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp3({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
                 <mat-table [dataSource]="dataSource2" matSort >
   
   
@@ -223,21 +237,8 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let row">
             
-                      <button mat-icon-button 
-                        routerLink="/contact/{{ row.id }}" 
-                        routerLinkActive="router-link-active" 
-                        color="basic"
-                      >
-                        <mat-icon>visibility</mat-icon>
-                      </button>
+                   
             
-                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
-                        <mat-icon>edit</mat-icon>
-                      </button>
-            
-                      <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
                     </mat-cell>
                   </ng-container>
               

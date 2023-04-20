@@ -10,11 +10,13 @@ import { map } from 'rxjs-compat/operator/map';
 import { contact } from 'app/shared/models/contact';
 import { socialMedia } from 'app/shared/models/socialMedia';
 import { address } from 'app/shared/models/address';
+import { ContactListComponent } from '../contact/contact-list/contact-list/contact-list.component';
 
 @Injectable()
 export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
   private apiUrl2 = 'http://localhost:8085/crm/addresses';
+   private apiUrl3 = 'http://localhost:8085/crm/contacts';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -54,7 +56,7 @@ export class CrudPartnerService {
   }
   getItemSocialMedias(id: number): Observable<socialMedia[]> {
     const url = `${this.apiUrl}/${id}/socialMedias`;
-    return this.http.get<contact[]>(url).pipe(
+    return this.http.get<socialMedia[]>(url).pipe(
       catchError(this.handleError)
     );
   }
@@ -99,6 +101,12 @@ export class CrudPartnerService {
   deleteAddress(id: number): Observable<address> {
     const url = `${this.apiUrl2}/${id}`;
     return this.http.delete<address>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteContact(id: number): Observable<contact> {
+    const url = `${this.apiUrl3}/${id}`;
+    return this.http.delete<contact>(url).pipe(
       catchError(this.handleError)
     );
   }

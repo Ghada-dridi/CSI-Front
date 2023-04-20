@@ -9,9 +9,5 @@ export const ReqRoutes: Routes = [
     component: ReqlistComponent, 
     data: { title: '', breadcrumb: 'Table' } 
   },
-  {
-    path: ":iiid",
-    component:ReqpopComponent ,
-    pathMatch: "full"
-  }
+  
 ];

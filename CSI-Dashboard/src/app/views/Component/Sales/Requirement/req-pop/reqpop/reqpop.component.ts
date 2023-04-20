@@ -18,6 +18,7 @@ export class ReqpopComponent implements OnInit {
   RequirementStatus = Object.values(RequirementStatus);
   RequirementType = Object.values(RequirementType);
   listpartner : Partner [] =[];
+  private partnerId : number
  
 
   constructor(
@@ -44,7 +45,7 @@ export class ReqpopComponent implements OnInit {
       requirementStatus : [item.requirementStatus || '', Validators.required ,],
       workField : [item.workField || '', Validators.required],
       availability : [item.availability || '', Validators.required],
-      partnerNum : [item.partnerId|| '', Validators.required],
+      partnerNum: [this.data.partnerId, Validators.required]
     });
     
   }
@@ -53,6 +54,7 @@ export class ReqpopComponent implements OnInit {
 getpartnern(){
 this.CrudService.getItems().subscribe((data :any )=>{
   this.listpartner = data
+  this.partnerId = this.data.partnerId;
 });
 
 }

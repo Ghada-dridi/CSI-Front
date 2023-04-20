@@ -37,19 +37,19 @@ export class ContactService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  deleteItem(id: number): Observable<contact> {
+  deleteContact(id: number): Observable<contact> {
     const url = `${this.apiUrl2}/${id}`;
     return this.http.delete<contact>(url).pipe(
       catchError(this.handleError)
     );
   }
-  addItem(contact: any): Observable<any> {
+  addContact(contact: any): Observable<any> {
    
     return this.http.post<any>(this.apiUrl2, contact).pipe(
       catchError(this.handleError)
     );
   }
-  updateItem(id: number, contact: contact): Observable<contact> {
+  updateContact(id: number, contact: contact): Observable<contact> {
     const url = `${this.apiUrl2}/${id}`;
     return this.http.put<contact>(url,contact).pipe(
       catchError(this.handleError)

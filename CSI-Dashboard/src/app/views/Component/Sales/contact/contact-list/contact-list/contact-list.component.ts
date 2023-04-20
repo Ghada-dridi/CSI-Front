@@ -74,7 +74,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
     .subscribe(res => {
       if (res) {
         this.loader.open('Deleting Partner');
-        this.contactService.deleteItem(row)
+        this.contactService.deleteContact(row)
           .subscribe((data:any)=> {
             this.dataSource = data;
             this.loader.close();
@@ -100,7 +100,7 @@ openPopUp(data: any = {}, isNew?) {
       }
       if (isNew) {
         this.loader.open('Ajout en cours');
-        this.contactService.addItem(res)
+        this.contactService.addContact(res)
           .subscribe((data:any) => {
             this.dataSource = data;
             this.loader.close();
@@ -109,7 +109,7 @@ openPopUp(data: any = {}, isNew?) {
           })
       } else {
         this.loader.open('Mise à jour');
-        this.contactService.updateItem(data.id, res)
+        this.contactService.updateContact(data.id, res)
           .subscribe((data :any) => {
             this.dataSource = data;
             this.loader.close();

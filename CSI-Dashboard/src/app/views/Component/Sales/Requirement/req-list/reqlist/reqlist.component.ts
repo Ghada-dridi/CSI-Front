@@ -108,7 +108,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
       }
       if (isNew) {
         this.loader.open('Ajout besoin en cours');
-        this.ReqService.addItem(res)
+        this.ReqService.addReq(res)
           .subscribe((data :any)=> {
             this.dataSource = data;
             this.loader.close();
@@ -117,7 +117,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
           })
       } else {
         this.loader.open('Mise à jour besoin');
-        this.ReqService.updateItem(data.id, res)
+        this.ReqService.updateReq(data.id, res)
           .subscribe((data:any) => {
             this.dataSource = data ;
             this.loader.close();

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 
-@Injectable()
+@Injectable({ providedIn: 'root'})
 export class ReqService {
   private apiUrl = 'http://localhost:8085/crm/requirements';
   constructor(private http: HttpClient) { }
@@ -26,7 +26,7 @@ export class ReqService {
     }
   
     // POST a new item
-    addItem(customer: any): Observable<any> {
+    addReq(customer: any): Observable<any> {
       
       return this.http.post<any>(this.apiUrl, customer).pipe(
         catchError(this.handleError)
@@ -34,7 +34,7 @@ export class ReqService {
     }
   
     // PUT an existing item
-    updateItem(id: number, customer: req): Observable<req> {
+    updateReq(id: number, customer: req): Observable<req> {
       const url = `${this.apiUrl}/${id}`;
       return this.http.put<req>(url, customer).pipe(
         catchError(this.handleError)

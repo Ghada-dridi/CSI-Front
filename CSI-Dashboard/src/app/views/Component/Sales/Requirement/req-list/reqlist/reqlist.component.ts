@@ -51,8 +51,6 @@ export class ReqlistComponent implements OnInit , OnDestroy {
     ];
   }
 
-
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -93,7 +91,6 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   applyFilter(event :Event){
     const FilterValue = (event.target as HTMLInputElement).value ;
      this.dataSource.filter = FilterValue.trim().toLowerCase();
- 
  }
 
  openPopUp(data:  any , isNew?) {

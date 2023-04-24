@@ -1,7 +1,7 @@
+import { BenefitListComponent } from './benefit-list/benefit-list.component';
+import { BenefitRoutes } from './benefit.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReqpopComponent } from './req-pop/reqpop/reqpop.component';
-import { ReqlistComponent } from './req-list/reqlist/reqlist.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,22 +24,26 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'app/shared/shared.module';
-import { ReqService } from './req.service';
 import { RouterModule } from '@angular/router';
-import { ReqRoutes } from './req.routing';
+import { BenefitPopComponent } from './benefit-pop/benefit-pop.component';
+import { BenefitService } from './benefit.service';
+import { BenefitDetailComponent } from './benefit-detail/benefit-detail.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { CrudPartnerService } from '../partner/crudPartner.service';
-import { ReqDetailComponent } from './req-detail/req-detail.component';
+
+
 
 
 
 @NgModule({
   declarations: [
-    ReqpopComponent,
-    ReqlistComponent,
-    ReqDetailComponent
+    BenefitListComponent,
+    BenefitPopComponent,
+    BenefitDetailComponent
   ],
-  providers: [ReqService,CrudPartnerService],
+  providers: [
+    BenefitService
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -65,7 +69,8 @@ import { ReqDetailComponent } from './req-detail/req-detail.component';
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
-    RouterModule.forChild(ReqRoutes)
+    MatCheckboxModule,
+    RouterModule.forChild(BenefitRoutes)
   ]
 })
-export class ReqModule { }
+export class BenefitModule { }

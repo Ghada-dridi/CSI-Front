@@ -12,7 +12,7 @@ import { CrudPartnerService } from '../../../partner/crudPartner.service';
 })
 export class ReqpopComponent implements OnInit {
 
-  public itemForm: FormGroup;;
+  public itemForm: FormGroup;
   Availability = Object.values(Availability);
   WorkField :string []= Object.values(WorkField);
   RequirementStatus = Object.values(RequirementStatus);

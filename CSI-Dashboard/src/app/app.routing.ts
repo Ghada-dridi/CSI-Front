@@ -191,6 +191,12 @@ export const rootRouterConfig: Routes = [
           loadChildren: () => import('./views/Component/Sales/rendez-vous/rendez-vous.module').then(m => m.RendezVousModule),
           data: { title: 'Rendez-vous', breadcrumb: 'Rendez-vous'}
       },
+
+      {
+        path: 'benefit',
+        loadChildren: () => import('./views/Component/Sales/benefit/benefit.module').then(m => m.BenefitModule),
+        data: { title: 'Prestation', breadcrumb: 'Prestations'}
+      }
       
       
   

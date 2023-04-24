@@ -28,4 +28,6 @@ export class ReqDetailComponent implements OnInit {
       this.req = data;
     })
   }
+
+  
 }

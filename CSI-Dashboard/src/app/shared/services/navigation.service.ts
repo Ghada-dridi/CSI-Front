@@ -86,9 +86,8 @@ export class NavigationService {
         { name: 'Rendez-vous', state: 'rendezVous/rendezVous' },
         { name:  'Partenaires', state: 'partner/partner-crud'},
         { name: 'Contrats', state: 'shop' },
-        { name: 'Prestation', state: 'shop/cart' },
-
-        {name:  'Besoin', state: 'requirement/requirement-crud'},
+        { name: 'Prestation', state: 'benefit/benefit-list' },
+        { name:  'Besoin', state: 'requirement/requirement-crud'},
         { name: 'Vente & Commande', state: 'shop/cart' },
         { name: 'Rapports', state: 'shop/checkout' }
       ]

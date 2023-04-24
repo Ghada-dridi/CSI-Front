@@ -3,13 +3,10 @@ import { AppLoaderService } from './../../../../../shared/services/app-loader/ap
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { NgxTablePopupComponent } from './ngx-table-popup/ngx-table-popup.component';
 import { Subscription } from 'rxjs';
-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -24,6 +21,7 @@ import { Router } from '@angular/router';
   templateUrl: './crud-ngx-table.component.html',
   animations: egretAnimations
 })
+
 export class CrudNgxTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -43,12 +41,10 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService
   ) {     this.dataSource = new MatTableDataSource<Partner>([]);}
 
+
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()
- 
-
-      
+    this.getItems()  
   }
 
   getDisplayedColumns() {

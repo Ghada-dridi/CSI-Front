@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
@@ -102,6 +103,51 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/app-calendar/app-calendar.module').then(m => m.AppCalendarModule),
         data: { title: 'Calendar', breadcrumb: 'CALENDAR'}
       },
+      {
+        path: 'candidatCrud',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CandidatCrud/candidat-crud.module').then(m => m.CandidatCrudModule),
+        data: { title: 'CandidatCrud', breadcrumb: 'CandidatCrud'}
+      },
+      {
+        path: 'cvCandidat',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CvCandidat/cv-candidat.module').then(m => m.CvCandidatModule),
+        data: { title: 'CvCandidat', breadcrumb: 'CVCANDIDAT'}
+      },
+      {
+        path: 'updateCandidat',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/updateCandidat/updateCandidat.module').then(m => m.updateCandidatModule),
+        data: { title: 'UpdateCandidat', breadcrumb: 'CVCANDIDAT'}
+      },
+
+      {
+        path: 'candidatAffichage/:id',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/candidatAffichage/candidatAffichage.module').then(m => m.candidatAffichageModule),
+        data: { title: 'AffichageCandidat', breadcrumb: 'Candidat'}
+      },
+
+      {
+        path: 'template1',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CvTemplate1/CvTemplate1.module').then(m => m.CvTemplate1Module),
+        data: { title: 'templ1', breadcrumb: 'Candidat'}
+      },
+      
+      {
+        path: 'CandidatEvaluation',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/entretienRecrutment.module').then(m => m.EntretienRecrutmentModule),
+        data: { title: 'EntretienRecrutment', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+
+      {
+        path: 'entretienTable',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_entretienRecrutment/crud_entretienRecrutment.module').then(m => m.CrudEntretienRecrutmentModule),
+        data: { title: 'CrudEvaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+      {
+        path: 'evaluationCrud',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_evaluation/crud_evaluation.module').then(m => m.CrudEvaluationModule),
+        data: { title: 'Evaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+      
       {
         path: 'chat',
         loadChildren: () => import('./views/app-chats/app-chats.module').then(m => m.AppChatsModule),

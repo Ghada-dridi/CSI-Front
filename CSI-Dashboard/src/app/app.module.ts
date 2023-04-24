@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { GestureConfig } from '@angular/material/core';
+
+
 import { 
   PerfectScrollbarModule, 
   PERFECT_SCROLLBAR_CONFIG, 
@@ -24,7 +26,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -43,10 +44,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-//import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -106,7 +107,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FileUploadModule,
     SharedPipesModule,
     PerfectScrollbarModule,
-    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,39 +1,38 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { contract } from 'app/shared/models/contract';
-import { catchError, throwError } from 'rxjs';
-import { Observable } from 'rxjs';
+import { article } from 'app/shared/models/article';
+import { Observable, catchError, throwError } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractEmployeeService {
+export class ArticleService {
+  private apiUrl = 'http://localhost:8084/rh/article';
 
-  private apiUrl = 'http://localhost:8084/rh/contract';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http : HttpClient) { }
 
 
-  getItems(): Observable<contract[]> {
-    return this.http.get<contract[]>(this.apiUrl + '/getAll').pipe(
+  getItems(): Observable<article[]> {
+    return this.http.get<article[]>(this.apiUrl + '/getArticles').pipe(
       catchError(this.handleError)
     );
   }
-  addItem(contract: any): Observable<any> {
-    const url = `${this.apiUrl}/addContract`;
-    return this.http.post<any>(url, contract).pipe(
+  getArticleDescription(articleTitle :string): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/description`);
+  }
+
+  // PUT an existing item
+  updateItem(id: number, article : article): Observable<article> {
+    const url = `${this.apiUrl}/update/${id}`;
+    return this.http.put<article>(url, article).pipe(
       catchError(this.handleError)
     );
   }
- // DELETE an item by id
- deleteItem(id: number): Observable<contract> {
-  const url = `${this.apiUrl}/deleteContract/${id}`;
-  return this.http.delete<contract>(url).pipe(
-    catchError(this.handleError)
-  );
-}
 
+
+   
+ 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

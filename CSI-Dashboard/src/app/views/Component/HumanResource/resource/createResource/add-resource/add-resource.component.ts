@@ -269,6 +269,11 @@ nextTab(tabGroup: MatTabGroup) {
   const nextIndex = (tabGroup.selectedIndex + 1) % tabGroup._tabs.length;
   tabGroup.selectedIndex = nextIndex;
 }
+previousTab(tabGroup: MatTabGroup) {
+  const previousIndex = (tabGroup.selectedIndex + tabGroup._tabs.length - 1) % tabGroup._tabs.length;
+  tabGroup.selectedIndex = previousIndex;
+}
+
 
 
   public fileOverBase(e: any): void {

@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -56,7 +56,7 @@ export class ListeContractComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['photo', 'serialNumber','firstName', 'lastName',  'title', 'departement','actions'];
+    return ['contractTitle', 'contractPlace','contractDate', 'contractStatus','actions'];
   }
   
   getItems() {    
@@ -68,6 +68,70 @@ export class ListeContractComponent implements OnInit {
       })
 
   }
-  
+
+
+  getStatusColor(contractStatus: string): { color: string, displayText: string } {
+    const STATUS_DATA = {
+      ACCEPTED: { color: 'green', displayText: 'Accepté' },
+      STILL_PENDING: { color:'primary', displayText: 'Envoyé' },
+      REFUSED: { color: 'red', displayText: 'Refusé' }
+    };
+    
+    return STATUS_DATA[contractStatus];
+
+
+  }
+
+  /*
+  openPopUp(data: any = {}, isNew?) {
+    let title = isNew ? 'Ajouter une absence' : 'Modifier absence';
+    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupCreateTimeOffComponent, {
+      width: '1000px',
+      disableClose: true,
+
+      data: { title: title, payload: data }
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if(!res) {
+          // If user press cancel
+          return;
+        }
+        if (isNew) {
+          this.loader.open('Ajouter Absence');
+          this.contractEmployeeService.addItem(res)
+            .subscribe(data => {
+              this.dataSource = data;
+              this.loader.close();
+              this.snack.open('Absence Ajoutée!', 'OK', { duration: 4000 })
+            })
+        } else {
+          this.loader.open('Modifier Absence');
+          this.contractEmployeeService.updateItem(data._id, res)
+            .subscribe(data => {
+              this.dataSource = data;
+              this.loader.close();
+              this.snack.open('Absence Modifiée!', 'OK', { duration: 4000 })
+            })
+        }
+      })
+  }*/
+  deleteItem(row) {
+    
+    this.confirmService.confirm({message: `Delete`})
+      .subscribe(res => {
+        if (res) {
+          this.loader.open('supprimer contrat');
+          this.contractEmployeeService.deleteItem(row.id)
+          .subscribe((data:any)=> {
+              this.dataSource = data;
+              this.loader.close();
+              this.snack.open('Contrat  supprimé!', 'OK', { duration: 4000 })
+              this.getItems();
+            })
+        }
+      })
+  }
+
   
 }

@@ -26,6 +26,19 @@ import { Ng2TelInputModule } from "ng2-tel-input";
 import { ContractEmployeeRoutes } from "./contractEmployee.routing";
 import { ListeContractComponent } from "./liste-contract-employee/liste-contract.component";
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { NgChartsModule } from "ng2-charts";
+import { FileUploadModule } from "ng2-file-upload";
+import { SharedPipesModule } from "app/shared/pipes/shared-pipes.module";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatTreeModule } from "@angular/material/tree";
+import { QuillModule } from "ngx-quill";
+import { BrowserModule } from "@angular/platform-browser";
+import { AddContractEmployeeComponent } from "./add-contract-employee/add-contract-employee.component";
 
 
 
@@ -33,9 +46,12 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
+ 
+
   declarations: [
    
-    ListeContractComponent
+    ListeContractComponent,
+    AddContractEmployeeComponent
    
   ],
   imports: [
@@ -64,7 +80,21 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
-    RouterModule.forChild(ContractEmployeeRoutes)
+    MatGridListModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    NgChartsModule,
+    FileUploadModule,
+    SharedPipesModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatTreeModule,
+    QuillModule.forRoot(),
+    
+    
+        RouterModule.forChild(ContractEmployeeRoutes)
   ]
 })
 export class ContractEmployeeModule { }

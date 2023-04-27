@@ -5,6 +5,6 @@ export class article {
     articleNumber?: number;
     articleTitle?: string;
     description?: string;
-    contract?: contract;
+    contractId?: number;
 
 }

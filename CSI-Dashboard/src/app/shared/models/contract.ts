@@ -2,7 +2,7 @@ import { Resource } from "./Resource";
 import { article } from "./article";
 
 export class contract {
-    Id?: number;
+    id?: number;
     contractTitle?: string;
     contractPlace?: Date;
     contractDate?: Date;
@@ -12,6 +12,8 @@ export class contract {
     resource?: Resource;
     articles?: article[];
     resourceId?: number;
+    contractStatus?:ContractStatus;
+    contractIntroduction?:string;
 }
 
 export class exceptionalFee {
@@ -24,6 +26,12 @@ export class exceptionalFee {
    currency?: Currency;
    name?: string;
    contractId?: number;
+}
+export enum ContractStatus{
+  STILL_PENDING,
+  REFUSED,
+  ACCEPTED
+
 }
   export enum FeeType {
     RESTAURANT,

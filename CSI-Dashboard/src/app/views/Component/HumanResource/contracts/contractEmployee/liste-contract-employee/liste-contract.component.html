@@ -64,43 +64,39 @@
      </div>
    </mat-card>
     
-   
+   <button mat-raised-button class="mb-8" style="float: right;" color="primary" routerLink="/Add-contract-employee/add-employee-contract">{{"ADD" | translate }}
+    Contract</button>
+   <div style="clear: both;"></div>
       
    
    
    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
      <mat-card-content class="p-0">
        <mat-table [dataSource]="dataSource" matSort>
-         <ng-container matColumnDef="photo">
-           <mat-header-cell *matHeaderCellDef mat-sort-header > Photo </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="photo"> {{row.photo}} </mat-cell>
+         <ng-container matColumnDef="contractTitle">
+           <mat-header-cell *matHeaderCellDef mat-sort-header > Titre </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractTitle"> {{row.contractTitle}} </mat-cell>
          </ng-container>
    
-         <ng-container matColumnDef="serialNumber">
-           <mat-header-cell *matHeaderCellDef mat-sort-header > Matricule </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
+         <ng-container matColumnDef="contractPlace">
+           <mat-header-cell *matHeaderCellDef mat-sort-header > Lieu </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractPlace"> {{row.contractPlace}} </mat-cell>
          </ng-container>
    
-         <ng-container matColumnDef="firstName">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="firstName"> {{row.firstName}} </mat-cell>
+         <ng-container matColumnDef="contractDate">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractDate"> {{row.contractDate}} </mat-cell>
          </ng-container>
    
-         <ng-container matColumnDef="lastName">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
-           <mat-cell *matCellDef="let row"  data-label="lastName ">{{row.lastName}}</mat-cell>
-         </ng-container>
-   
-         <ng-container matColumnDef="title">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> Poste </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="title"> {{row.title}} </mat-cell>
-         </ng-container>
-  
-         <ng-container matColumnDef="departement">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Département</mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="departement">{{row.departement}}</mat-cell>
+         
+         <ng-container matColumnDef="contractStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Statut </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-chip mat-sm-chip [color]="getStatusColor(row.contractStatus).color">
+              {{ getStatusColor(row.contractStatus).displayText }}
+            </mat-chip>
+          </mat-cell>
         </ng-container>
-    
    
          <ng-container matColumnDef="actions">
            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
@@ -114,6 +110,29 @@
              <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
                <mat-icon>delete</mat-icon>
              </button>
+            
+             <button 
+             class="card-control"
+             mat-icon-button
+             *ngIf="row.contractStatus === 'STILL_PENDING'"
+             [matMenuTriggerFor]="menu2"
+           >
+                  <mat-icon class="text-muted text-18">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu2="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Accepté</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>cancel</mat-icon>
+                    <span>Refusé</span>
+                  </button>
+                 
+                </mat-menu>
+           
+              <mat-divider></mat-divider>
+         
            </mat-cell>
          </ng-container>
    

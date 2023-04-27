@@ -203,6 +203,11 @@ export const rootRouterConfig: Routes = [
         path: 'contractEmployee',
         loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
         data: { title: 'AddResource', breadcrumb: 'AddResources'}
+      },
+      {
+        path: 'Add-contract-employee',
+        loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
+        data: { title: 'AddContractEmployee', breadcrumb: 'AddContractEmployee'}
       }
       
     ]

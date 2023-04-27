@@ -26,6 +26,7 @@ export class ContractService {
     );
   }
 
+ 
   addExceptinalFee(exceptionalFee: any): Observable<any> {
     const url = `${this.apiUrlFee}/add`;
     return this.http.post<any>(url, exceptionalFee).pipe(

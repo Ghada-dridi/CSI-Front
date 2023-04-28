@@ -110,7 +110,7 @@
 
           <mat-step label="Détails de contrat" >
            
-          <form [formGroup]="myFormContract">
+         <!-- <form [formGroup]="myFormContract">-->
             <!--
             <div class="form-group mb-1 col-sm-12 col-md-3">
               <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
@@ -125,39 +125,43 @@
                 />
               </mat-form-field>
             </div>-->
+            <div formArrayName="articles" >
+              <div  *ngFor="let article of myArrayControls; let i = index" [formGroupName]="i">
 
-            <div fxLayout="row wrap">
-              <div fxFlex="100" fxFlex.gt-xs="50">
-                <div class="form-group mb-1 col-sm-12 col-md-3">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Numéro Article</mat-label>
-                    <input matInput type="number" name="articleNumber" formControlName="articleNumber" placeholder="Numéro de l'article" />
-                  </mat-form-field>
+                <div fxLayout="row wrap"   >
+                  <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Numéro Article</mat-label>
+                        <input matInput type="number" name="articleNumber" formControlName="articleNumber" placeholder="Numéro de l'article" />
+                      </mat-form-field>
+                    </div>
                 </div>
-            </div>
-            <div fxFlex="100" fxFlex.gt-xs="50">
-                <div class="form-group mb-1 col-sm-12 col-md-3">
-                   <mat-form-field appearance="outline">
-                        <mat-label>Titre de l'article</mat-label>
-                        <mat-select [formControlName]="'articleTitle'" aria-placeholder="Titre de l'article" (selectionChange)="onArticleTitleChange($event.value)">
-                          <mat-option *ngFor="let articleTitle of Articles" [value]="articleTitle.id">{{ articleTitle.articleTitle }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                       <mat-form-field appearance="outline">
+                            <mat-label>Titre de l'article</mat-label>
+                          <mat-select formControlName="id" aria-placeholder="Titre de l'article" (selectionChange)="onArticleTitleChange($event.value,i)">
+                              <mat-option *ngFor="let articleTitle of Articles" [value]="articleTitle.id">{{ articleTitle.articleTitle }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
+                </div> 
+                 <div  *ngIf="showEditor"    style="padding-bottom: 60px;">
+                      <quill-editor theme="snow" formControlName="description"></quill-editor>
+                  </div>    
+              </div>
             </div>
-            </div> 
-              <div  *ngIf="showEditor"   style="padding-bottom: 60px;">
-                  <quill-editor theme="snow" formControlName="description"></quill-editor>
-              </div>   
             
-             </form>
+             
           
              <div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 16px;">
               <button mat-icon-button >
-                <mat-icon>edit</mat-icon>
+                <mat-icon >edit</mat-icon>
               </button>
               <button mat-icon-button >
-                <mat-icon>add</mat-icon>
+                <mat-icon (click)="addArticleFormGroup()">add</mat-icon>
               </button>
             </div>
        
@@ -172,7 +176,7 @@
 
          
 
-    <mat-step label="Avantages">
+    <!-- <mat-step label="Avantages">
             <mat-card-title class="light-gray mb-16">
               <div class="card-title-text">
                 <div class="">Frais Exceptionnels</div>
@@ -183,7 +187,7 @@
 
 
               <form [formGroup]="repeatForm" class="repeat-form">
-                <div class="card-body" formArrayName="repeatArray">
+                <div class="card-body" >
                   <div class="row" *ngFor="let repeatFormGroup of repeatForm.get('repeatArray')['controls']; let i = index;">
                     <div class="repeater-default">
                       <div fxLayout="row" fxLayoutAlign="space-evenly center" >
@@ -328,7 +332,7 @@
             </div>
         
         
-          </mat-step>
+          </mat-step> -->
           </form></mat-horizontal-stepper>
  
 

@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class ContractEmployeeService {
 
   private apiUrl = 'http://localhost:8084/rh/contract';
+  private apiUrlFee = 'http://localhost:8084/rh/exceptionalFees';
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +31,12 @@ export class ContractEmployeeService {
  deleteItem(id: number): Observable<contract> {
   const url = `${this.apiUrl}/deleteContract/${id}`;
   return this.http.delete<contract>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+addExceptinalFee(exceptionalFee: any): Observable<any> {
+  const url = `${this.apiUrlFee}/add`;
+  return this.http.post<any>(url, exceptionalFee).pipe(
     catchError(this.handleError)
   );
 }

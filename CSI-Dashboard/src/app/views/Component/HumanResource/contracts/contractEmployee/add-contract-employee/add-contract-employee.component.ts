@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 import { article } from 'app/shared/models/article';
+import { Currency, FeeType } from 'app/shared/models/avantagesContrat';
 
 @Component({
   selector: 'app-add-contract-employee',
@@ -37,7 +38,12 @@ export class AddContractEmployeeComponent implements OnInit {
  articles: FormArray;
  myFormArticle : FormGroup;
  updatedArticles = []; 
-
+ FeeTypes = Object.values( FeeType).filter((element) => {
+  return isNaN(Number(element));
+});
+Currency = Object.values( Currency).filter((element) => {
+  return isNaN(Number(element));
+});
   
 
   constructor(
@@ -194,23 +200,23 @@ get myArrayControls() {
       let selectedArticles = this.myFormContract.get('articles').value;
       console.log(selectedArticles);
       
-      let data = {...this.myFormContract.value };
-      console.log(data);
+     // let data = {...this.myFormContract.value };
+      console.log(this.myFormContract.value);
       
-    //   this.contractEmployeeService.addItem(data).subscribe({
-    //  // this.contractEmployeeService.addItem({...this.myFormContract.value , resourceId:this.selectedEmployee.id}).subscribe({
-    //     next: (res) => {
-    //       console.log('Item added successfully', res);
-    //      this.selectedContract = res;
-    //       console.log('Selected contract ID:', this.selectedContract.id);
-    //       console.log('Form value', this.myFormContract.value);
-    //       this.submitted = true;
-    //     },
-    //     error: (e) => console.error('Error adding item', e)
-    //   });
+      this.contractEmployeeService.addItem(this.myFormContract.value).subscribe({
+     // this.contractEmployeeService.addItem({...this.myFormContract.value , resourceId:this.selectedEmployee.id}).subscribe({
+        next: (res) => {
+          console.log('Item added successfully', res);
+         this.selectedContract = res;
+          console.log('Selected contract ID:', this.selectedContract.id);
+          console.log('Form value', this.myFormContract.value);
+          this.submitted = true;
+        },
+        error: (e) => console.error('Error adding item', e)
+      });
     
-    //}
-  }
+    }
+  
   getArticleTitle(){
     this.articleService.getItems().subscribe((data :any )=>{
       this.Articles = data

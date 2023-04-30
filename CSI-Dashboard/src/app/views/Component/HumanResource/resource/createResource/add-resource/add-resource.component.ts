@@ -1,12 +1,12 @@
-import { FeeType, Currency } from './../../../../../../shared/models/contract';
-import { ContractService } from './../contract.service';
+
 import { AddResourceService } from './../add-resource.service';
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { Civility, Country, EmployeeStatus, MaritalSituation, Provenance, Resource, Title, WorkLocation } from 'app/shared/models/Resource';
 import { FileUploader } from 'ng2-file-upload';
-import { contract } from 'app/shared/models/contract';
 import { MatTabGroup } from '@angular/material/tabs';
+import { Currency, FeeType } from 'app/shared/models/avantagesContrat';
+import { ContractEmployeeService } from '../../../contracts/contractEmployee/contract-employee.service';
 
 
 
@@ -85,7 +85,7 @@ export class AddResourceComponent implements OnInit {
     private _formBuilder: FormBuilder,
    
     private addResourceService :AddResourceService ,
-    private contractService : ContractService,
+    private contractService : ContractEmployeeService,
     ) 
     { 
       

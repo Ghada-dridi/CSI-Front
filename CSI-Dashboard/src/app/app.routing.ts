@@ -1,4 +1,5 @@
 
+
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
@@ -237,6 +238,36 @@ export const rootRouterConfig: Routes = [
           loadChildren: () => import('./views/Component/Sales/rendez-vous/rendez-vous.module').then(m => m.RendezVousModule),
           data: { title: 'Rendez-vous', breadcrumb: 'Rendez-vous'}
       },
+      {
+        path: 'resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'Resource', breadcrumb: 'Resources'}
+      },
+      {
+        path: 'externalResource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'External Resource', breadcrumb: 'External Resources'}
+      },
+      {
+        path: 'backOfficeResource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/resourceManagement/resource.module').then(m => m.ResourceModule),
+        data: { title: 'Back Office Resource', breadcrumb: 'Back Office Resources'}
+      },
+      {
+        path: 'add-resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/createResource/add-resource.module').then(m => m.AddResourceModule),
+        data: { title: 'AddResource', breadcrumb: 'AddResources'}
+      },
+      {
+        path: 'contractEmployee',
+        loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
+        data: { title: 'AddResource', breadcrumb: 'AddResources'}
+      },
+      {
+        path: 'Add-contract-employee',
+        loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
+        data: { title: 'AddContractEmployee', breadcrumb: 'AddContractEmployee'}
+      }
 
       {
         path: 'benefit',

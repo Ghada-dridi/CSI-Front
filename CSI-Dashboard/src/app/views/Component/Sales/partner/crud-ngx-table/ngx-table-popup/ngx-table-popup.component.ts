@@ -78,8 +78,13 @@ export class NgxTablePopupComponent implements OnInit {
 
   }
 
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
+
   ngOnInit() {
     this.buildItemForm(this.data.payload)
+    
     this.itemForm.get("country").valueChanges.subscribe((country) => {
       this.itemForm.get("city").reset();
       if (country) {
@@ -89,18 +94,12 @@ export class NgxTablePopupComponent implements OnInit {
     });
 
 
-    this.repeatForm = this._formBuilder.group({
-      repeatArray: this._formBuilder.array([this.createRepeatForm()])
-    });
+  submit() {
+    
+    this.dialogRef.close(this.itemForm.value)
+
 
   }
-
-  onSubmit() {
-    const formData = new FormData();
-    console.log(formData);
-    this.dialogRef.close(this.itemForm.value);
-  
- }
 
   onCountryChange(countryShotName: string) {
     this.states = this.crudService.getStatesByCountry(countryShotName);

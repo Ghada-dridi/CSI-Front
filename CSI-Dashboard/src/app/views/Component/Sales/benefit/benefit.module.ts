@@ -29,6 +29,8 @@ import { BenefitPopComponent } from './benefit-pop/benefit-pop.component';
 import { BenefitService } from './benefit.service';
 import { BenefitDetailComponent } from './benefit-detail/benefit-detail.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { WorkArrangementPopComponent } from './work-arrangement-pop/work-arrangement-pop.component';
+import { ExtraDutyPopComponent } from './extra-duty-pop/extra-duty-pop.component';
 
 
 
@@ -39,7 +41,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   declarations: [
     BenefitListComponent,
     BenefitPopComponent,
-    BenefitDetailComponent
+    BenefitDetailComponent,
+    WorkArrangementPopComponent,
+    ExtraDutyPopComponent
   ],
   providers: [
     BenefitService

@@ -74,14 +74,14 @@
 
             <mat-form-field class="full-width">
               <mat-label>Etat prestation</mat-label>
-              <mat-select  [formControlName]="'BenefitStatus'">
+              <mat-select  [formControlName]="'benefitStatus'">
                 <mat-option *ngFor="let x of benefitStatus" [value]="x">{{ x }}</mat-option>
               </mat-select>
             </mat-form-field>
         </div>
 
         <div fxFlex="50"  class="pr-16">
-            <mat-checkbox >
+            <mat-checkbox [formControlName]="'exceptionalCosts'">
                 Coûts exceptionnels
             </mat-checkbox>
         </div>

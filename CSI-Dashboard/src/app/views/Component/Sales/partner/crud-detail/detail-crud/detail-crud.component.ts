@@ -4,7 +4,6 @@ import { CrudPartnerService } from '../../crudPartner.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Partner } from 'app/shared/models/Partner';
 import { contact } from 'app/shared/models/contact';
-import { Subscription } from 'rxjs';
 import { req } from 'app/shared/models/req';
 import { socialMedia } from 'app/shared/models/socialMedia';
 import { address } from 'app/shared/models/address';
@@ -65,7 +64,7 @@ contacts: contact[]
   ngOnInit(): void {
     this.id = this.route.snapshot.params['iiid'];
     this.getPartner();
-    this.getSocialMedias()
+    this.getSocialMedias();
     this.getContacts();
     this.getRequirements();
     this.getAddresses();

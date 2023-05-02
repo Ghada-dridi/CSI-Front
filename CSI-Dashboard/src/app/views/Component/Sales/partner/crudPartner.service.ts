@@ -1,6 +1,6 @@
 import { Partner } from '../../../../shared/models/Partner';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable,  of,  throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -135,8 +135,16 @@ export class CrudPartnerService {
     return this.countryData.getStatesByShort(name);
   }
 
+  uploadPartnerLogo(id: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const url = `${this.apiUrl}/${id}/image`;
+    return this.http.post(url, formData);
+  }
 
-
-  
+  getPartnerLogo(id: number): Observable<Blob> {
+    const url = `${this.apiUrl}/${id}/image`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
 }
 

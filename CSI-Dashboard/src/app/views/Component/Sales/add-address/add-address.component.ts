@@ -11,12 +11,12 @@ import { CrudPartnerService } from "../partner/crudPartner.service";
 export class addAddressComponent implements OnInit {
     public itemForm: FormGroup;
     public partnerId: number;
+
     
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<addAddressComponent>,
   private fb: FormBuilder,
   private crudPartnerService: CrudPartnerService,
-
   ) { }
   buildItemForm(item){
     this.itemForm = this.fb.group({
@@ -29,9 +29,7 @@ export class addAddressComponent implements OnInit {
         this.buildItemForm(this.data.payload)
     }
     submit() {
-       
         this.dialogRef.close(this.itemForm.value)
-    
-    
+        this.crudPartnerService.getItemAddresses(this.partnerId)
       }
 }

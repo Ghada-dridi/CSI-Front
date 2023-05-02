@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crud-ngx-table',
-  styleUrls: ['crud.scss'],
   templateUrl: './crud-ngx-table.component.html',
   animations: egretAnimations
 })

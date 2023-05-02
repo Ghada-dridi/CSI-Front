@@ -37,6 +37,7 @@ export class BenefitPopComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.itemForm.value)
     this.dialogRef.close(this.itemForm.value)
   }
 

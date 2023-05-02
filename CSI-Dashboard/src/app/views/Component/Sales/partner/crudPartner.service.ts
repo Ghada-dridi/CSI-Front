@@ -17,6 +17,7 @@ export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
   private apiUrl2 = 'http://localhost:8085/crm/addresses';
    private apiUrl3 = 'http://localhost:8085/crm/contacts';
+   private apiUrl4 = 'http://localhost:8085/crm/requirements';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -107,6 +108,12 @@ export class CrudPartnerService {
   deleteContact(id: number): Observable<contact> {
     const url = `${this.apiUrl3}/${id}`;
     return this.http.delete<contact>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteBesoin(id: number): Observable<req> {
+    const url = `${this.apiUrl4}/${id}`;
+    return this.http.delete<req>(url).pipe(
       catchError(this.handleError)
     );
   }

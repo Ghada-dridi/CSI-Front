@@ -59,7 +59,7 @@ contacts: contact[]
   getDisplayedColumns2() {
     return ['title','description',
     
-    'totalCandidateNumber','requirementType','requirementStatus','availability'
+    'totalCandidateNumber','requirementType','requirementStatus','availability' , 'actions'
     ];
   }
   ngOnInit(): void {
@@ -143,6 +143,19 @@ contacts: contact[]
           }
         );
            }
+           deleteBesoin(id: number) {
+            this.partnerService.deleteBesoin(id)
+              .subscribe(
+                response => {
+                  console.log(response);
+                  // Reload the addresses list after deletion
+                  this.getRequirements();
+                },
+                error => {
+                  console.log(error);
+                }
+              );
+                 }
            deleteContact(id: number) {
             this.partnerService.deleteContact(id)
               .subscribe(

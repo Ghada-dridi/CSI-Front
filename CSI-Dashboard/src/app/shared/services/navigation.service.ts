@@ -82,7 +82,7 @@ export class NavigationService {
       tooltip: 'Shop',
       icon: 'shopping_cart',
       sub: [
-        { name: 'Contact', state: 'contact/contact-table' },
+        { name: 'Contact', state: 'contact/contact-list' },
         { name: 'Rendez-vous', state: 'rendezVous/rendezVous' },
         { name:  'Partenaires', state: 'partner/partner-crud'},
         { name: 'Contrats', state: 'shop' },

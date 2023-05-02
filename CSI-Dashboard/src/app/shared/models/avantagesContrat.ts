@@ -19,6 +19,10 @@ export class benefit {
   
 }
 export enum ContractBenifitType {
+    COMPUTER,
+    PHONE,
+    OFFICE_SUPPLIES,
+    FOURNITURE,OTHER
     
 }
 

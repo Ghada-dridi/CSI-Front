@@ -7,28 +7,21 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 
 export const contactRoutes: Routes = [
   {
-    path: '',
-    children: [
-    {
-      path: 'contact-table',
-      component: ContactListComponent,
-      data: { title: '', breadcrumb: 'Material Table' }
-    },
-    {
-      path: 'contact-appointment',
-      component: AppointmentComponent,
-      data: { title: '', breadcrumb: 'Material Table' }
-    },
-    {
-      path: 'contact-note',
-      component: ContactNoteComponent,
-      data: { title: '', breadcrumb: 'Material Table' }
-    },
-    {
-      path: ":iiid",
-      component: ContactDetailComponent ,
-      pathMatch: "full"
-    }
-  ]
+    path: 'contact-list',
+    component: ContactListComponent,
+    data: { title: '', breadcrumb: 'Material Table' }
+  },
+  {
+    path: 'contact-appointment',
+    component: AppointmentComponent,
+    pathMatch: "full"  },
+  {
+    path: 'contact-note',
+    component: ContactNoteComponent,
+    pathMatch: "full"  },
+  {
+    path: ":iiid",
+    component: ContactDetailComponent ,
+    pathMatch: "full"
   }
-];
+]

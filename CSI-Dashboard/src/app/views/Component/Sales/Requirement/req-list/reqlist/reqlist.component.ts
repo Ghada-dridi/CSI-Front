@@ -47,11 +47,9 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
   getDisplayedColumns() {
     return [
-      'title','description','Criteria','requirementType','requirementStatus','workField','actions',
+      'title','description','criteria','requirementType','requirementStatus','workField','actions',
     ];
   }
-
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -93,7 +91,6 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   applyFilter(event :Event){
     const FilterValue = (event.target as HTMLInputElement).value ;
      this.dataSource.filter = FilterValue.trim().toLowerCase();
- 
  }
 
  openPopUp(data:  any , isNew?) {

@@ -5,6 +5,9 @@ import {  Validators,  FormGroup, FormBuilder, FormArray, FormControl } from '@a
 import { Partner,CompanyStatus,WorkField,LegalStatus,Provenance ,Country} from 'app/shared/models/Partner';
 import { Civility, Privilege, Service } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType } from 'app/shared/models/req';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { log } from 'console';
 
 
 @Component({
@@ -18,7 +21,7 @@ export class NgxTablePopupComponent implements OnInit {
   addOnBlur = true;
 
 
-  public itemForm: FormGroup;;
+  public itemForm: FormGroup;
   CompanyStatus = Object.values(CompanyStatus);
   WorkField :string []= Object.values(WorkField);
   LegalStatus = Object.values(LegalStatus);
@@ -43,6 +46,7 @@ export class NgxTablePopupComponent implements OnInit {
     public dialogRef: MatDialogRef<NgxTablePopupComponent>,
     private fb: FormBuilder,
     private crudService: CrudPartnerService,  
+    private http: HttpClient
   ) {     this.countries = this.crudService.getCountries();
 
   }
@@ -60,7 +64,7 @@ export class NgxTablePopupComponent implements OnInit {
       postCode : [item.postCode || '', Validators.required],
       city : [item.city || '', Validators.required],
       description : [item.description || '', Validators.required],
-      logo : [item.logo || '', Validators.required],
+      logo : [item.logo || null, Validators.required],
       activityStartDate : [item.activityStartDate || '', Validators.required],
       partnerShipDate : [item.partnerShipDate || '', Validators.required],
       companyStatus : [item.companyStatus || '', Validators.required],
@@ -69,50 +73,13 @@ export class NgxTablePopupComponent implements OnInit {
       workField : [item.workField || '', Validators.required],
       legalStatus : [item.legalStatus || '', Validators.required],
       provenance : [item.provenance || '', Validators.required],
-      firstName : [item.firstName || '', Validators.required],
-      lastName : [item.lastName || '', Validators.required],
-      function : [item.function || '', Validators.required],
-      emailOne : [item.emailOne || '', Validators.required],
-      emailTwo : [item.emailTwo || '', Validators.required],
-      devise : [item.devise || '', Validators.required],
-      phoneNumberOne : [item.phoneNumberOne || '', Validators.required],
-      
-      comment : [item.comment || '', Validators.required],
-      privilege : [item.privilege || '', Validators.required],
-      civility : [item.civility || '', Validators.required],
-      service : [item.service || '', Validators.required],
-      title : [item.title || '', Validators.required],
-     
-      criteria : [item.criteria || '', Validators.required],
-      plannedBudget : [item.plannedBudget || '', Validators.required],
-      plannedIncome : [item.plannedIncome || '', Validators.required ,],
-      startDate: [item.startDate ||'', Validators.required, ],
-      expectedEndDate : [item.expectedEndDate || '', Validators.required],
-      responseDate : [item.responseDate || '', Validators.required],
-      totalCandidateNumber : [item.totalCandidateNumber || '', Validators.required],
-      requirementType : [item.requirementType || '', Validators.required],
-      requirementStatus : [item.requirementStatus || '', Validators.required ,],
-      
-      availability : [item.availability || '', Validators.required],
-      fileSource: new FormControl('', [Validators.required])
-  
-      
+      devise : [item.devise || '', Validators.required]
     });
 
   }
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const fileContent = reader.result as string; // Convert to string
-      this.itemForm.get("logo").setValue(fileContent); }
-     // reader.readAsDataURL(this.selectedFile);
-  }
   ngOnInit() {
     this.buildItemForm(this.data.payload)
-    
     this.itemForm.get("country").valueChanges.subscribe((country) => {
       this.itemForm.get("city").reset();
       if (country) {
@@ -122,23 +89,18 @@ export class NgxTablePopupComponent implements OnInit {
     });
 
 
-
-
-
-
     this.repeatForm = this._formBuilder.group({
       repeatArray: this._formBuilder.array([this.createRepeatForm()])
     });
 
   }
 
-  submit() {
-    /*const formData = new FormData();
-    formData.append('file', this.itemForm.get('fileSource').value);*/
-    this.dialogRef.close(this.itemForm.value)
-
-
-  }
+  onSubmit() {
+    const formData = new FormData();
+    console.log(formData);
+    this.dialogRef.close(this.itemForm.value);
+  
+ }
 
   onCountryChange(countryShotName: string) {
     this.states = this.crudService.getStatesByCountry(countryShotName);
@@ -163,6 +125,22 @@ export class NgxTablePopupComponent implements OnInit {
   }
   }
   
+  onFileSelected(event) {
+    const reader = new FileReader();
 
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        console.log(reader.result)
+        this.itemForm.patchValue({
+          logo: reader.result
+        });
+
+        console.log(this.itemForm.value)
+      };
+    }
+  }
 
 }

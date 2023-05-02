@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ReqlistComponent } from './req-list/reqlist/reqlist.component';
 import { ReqpopComponent } from './req-pop/reqpop/reqpop.component';
+import { ReqDetailComponent } from './req-detail/req-detail.component';
 
 
 export const ReqRoutes: Routes = [
@@ -9,5 +10,14 @@ export const ReqRoutes: Routes = [
     component: ReqlistComponent, 
     data: { title: '', breadcrumb: 'Table' } 
   },
-  
+  {
+    path: "",
+    component:ReqpopComponent ,
+    pathMatch: "full"
+  },
+  {
+    path: ":iiid",
+    component: ReqDetailComponent ,
+    pathMatch: "full"
+  }
 ];

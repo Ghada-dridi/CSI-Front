@@ -9,7 +9,7 @@ export interface req {
     requirementType :RequirementType;
     requirementStatus ?:RequirementStatus,
     workField ?:WorkField,
-    availability:Availability;
+    availability:Availability
     plannedBudget?: number,
     plannedIncome?: number,
     startDate? :string ,

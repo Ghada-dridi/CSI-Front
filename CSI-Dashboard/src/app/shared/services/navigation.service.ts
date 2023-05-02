@@ -58,15 +58,15 @@ export class NavigationService {
       badges: [{ color: 'warn', value: '1' }]
     },
    
-
     {
       name: 'Ressource Humaine',
       type: 'dropDown',
       tooltip: 'RH',
       icon: 'group',
       sub: [
-        { name: 'Candidats', state: 'cruds/ngx-table' },
-        { name: 'Entretiens & Recrutement', state: 'cruds/ngx-table' },
+
+        { name: 'Candidats', state: 'candidatCrud/CandidatCrud-table' },
+        { name: 'Entretiens & Recrutement', state: 'entretienTable/tableEntretien' },
         { name: 'Ressources', state: 'shop/products/5a9ae2106f155194e5c95d67' },
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
@@ -86,9 +86,8 @@ export class NavigationService {
         { name: 'Rendez-vous', state: 'rendezVous/rendezVous' },
         { name:  'Partenaires', state: 'partner/partner-crud'},
         { name: 'Contrats', state: 'shop' },
-        { name: 'Prestation', state: 'shop/cart' },
-
-        {name:  'Besoin', state: 'requirement/requirement-crud'},
+        { name: 'Prestation', state: 'benefit/benefit-list' },
+        { name:  'Besoin', state: 'requirement/requirement-crud'},
         { name: 'Vente & Commande', state: 'shop/cart' },
         { name: 'Rapports', state: 'shop/checkout' }
       ]
@@ -108,6 +107,11 @@ export class NavigationService {
 
        
       ]
+
+
+
+
+
     },
 
      {

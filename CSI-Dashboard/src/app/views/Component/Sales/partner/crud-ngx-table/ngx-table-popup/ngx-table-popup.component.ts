@@ -78,10 +78,8 @@ export class NgxTablePopupComponent implements OnInit {
 
   }
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-  }
-
+  
+ 
   ngOnInit() {
     this.buildItemForm(this.data.payload)
     
@@ -92,7 +90,7 @@ export class NgxTablePopupComponent implements OnInit {
    
       }
     });
-
+  }
 
   submit() {
     
@@ -136,7 +134,7 @@ export class NgxTablePopupComponent implements OnInit {
         this.itemForm.patchValue({
           logo: reader.result
         });
-
+  
         console.log(this.itemForm.value)
       };
     }

@@ -40,6 +40,14 @@ export class ContractEmployeeService {
     catchError(this.handleError)
   );
 }
+
+ // GET an item by id
+ getItem(id: number): Observable<contract> {
+  const url = `${this.apiUrl}/getContract/${id}`;
+  return this.http.get<contract>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 /******************************************  Api Exceptional Fee  *************************************************/
 
 /** Add Exceptional Fee **/

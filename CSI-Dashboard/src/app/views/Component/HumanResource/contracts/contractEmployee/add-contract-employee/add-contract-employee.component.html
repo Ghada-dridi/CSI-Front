@@ -187,10 +187,10 @@
 
 
               <form  [formGroup]="myFormExceptionalFee">
-                <div class="card-body" >
-                  <div class="row">
+                <div class="card-body" formArrayName="value"  >
+                  <div class="row" >
                     <div class="repeater-default">
-                      <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                      <div fxLayout="row"  fxLayoutAlign="space-evenly center" *ngFor="let val of getMyValueExceptional; let i = index"  [formGroupName]="i"  >
                       <div>
                           <div class="form-group mb-1 col-sm-12 col-md-3">
                           <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
@@ -253,7 +253,7 @@
                             <button mat-icon-button color="warn" type="button">
                               <mat-icon>delete</mat-icon>
                             </button>
-                            <button mat-icon-button color="primary" type="button" (click)="addExceptionalFee()">
+                            <button mat-icon-button color="primary" type="button" (click)="addExceptionalFee(i)">
                               <mat-icon>add</mat-icon>
                             </button>
                            
@@ -278,7 +278,7 @@
           </mat-card-title>
           <mat-card-content>
 
-            <form >
+            <form   [formGroup]="myFormBenefit">
               <div class="card-body" >
                 <div class="row">
                   <div class="repeater-default">
@@ -289,28 +289,28 @@
                           <mat-label>Contrat</mat-label>
                       
                           <input
-                            matInput
-                            name="contractId"
-                           
-                            [(ngModel)]="selectedContract.id"
-                            placeholder="Contrat"
-                            formControlName="contractId"
-                            disabled="true"
-                          />
+                          matInput
+                          name="contractId"
+                         
+                          value="{{selectedContract.id}}"
+                          placeholder="Contrat"
+                          formControlName="contractId"
+                          disabled="true"
+                        />
                         </mat-form-field>
                       </div>
                       <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                             <mat-label>Titre </mat-label>
-                            <input matInput name="titleBenifit" formControlName="titleBenifit" placeholder="" value="" required>
+                            <input matInput name="shortDescription" formControlName="shortDescription" placeholder="" value="" required>
                           </mat-form-field>
                         </div>
                         
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <mat-form-field appearance="outline" [style.width.cm]="12" >
                             <mat-label>Type</mat-label>
-                            <mat-select formControlName="contractTypeBenifit" placeholder="Ex. " required>
+                            <mat-select formControlName="contractBenifitType" placeholder="Ex. " required>
                               <mat-option *ngFor="let contractTypeBenifit of ContractBenifitTypes" [value]="contractTypeBenifit">{{contractTypeBenifit}}</mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -320,7 +320,7 @@
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <mat-form-field appearance="outline" [style.width.cm]=25>
                             <mat-label>Description du frais </mat-label>
-                            <input matInput name="fraisDescription" formControlName="fraisDescription" placeholder="" value="" required>
+                            <input matInput name="description" formControlName="description" placeholder="" value="" required>
                           </mat-form-field>
                         </div>
                        
@@ -328,7 +328,7 @@
                           <button mat-icon-button color="warn" type="button">
                             <mat-icon>delete</mat-icon>
                           </button>
-                          <button mat-icon-button color="primary" type="button">
+                          <button mat-icon-button color="primary" type="button" (click)="addBenefit()">
                             <mat-icon>add</mat-icon>
                           </button>
                         </div>

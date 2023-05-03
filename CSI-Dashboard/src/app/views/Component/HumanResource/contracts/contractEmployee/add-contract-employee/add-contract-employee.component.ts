@@ -38,6 +38,7 @@ export class AddContractEmployeeComponent implements OnInit {
  Articles : article[] = [];
  articles: FormArray;
  myFormExceptionalFee : FormGroup;
+ myFormBenefit : FormGroup;
  myFormArticle : FormGroup;
  updatedArticles = []; 
  FeeTypes = Object.values( FeeType).filter((element) => {
@@ -109,28 +110,28 @@ ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => 
 
   this.myFormExceptionalFee = this.fb.group({
     // contractId:new FormControl({value:'' , disabled:true}),
+    value : new FormArray([])
+   
+     
+   });
+   (this.myFormExceptionalFee.get('value') as FormArray).push(this.fb.group({
     shortDescription : new FormControl('', Validators.required), 
     feeType : new FormControl('', Validators.required), 
     amount : new FormControl ('', Validators.required),
     currency : new FormControl('', Validators.required), 
     name : new FormControl ('', Validators.required),
+  }));
+   
+  this.myFormBenefit = this.fb.group({
+    // contractId:new FormControl({value:'' , disabled:true}),
+    shortDescription : new FormControl('', Validators.required), 
+    description : new FormControl('', Validators.required), 
+    contractBenifitType : new FormControl ('', Validators.required),
+    
    
      
    });
- /* this.myFormArticle = new FormGroup ({
 
-    articleNumber: new FormControl('', Validators.required), 
-    articleTitle: new FormControl('', Validators.required), 
-   description : new FormControl('', Validators.required), 
-
-  }) */
-  /*const articles = this.myFormContract.get('articles') as FormArray;
-  articles.push(new FormGroup({
-    id: new FormControl('', Validators.required),
-    articleTitle: new FormControl('', Validators.required),
-    articleNumber: new FormControl('', Validators.required), 
-    description: new FormControl('', Validators.required),
-  }));*/
 
 
 
@@ -138,6 +139,10 @@ ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => 
 
 get myArrayControls() {
   return (this.myFormContract.get('articles') as FormArray).controls;
+}
+
+get getMyValueExceptional() {
+  return (this.myFormExceptionalFee.get('value') as FormArray).controls;
 }
 
 
@@ -165,10 +170,7 @@ get myArrayControls() {
       setTimeout(() => {
        this.myFormContract.controls["description"].setValue(this.Articles.filter((e) => e.id == value)[0].description);
       
-    /*  const articles = this.myFormContract.get('articles') as FormArray;
-        const articleGroup = articles.at(0) as FormGroup;
-       articleGroup.controls['description'].setValue(this.Articles.filter((e) => e.id === value)[0].description);
-        articleGroup.controls['id'].setValue(this.Articles.filter((e) => e.id === value)[0].id);*/
+    
       });
     
     
@@ -185,17 +187,42 @@ get myArrayControls() {
   }
 
 
-  addExceptionalFee(): void {
+
+  addBenefit(): void {
+    console.log('Submitting form...');
+    
+    this.contractEmployeeService.addBenefit({...this.myFormBenefit.value, contractId:this.selectedContract.id}).subscribe({
+      next: (res) => {
+        console.log('Item added successfully', res);
+       console.log('Form value', this.myFormBenefit.value);
+        this.submitted = true;
+
+      },
+      error: (e) => {
+        console.error('Error adding item', e);
+        console.log('Form is invalid');
+        console.log(this.myFormBenefit.errors);
+      }
+    });
+  }
+
+  addExceptionalFee(i:any): void {
     
 
       console.log('Submitting form...');
       
-      this.contractEmployeeService.addExceptinalFee({...this.myFormExceptionalFee.value, contractId:this.selectedContract.id}).subscribe({
+      this.contractEmployeeService.addExceptinalFee({...this.myFormExceptionalFee.get('value.'+i).value, contractId:this.selectedContract.id}).subscribe({
         next: (res) => {
           console.log('Item added successfully', res);
          console.log('Form value', this.myFormExceptionalFee.value);
           this.submitted = true;
-    
+          (this.myFormExceptionalFee.get('value') as FormArray).push(this.fb.group({
+            shortDescription : new FormControl('', Validators.required), 
+            feeType : new FormControl('', Validators.required), 
+            amount : new FormControl ('', Validators.required),
+            currency : new FormControl('', Validators.required), 
+            name : new FormControl ('', Validators.required),
+          }));
         
         },
         error: (e) => {
@@ -217,7 +244,7 @@ get myArrayControls() {
       let selectedArticles = this.myFormContract.get('articles').value;
       console.log(selectedArticles);
       
-     // let data = {...this.myFormContract.value };
+     
       console.log(this.myFormContract.value);
       
       this.contractEmployeeService.addItem(this.myFormContract.value).subscribe({

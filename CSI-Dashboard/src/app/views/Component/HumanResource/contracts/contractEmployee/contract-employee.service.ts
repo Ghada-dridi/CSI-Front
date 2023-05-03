@@ -1,3 +1,4 @@
+import { benefit } from './../../../../../shared/models/avantagesContrat';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { contract } from 'app/shared/models/contract';
@@ -12,6 +13,7 @@ export class ContractEmployeeService {
 
   private apiUrl = 'http://localhost:8084/rh/contract';
   private apiUrlFee = 'http://localhost:8084/rh/exceptionalFees';
+ private apiUrlBenefit ='http://localhost:8084/rh/Benefit' 
 
   constructor(private http: HttpClient) { }
 
@@ -40,6 +42,13 @@ addExceptinalFee(exceptionalFee: any): Observable<any> {
     catchError(this.handleError)
   );
 }
+addBenefit(benefit: any): Observable<any> {
+  const url = `${this.apiUrlBenefit}/add`;
+  return this.http.post<any>(url, benefit).pipe(
+    catchError(this.handleError)
+  );
+}
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

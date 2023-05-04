@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListeContractComponent } from './liste-contract.component';
+import { ViewContractComponent } from './view-contract.component';
 
-describe('ListeContractComponent', () => {
-  let component: ListeContractComponent;
-  let fixture: ComponentFixture<ListeContractComponent>;
+describe('ViewContractComponent', () => {
+  let component: ViewContractComponent;
+  let fixture: ComponentFixture<ViewContractComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListeContractComponent ]
+      declarations: [ ViewContractComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListeContractComponent);
+    fixture = TestBed.createComponent(ViewContractComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

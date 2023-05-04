@@ -1,0 +1,82 @@
+<!-- Edit Invoice -->
+<mat-card >
+    <form>
+  
+  
+      <!-- order details -->
+      <div fxLayout="row wrap" fxLayoutAlign="space-between" class="order-info">
+        <div fxLayout="column" fxFlex="33.33%">
+            <img src="assets/images/csiLogo.png" width="150px">
+         
+          <strong>{{ contract.contractTitle}}</strong>
+        </div>
+   
+      
+  
+         
+        </div>
+        
+      
+      <!-- end of order details -->
+  
+      
+        <div> {{ contract.contractIntroduction}}</div>
+        <div *ngFor="let article of contract.articles">
+            <strong>article numero : {{article.articleNumber}} : {{article.articleTitle}} </strong>
+         <div>{{article.description}}</div>
+            
+          </div>
+      
+  
+      <!-- billing details -->
+     
+      <!-- end of total cost -->
+    </form>
+  </mat-card>
+  <!-- end of edit invoice -->
+  <!-- =================================================== -->
+  
+  <!-- =================================================== -->
+  <!-- invoice details -->
+  <mat-card  class="invoice-details">
+    <div fxLayout="row">
+      <button mat-icon-button routerLink="/invoice/list">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span fxFlex></span>
+  
+      <button
+        mat-flat-button
+        color="primary"
+        class="ml-16 mr-16"
+        
+      >
+        Edit Invoice
+      </button>
+      <button mat-flat-button color="accent" >
+        Print Invoice
+      </button>
+    </div>
+    <div id="print-area">
+      <!-- order details -->
+      <div class="order-info" fxLayout="row" fxLayoutAlign="space-between">
+        <div>
+         
+        </div>
+  
+        <div>
+         
+        </div>
+      </div>
+      <!-- end of order details -->
+  
+      <mat-divider></mat-divider>
+  
+      <!-- billing details -->
+    
+  
+      <!-- total cost -->
+    
+      <!-- end of total cost -->
+    </div>
+  </mat-card>

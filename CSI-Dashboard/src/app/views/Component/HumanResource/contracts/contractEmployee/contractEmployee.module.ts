@@ -39,6 +39,7 @@ import { MatTreeModule } from "@angular/material/tree";
 import { QuillModule } from "ngx-quill";
 import { BrowserModule } from "@angular/platform-browser";
 import { AddContractEmployeeComponent } from "./add-contract-employee/add-contract-employee.component";
+import { ViewContractComponent } from './view-contract/view-contract.component';
 
 
 
@@ -51,7 +52,8 @@ import { AddContractEmployeeComponent } from "./add-contract-employee/add-contra
   declarations: [
    
     ListeContractComponent,
-    AddContractEmployeeComponent
+    AddContractEmployeeComponent,
+    ViewContractComponent
    
   ],
   imports: [

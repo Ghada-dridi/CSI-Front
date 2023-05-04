@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { ListeContractComponent } from './liste-contract-employee/liste-contract.component';
 import { AddContractEmployeeComponent } from './add-contract-employee/add-contract-employee.component';
+import { ViewContractComponent } from './view-contract/view-contract.component';
 
 
 export const ContractEmployeeRoutes: Routes = [
@@ -15,5 +16,9 @@ export const ContractEmployeeRoutes: Routes = [
     component: AddContractEmployeeComponent , 
     data: { title: 'AddEmployeeContracts', breadcrumb: 'AddEmployeeContract' } 
   },
-  
+  {
+    path: ":id",
+    component:ViewContractComponent ,
+    pathMatch: "full"
+  }
 ];

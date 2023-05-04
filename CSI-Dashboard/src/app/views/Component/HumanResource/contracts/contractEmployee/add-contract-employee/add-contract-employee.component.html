@@ -282,7 +282,7 @@
               <div class="card-body" >
                 <div class="row">
                   <div class="repeater-default">
-                    <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngFor="let val of getMyValueBenefit; let i = index"  [formGroupName]="i" >
                     <div>
                       <div class="form-group mb-1 col-sm-12 col-md-3">
                         <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
@@ -328,7 +328,7 @@
                           <button mat-icon-button color="warn" type="button">
                             <mat-icon>delete</mat-icon>
                           </button>
-                          <button mat-icon-button color="primary" type="button" (click)="addBenefit()">
+                          <button mat-icon-button color="primary" type="button" (click)="addBenefit(i)">
                             <mat-icon>add</mat-icon>
                           </button>
                         </div>

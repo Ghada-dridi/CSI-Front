@@ -1,4 +1,4 @@
-import { benefit } from './../../../../../shared/models/avantagesContrat';
+import { benefit, exceptionalFee } from './../../../../../shared/models/avantagesContrat';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { contract } from 'app/shared/models/contract';
@@ -13,41 +13,100 @@ export class ContractEmployeeService {
 
   private apiUrl = 'http://localhost:8084/rh/contract';
   private apiUrlFee = 'http://localhost:8084/rh/exceptionalFees';
- private apiUrlBenefit ='http://localhost:8084/rh/Benefit' 
+  private apiUrlBenefit ='http://localhost:8084/rh/Benefit' 
 
   constructor(private http: HttpClient) { }
 
-
+/************************************** Api Contract    *********************************************/
+/** getAllContracts**/
   getItems(): Observable<contract[]> {
     return this.http.get<contract[]>(this.apiUrl + '/getAll').pipe(
       catchError(this.handleError)
     );
   }
+   /** Add Contract**/
   addItem(contract: any): Observable<any> {
     const url = `${this.apiUrl}/addContract`;
     return this.http.post<any>(url, contract).pipe(
       catchError(this.handleError)
     );
   }
- // DELETE an item by id
+
+
+  /** Delete Contract**/
  deleteItem(id: number): Observable<contract> {
   const url = `${this.apiUrl}/deleteContract/${id}`;
   return this.http.delete<contract>(url).pipe(
     catchError(this.handleError)
   );
 }
+
+ // GET an item by id
+ getItem(id: number): Observable<contract> {
+  const url = `${this.apiUrl}/getContract/${id}`;
+  return this.http.get<contract>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+/******************************************  Api Exceptional Fee  *************************************************/
+
+/** Add Exceptional Fee **/
 addExceptinalFee(exceptionalFee: any): Observable<any> {
   const url = `${this.apiUrlFee}/add`;
   return this.http.post<any>(url, exceptionalFee).pipe(
     catchError(this.handleError)
   );
 }
+
+/** Delete Exceptional Fee**/
+ 
+deleteExceptinalFee(id: number): Observable<exceptionalFee> {
+  const url = `${this.apiUrlFee}/${id}`;
+  return this.http.delete<exceptionalFee>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+
+
+/*********************************************** Api Benefit    ****************************************************/
+/** Add benefit**/
 addBenefit(benefit: any): Observable<any> {
   const url = `${this.apiUrlBenefit}/add`;
   return this.http.post<any>(url, benefit).pipe(
     catchError(this.handleError)
   );
 }
+
+
+   
+/** Delete Benefit **/
+  deleteBenefit(id: number): Observable<benefit> {
+    const url = `${this.apiUrlBenefit}/${id}`;
+    return this.http.delete<benefit>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   private handleError(error: HttpErrorResponse) {

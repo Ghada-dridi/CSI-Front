@@ -21,11 +21,12 @@ export class AddContractEmployeeComponent implements OnInit {
   showEditor = true;
   selectedArticleDescription: string = '';
   selectedArticle : any;
-
   selectedContract = {contractTitle :'',startDate:'', id:null};
+
+
   formArticle = new FormGroup({
-    articleTitle: new FormControl(''),
-    description: new FormControl('test')
+  articleTitle: new FormControl(''),
+  description: new FormControl('test')
   });
 
   articleForm : FormGroup;
@@ -35,24 +36,28 @@ export class AddContractEmployeeComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: 'https://evening-anchorage-315.herokuapp.com/api/' });
   public hasBaseDropZoneOver: boolean = false;
   console = console;
- Articles : article[] = [];
- articles: FormArray;
- myFormExceptionalFee : FormGroup;
- myFormBenefit : FormGroup;
- myFormArticle : FormGroup;
- updatedArticles = []; 
- FeeTypes = Object.values( FeeType).filter((element) => {
-  return isNaN(Number(element));
-});
-Currency = Object.values( Currency).filter((element) => {
-  return isNaN(Number(element));
-});
-ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => {
-  return isNaN(Number(element));
-});
-  
+  Articles : article[] = [];
+  articles: FormArray;
+  myFormExceptionalFee : FormGroup;
+  myFormBenefit : FormGroup;
+  myFormArticle : FormGroup;
+  updatedArticles = []; 
 
+
+  FeeTypes = Object.values( FeeType).filter((element) => {
+  return isNaN(Number(element));
+  });
+  Currency = Object.values( Currency).filter((element) => {
+  return isNaN(Number(element));
+  });
+  ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => {
+  return isNaN(Number(element));
+  });
+  
+/********************** Constructeur*************************/
   constructor(
+
+
     private fb: FormBuilder,
     private _formBuilder: FormBuilder,
     private contractEmployeeService: ContractEmployeeService,
@@ -60,10 +65,10 @@ ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => 
     private http : HttpClient,
     ) { }
 
-  ngOnInit() : void{
 
-    
-    
+
+    /***********************************  ngOninit  ************************************ */
+  ngOnInit() : void{
     this.myForm = new FormGroup({
       articles: new FormArray([])
     });
@@ -93,7 +98,12 @@ ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => 
     startDate : new FormControl('', Validators.required), 
     endDate : new FormControl ('', Validators.required),
     editorContent : new FormControl('<p>test</p>', Validators.required),
-    contractIntroduction: new FormControl(`<p>Le présent contrat est conclu entre les parties signataires ci-après :<br>La Société CSI DIGITAL, SARL, au Capital de 10 000 dinars tunisiens dont le Siège Social est sis au Parc d&apos;Activité Economique de Bizerte, inscrite au Registre National des Entreprise sous le numéro 1764694X représentée par son Gérant M&apos;hamed Khamassi.<br>En sa qualité d&apos;employeur d&apos;une part <br>1. ET,<br> Mr ……….. de nationalité Tunisienne, né(e) le …………………... à ………………., demeurant   au ……………………………, titulaire de CIN n° ……………….,  émise à …………………….<br> le ……………………………… <br>En cas de son changement M. ……………….. s&apos;engage à informer son employeur par lettre recommandée avec accusé de réception, faute de quoi l&apos;adresse ci-dessus reste valable.<br>En sa qualité d&apos;employé d&apos;autre part,</p>` ,Validators.required ),
+    contractIntroduction: new FormControl(`Le présent contrat est conclu entre les parties signataires ci-après :La Société CSI DIGITAL, SARL, au Capital de 10 000 dinars tunisiens dont le Siège Social est sis au Parc d'Activité Economique de Bizerte, inscrite au Registre National des Entreprise sous le numéro 1764694X représentée par son Gérant M'hamed Khamassi.
+    En sa qualité d'employeur d'une part 
+    1. ET,
+     Mr ……….. de nationalité Tunisienne, né(e) le …………………... à ………………., demeurant   au ……………………………, titulaire de CIN n° ……………….,  émise à ……………………. le ……………………………… 
+     En cas de son changement M. ……………….. s'engage à informer son employeur par lettre recommandée avec accusé de réception, faute de quoi l'adresse ci-dessus reste valable.
+     En sa qualité d'employé d'autre part,` ,Validators.required ),
     contractPlace: new FormControl('', Validators.required), 
    contractDate: new FormControl('', Validators.required), 
    description : new FormControl('', Validators.required), 
@@ -122,17 +132,19 @@ ContractBenifitTypes  = Object.values( ContractBenifitType).filter((element) => 
     name : new FormControl ('', Validators.required),
   }));
    
-  this.myFormBenefit = this.fb.group({
+  
+
+   this.myFormBenefit = this.fb.group({
+    // contractId:new FormControl({value:'' , disabled:true}),
+    valueBenefit : new FormArray([])  
+   });
+
+   (this.myFormBenefit.get('valueBenefit') as FormArray).push(this.fb.group({
     // contractId:new FormControl({value:'' , disabled:true}),
     shortDescription : new FormControl('', Validators.required), 
     description : new FormControl('', Validators.required), 
-    contractBenifitType : new FormControl ('', Validators.required),
-    
-   
-     
-   });
-
-
+    contractBenifitType : new FormControl ('', Validators.required), 
+   }));
 
 
 }
@@ -143,6 +155,10 @@ get myArrayControls() {
 
 get getMyValueExceptional() {
   return (this.myFormExceptionalFee.get('value') as FormArray).controls;
+}
+
+get getMyValueBenefit() {
+  return (this.myFormBenefit.get('valueBenefit') as FormArray).controls;
 }
 
 
@@ -188,14 +204,20 @@ get getMyValueExceptional() {
 
 
 
-  addBenefit(): void {
+  addBenefit(i: any): void {
     console.log('Submitting form...');
     
-    this.contractEmployeeService.addBenefit({...this.myFormBenefit.value, contractId:this.selectedContract.id}).subscribe({
+    this.contractEmployeeService.addBenefit({...this.myFormBenefit.get('valueBenefit.'+ i).value, contractId:this.selectedContract.id}).subscribe({
       next: (res) => {
         console.log('Item added successfully', res);
        console.log('Form value', this.myFormBenefit.value);
         this.submitted = true;
+        (this.myFormBenefit.get('valueBenefit') as FormArray).push(this.fb.group({
+          // contractId:new FormControl({value:'' , disabled:true}),
+          shortDescription : new FormControl('', Validators.required), 
+          description : new FormControl('', Validators.required), 
+          contractBenifitType : new FormControl ('', Validators.required), 
+         }));
 
       },
       error: (e) => {

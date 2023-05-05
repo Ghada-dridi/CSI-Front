@@ -84,6 +84,19 @@ export class BenefitDetailComponent implements OnInit {
         }
       );
   }
+  deleteWorkArrangement(id: number) {
+    this.benefitService.deleteWorkArrangement(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          // Reload the addresses list after deletion
+          this.getWorkArrangements()
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
   openPopUp(data: any = {} , isNew?) {
     let title = isNew ? 'Ajouter activité exceptionnelle' : 'Modifier activité exceptionnelle';
     let dialogRef: MatDialogRef<any> = this.dialog.open(ExtraDutyPopComponent, {
@@ -136,7 +149,7 @@ export class BenefitDetailComponent implements OnInit {
           this.loader.open('Ajout en cours');
           this.benefitService.addWorkArrangement(res)
             .subscribe((data:any) => {
-              this.dataSource = data;
+              this.dataSource2 = data;
               this.loader.close();
               this.snack.open('Modalité de travail ajoutée avec succès!', 'OK', { duration: 4000 })
               this.getWorkArrangements()
@@ -145,7 +158,7 @@ export class BenefitDetailComponent implements OnInit {
           this.loader.open('Mise à jour');
           this.benefitService.updateWorkArrangement(data.id, res)
             .subscribe((data :any) => {
-              this.dataSource = data;
+              this.dataSource2 = data;
               this.loader.close();
               this.snack.open('Modalité de travail mise à jour avec succès!', 'OK', { duration: 4000 })
               this.getWorkArrangements();

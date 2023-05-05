@@ -29,7 +29,7 @@
 
         <mat-form-field class="full-width">
           <mat-label>extraDutyType</mat-label>
-          <mat-select  [formControlName]="'extraDutyType'">
+          <mat-select  [formControlName]="'workModel'">
             <mat-option *ngFor="let x of workModel" [value]="x">{{ x }}</mat-option>
           </mat-select>
         </mat-form-field>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
@@ -34,8 +34,11 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   private contact : contact ;
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
-  events: CalendarEvent[] = [];
+  calendarOptions: any = {};
   contacts: contact[] = [];
+  appointments: any[] = [];
+  @Input() events: any[];
+  @Input() options: any;
   constructor(
     
     private dialog: MatDialog,
@@ -47,28 +50,12 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   ) {     this.dataSource = new MatTableDataSource<RendezVous>([]);}
 
   ngOnInit() {
-    this.contactService.getItems().subscribe((contacts) => {
-      this.contacts = contacts;
-
-      this.rendezVousService.getItems().subscribe((appointments) => {
-        appointments.forEach((appointment) => {
-          const contact = this.contacts.find(
-            (contact) => contact.contactId === appointment.contactId
-          );
-          if (contact) {
-            this.events.push({
-              start: new Date(appointment.date),
-              title: `${contact.firstName} ${contact.lastName}`,
-            });
-          }
-        });
-      });
-    });
-    /*this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()*/
+    
+    this.displayedColumns = this.getDisplayedColumns();
+    this.getItems()
  
+   
 
-      
   }
 
   getDisplayedColumns() {

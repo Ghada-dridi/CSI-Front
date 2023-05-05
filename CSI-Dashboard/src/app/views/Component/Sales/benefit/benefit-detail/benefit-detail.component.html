@@ -95,9 +95,13 @@
       
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+           
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button mat-sm-button color="warn" (click)="deleteExtraDuty(row.contactId)">
+              <button mat-icon-button mat-sm-button color="warn" (click)="deleteExtraDuty(row.id)">
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+                <mat-icon>edit</mat-icon>
               </button>
             </mat-cell>
           </ng-container>
@@ -155,9 +159,12 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
             <mat-cell *matCellDef="let row">
-    
-           
-    
+              <button mat-icon-button mat-sm-button color="warn" (click)="deleteWorkArrangement(row.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp2(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
             </mat-cell>
           </ng-container>
       

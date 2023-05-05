@@ -6,7 +6,7 @@ export interface workArrangement{
     workingDaysNumber?: number
     workModel?: WorkModel
     benefit: Benefit
-    benefitId: number
+    
 }
 
 export enum WorkModel {

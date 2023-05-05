@@ -1,4 +1,4 @@
-<!--<div class="m-4"  [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
+<div class="m-4"  [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
 
 
     <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">{{"ADD" | translate }}
@@ -86,24 +86,6 @@
       <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
   
     </mat-card-content>
-  </mat-card> --> 
-  <div class="calendar-container">
-    <ng-container *ngIf="contacts.length">
-      <calendar-header
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewChange)="view = $event"
-        locale="en"
-      ></calendar-header>
-      <calendar
-        [view]="view"
-        [viewDate]="viewDate"
-        [events]="events"
-        [activeDayIsOpen]="false"
-        (eventClicked)="handleEvent($event)"
-      ></calendar>
-    </ng-container>
-    <ng-container *ngIf="!contacts.length">
-      No contacts found.
-    </ng-container>
-  </div>
+  </mat-card> 
+  
+ 

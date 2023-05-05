@@ -77,6 +77,12 @@ export class BenefitService {
         catchError(this.handleError)
       );
     }
+    deleteWorkArrangement(id: number): Observable<workArrangement> {
+      const url = `${this.apiUrl4}/${id}`;
+      return this.http.delete<workArrangement>(url).pipe(
+        catchError(this.handleError)
+      );
+    }
 
     //ajouter une modalité de travail à une prestation donnée
     addWorkArrangement(work: any): Observable<any> {

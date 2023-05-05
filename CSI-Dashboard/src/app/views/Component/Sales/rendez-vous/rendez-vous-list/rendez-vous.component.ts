@@ -15,6 +15,7 @@ import { RendezVousService } from '../rendez-vous.service';
 import { RendezVous } from 'app/shared/models/rendez-vous';
 import { ContactService } from '../../contact/contact.service';
 import { contact } from 'app/shared/models/contact';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 
 
 @Component({
@@ -31,7 +32,10 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   public getItemSub: Subscription;
   private ContactId : number; 
   private contact : contact ;
-
+  view: CalendarView = CalendarView.Month;
+  viewDate: Date = new Date();
+  events: CalendarEvent[] = [];
+  contacts: contact[] = [];
   constructor(
     
     private dialog: MatDialog,
@@ -43,8 +47,25 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   ) {     this.dataSource = new MatTableDataSource<RendezVous>([]);}
 
   ngOnInit() {
-    this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()
+    this.contactService.getItems().subscribe((contacts) => {
+      this.contacts = contacts;
+
+      this.rendezVousService.getItems().subscribe((appointments) => {
+        appointments.forEach((appointment) => {
+          const contact = this.contacts.find(
+            (contact) => contact.contactId === appointment.contactId
+          );
+          if (contact) {
+            this.events.push({
+              start: new Date(appointment.date),
+              title: `${contact.firstName} ${contact.lastName}`,
+            });
+          }
+        });
+      });
+    });
+    /*this.displayedColumns = this.getDisplayedColumns();
+    this.getItems()*/
  
 
       

@@ -45,13 +45,17 @@ export class BenefitDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['iiid'];
-    this.getBenefit(this.id);
+    this.getBenefit();
+    this.getExtraDuties();
+    this.getWorkArrangements();
+    this.displayedColumns= this.getDisplayedColumns();
+    this.displayedColumns2=this.getDisplayedColumns2();
     
     console.log(this.id)
   }
 
-  getBenefit(iiid){
-    this.benefitService.getItem(iiid).subscribe((data: any) => {
+  getBenefit(){
+    this.benefitService.getItem(this.id).subscribe((data: any) => {
       this.benefit = data;
     })
   }

@@ -7,7 +7,7 @@ import { Civility, Privilege, Service } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType } from 'app/shared/models/req';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { log } from 'console';
+//import { log } from 'console';
 
 
 @Component({

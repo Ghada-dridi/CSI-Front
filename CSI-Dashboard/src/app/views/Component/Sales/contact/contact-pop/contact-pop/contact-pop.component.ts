@@ -15,7 +15,7 @@ export class ContactPopComponent implements OnInit {
   toggleDiv() {
     this.showDiv = !this.showDiv;
   }
-  private partnerId : number
+  private partnerNum : number
   public itemForm: FormGroup;
   Privilege :string []= Object.values(Privilege);
   Civility :string []= Object.values(Civility);
@@ -31,7 +31,7 @@ export class ContactPopComponent implements OnInit {
   ngOnInit(): void {
     this.buildItemForm(this.data.payload)
     this.getPartner()
-    this.partnerId = this.data.partnerId;
+    this.partnerNum = this.data.partnerId;
   }
 
   buildItemForm(item){
@@ -47,7 +47,7 @@ export class ContactPopComponent implements OnInit {
       privilege : [item.privilege || '', Validators.required],
       civility : [item.civility || '', Validators.required],
       service : [item.service || '', Validators.required],
-      partnerNum: [this.data.partnerId, Validators.required]
+      partnerNum: [this.data.partnerId || null, Validators.required]
     });
 }
 

@@ -9,7 +9,6 @@ import { req } from 'app/shared/models/req';
 import { contact } from 'app/shared/models/contact';
 import { socialMedia } from 'app/shared/models/socialMedia';
 import { address } from 'app/shared/models/address';
-import { partnerContact } from 'app/shared/models/partnerContact';
 import { offeredService } from 'app/shared/models/offeredService';
 import { BankAccount } from 'app/shared/models/BankAccount';
 
@@ -18,7 +17,7 @@ export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
   private apiUrl1 = 'http://localhost:8085/crm/socialMedias';
   private apiUrl2 = 'http://localhost:8085/crm/addresses';
-  private apiUrl3 = 'http://localhost:8085/crm/partnerContacts';
+  private apiUrl3 = 'http://localhost:8085/crm/contacts';
   private apiUrl4 = 'http://localhost:8085/crm/requirements';
   private apiUrl5 = 'http://localhost:8085/crm/offeredServices';
   private apiUrl6 = 'http://localhost:8085/crm/bankAccounts';
@@ -54,9 +53,9 @@ export class CrudPartnerService {
   }
 
   // GET contacts list by partner id
-  getItemContact(id: number): Observable<partnerContact[]> {
+  getItemContact(id: number): Observable<contact[]> {
     const url = `${this.apiUrl}/${id}/contacts`;
-    return this.http.get<partnerContact[]>(url).pipe(
+    return this.http.get<contact[]>(url).pipe(
       catchError(this.handleError)
     );
   }
@@ -69,7 +68,7 @@ export class CrudPartnerService {
     );
   }
 
-  // GET social medias list by partner id
+  // GET offered services list by partner id
   getItemOffered(id: number): Observable<offeredService[]> {
     const url = `${this.apiUrl}/${id}/offered`;
     return this.http.get<offeredService[]>(url).pipe(
@@ -109,8 +108,8 @@ export class CrudPartnerService {
   }
 
   //add a new partner contact
-  addPartnerContact(partnerContact: any): Observable<any>{
-    return this.http.post<any>(this.apiUrl3, partnerContact).pipe(
+  addContact(contact: any): Observable<any>{
+    return this.http.post<any>(this.apiUrl3, contact).pipe(
       catchError(this.handleError)
     )
   }
@@ -145,9 +144,9 @@ export class CrudPartnerService {
   }
 
   //update partner contact
-  updateContact(id: number, contact: partnerContact): Observable<partnerContact> {
+  updateContact(id: number, contact: contact): Observable<contact> {
     const url = `${this.apiUrl3}/${id}`;
-    return this.http.put<partnerContact>(url, contact).pipe(
+    return this.http.put<contact>(url, contact).pipe(
       catchError(this.handleError)
     );
   }
@@ -211,6 +210,13 @@ export class CrudPartnerService {
   deleteSocialMedia(id: number): Observable<socialMedia>{
     const url = `${this.apiUrl1}/${id}`;
     return this.http.delete<socialMedia>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteOffered(id: number): Observable<offeredService>{
+    const url = `${this.apiUrl5}/${id}`;
+    return this.http.delete<offeredService>(url).pipe(
       catchError(this.handleError)
     );
   }

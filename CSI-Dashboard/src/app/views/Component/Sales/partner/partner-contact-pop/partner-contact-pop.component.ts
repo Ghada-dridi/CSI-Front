@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CrudPartnerService } from '../crudPartner.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Privilege, Civility, Service } from 'app/shared/models/contact';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CrudPartnerService } from '../crudPartner.service';
 
 @Component({
   selector: 'app-partner-contact-pop',
@@ -15,11 +15,10 @@ export class PartnerContactPopComponent implements OnInit {
   Civility :string []= Object.values(Civility);
   Service :string []= Object.values(Service);
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<PartnerContactPopComponent>,
   private fb: FormBuilder,
-  private crudPartnerService: CrudPartnerService
-  ) { }
+  private crudPartnerService: CrudPartnerService) { }
 
   ngOnInit(): void {
     this.buildItemForm(this.data.payload)
@@ -48,6 +47,5 @@ export class PartnerContactPopComponent implements OnInit {
     this.dialogRef.close(this.itemForm.value)
     console.log(this.itemForm.value)
   }
+
 }
-
-

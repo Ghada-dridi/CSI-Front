@@ -17,7 +17,6 @@ import { ContactPopComponent } from '../../../contact/contact-pop/contact-pop/co
 import { ReqpopComponent } from '../../../Requirement/req-pop/reqpop/reqpop.component';
 import { ReqService } from '../../../Requirement/req.service';
 import { PartnerContactPopComponent } from '../../partner-contact-pop/partner-contact-pop.component';
-import { partnerContact } from 'app/shared/models/partnerContact';
 import { SocialMediaPopComponent } from '../../social-media-pop/social-media-pop.component';
 import { OfferedPopComponent } from '../../offered-pop/offered-pop.component';
 import { offeredService } from 'app/shared/models/offeredService';
@@ -30,7 +29,7 @@ import { BankAccount } from 'app/shared/models/BankAccount';
 export class DetailCrudComponent implements OnInit {
 id: number
 partner :Partner
-public dataSource: MatTableDataSource<partnerContact>;
+public dataSource: MatTableDataSource<contact>;
 public dataSource1: MatTableDataSource<socialMedia>;
 public dataSource2: MatTableDataSource<req>;
 public dataSource3: MatTableDataSource<address>;
@@ -55,7 +54,7 @@ public accounts: BankAccount[]
     private snack: MatSnackBar,
     private loader: AppLoaderService
     ) { 
-      this.dataSource = new MatTableDataSource<partnerContact>([]);
+      this.dataSource = new MatTableDataSource<contact>([]);
       this.dataSource1 = new MatTableDataSource<socialMedia>([]);
       this.dataSource2 = new MatTableDataSource<req>([]);
       this.dataSource3 = new MatTableDataSource<address>([]);
@@ -215,6 +214,20 @@ public accounts: BankAccount[]
         );
       }
 
+      deleteOffered(id: number) {
+        this.partnerService.deleteOffered(id)
+          .subscribe(
+            response => {
+              console.log(response);
+              // Reload the addresses list after deletion
+              this.getOffered();
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+
            openPopUp(data: any = {} , isNew?) {
             let title = isNew ? 'Ajouter adresse' : 'Modifier Adresse';
             let dialogRef: MatDialogRef<any> = this.dialog.open(addAddressComponent, {
@@ -252,7 +265,7 @@ public accounts: BankAccount[]
           }
           openPopUp2(data: any = {}, isNew?) {
             let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
-            let dialogRef: MatDialogRef<any> = this.dialog.open(PartnerContactPopComponent, {
+            let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
               width: '720px',
               disableClose: true,
               data: { title: title, payload: data ,  partnerId : this.partner.id }
@@ -266,7 +279,7 @@ public accounts: BankAccount[]
                 if (isNew) {
                   this.loader.open('Ajout en cours');
                   console.log(data.partnerId)
-                  this.partnerService.addPartnerContact(res)
+                  this.partnerService.addContact(res)
                     .subscribe((data:any) => {
                       this.dataSource = data;
                       this.loader.close();
@@ -276,6 +289,8 @@ public accounts: BankAccount[]
                 } else {
                   this.loader.open('Mise à jour');
                   console.log(data.contactId)
+                  console.log(this.partner.id)
+                  console.log(res.partnerNum)
                   this.partnerService.updateContact(data.contactId, res)
                     .subscribe((data :any) => {
                       this.dataSource = data;
@@ -283,6 +298,8 @@ public accounts: BankAccount[]
                       this.snack.open('Contact mis à jour avec succès!', 'OK', { duration: 4000 })
                       this.getContacts();
                     })
+                    console.log(this.partner.id)
+                    console.log(res.partnerNum)
                 }
               })
           }
@@ -341,6 +358,7 @@ public accounts: BankAccount[]
                   this.partnerService.addPartnerSocialMedia(res)
                     .subscribe((data :any)=> {
                       this.dataSource1 = data;
+                      console.log(this.dataSource1)
                       this.loader.close();
                        this.snack.open('Social media ajoutée avec succès!', 'OK', { duration: 2000 });
                        this.getSocialMedias()
@@ -364,7 +382,7 @@ public accounts: BankAccount[]
             let dialogRef: MatDialogRef<any> = this.dialog.open(OfferedPopComponent, {
               width: '1000px',
               disableClose: true,
-              data: { title: title, payload: data , partnerNum: this.partner.id}
+              data: { title: title, payload: data , partnerId: this.partner.id}
             })
             dialogRef.afterClosed()
               .subscribe(res => {
@@ -375,7 +393,7 @@ public accounts: BankAccount[]
                 if (isNew) {
                   this.loader.open('Ajout en cours');
                   console.log(this.partner.id)
-                  console.log(data.partnerNum)
+                  console.log(data.partnerId)
                   this.partnerService.addOffered(res)
                     .subscribe((data :any)=> {
                       this.dataSource4 = data;
@@ -402,7 +420,7 @@ public accounts: BankAccount[]
             let dialogRef: MatDialogRef<any> = this.dialog.open(AccountPopComponent, {
               width: '1000px',
               disableClose: true,
-              data: { title: title, payload: data , partnerNum: this.partner.id}
+              data: { title: title, payload: data , partnerId: this.partner.id}
             })
             dialogRef.afterClosed()
               .subscribe(res => {
@@ -413,7 +431,7 @@ public accounts: BankAccount[]
                 if (isNew) {
                   this.loader.open('Ajout en cours');
                   console.log(this.partner.id)
-                  console.log(data.partnerNum)
+                  console.log(data.partnerId)
                   this.partnerService.addAccount(res)
                     .subscribe((data :any)=> {
                       this.dataSource5 = data;

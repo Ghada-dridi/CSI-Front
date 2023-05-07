@@ -1,3 +1,5 @@
+import { Partner } from "./Partner";
+
 export interface contact {
     contactId :number;
     firstName :string;
@@ -8,8 +10,8 @@ export interface contact {
     comment:string;
     phoneNumberOne:number ;
     phoneNumberTwo:number ;
-    partnerNum ?:number 
-    partnerId ?:number
+    partner ?: Partner 
+    partnerNum ?:number
     privilege ?: Privilege
     civility: Civility
     service: Service

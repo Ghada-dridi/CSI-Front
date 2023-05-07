@@ -1,1 +1,32 @@
-<p>account-pop works!</p>
+<h1 matDialogTitle>{{data.title}}</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()" >
+    <mat-card class="p-0">
+<div fxLayout="row wrap" fxLayout.lt-sm="column">
+    
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="bankName"
+          type="text"
+          [formControlName]="'bankName'"
+          placeholder="Banque">
+        </mat-form-field>
+      </div> 
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="rib"
+        type="number"
+        [formControlName]="'rib'"
+        placeholder="RIB">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="100" class="mt-16">
+        <button mat-raised-button color="primary" >{{"Enregistrer" | translate }}</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Annuler</button>
+      </div>
+</div>
+

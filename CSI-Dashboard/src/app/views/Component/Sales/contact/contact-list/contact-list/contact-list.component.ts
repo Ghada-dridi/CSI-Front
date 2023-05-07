@@ -69,20 +69,14 @@ export class ContactListComponent implements OnInit,OnDestroy {
  
  }
  
- deleteItem(row) {
-  this.confirmService.confirm({message: `Delete ${row.name}?`})
-    .subscribe(res => {
-      if (res) {
-        this.loader.open('Deleting Partner');
-        this.contactService.deleteContact(row)
-          .subscribe((data:any)=> {
-            this.dataSource = data;
-            this.loader.close();
-            this.snack.open('Partner deleted!', 'OK', { duration: 2000 });
-            this.getItems();
+ deleteItem(id) {
+  this.contactService.deleteContact(id)
+    .subscribe((data:any)=> {
+    this.dataSource = data;
+    this.loader.close();
+    this.snack.open('Contact deleted!', 'OK', { duration: 2000 });
+    this.getItems();
           })
-      }
-    })
 }
 
 openPopUp(data: any = {}, isNew?) {

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SocialMediaName } from 'app/shared/models/socialMedia';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CrudPartnerService } from '../crudPartner.service';
-import { PartnerContactPopComponent } from '../partner-contact-pop/partner-contact-pop.component';
+import { ContactPopComponent } from '../../contact/contact-pop/contact-pop/contact-pop.component';
 
 @Component({
   selector: 'app-social-media-pop',
@@ -16,7 +16,7 @@ export class SocialMediaPopComponent implements OnInit {
 
   constructor(
   @Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<PartnerContactPopComponent>,
+  public dialogRef: MatDialogRef<ContactPopComponent>,
   private fb: FormBuilder,
   private crudPartnerService: CrudPartnerService
   ) { }

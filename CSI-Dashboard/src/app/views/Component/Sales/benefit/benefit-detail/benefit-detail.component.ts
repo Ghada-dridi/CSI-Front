@@ -45,13 +45,17 @@ export class BenefitDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['iiid'];
-    this.getBenefit(this.id);
+    this.getBenefit();
+    this.getExtraDuties();
+    this.getWorkArrangements();
+    this.displayedColumns= this.getDisplayedColumns();
+    this.displayedColumns2=this.getDisplayedColumns2();
     
     console.log(this.id)
   }
 
-  getBenefit(iiid){
-    this.benefitService.getItem(iiid).subscribe((data: any) => {
+  getBenefit(){
+    this.benefitService.getItem(this.id).subscribe((data: any) => {
       this.benefit = data;
     })
   }
@@ -74,6 +78,19 @@ export class BenefitDetailComponent implements OnInit {
           console.log(response);
           // Reload the addresses list after deletion
           this.getExtraDuties();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  deleteWorkArrangement(id: number) {
+    this.benefitService.deleteWorkArrangement(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          // Reload the addresses list after deletion
+          this.getWorkArrangements()
         },
         error => {
           console.log(error);
@@ -132,7 +149,7 @@ export class BenefitDetailComponent implements OnInit {
           this.loader.open('Ajout en cours');
           this.benefitService.addWorkArrangement(res)
             .subscribe((data:any) => {
-              this.dataSource = data;
+              this.dataSource2 = data;
               this.loader.close();
               this.snack.open('Modalité de travail ajoutée avec succès!', 'OK', { duration: 4000 })
               this.getWorkArrangements()
@@ -141,7 +158,7 @@ export class BenefitDetailComponent implements OnInit {
           this.loader.open('Mise à jour');
           this.benefitService.updateWorkArrangement(data.id, res)
             .subscribe((data :any) => {
-              this.dataSource = data;
+              this.dataSource2 = data;
               this.loader.close();
               this.snack.open('Modalité de travail mise à jour avec succès!', 'OK', { duration: 4000 })
               this.getWorkArrangements();

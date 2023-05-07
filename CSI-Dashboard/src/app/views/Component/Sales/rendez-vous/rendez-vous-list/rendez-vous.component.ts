@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
@@ -15,6 +15,7 @@ import { RendezVousService } from '../rendez-vous.service';
 import { RendezVous } from 'app/shared/models/rendez-vous';
 import { ContactService } from '../../contact/contact.service';
 import { contact } from 'app/shared/models/contact';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 
 
 @Component({
@@ -31,7 +32,13 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   public getItemSub: Subscription;
   private ContactId : number; 
   private contact : contact ;
-
+  view: CalendarView = CalendarView.Month;
+  viewDate: Date = new Date();
+  calendarOptions: any = {};
+  contacts: contact[] = [];
+  appointments: any[] = [];
+  @Input() events: any[];
+  @Input() options: any;
   constructor(
     
     private dialog: MatDialog,
@@ -43,11 +50,12 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   ) {     this.dataSource = new MatTableDataSource<RendezVous>([]);}
 
   ngOnInit() {
+    
     this.displayedColumns = this.getDisplayedColumns();
     this.getItems()
  
+   
 
-      
   }
 
   getDisplayedColumns() {

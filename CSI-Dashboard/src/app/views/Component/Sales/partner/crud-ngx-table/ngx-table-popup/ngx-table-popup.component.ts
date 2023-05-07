@@ -7,7 +7,7 @@ import { Civility, Privilege, Service } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType } from 'app/shared/models/req';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { log } from 'console';
+//import { log } from 'console';
 
 
 @Component({
@@ -78,8 +78,11 @@ export class NgxTablePopupComponent implements OnInit {
 
   }
 
+  
+ 
   ngOnInit() {
     this.buildItemForm(this.data.payload)
+    
     this.itemForm.get("country").valueChanges.subscribe((country) => {
       this.itemForm.get("city").reset();
       if (country) {
@@ -87,20 +90,14 @@ export class NgxTablePopupComponent implements OnInit {
    
       }
     });
-
-
-    this.repeatForm = this._formBuilder.group({
-      repeatArray: this._formBuilder.array([this.createRepeatForm()])
-    });
-
   }
 
-  onSubmit() {
-    const formData = new FormData();
-    console.log(formData);
-    this.dialogRef.close(this.itemForm.value);
-  
- }
+  submit() {
+    
+    this.dialogRef.close(this.itemForm.value)
+
+
+  }
 
   onCountryChange(countryShotName: string) {
     this.states = this.crudService.getStatesByCountry(countryShotName);
@@ -137,7 +134,7 @@ export class NgxTablePopupComponent implements OnInit {
         this.itemForm.patchValue({
           logo: reader.result
         });
-
+  
         console.log(this.itemForm.value)
       };
     }

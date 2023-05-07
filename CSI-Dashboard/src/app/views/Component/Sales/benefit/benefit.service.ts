@@ -4,26 +4,29 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { extraDuty } from 'app/shared/models/extraDuty';
 import { workArrangement } from 'app/shared/models/workArrangement';
+import { benefit } from 'app/shared/models/avantagesContrat';
+import { Benefit } from 'app/shared/models/Benefit';
 
 
 @Injectable()
 export class BenefitService {
   private apiUrl = 'http://localhost:8085/crm/benefits';
   private apiUrl3 = 'http://localhost:8085/crm/extraDuties';
+  private apiUrl4 = 'http://localhost:8085/crm/workArrangements';
   constructor(private http: HttpClient) { }
 
     //******* Implement your APIs ********
-    getItems(): Observable<req[]> {
-      return this.http.get<req[]>(this.apiUrl).pipe(
+    getItems(): Observable<Benefit[]> {
+      return this.http.get<Benefit[]>(this.apiUrl).pipe(
         catchError(this.handleError)
       );
     }
   
   
      // GET an item by id
-     getItem(id: number): Observable<req> {
+     getItem(id: number): Observable<Benefit> {
       const url = `${this.apiUrl}/${id}`;
-      return this.http.get<req>(url).pipe(
+      return this.http.get<Benefit>(url).pipe(
         catchError(this.handleError)
       );
     }
@@ -74,27 +77,33 @@ export class BenefitService {
         catchError(this.handleError)
       );
     }
+    deleteWorkArrangement(id: number): Observable<workArrangement> {
+      const url = `${this.apiUrl4}/${id}`;
+      return this.http.delete<workArrangement>(url).pipe(
+        catchError(this.handleError)
+      );
+    }
 
     //ajouter une modalité de travail à une prestation donnée
-    addWorkArrangement(address: any): Observable<any> {
+    addWorkArrangement(work: any): Observable<any> {
     
-      return this.http.post<any>(this.apiUrl, address).pipe();
+      return this.http.post<any>(this.apiUrl4, work).pipe();
     }
 
     //modifier une modalité de travail d'une prestation donnée
     updateWorkArrangement(id: number, workArrangement: workArrangement): Observable<workArrangement> {
-      const url = `${this.apiUrl}/${id}`;
+      const url = `${this.apiUrl4}/${id}`;
       return this.http.put<workArrangement>(url, workArrangement).pipe();
     }
 
     //ajouter une activité exceptionnelle à une prestation donnée
-    addExtraDuty(address: any): Observable<any> {
-      return this.http.post<any>(this.apiUrl, address).pipe();
+    addExtraDuty(extraDuty: any): Observable<any> {
+      return this.http.post<any>(this.apiUrl3, extraDuty).pipe();
     }
 
     //modifier une activité exceptionnelle d'une prestation donnée
     updateExtraDuty(id: number, extraDuty: extraDuty): Observable<extraDuty> {
-      const url = `${this.apiUrl}/${id}`;
+      const url = `${this.apiUrl3}/${id}`;
       return this.http.put<extraDuty>(url, extraDuty).pipe();
     }
   

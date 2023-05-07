@@ -107,6 +107,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FileUploadModule,
     SharedPipesModule,
     PerfectScrollbarModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

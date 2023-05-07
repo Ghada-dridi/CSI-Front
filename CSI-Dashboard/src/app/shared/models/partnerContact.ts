@@ -1,16 +1,16 @@
-export interface contact {
+export interface partnerContact {
     contactId :number;
     firstName :string;
     lastName: string;
+    fullName: string;
     function: string;
     emailOne:string;
     emailTwo:string;
     comment:string;
     phoneNumberOne:number ;
-    phoneNumberTwo:number ;
-    partnerNum ?:number 
-    partnerId ?:number
-    privilege ?: Privilege
+    phoneNumberTwo:number 
+    partnerNum :number
+    privilege: Privilege
     civility: Civility
     service: Service
 }

@@ -13,7 +13,7 @@ export class addAddressComponent implements OnInit {
     public partnerId: number;
 
     
-    constructor( @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<addAddressComponent>,
   private fb: FormBuilder,
   private crudPartnerService: CrudPartnerService,

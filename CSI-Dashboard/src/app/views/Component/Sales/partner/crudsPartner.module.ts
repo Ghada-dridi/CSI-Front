@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
-import {Ng2TelInputModule} from 'ng2-tel-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedModule } from 'app/shared/shared.module';
 import { MatSortModule } from '@angular/material/sort';
@@ -36,6 +35,10 @@ import { ContactService } from '../contact/contact.service';
 import { RequirementDetailsComponent } from './requirements-details/requirements-details.component';
 import { ContactsDetailsComponent } from './crud-ngx-table/contacts-details/contacts-details.component';
 import { addAddressComponent } from '../add-address/add-address.component';
+import { PartnerContactPopComponent } from './partner-contact-pop/partner-contact-pop.component';
+import { SocialMediaPopComponent } from './social-media-pop/social-media-pop.component';
+import { OfferedPopComponent } from './offered-pop/offered-pop.component';
+import { AccountPopComponent } from './account-pop/account-pop.component';
 
 
 
@@ -73,7 +76,7 @@ import { addAddressComponent } from '../add-address/add-address.component';
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent],
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent],
   providers: [ContactService, CrudPartnerService] 
 })
 export class PartnerModule { }

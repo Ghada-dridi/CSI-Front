@@ -6,18 +6,22 @@ import { catchError, tap } from 'rxjs/operators';
 
 import * as countrycitystatejson from 'countrycitystatejson';
 import { req } from 'app/shared/models/req';
-import { map } from 'rxjs-compat/operator/map';
 import { contact } from 'app/shared/models/contact';
 import { socialMedia } from 'app/shared/models/socialMedia';
 import { address } from 'app/shared/models/address';
-import { ContactListComponent } from '../contact/contact-list/contact-list/contact-list.component';
+import { partnerContact } from 'app/shared/models/partnerContact';
+import { offeredService } from 'app/shared/models/offeredService';
+import { BankAccount } from 'app/shared/models/BankAccount';
 
 @Injectable()
 export class CrudPartnerService {
   private apiUrl = 'http://localhost:8085/crm/partners';
+  private apiUrl1 = 'http://localhost:8085/crm/socialMedias';
   private apiUrl2 = 'http://localhost:8085/crm/addresses';
-   private apiUrl3 = 'http://localhost:8085/crm/contacts';
-   private apiUrl4 = 'http://localhost:8085/crm/requirements';
+  private apiUrl3 = 'http://localhost:8085/crm/partnerContacts';
+  private apiUrl4 = 'http://localhost:8085/crm/requirements';
+  private apiUrl5 = 'http://localhost:8085/crm/offeredServices';
+  private apiUrl6 = 'http://localhost:8085/crm/bankAccounts';
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient)
      {  }
@@ -25,6 +29,7 @@ export class CrudPartnerService {
 
 
   //******* Implement your APIs ********
+  //get all the partners
   getItems(): Observable<Partner[]> {
     return this.http.get<Partner[]>(this.apiUrl).pipe(
       catchError(this.handleError)
@@ -32,7 +37,7 @@ export class CrudPartnerService {
   }
 
 
-   // GET an item by id
+   // GET a partner by id
    getItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Partner>(url).pipe(
@@ -41,29 +46,49 @@ export class CrudPartnerService {
   }
 
   // GET requirements list by partner id
-  
   getItemReq(id: number): Observable<req[]> {
     const url = `${this.apiUrl}/${id}/requirements`;
     return this.http.get<req[]>(url).pipe(
       catchError(this.handleError)
     );
   }
+
   // GET contacts list by partner id
-  getItemContact(id: number): Observable<contact[]> {
+  getItemContact(id: number): Observable<partnerContact[]> {
     const url = `${this.apiUrl}/${id}/contacts`;
-    return this.http.get<contact[]>(url).pipe(
+    return this.http.get<partnerContact[]>(url).pipe(
       catchError(this.handleError)
     );
   }
+
+  // GET social medias list by partner id
   getItemSocialMedias(id: number): Observable<socialMedia[]> {
     const url = `${this.apiUrl}/${id}/socialMedias`;
     return this.http.get<socialMedia[]>(url).pipe(
       catchError(this.handleError)
     );
   }
+
+  // GET social medias list by partner id
+  getItemOffered(id: number): Observable<offeredService[]> {
+    const url = `${this.apiUrl}/${id}/offered`;
+    return this.http.get<offeredService[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // GET addresses list by partner id
    getItemAddresses(id: number): Observable<address[]> {
     const url = `${this.apiUrl}/${id}/addresses`;
     return this.http.get<address[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // GET addresses list by partner id
+  getItemAccounts(id: number): Observable<BankAccount[]> {
+    const url = `${this.apiUrl}/${id}/bankAccounts`;
+    return this.http.get<BankAccount[]>(url).pipe(
       catchError(this.handleError)
     );
   }
@@ -76,15 +101,42 @@ export class CrudPartnerService {
     }));
   }*/
 
-  // POST a new item
+  //add a new partner
   addItem(customer: any): Observable<any> {
-    
     return this.http.post<any>(this.apiUrl, customer).pipe(
       catchError(this.handleError)
     );
   }
 
-  // PUT an existing item
+  //add a new partner contact
+  addPartnerContact(partnerContact: any): Observable<any>{
+    return this.http.post<any>(this.apiUrl3, partnerContact).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  //add a new partner social media
+  addPartnerSocialMedia(socialMedia: any): Observable<any>{
+    return this.http.post<any>(this.apiUrl1, socialMedia).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  //add a new partner offered service
+  addOffered(offered: any): Observable<any>{
+    return this.http.post<any>(this.apiUrl5, offered).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  //add a new partner bank account
+  addAccount(account: any): Observable<any>{
+    return this.http.post<any>(this.apiUrl6, account).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  //update an existing partner
   updateItem(id: number, customer: Partner): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put<Partner>(url, customer).pipe(
@@ -92,25 +144,63 @@ export class CrudPartnerService {
     );
   }
 
-  // DELETE an item by id
+  //update partner contact
+  updateContact(id: number, contact: partnerContact): Observable<partnerContact> {
+    const url = `${this.apiUrl3}/${id}`;
+    return this.http.put<partnerContact>(url, contact).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //update partner social media
+  updateSocialMedia(id: number, socialMedia: socialMedia): Observable<socialMedia> {
+    const url = `${this.apiUrl1}/${id}`;
+    return this.http.put<socialMedia>(url, socialMedia).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //update partner offered service
+  updateOffered(id: number, offered: offeredService): Observable<offeredService> {
+    const url = `${this.apiUrl5}/${id}`;
+    return this.http.put<offeredService>(url, offered).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //update partner bank account
+  updateAccount(id: number, account: BankAccount): Observable<BankAccount> {
+    const url = `${this.apiUrl6}/${id}`;
+    return this.http.put<BankAccount>(url, account).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // DELETE a partner by id
   deleteItem(id: number): Observable<Partner> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<Partner>(url).pipe(
       catchError(this.handleError)
     );
   }
+
+  //delete a partner address
   deleteAddress(id: number): Observable<address> {
     const url = `${this.apiUrl2}/${id}`;
     return this.http.delete<address>(url).pipe(
       catchError(this.handleError)
     );
   }
+
+  //delete a partner contact
   deleteContact(id: number): Observable<contact> {
     const url = `${this.apiUrl3}/${id}`;
     return this.http.delete<contact>(url).pipe(
       catchError(this.handleError)
     );
   }
+
+  //delete a partner requirement
   deleteBesoin(id: number): Observable<req> {
     const url = `${this.apiUrl4}/${id}`;
     return this.http.delete<req>(url).pipe(
@@ -118,6 +208,19 @@ export class CrudPartnerService {
     );
   }
 
+  deleteSocialMedia(id: number): Observable<socialMedia>{
+    const url = `${this.apiUrl1}/${id}`;
+    return this.http.delete<socialMedia>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteAccount(id: number): Observable<BankAccount>{
+    const url = `${this.apiUrl6}/${id}`;
+    return this.http.delete<BankAccount>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -134,24 +237,15 @@ export class CrudPartnerService {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
+  // get countries list
   getCountries() {
     return this.countryData.getCountries();
   }
 
+  // get cities of a given country
   getStatesByCountry(name: string) {
     return this.countryData.getStatesByShort(name);
-  }
-
-  uploadPartnerLogo(id: number, file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    const url = `${this.apiUrl}/${id}/image`;
-    return this.http.post(url, formData);
-  }
-
-  getPartnerLogo(id: number): Observable<Blob> {
-    const url = `${this.apiUrl}/${id}/image`;
-    return this.http.get(url, { responseType: 'blob' });
   }
 }
 

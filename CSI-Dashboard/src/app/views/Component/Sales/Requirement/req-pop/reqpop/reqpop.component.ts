@@ -68,8 +68,6 @@ this.CrudService.getItems().subscribe((data :any )=>{
   submit() {
     
     this.dialogRef.close(this.itemForm.value)
-
-
   }
 
   

@@ -1,25 +1,24 @@
-<h1 matDialogTitle>{{data.title}}</h1>{{"Adresse" | translate }}
+<h1 matDialogTitle>{{data.title}}</h1>
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <mat-card class="p-0">
 <div fxLayout="row wrap" fxLayout.lt-sm="column">
     
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
-        <input
-        matInput
-        name="addressTitle"
-        [formControlName]="'addressTitle'"
-        placeholder="Ville">
-      </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Type service</mat-label>
+          <mat-select  [formControlName]="'serviceType'">
+            <mat-option *ngFor="let x of serviceTypes" [value]="x">{{ x }}</mat-option>
+          </mat-select>
+        </mat-form-field>
     </div>
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
         matInput
-        name="street"
-        type="text"
-        [formControlName]="'street'"
-        placeholder="Rue">
+        name="title"
+        type="url"
+        [formControlName]="'title'"
+        placeholder="Titre">
       </mat-form-field>
     </div> 
     <div fxFlex="100" class="mt-16">

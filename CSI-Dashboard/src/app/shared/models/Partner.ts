@@ -2,7 +2,7 @@ import { contact } from "./contact";
 import { req } from "./req";
 
 export interface Partner {
-     id ?:number;
+    id ?:number;
     name?: string;
     staffNumber? : number;
     parentCompany?: string;
@@ -22,7 +22,7 @@ export interface Partner {
     legalStatus?:LegalStatus,
     provenance?:Provenance,
     contacts?: contact[],
-    devise?: Number,
+    devise?: string,
     requirements?:req[]
 
   }

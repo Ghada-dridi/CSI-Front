@@ -16,6 +16,13 @@ import { ContactService } from '../../../contact/contact.service';
 import { ContactPopComponent } from '../../../contact/contact-pop/contact-pop/contact-pop.component';
 import { ReqpopComponent } from '../../../Requirement/req-pop/reqpop/reqpop.component';
 import { ReqService } from '../../../Requirement/req.service';
+import { PartnerContactPopComponent } from '../../partner-contact-pop/partner-contact-pop.component';
+import { partnerContact } from 'app/shared/models/partnerContact';
+import { SocialMediaPopComponent } from '../../social-media-pop/social-media-pop.component';
+import { OfferedPopComponent } from '../../offered-pop/offered-pop.component';
+import { offeredService } from 'app/shared/models/offeredService';
+import { AccountPopComponent } from '../../account-pop/account-pop.component';
+import { BankAccount } from 'app/shared/models/BankAccount';
 @Component({
   selector: 'app-detail-crud',
   templateUrl: './detail-crud.component.html'
@@ -23,30 +30,37 @@ import { ReqService } from '../../../Requirement/req.service';
 export class DetailCrudComponent implements OnInit {
 id: number
 partner :Partner
-public dataSource: MatTableDataSource<contact>;
+public dataSource: MatTableDataSource<partnerContact>;
+public dataSource1: MatTableDataSource<socialMedia>;
 public dataSource2: MatTableDataSource<req>;
 public dataSource3: MatTableDataSource<address>;
+public dataSource4: MatTableDataSource<offeredService>;
+public dataSource5: MatTableDataSource<BankAccount>;
 
 public displayedColumns: any;
 public displayedColumns2: any;
 public displayedColumns3 : any;
 public socialMedias : socialMedia[]
 public addresses : address[]
-contacts: contact[]
+public contacts: contact[]
+public offered: offeredService[]
+public accounts: BankAccount[]
 
   constructor(
     private route: ActivatedRoute,
     private partnerService: CrudPartnerService,
     private addressService : AddAddressService,
-    private contactService : ContactService,
     private reqService : ReqService,
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private loader: AppLoaderService
     ) { 
-      this.dataSource = new MatTableDataSource<contact>([]);
+      this.dataSource = new MatTableDataSource<partnerContact>([]);
+      this.dataSource1 = new MatTableDataSource<socialMedia>([]);
       this.dataSource2 = new MatTableDataSource<req>([]);
       this.dataSource3 = new MatTableDataSource<address>([]);
+      this.dataSource4 = new MatTableDataSource<offeredService>([]);
+      this.dataSource5 = new MatTableDataSource<BankAccount>([]);
     }
 
   getDisplayedColumns() {
@@ -57,8 +71,7 @@ contacts: contact[]
   }
   getDisplayedColumns2() {
     return ['title','description',
-    
-    'totalCandidateNumber','requirementType','requirementStatus','availability' , 'actions'
+    'requirementType','requirementStatus','availability' , 'actions'
     ];
   }
   ngOnInit(): void {
@@ -69,7 +82,8 @@ contacts: contact[]
     this.getRequirements();
     this.getAddresses();
     this.getAddresses2();
-    //this.getContactsByPartner();
+    this.getOffered();
+    this.getAccounts();
     this.displayedColumns = this.getDisplayedColumns();
     this.displayedColumns2 = this.getDisplayedColumns2();
     this.displayedColumns3 = this.getDisplayedColumns3();
@@ -92,23 +106,22 @@ contacts: contact[]
   
   getAddresses() {
     this.partnerService.getItemAddresses(this.id).subscribe((data: any) => {
-      this.dataSource3 = data;
+      this.addresses = data;
       
     });
   }
   getAddresses2() {
     this.partnerService.getItemAddresses(this.id).subscribe((data: any) => {
-      this.addresses = data;
-      
+      {
+        this.dataSource3 = new MatTableDataSource(data);
+      }
     });
   }
   getContacts() {
     
-    this.partnerService.getItemContact(this.id).subscribe((data) => {
+    this.partnerService.getItemContact(this.id).subscribe((data: any) => {
       {
         this.dataSource = new MatTableDataSource(data);
-     
-       
       }
     })}
     getRequirements() {
@@ -116,17 +129,22 @@ contacts: contact[]
       this.partnerService.getItemReq(this.id).subscribe((data) => {
         {
           this.dataSource2 = new MatTableDataSource(data);
-       
-         
         }
     })}
-  /*getContactsByPartner() {
-    this.partnerService.getContactsByPartnerId(this.id).subscribe((contacts: any) => {
-        this.contacts = contacts;
-      },
-      error => console.error(error)
-    );
-  }*/
+
+    getOffered() {
+      this.partnerService.getItemOffered(this.id).subscribe((data: any) => {
+        this.offered = data;
+        
+      });
+    }
+
+    getAccounts() {
+      this.partnerService.getItemAccounts(this.id).subscribe((data: any) => {
+        this.accounts = data;
+        
+      });
+    }
   
     
     deleteAddress(id: number) {
@@ -168,12 +186,41 @@ contacts: contact[]
                 }
               );
                  }
+
+  deleteSocialMedia(id: number) {
+    this.partnerService.deleteSocialMedia(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          // Reload the addresses list after deletion
+          this.getSocialMedias();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+
+    deleteAccount(id: number) {
+      this.partnerService.deleteAccount(id)
+        .subscribe(
+          response => {
+            console.log(response);
+            // Reload the addresses list after deletion
+            this.getAccounts();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+
            openPopUp(data: any = {} , isNew?) {
-            let title = isNew ? 'Ajouter addresse' : 'Modifier Address';
+            let title = isNew ? 'Ajouter adresse' : 'Modifier Adresse';
             let dialogRef: MatDialogRef<any> = this.dialog.open(addAddressComponent, {
               width: '1000px',
               disableClose: true,
-              data: { title: title, payload: data , partnerId: this.partner.id,}
+              data: { title: title, payload: data , partnerId: this.partner.id}
             })
             dialogRef.afterClosed()
               .subscribe(res => {
@@ -185,7 +232,7 @@ contacts: contact[]
                   this.loader.open('Ajout en cours');
                   this.addressService.addAddress(res)
                     .subscribe((data :any)=> {
-                      this.dataSource = data;
+                      this.dataSource3 = data;
                       this.loader.close();
                        this.snack.open(' addresse ajoutée avec succès!', 'OK', { duration: 2000 });
                        this.getAddresses()
@@ -194,9 +241,9 @@ contacts: contact[]
                   this.loader.open('modification en cours');
                   this.addressService.updateAddress(data.id,res)
                     .subscribe((data:any) => {
-                      this.dataSource = data ;
+                      this.dataSource3 = data ;
                       this.loader.close();
-                      this.snack.open('Partenaire modifié avec succées !', 'OK', { duration: 2000 });
+                      this.snack.open('Adresse modifiée avec succés !', 'OK', { duration: 2000 });
                       this.getAddresses();
                     })
                 } 
@@ -205,10 +252,10 @@ contacts: contact[]
           }
           openPopUp2(data: any = {}, isNew?) {
             let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
-            let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
+            let dialogRef: MatDialogRef<any> = this.dialog.open(PartnerContactPopComponent, {
               width: '720px',
               disableClose: true,
-              data: { title: title, payload: data ,  partnerId:this.partner.id }
+              data: { title: title, payload: data ,  partnerId : this.partner.id }
             })
             dialogRef.afterClosed()
               .subscribe(res => {
@@ -218,7 +265,8 @@ contacts: contact[]
                 }
                 if (isNew) {
                   this.loader.open('Ajout en cours');
-                  this.contactService.addContact(res)
+                  console.log(data.partnerId)
+                  this.partnerService.addPartnerContact(res)
                     .subscribe((data:any) => {
                       this.dataSource = data;
                       this.loader.close();
@@ -227,7 +275,8 @@ contacts: contact[]
                     })
                 } else {
                   this.loader.open('Mise à jour');
-                  this.contactService.updateContact(data.id, res)
+                  console.log(data.contactId)
+                  this.partnerService.updateContact(data.contactId, res)
                     .subscribe((data :any) => {
                       this.dataSource = data;
                       this.loader.close();
@@ -237,6 +286,8 @@ contacts: contact[]
                 }
               })
           }
+
+          
           openPopUp3(data: any = {}, isNew?) {
             let title = isNew ? 'Nouveau besoin' : 'Mettre à jour besoin';
             let dialogRef: MatDialogRef<any> = this.dialog.open(ReqpopComponent, {
@@ -254,7 +305,7 @@ contacts: contact[]
                   this.loader.open('Ajout en cours');
                   this.reqService.addReq(res)
                     .subscribe((data:any) => {
-                      this.dataSource = data;
+                      this.dataSource2 = data;
                       this.loader.close();
                       this.snack.open('Besoin ajouté avec succès!', 'OK', { duration: 4000 })
                       this.getRequirements()
@@ -263,12 +314,124 @@ contacts: contact[]
                   this.loader.open('Mise à jour');
                   this.reqService.updateReq(data.id, res)
                     .subscribe((data :any) => {
-                      this.dataSource = data;
+                      this.dataSource2 = data;
                       this.loader.close();
                       this.snack.open('Besoin mis à jour avec succès!', 'OK', { duration: 4000 })
                       this.getRequirements();
                     })
                 }
+              })
+          }
+
+          openPopUp4(data: any = {} , isNew?) {
+            let title = isNew ? 'Ajouter social media' : 'Modifier social media';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(SocialMediaPopComponent, {
+              width: '1000px',
+              disableClose: true,
+              data: { title: title, payload: data , partnerId: this.partner.id}
+            })
+            dialogRef.afterClosed()
+              .subscribe(res => {
+                if(!res) {
+                  // If user press cancel
+                  return;
+                }
+                if (isNew) {
+                  this.loader.open('Ajout en cours');
+                  this.partnerService.addPartnerSocialMedia(res)
+                    .subscribe((data :any)=> {
+                      this.dataSource1 = data;
+                      this.loader.close();
+                       this.snack.open('Social media ajoutée avec succès!', 'OK', { duration: 2000 });
+                       this.getSocialMedias()
+                    })
+                }else {
+                  this.loader.open('modification en cours');
+                  console.log(data.id)
+                  this.partnerService.updateSocialMedia(data.id, res)
+                    .subscribe((data:any) => {
+                      this.dataSource1 = data ;
+                      this.loader.close();
+                      this.snack.open('Social media modifiée avec succés!', 'OK', { duration: 2000 });
+                      this.getSocialMedias();
+                    })
+                } 
+              })
+          }
+
+          openPopUp5(data: any = {} , isNew?) {
+            let title = isNew ? 'Ajouter service offert' : 'Modifier service offert';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(OfferedPopComponent, {
+              width: '1000px',
+              disableClose: true,
+              data: { title: title, payload: data , partnerNum: this.partner.id}
+            })
+            dialogRef.afterClosed()
+              .subscribe(res => {
+                if(!res) {
+                  // If user press cancel
+                  return;
+                }
+                if (isNew) {
+                  this.loader.open('Ajout en cours');
+                  console.log(this.partner.id)
+                  console.log(data.partnerNum)
+                  this.partnerService.addOffered(res)
+                    .subscribe((data :any)=> {
+                      this.dataSource4 = data;
+                      this.loader.close();
+                       this.snack.open('Service offert ajouté avec succès!', 'OK', { duration: 2000 });
+                       this.getOffered()
+                    })
+                }else {
+                  this.loader.open('modification en cours');
+                  console.log(data.id)
+                  this.partnerService.updateOffered(data.id, res)
+                    .subscribe((data:any) => {
+                      this.dataSource4 = data ;
+                      this.loader.close();
+                      this.snack.open('Service offert modifié avec succés!', 'OK', { duration: 2000 });
+                      this.getOffered();
+                    })
+                } 
+              })
+          }
+
+          openPopUp6(data: any = {} , isNew?) {
+            let title = isNew ? 'Ajouter compte bancaire' : 'Modifier compte bancaire';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(AccountPopComponent, {
+              width: '1000px',
+              disableClose: true,
+              data: { title: title, payload: data , partnerNum: this.partner.id}
+            })
+            dialogRef.afterClosed()
+              .subscribe(res => {
+                if(!res) {
+                  // If user press cancel
+                  return;
+                }
+                if (isNew) {
+                  this.loader.open('Ajout en cours');
+                  console.log(this.partner.id)
+                  console.log(data.partnerNum)
+                  this.partnerService.addAccount(res)
+                    .subscribe((data :any)=> {
+                      this.dataSource5 = data;
+                      this.loader.close();
+                       this.snack.open('Compte bancaire ajouté avec succès!', 'OK', { duration: 2000 });
+                       this.getAccounts()
+                    })
+                }else {
+                  this.loader.open('modification en cours');
+                  console.log(data.id)
+                  this.partnerService.updateAccount(data.id, res)
+                    .subscribe((data:any) => {
+                      this.dataSource5 = data ;
+                      this.loader.close();
+                      this.snack.open('Compte bancaire modifié avec succés!', 'OK', { duration: 2000 });
+                      this.getAccounts();
+                    })
+                } 
               })
           }
 }

@@ -1,7 +1,7 @@
 <mat-card class="p-0">
   <mat-card-title class="">
      <div class="card-title-text"><mat-icon>
-      info_outline </mat-icon>General Informations </div>
+      info_outline </mat-icon>Informations générales <strong>{{partner.name}}</strong></div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -56,6 +56,7 @@
               <mat-list-item><mat-icon class="mr-16">domain</mat-icon>  <strong>Legal Status:</strong>{{ partner.legalStatus }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16">attach_money</mat-icon> <strong>Devise:</strong> {{ partner.devise }}</mat-list-item>
             </mat-list>
           </mat-card-content>
         </mat-card>
@@ -66,23 +67,25 @@
               <mat-expansion-panel >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    <mat-icon color="primary">location_on </mat-icon>
-                    <h6 class="text-18 mb-4"> <strong>Adresses</strong></h6>
+                    <mat-icon color="primary">contact_phone </mat-icon>
+                    <h6 class="text-18 mb-4"> Adresses <strong>{{partner.name}}</strong></h6>
                     
                     
                   </mat-panel-title>
                  
                 </mat-expansion-panel-header>
                
-                <button mat-icon-button color="primary" type="button" >
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">
                   <mat-icon>add</mat-icon>
                 </button>
                 <div *ngFor="let address of addresses" class="border-bottom pb-16 mb-16">
                     <div fxLyout="row wrap" class="text-blue font-weight-bold">
                        <span>{{address.addressTitle}}</span>
                         <span fxFlex></span>
+                        <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(address)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
                         <button mat-icon-button mat-sm-button color="warn" (click)="deleteAddress(address.id)">
-                          
                           <mat-icon>delete</mat-icon>
                         </button>
                       </div>
@@ -94,21 +97,100 @@
                 </div>
                 
               </mat-expansion-panel>
+               <!--bank accounts here-->
+               <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon Orders
+                    color="primary">account_balance</mat-icon>
+                    <h6 class="text-18 mb-4">Comptes bancaires <strong>{{partner.name}}</strong></h6>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp6({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <div *ngFor="let account of accounts" class="border-bottom pb-16 mb-16">
+                    <div fxLyout="row wrap" class="text-blue font-weight-bold">
+                    
+                        <span>{{account.bankName}}</span>
+                        <span fxFlex></span>
+                        
+                        <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp5(account)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+  
+                        <button mat-icon-button mat-sm-button color="warn" (click)="deleteAccount(account.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
+                      <div fxLyout="row wrap" class="text-muted">
+                        <small>{{account.rib}}</small>
+                      </div>
+                </div>
+               
+               
+              </mat-expansion-panel>
+              <!--offered services here-->
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon Orders
+                    color="primary">room_service</mat-icon>
+                    <h6 class="text-18 mb-4">Services offerts <strong>{{partner.name}}</strong></h6>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp5({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <div *ngFor="let service of offered" class="border-bottom pb-16 mb-16">
+                    <div fxLyout="row wrap" class="text-blue font-weight-bold">
+                    
+                        <span>{{service.serviceType}}</span>
+                        <span fxFlex></span>
+                        
+                        <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp5(service)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+  
+                        <button mat-icon-button mat-sm-button color="warn" (click)="deleteOfferedService(service.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
+                      <div fxLyout="row wrap" class="text-muted">
+                        <small>{{service.title}}</small>
+                      </div>
+                </div>
+               
+               
+              </mat-expansion-panel>
+              <!--social media here-->
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
                     color="primary">  phonelink_ring</mat-icon>
-                    <h6 class="text-18 mb-4"> <strong> Social Medias</strong></h6>
+                    <h6 class="text-18 mb-4">Social Medias <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                
+                <button mat-icon-button color="primary" type="button" (click)="openPopUp4({},true)">
+                  <mat-icon>add</mat-icon>
+                </button>
                 <div *ngFor="let socialMedia of socialMedias" class="border-bottom pb-16 mb-16">
                     <div fxLyout="row wrap" class="text-blue font-weight-bold">
                     
                         <span>{{socialMedia.name}}</span>
                         <span fxFlex></span>
-                        <span><mat-icon class="mr-16">link</mat-icon></span>
+                        
+                        <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp4(socialMedia)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+  
+                        <button mat-icon-button mat-sm-button color="warn" (click)="deleteSocialMedia(socialMedia.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-icon-button mat-sm-button color="primary" ><!--(click)=""-->
+                          <mat-icon class="mr-16">link</mat-icon>
+                        </button>
                       </div>
                       <div fxLyout="row wrap" class="text-muted">
                         <small>{{socialMedia.link}}</small>
@@ -124,7 +206,7 @@
                   <mat-panel-title>
                     <mat-icon Orders
                     color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4"> <strong>Contacts</strong></h6>
+                    <h6 class="text-18 mb-4">Contacts <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp2({},true)">
@@ -156,12 +238,15 @@
                   <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-            
-                    
-            
+
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp2(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+
                       <button mat-icon-button mat-sm-button color="warn" (click)="deleteContact(row.contactId)">
                         <mat-icon>delete</mat-icon>
                       </button>
+
                     </mat-cell>
                   </ng-container>
               
@@ -177,7 +262,7 @@
                   <mat-panel-title>
                     <mat-icon Orders
                     color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4"> <strong>Besoins</strong></h6>
+                    <h6 class="text-18 mb-4">Besoins <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp3({},true)">
@@ -203,10 +288,10 @@
                     
           
           
-                      <ng-container matColumnDef="totalCandidateNumber">
+                      <!--ng-container matColumnDef="totalCandidateNumber">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> totalCandidateNumber </mat-header-cell>
                       <mat-cell *matCellDef="let row" data-label="totalCandidateNumber"> {{row.totalCandidateNumber}} </mat-cell>
-                    </ng-container>
+                    </ng-container-->
           
                               
                     <ng-container matColumnDef="requirementType">
@@ -236,6 +321,10 @@
                   <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let row">
+
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp3(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
             
                       <button mat-icon-button mat-sm-button color="warn" (click)="deleteBesoin(row.id)">
                         <mat-icon>delete</mat-icon>
@@ -249,12 +338,13 @@
                 </mat-table>
               
               </mat-expansion-panel>
+              <!--Adresses here-->
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4"> <strong>addresses</strong></h6>
+                    color="primary">location_on</mat-icon>
+                    <h6 class="text-18 mb-4">Adresses <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">

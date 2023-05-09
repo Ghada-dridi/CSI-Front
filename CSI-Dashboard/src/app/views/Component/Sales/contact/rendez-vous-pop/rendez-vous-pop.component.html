@@ -2,14 +2,6 @@
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
    
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
-      <div  fxFlex="50"  class="pr-16">
-            <mat-form-field class="full-width">
-                <mat-label>Nom contact</mat-label>
-                <mat-select  [formControlName]="'contactNum'">
-                  <mat-option *ngFor="let contact of listcontact" [value]="contact.contactId">{{ contact.fullName}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
           
       <div  fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
@@ -28,7 +20,7 @@
           name="date"
           type="date" 
           [formControlName]="'date'"
-          placeholder="Date">
+          placeholder="date">
         </mat-form-field>
       </div>
 
@@ -58,43 +50,44 @@
       </mat-form-field>
     </div>
 
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="location"
+          type="text"
+          [formControlName]="'location'"
+          placeholder="Lieu">
+        </mat-form-field>
+    </div>
 
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
-        <input
-        matInput
-        name="location"
-        type="text"
-        [formControlName]="'location'"
-        placeholder="Lieu">
-      </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="duration"
+          type="number"
+          [formControlName]="'duration'"
+          placeholder="Durée">
+        </mat-form-field>
     </div>
-   
 
-   
+
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="subject"
+          type="text"
+          [formControlName]="'subject'"
+          placeholder="Sujet">
+        </mat-form-field>
+    </div>
 
     
-      
-          <div fxFlex="50"  class="pr-16">
-            <mat-form-field class="full-width">
-              <input
-              matInput
-              name="duration"
-              type="number"
-              [formControlName]="'duration'"
-              placeholder="Durée">
-            </mat-form-field>
-          </div>
-          <div fxFlex="50"  class="pr-16">
-            <mat-form-field class="full-width">
-              <input
-              matInput
-              name="subject"
-              type="text"
-              [formControlName]="'subject'"
-              placeholder="Sujet">
-            </mat-form-field>
-          </div>
+
+
+    
           <div fxFlex="100" class="mt-16">
             <button mat-raised-button color="primary" >{{"Enregsitrer" | translate }}</button>
             <span fxFlex></span>

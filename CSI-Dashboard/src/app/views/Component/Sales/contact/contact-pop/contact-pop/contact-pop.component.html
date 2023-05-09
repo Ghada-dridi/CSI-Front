@@ -1,8 +1,17 @@
 
 <h1 matDialogTitle>{{data.title}}</h1>
-Nouveau contact
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <!--div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
+        <mat-form-field class="full-width">
+          <mat-label>Nom partenaire</mat-label>
+            <mat-select  [formControlName]="'partnerNum'">
+              <mat-option *ngFor="let partner of listPartner" [value]="partner.id">{{partner.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div-->
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
@@ -121,26 +130,24 @@ Nouveau contact
           </mat-select>
         </mat-form-field>
       </div>
-     <!--- <label>
+      <label>
         Contact d'un partenaire
         <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
       </label>
       
-      <div *ngIf="showDiv">
-        
+      <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
         <mat-form-field class="full-width">
-            <mat-label>Partenaire</mat-label>
+          <mat-label>Nom partenaire</mat-label>
             <mat-select  [formControlName]="'partnerNum'">
-              <mat-option *ngFor="let partnerNum of listPartner" [value]="partnerNum.id">{{ partnerNum.name}}</mat-option>
+              <mat-option *ngFor="let partner of listPartner" [value]="partner.id">{{partner.name}}</mat-option>
             </mat-select>
-          </mat-form-field>
+        </mat-form-field>
       </div>
--->
+
   <div fxFlex="100" class="mt-16">
       <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>
   </div>
-  </form>
 

@@ -22,8 +22,8 @@ export class RendezVousPopupComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<RendezVousPopupComponent>,
-    private fb: FormBuilder, private contactService: ContactService
-
+    private fb: FormBuilder, 
+    private contactService: ContactService
   ) { }
 
 
@@ -34,14 +34,15 @@ export class RendezVousPopupComponent implements OnInit {
       date: [item.date ||'', Validators.required, ],
       time: [item.time|| '', Validators.required],
      duration: [item.duration|| '', Validators.required],
+     location: [item.location || '', Validators.required],
      subject: [item.subject|| '', Validators.required],
-      contactNum : [item.contactId|| '', Validators.required],
+      contactNum : [item.contactId|| null, Validators.required],
     });
     
   }
 
 
-getpartnern(){
+  getContacts(){
 this.contactService.getItems().subscribe((data :any )=>{
   this.listcontact = data
 });
@@ -50,7 +51,7 @@ this.contactService.getItems().subscribe((data :any )=>{
 
   ngOnInit() {
     this.buildItemForm(this.data.payload)
-     this.getpartnern()
+     this.getContacts()
 
   }
 

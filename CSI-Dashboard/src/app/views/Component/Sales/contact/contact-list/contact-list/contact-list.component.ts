@@ -11,6 +11,7 @@ import { ContactService } from '../../contact.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
 import { contact } from 'app/shared/models/contact';
 import { ContactPopComponent } from '../../contact-pop/contact-pop/contact-pop.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
@@ -25,12 +26,15 @@ export class ContactListComponent implements OnInit,OnDestroy {
   public getItemSub: Subscription;
   
   
-  constructor( private snack: MatSnackBar,
-              private dialog: MatDialog,
-              private loader: AppLoaderService,
-              private contactService: ContactService,
-              private confirmService: AppConfirmService ) {
-    this.dataSource = new MatTableDataSource<contact>([]);
+  constructor(
+    private router: Router,
+    private snack: MatSnackBar,
+    private dialog: MatDialog,
+    private loader: AppLoaderService,
+    private contactService: ContactService,
+    private confirmService: AppConfirmService
+  ) {
+      this.dataSource = new MatTableDataSource<contact>([]);
     }
    
    
@@ -69,15 +73,22 @@ export class ContactListComponent implements OnInit,OnDestroy {
  
  }
  
- deleteItem(id) {
-  this.contactService.deleteContact(id)
-    .subscribe((data:any)=> {
-    this.dataSource = data;
-    this.loader.close();
-    this.snack.open('Contact deleted!', 'OK', { duration: 2000 });
-    this.getItems();
+ deleteItem(row) {
+  this.confirmService.confirm({message: `Delete ${row.name}?`})
+    .subscribe(res => {
+      if (res) {
+        this.loader.open('Suppression contact en cours');
+        this.contactService.deleteContact(row.contactId)
+          .subscribe((data:any)=> {
+            this.dataSource = data;
+            this.loader.close();
+            this.snack.open('Besoin supprimé !', 'OK', { duration: 2000 });
+            this.getItems();
           })
+      }
+    })
 }
+
 
 openPopUp(data: any = {}, isNew?) {
   let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
@@ -86,6 +97,7 @@ openPopUp(data: any = {}, isNew?) {
     disableClose: true,
     data: { title: title, payload: data }
   })
+  console.log(data.contactId)
   dialogRef.afterClosed()
     .subscribe(res => {
       if(!res) {
@@ -103,7 +115,7 @@ openPopUp(data: any = {}, isNew?) {
           })
       } else {
         this.loader.open('Mise à jour');
-        this.contactService.updateContact(data.id, res)
+        this.contactService.updateContact(data.contactId, res)
           .subscribe((data :any) => {
             this.dataSource = data;
             this.loader.close();

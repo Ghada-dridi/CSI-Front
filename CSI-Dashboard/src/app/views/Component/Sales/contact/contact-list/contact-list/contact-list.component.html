@@ -35,7 +35,7 @@
         <mat-cell *matCellDef="let row">
 
           <button mat-icon-button 
-            routerLink="/contact/{{ row.id }}" 
+            routerLink="/contact/{{ row.contactId }}" 
             routerLinkActive="router-link-active" 
             color="basic"
           >
@@ -46,7 +46,7 @@
             <mat-icon>edit</mat-icon>
           </button>
 
-          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
           <button mat-icon-button mat-sm-button color="basic" [matMenuTriggerFor]="menu" (click)="moreAboutItem(row.id)">

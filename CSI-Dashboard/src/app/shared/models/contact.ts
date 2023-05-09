@@ -4,6 +4,7 @@ export interface contact {
     contactId :number;
     firstName :string;
     lastName: string;
+    fullName: string;
     function: string;
     emailOne:string;
     emailTwo:string;

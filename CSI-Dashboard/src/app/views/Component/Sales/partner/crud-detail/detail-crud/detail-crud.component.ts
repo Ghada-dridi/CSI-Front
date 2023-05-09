@@ -245,7 +245,7 @@ public accounts: BankAccount[]
                   this.loader.open('Ajout en cours');
                   this.addressService.addAddress(res)
                     .subscribe((data :any)=> {
-                      this.dataSource3 = data;
+                      this.addresses = data;
                       this.loader.close();
                        this.snack.open(' addresse ajoutée avec succès!', 'OK', { duration: 2000 });
                        this.getAddresses()
@@ -254,7 +254,7 @@ public accounts: BankAccount[]
                   this.loader.open('modification en cours');
                   this.addressService.updateAddress(data.id,res)
                     .subscribe((data:any) => {
-                      this.dataSource3 = data ;
+                      this.addresses = data ;
                       this.loader.close();
                       this.snack.open('Adresse modifiée avec succés !', 'OK', { duration: 2000 });
                       this.getAddresses();

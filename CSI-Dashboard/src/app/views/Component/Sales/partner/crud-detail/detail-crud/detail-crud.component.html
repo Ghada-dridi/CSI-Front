@@ -18,10 +18,10 @@
               <div class="subtitle mb-8"><strong>name: </strong>  {{ partner.ceoName }}</div>
               <div class="text-muted">{{ partner.description }}</div>
             </div>
-            <div class="profile-actions mb-16" fxLayoutAlign="center center">
+            <!--div class="profile-actions mb-16" fxLayoutAlign="center center">
               <button mat-raised-button color="primary">Message</button>
               <span fxFlex="8px"></span>
-            </div>
+            </div-->
           </mat-card-content>
         </mat-card>
       </div>
@@ -67,7 +67,7 @@
               <mat-expansion-panel >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    <mat-icon color="primary">contact_phone </mat-icon>
+                    <mat-icon color="primary">location_on </mat-icon>
                     <h6 class="text-18 mb-4"> Adresses <strong>{{partner.name}}</strong></h6>
                     
                     
@@ -339,7 +339,7 @@
               
               </mat-expansion-panel>
               <!--Adresses here-->
-              <mat-expansion-panel>
+              <!--mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
@@ -390,7 +390,7 @@
                   <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
                 </mat-table>
               
-              </mat-expansion-panel>
+              </mat-expansion-panel-->
             </mat-accordion>
   </mat-card-content>
 </mat-card>

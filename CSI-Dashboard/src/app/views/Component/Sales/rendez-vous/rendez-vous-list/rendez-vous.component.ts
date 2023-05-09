@@ -59,7 +59,7 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['Date','Time','Duration','Subject','Contact','actions'];
+    return ['Date','Time','Duration','Location','Subject','Contact','actions'];
   }
 
 
@@ -108,7 +108,7 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
  }
 
  openPopUp(data:  any , isNew?) {
-  let title = isNew ? 'Add new rendez-vous' : 'Update rendez-vous';
+  let title = isNew ? 'Nouveau rendez-vous' : 'Modifier rendez-vous';
   let dialogRef: MatDialogRef<any> = this.dialog.open(RendezVousPopupComponent, {
     width: '720px',
     disableClose: true,

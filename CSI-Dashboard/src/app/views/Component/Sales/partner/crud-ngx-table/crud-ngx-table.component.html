@@ -17,7 +17,13 @@
 
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom 
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1.5cm;" >
+             <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer par nom">
+           </mat-form-field>
+           </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
       </ng-container>
 

@@ -107,16 +107,16 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
  
  }
 
- openPopUp(data:  any , isNew?) {
-  let title = isNew ? 'Nouveau rendez-vous' : 'Modifier rendez-vous';
-  let dialogRef: MatDialogRef<any> = this.dialog.open(RendezVousPopupComponent, {
-    width: '720px',
-    disableClose: true,
-    data: { title: title, payload: data }
-  })
-  dialogRef.afterClosed()
-    .subscribe(res => {
-      if(!res) {
+  openPopUp(data:  any , isNew?) {
+    let title = isNew ? 'Nouveau rendez-vous' : 'Modifier rendez-vous';
+    let dialogRef: MatDialogRef<any> = this.dialog.open(RendezVousPopupComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { title: title, payload: data }
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if(!res) {
         // If user press cancel
         return;
       }
@@ -140,5 +140,49 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
           })
       }
     })
+  }
+
+  ////////////filtrer  par colonne //////////////
+applyFilterr(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    return data[key].trim().toLowerCase().indexOf(filter) !== -1;
+  };
 }
+
+applyFilterNumber(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    const dataValue = data[key];
+    if (typeof dataValue === 'number') {
+      return dataValue === parseFloat(filter);
+    }
+    return dataValue.trim().toLowerCase().indexOf(filter) !== -1;
+  };
+}
+
+applyFilterBoolean(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    const dataValue = data[key];
+    if (typeof dataValue === 'boolean') {
+      const filterBoolean = filter === 'true';
+      return dataValue === filterBoolean;
+    }
+    return dataValue.toString().trim().toLowerCase().indexOf(filter) !== -1;
+  };
+}
+
 }

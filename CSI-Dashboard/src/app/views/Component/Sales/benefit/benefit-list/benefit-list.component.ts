@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Benefit } from 'app/shared/models/Benefit';
+import { Benefit, BenefitStatus } from 'app/shared/models/Benefit';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -25,6 +25,12 @@ export class BenefitListComponent implements OnInit {
   public dataSource: MatTableDataSource<Benefit>;
   public displayedColumns: any;
   public getItemSub: Subscription;
+
+  benefitStatusMap = {
+    [BenefitStatus.SIGNED]:'Signé',
+    [BenefitStatus.PROVISIONAL]:'Provisoire'
+  };
+  
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -122,4 +128,48 @@ export class BenefitListComponent implements OnInit {
       })
 
   }
+
+    ////////////filtrer  par colonne //////////////
+applyFilterr(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    return data[key].trim().toLowerCase().indexOf(filter) !== -1;
+  };
+}
+
+
+applyFilterNumber(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    const dataValue = data[key];
+    if (typeof dataValue === 'number') {
+      return dataValue === parseFloat(filter);
+    }
+    return dataValue.trim().toLowerCase().indexOf(filter) !== -1;
+  };
+}
+
+applyFilterBoolean(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+  this.dataSource.filterPredicate = (data, filter) => {
+    const dataValue = data[key];
+    if (typeof dataValue === 'boolean') {
+      const filterBoolean = filter === 'true';
+      return dataValue === filterBoolean;
+    }
+    return dataValue.toString().trim().toLowerCase().indexOf(filter) !== -1;
+  };
+}
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BenefitService } from '../benefit.service';
-import { Benefit } from 'app/shared/models/Benefit';
+import { Benefit, BenefitStatus } from 'app/shared/models/Benefit';
 import { workArrangement } from 'app/shared/models/workArrangement';
 import { extraDuty } from 'app/shared/models/extraDuty';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,6 +25,11 @@ export class BenefitDetailComponent implements OnInit {
   public dataSource2: MatTableDataSource<workArrangement>;
   public workArrangements: workArrangement[]
   public extraDuties: extraDuty[]
+
+  benefitStatusMap = {
+    [BenefitStatus.SIGNED]:'Signé',
+    [BenefitStatus.PROVISIONAL]:'Provisoire'
+  };
 
   constructor(private route: ActivatedRoute,
     private benefitService: BenefitService,

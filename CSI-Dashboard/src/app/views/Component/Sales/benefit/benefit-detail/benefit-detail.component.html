@@ -9,11 +9,11 @@
         <div fxFlex="100" fxFlex.gt-sm="30">
           <mat-card class="p-0">
             <mat-card-content>
-              <div class="propic text-center">
+              <!--div class="propic text-center">
                 <img src="assets/images/sq-face-220.jpg" alt="">
-              </div>
+              </div-->
               <div class="profile-title text-center mb-16">
-                <div class="main-title"><strong>{{ benefit.titled }}</strong></div>
+                <div class="main-title"><h1>{{ benefit.titled }}</h1></div>
               </div>
             </mat-card-content>
           </mat-card>
@@ -28,8 +28,8 @@
               <mat-list>
                 <mat-list-item><strong>Coût journalier moyen:</strong>   {{ benefit.averageDailyCost }}</mat-list-item>
                 <mat-list-item><strong>Coût total:</strong>   {{ benefit.totalCost }}</mat-list-item>
-                <mat-list-item><strong>Coût:</strong>   {{ benefit.cost }}</mat-list-item>
-                <mat-list-item><strong>Rapport coût-efficacité:</strong>   {{ benefit.costEfficiency }}</mat-list-item>
+                <mat-list-item><strong>Coût HT:</strong>   {{ benefit.cost }}</mat-list-item>
+                <mat-list-item><strong>Rentabilité:</strong>   {{ benefit.costEfficiency }}</mat-list-item>
                 <mat-list-item><strong>Frais mensuels:</strong>   {{ benefit.monthlyFees }}</mat-list-item>
                 <mat-list-item><strong>Frais exceptionnels:</strong>   {{ benefit.exceptionalCosts }}</mat-list-item>
               </mat-list>
@@ -79,7 +79,7 @@
           </ng-container>
       
           <ng-container matColumnDef="hourWage">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> moyenne des heurs </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> moyenne des heures </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="hourWage"> {{row.hourWage}} </mat-cell>
           </ng-container>
        

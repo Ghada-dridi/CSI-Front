@@ -127,4 +127,15 @@ export class ReqlistComponent implements OnInit , OnDestroy {
       }
     })
 }
+  ////////////filtrer  par colonne //////////////
+  applyFilterr(event: Event, key: string) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    this.dataSource.filterPredicate = (data, filter) => {
+      return data[key].trim().toLowerCase().indexOf(filter) !== -1;
+    };
+  }
 }

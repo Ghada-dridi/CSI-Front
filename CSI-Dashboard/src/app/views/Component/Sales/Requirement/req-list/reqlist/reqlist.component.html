@@ -7,7 +7,7 @@
      besoin</button>
   
     <mat-form-field  >
-      <input matInput (keyup)="applyFilter($event)" placeholder="Filtre">
+      <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
       </mat-form-field> 
    
   </div>
@@ -19,38 +19,74 @@
     
   
         <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Titre 
+            <div style="padding-left: 20px;">
+              <mat-form-field style="width:1.5cm;" >
+               <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer par titre">
+             </mat-form-field>
+            </div>
+          </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="title"> {{row.title}} </mat-cell>
         </ng-container>
   
   
   
         <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Description 
+            <div style="padding-left: 20px;">
+              <mat-form-field style="width:1.5cm;" >
+               <input matInput (input)="applyFilterr($event, 'description')" placeholder="Filtrer par description">
+             </mat-form-field>
+            </div>
+          </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="description"> {{row.description}} </mat-cell>
         </ng-container>
   
         
        <ng-container matColumnDef="criteria">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Critère </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Critère 
+            <div style="padding-left: 20px;">
+              <mat-form-field style="width:1.5cm;" >
+               <input matInput (input)="applyFilterr($event, 'criteria')" placeholder="Filtrer par critère">
+             </mat-form-field>
+            </div>
+          </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="criteria"> {{row.criteria}} </mat-cell>
         </ng-container>
 
                     
           <ng-container matColumnDef="requirementType">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Type besoin </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Type besoin 
+              <div style="padding-left: 20px;">
+                <mat-form-field style="width:1.5cm;" >
+                 <input matInput (input)="applyFilterr($event, 'requirementType')" placeholder="Filtrer par critère">
+               </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="requirementType"> {{row.requirementType}} </mat-cell>
           </ng-container>
 
                     
           <ng-container matColumnDef="requirementStatus">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Etat besoin </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Etat besoin 
+              <div style="padding-left: 20px;">
+                <mat-form-field style="width:1.5cm;" >
+                 <input matInput (input)="applyFilterr($event, 'requirementStatus')" placeholder="Filtrer par état besoin">
+               </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{row.requirementStatus}} </mat-cell>
           </ng-container>
 
                     
           <ng-container matColumnDef="workField">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Secteur d'activité </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Secteur d'activité 
+              <div style="padding-left: 20px;">
+                <mat-form-field style="width:1.5cm;" >
+                 <input matInput (input)="applyFilterr($event, 'workField')" placeholder="Filtrer par état besoin">
+               </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="workField"> {{row.workField}} </mat-cell>
           </ng-container>
   

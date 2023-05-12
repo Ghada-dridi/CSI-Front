@@ -22,6 +22,7 @@ import { OfferedPopComponent } from '../../offered-pop/offered-pop.component';
 import { offeredService } from 'app/shared/models/offeredService';
 import { AccountPopComponent } from '../../account-pop/account-pop.component';
 import { BankAccount } from 'app/shared/models/BankAccount';
+import { link } from 'fs';
 @Component({
   selector: 'app-detail-crud',
   templateUrl: './detail-crud.component.html'
@@ -44,6 +45,7 @@ public addresses : address[]
 public contacts: contact[]
 public offered: offeredService[]
 public accounts: BankAccount[]
+
 
   constructor(
     private route: ActivatedRoute,
@@ -265,7 +267,7 @@ public accounts: BankAccount[]
           }
           openPopUp2(data: any = {}, isNew?) {
             let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
-            let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
+            let dialogRef: MatDialogRef<any> = this.dialog.open(PartnerContactPopComponent, {
               width: '720px',
               disableClose: true,
               data: { title: title, payload: data ,  partnerId : this.partner.id }
@@ -451,6 +453,13 @@ public accounts: BankAccount[]
                     })
                 } 
               })
+          }
+
+          redirectToLink(link: string): void {
+            if (!link.startsWith('http') && !link.startsWith('https')) {
+              link = 'http://' + link;
+            }
+            window.open(link, '_blank');
           }
 }
 

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Partner } from 'app/shared/models/Partner';
+import { CompanyStatus, LegalStatus, Partner, Provenance, WorkField } from 'app/shared/models/Partner';
 import { Router } from '@angular/router';
 
 
@@ -47,7 +47,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['name','parentCompany','ceoName','Country','CompanyStatus','actions'];
+    return ['logo','name','parentCompany','ceoName','Country','CompanyStatus','actions'];
   }
 
 
@@ -154,4 +154,36 @@ add(){
       return data[key].trim().toLowerCase().indexOf(filter) !== -1;
     };
   }
+
+  CompanyStatusMap = {
+    [CompanyStatus.PROSPECT]:'Prospect',
+    [CompanyStatus.SUPPLIER]:'Fournisseur',
+   [CompanyStatus.CLIENT]:'Client',
+   [CompanyStatus.ARCHIVED] :'Archivé'
+  };
+
+  provenanceMap = {
+    [Provenance.JOBS_FORUM]:'Salon des entreprises',
+    [Provenance.RECOMMENDATION]:'Recommendation',
+   [Provenance.COOPERATION]:'Coopération',
+   [Provenance.OTHER] :'Autre'
+  };
+
+  workFieldMap = {
+    [WorkField.IT]:'IT',
+    [WorkField.INDUSTRY]:'Industrie',
+   [WorkField.SALES]:'Ventes',
+   [WorkField.AGRICULTURE] :'Agriculture',
+   [WorkField.BANKING] :'Banking',
+   [WorkField.E_COM] :'E-Commerce',
+   [WorkField.ASSURANCE] :'Assurance',
+   [WorkField.FINANCE] :'Finance'
+  };
+
+  legalStatusMap = {
+    [LegalStatus.SA]:'SA',
+    [LegalStatus.SARL]:'SARL',
+    [LegalStatus.SIRET]:'SIRET',
+    [LegalStatus.TVA]:'TVA'
+  };
 }

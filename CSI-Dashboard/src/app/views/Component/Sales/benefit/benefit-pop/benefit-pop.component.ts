@@ -12,7 +12,9 @@ export class BenefitPopComponent implements OnInit {
 
   public itemForm: FormGroup
   benefitStatus = Object.values(BenefitStatus)
-
+ 
+ 
+ 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BenefitPopComponent>,
@@ -40,5 +42,8 @@ export class BenefitPopComponent implements OnInit {
     console.log(this.itemForm.value)
     this.dialogRef.close(this.itemForm.value)
   }
-
+  benefitStatusMap = {
+    [BenefitStatus.SIGNED]:'Signé',
+    [BenefitStatus.PROVISIONAL]:'Provisoire'
+  };
 }

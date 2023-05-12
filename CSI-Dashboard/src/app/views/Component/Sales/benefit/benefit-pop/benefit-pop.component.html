@@ -42,7 +42,7 @@
         name="cost"
         type="number"
         [formControlName]="'cost'"
-        placeholder="Coût">
+        placeholder="Coût HT">
       </mat-form-field>
     </div>
 
@@ -53,7 +53,7 @@
         type="number"
         name="costEfficiency"
         [formControlName]="'costEfficiency'"
-        placeholder="Rapport coût-efficacité">
+        placeholder="Rentabilité">
       </mat-form-field>
     </div>
 
@@ -75,7 +75,7 @@
             <mat-form-field class="full-width">
               <mat-label>Etat prestation</mat-label>
               <mat-select  [formControlName]="'benefitStatus'">
-                <mat-option *ngFor="let x of benefitStatus" [value]="x">{{ x }}</mat-option>
+                <mat-option *ngFor="let x of benefitStatus" [value]="x">{{benefitStatusMap[x]}}</mat-option>
               </mat-select>
             </mat-form-field>
         </div>

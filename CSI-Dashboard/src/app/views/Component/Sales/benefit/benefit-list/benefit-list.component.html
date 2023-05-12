@@ -19,26 +19,50 @@
   
 
       <ng-container matColumnDef="titled">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Titre 
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1.5cm;" >
+             <input matInput (input)="applyFilterr($event, 'titled')" placeholder="Filtrer par fonction">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="titled"> {{row.titled}} </mat-cell>
       </ng-container>
 
 
 
       <ng-container matColumnDef="totalCost">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Coût total </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Coût total 
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1.5cm;" >
+             <input matInput (input)="applyFilterNumber($event, 'totalCost')" placeholder="Filtrer par fonction">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="totalCost"> {{row.totalCost}} </mat-cell>
       </ng-container>
 
       
      <ng-container matColumnDef="costEfficiency">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Rapport coût-efficacité </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Rentabilité
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1.5cm;" >
+             <input matInput (input)="applyFilterNumber($event, 'costEfficiency')" placeholder="Filtrer par fonction">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="costEfficiency"> {{row.costEfficiency}} </mat-cell>
       </ng-container>
 
                   
         <ng-container matColumnDef="exceptionalCosts">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Coûts exceptionnels </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Coûts exceptionnels 
+            <div style="padding-left: 20px;">
+              <mat-form-field style="width:1.5cm;" >
+               <input matInput (input)="applyFilterBoolean($event, 'exceptionalCosts')" placeholder="Filtrer par fonction">
+             </mat-form-field>
+            </div>
+          </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="exceptionalCosts"> {{row.exceptionalCosts}} </mat-cell>
         </ng-container>
 

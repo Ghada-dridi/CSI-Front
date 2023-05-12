@@ -55,20 +55,15 @@ export interface Partner {
   }
 
   export enum LegalStatus {
-
-    TVA ="TVA",
-     SIRET="SIRET" ,
-      RCS ="RCS", 
-      CODE_APE="CODE_APE"
+    SARL = "SARL",
+    SA = "SA",
+    SIRET = "SIRET",
+    TVA = "TVA"
   }
 
   export enum Provenance {
-
-    LINKEDIN ="LINKEDIN",
-     SPONTANEOUS_APPLICATION="SPONTANEOUS_APPLICATION" ,
       JOBS_FORUM="JOBS_FORUM" ,
        RECOMMENDATION="RECOMMENDATION" ,
-        JOB_BOARD ="JOB_BOARD",
          COOPERATION ="COOPERATION",
          OTHER="OTHER"
   }

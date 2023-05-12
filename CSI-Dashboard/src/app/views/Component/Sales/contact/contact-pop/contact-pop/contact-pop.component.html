@@ -101,16 +101,6 @@
             </mat-form-field>
           </div>
 
-          <div fxFlex="50"  class="pr-16">
-
-            <mat-form-field class="full-width">
-              <mat-label>Privilège</mat-label>
-              <mat-select  [formControlName]="'privilege'">
-                <mat-option *ngFor="let x of Privilege" [value]="x">{{ x }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-        </div>
-
         <div fxFlex="50"  class="pr-16">
 
           <mat-form-field class="full-width">
@@ -130,11 +120,24 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div fxFlex="50"  class="pr-16" >
+
+        <mat-form-field class="full-width">
+          <mat-label>Privilège</mat-label>
+          <mat-select  [formControlName]="'privilege'">
+            <mat-option *ngFor="let x of Privilege" [value]="x">{{ x }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+      <div fxFlex="50"  class="pr-16">
       <label>
         Contact d'un partenaire
         <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
       </label>
-      
+    </div>
+    
       <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
         <mat-form-field class="full-width">
           <mat-label>Nom partenaire</mat-label>

@@ -13,9 +13,8 @@
               <img [src]= partner.logo alt="">
             </div>
             <div class="profile-title text-center mb-16">
-              <div class="main-title">{{ partner.name }}</div>
-              <div class="subtitle mb-8"><strong>Parent Company:</strong> {{ partner.parentCompany }}</div>
-              <div class="subtitle mb-8"><strong>name: </strong>  {{ partner.ceoName }}</div>
+              <div class="main-title"><strong>Société mère :</strong>{{ partner.parentCompany }}</div>
+              <div class="subtitle mb-8"><strong>CEO : </strong>  {{ partner.ceoName }}</div>
               <div class="text-muted">{{ partner.description }}</div>
             </div>
             <!--div class="profile-actions mb-16" fxLayoutAlign="center center">
@@ -28,16 +27,16 @@
       <div fxFlex="100" fxFlex.gt-sm="30">
         <mat-card class="p-0">
           <mat-card-title class="">
-            <div class="card-title-text">Partner Contact Info</div>
+            <div class="card-title-text">Coordonnées partenaire</div>
             <mat-divider></mat-divider>
           </mat-card-title>
           <mat-card-content>
             <mat-list>
-              <mat-list-item><mat-icon class="mr-16">phone</mat-icon> + {{ partner.refPhoneNumber }}{{ partner.phoneNumber }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">phone</mat-icon> + {{ partner.refPhoneNumber }}{{ partner.phoneNumberTwo }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">add_location</mat-icon> {{ partner.postCode }}, {{ partner.city }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">public</mat-icon> {{ partner.country }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">devices</mat-icon> <strong>Provenance:</strong> {{ partner.provenance }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">phone</mat-icon> + {{ partner.refPhoneNumber }}{{ partner.phoneNumber }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">phone</mat-icon> + {{ partner.refPhoneNumber }}{{ partner.phoneNumberTwo }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">add_location</mat-icon> {{ partner.postCode }}, {{ partner.city }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">public</mat-icon> {{ partner.country }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">devices</mat-icon> <!--strong>Provenance :</strong--> {{ partner.provenance }}</mat-list-item>
             </mat-list>
           </mat-card-content>
         </mat-card>
@@ -45,18 +44,18 @@
       <div fxFlex="100" fxFlex.gt-sm="40">
         <mat-card class="p-0">
           <mat-card-title class="">
-            <div class="card-title-text">Administrative Info</div>
+            <div class="card-title-text">Infos administratives</div>
             <mat-divider></mat-divider>
           </mat-card-title>
           <mat-card-content>
             <mat-list>
-              <mat-list-item><mat-icon class="mr-16">date_range</mat-icon> <strong>Activity Start Date:</strong> {{ partner.activityStartDate }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">perm_contact_calendar</mat-icon> <strong>Partnership Date :</strong>  {{ partner.partnerShipDate }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">add_location</mat-icon> <strong>Company Status:</strong> {{ partner.companyStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">domain</mat-icon>  <strong>Legal Status:</strong>{{ partner.legalStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16">attach_money</mat-icon> <strong>Devise:</strong> {{ partner.devise }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date début activité :  </strong> {{ partner.activityStartDate }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date partenariat :  </strong>  {{ partner.partnerShipDate }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">label</mat-icon> <strong>Type partenaire :  </strong> {{ partner.companyStatus }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">domain</mat-icon>  <strong>Etat légal :  </strong>{{ partner.legalStatus }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">work</mat-icon> <strong>Secteur d'activité :  </strong> {{ partner.workField }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">group_add</mat-icon> <strong>Taille société :  </strong> {{ partner.staffNumber }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">attach_money</mat-icon> <strong>Devise :  </strong> {{ partner.devise }}</mat-list-item>
             </mat-list>
           </mat-card-content>
         </mat-card>
@@ -102,8 +101,8 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">account_balance</mat-icon>
-                    <h6 class="text-18 mb-4">Comptes bancaires <strong>{{partner.name}}</strong></h6>
+                    color="primary">account_balance </mat-icon>
+                    <h6 class="text-18 mb-4"> Comptes bancaires <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp6({},true)">
@@ -135,8 +134,8 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">room_service</mat-icon>
-                    <h6 class="text-18 mb-4">Services offerts <strong>{{partner.name}}</strong></h6>
+                    color="primary">room_service </mat-icon>
+                    <h6 class="text-18 mb-4"> Services offerts <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp5({},true)">
@@ -168,8 +167,8 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">  phonelink_ring</mat-icon>
-                    <h6 class="text-18 mb-4">Social Medias <strong>{{partner.name}}</strong></h6>
+                    color="primary">  phonelink_ring </mat-icon>
+                    <h6 class="text-18 mb-4"> Social Medias <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp4({},true)">
@@ -188,7 +187,7 @@
                         <button mat-icon-button mat-sm-button color="warn" (click)="deleteSocialMedia(socialMedia.id)">
                           <mat-icon>delete</mat-icon>
                         </button>
-                        <button mat-icon-button mat-sm-button color="primary" ><!--(click)=""-->
+                        <button mat-icon-button mat-sm-button color="primary" (click)="redirectToLink(socialMedia.link)">
                           <mat-icon class="mr-16">link</mat-icon>
                         </button>
                       </div>
@@ -205,8 +204,8 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4">Contacts <strong>{{partner.name}}</strong></h6>
+                    color="primary">contact_phone </mat-icon>
+                    <h6 class="text-18 mb-4"> Contacts <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp2({},true)">
@@ -261,8 +260,8 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon Orders
-                    color="primary">contact_phone</mat-icon>
-                    <h6 class="text-18 mb-4">Besoins <strong>{{partner.name}}</strong></h6>
+                    color="primary">assignment </mat-icon>
+                    <h6 class="text-18 mb-4"> Besoins <strong>{{partner.name}}</strong></h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp3({},true)">
@@ -417,7 +416,7 @@
             <mat-card-title class="mb-16">
               <div class="card-title-text">
 
-                <!--a href="" class="toolbar-avatar sm mr-16"><img [src]="user.photo" alt=""></a-->
+                <a href="" class="toolbar-avatar sm mr-16"><img [src]="user.photo" alt=""></a-->
 
                 <!--span class="text-16">FirstaName LastName</span>
                 <span fxFlex></span>

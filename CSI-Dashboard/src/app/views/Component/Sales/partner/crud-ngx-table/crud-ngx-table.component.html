@@ -5,7 +5,7 @@
     partenaire </button>
 
   <mat-form-field  >
-    <input matInput (keyup)="applyFilter($event)" placeholder="Filtre">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
     </mat-form-field> 
  
 </div>
@@ -14,15 +14,25 @@
     <mat-table [dataSource]="dataSource" matSort  >
 
 
+      <ng-container matColumnDef="logo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Logo
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="logo">
+          <div class="avatar">
+            <img [src]="row.logo" alt="logo" width = "80 px">
+          </div>
+        </mat-cell>
+      </ng-container>
+
 
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Nom 
           <div style="padding-left: 20px;">
-            <mat-form-field style="width:1.5cm;" >
+            <mat-form-field style="width:1cm;" >
              <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer par nom">
            </mat-form-field>
-           </div>
+          </div>
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
       </ng-container>
@@ -30,23 +40,34 @@
 
 
       <ng-container matColumnDef="ceoName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom CEO </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom CEO 
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1cm;" >
+             <input matInput (input)="applyFilterr($event, 'ceoName')" placeholder="Filtrer par nom CEO">
+           </mat-form-field>
+          </div>
+
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="ceoName"> {{row.ceoName}} </mat-cell>
       </ng-container>
 
       
      <ng-container matColumnDef="parentCompany">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom du groupe </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom du groupe 
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1cm;" >
+             <input matInput (input)="applyFilterr($event, 'parentCompany')" placeholder="Filtrer par nom">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="parentCompany"> {{row.parentCompany}} </mat-cell>
       </ng-container>
 
 
-
-      
-
-
       <ng-container matColumnDef="Country">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Pays </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Pays
+          
+           </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="Country"> {{row.country}} </mat-cell>
       </ng-container>
 
@@ -55,7 +76,7 @@
 
       <ng-container matColumnDef="CompanyStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Statut du partenaire </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="CompanyStatus"> {{row.companyStatus}} </mat-cell>
+        <mat-cell *matCellDef="let row" data-label="CompanyStatus"> {{CompanyStatusMap[row.companyStatus]}} </mat-cell>
       </ng-container>
 
 
@@ -83,9 +104,6 @@
           </button>
           <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
             <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button color="basic" [matMenuTriggerFor]="menu" >
-            <mat-icon>more_horiz</mat-icon>   
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/partner/besoins', row.id]"

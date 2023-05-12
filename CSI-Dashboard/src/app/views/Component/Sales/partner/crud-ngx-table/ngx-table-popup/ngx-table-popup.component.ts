@@ -140,4 +140,35 @@ export class NgxTablePopupComponent implements OnInit {
     }
   }
 
+ 
+
+  CompanyStatusMap = {
+    [CompanyStatus.PROSPECT]:'Prospect',
+    [CompanyStatus.SUPPLIER]:'Fournisseur',
+   [CompanyStatus.CLIENT]:'Client',
+   [CompanyStatus.ARCHIVED] :'Archivé'
+  };
+
+  provenanceMap = {
+    [Provenance.JOBS_FORUM]:'Salon des entreprises',
+    [Provenance.RECOMMENDATION]:'Recommendation',
+   [Provenance.COOPERATION]:'Coopération',
+   [Provenance.OTHER] :'Autre'
+  };
+
+  workFieldMap = {
+    [WorkField.IT]:'IT',
+    [WorkField.INDUSTRY]:'Industrie',
+   [WorkField.SALES]:'Ventes',
+   [WorkField.AGRICULTURE] :'Agriculture',
+   [WorkField.BANKING] :'Banking',
+   [WorkField.E_COM] :'E-Commerce',
+   [WorkField.ASSURANCE] :'Assurance',
+   [WorkField.FINANCE] :'Finance'
+  };
+
+  legalStatusMap = {
+    [LegalStatus.SA]:'SA',
+    [LegalStatus.SARL]:'SARL'
+  };
 }

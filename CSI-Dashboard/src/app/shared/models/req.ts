@@ -16,6 +16,7 @@ export interface req {
     expectedEndDate? :string ,
     responseDate? :string ,
     totalCandidateNumber : number,
+    company : string,
     partnerNum :number ,
     partnerId :number,
     partner : Partner
@@ -35,8 +36,8 @@ export enum RequirementType {
 
     MANAGEMENT ="MANAGEMENT",
      RECRUITMENT ="RECRUITMENT",
-      PRODUCT ="PRODUCT", 
-      INTERN_PROJECT="INTERN_PROJECT"
+      INTERN_PROJECT="INTERN_PROJECT",
+      PRODUCT="PRODUCT"
 }
 
 export enum RequirementStatus {

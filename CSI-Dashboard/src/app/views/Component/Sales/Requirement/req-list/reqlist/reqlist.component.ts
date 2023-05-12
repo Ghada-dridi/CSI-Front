@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReqService } from '../../req.service';
-import { req } from 'app/shared/models/req';
+import { Availability, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ReqpopComponent } from '../../req-pop/reqpop/reqpop.component';
 
@@ -47,7 +47,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
   getDisplayedColumns() {
     return [
-      'title','description','criteria','requirementType','requirementStatus','workField','actions',
+      'company','title','criteria','requirementStatus','workField','actions',
     ];
   }
 
@@ -137,5 +137,39 @@ export class ReqlistComponent implements OnInit , OnDestroy {
     this.dataSource.filterPredicate = (data, filter) => {
       return data[key].trim().toLowerCase().indexOf(filter) !== -1;
     };
+  }
+
+  workFieldMap = {
+    [WorkField.IT]:'IT',
+    [WorkField.INDUSTRY]:'Industrie',
+   [WorkField.SALES]:'Ventes',
+   [WorkField.AGRICULTURE] :'Agriculture',
+   [WorkField.BANKING] :'Banking',
+   [WorkField.E_COM] :'E-Commerce',
+   [WorkField.ASSURANCE] :'Assurance',
+   [WorkField.FINANCE] :'Finance'
+  };
+
+  reqTypeMap = {
+    [RequirementType.MANAGEMENT]:'Management',
+    [RequirementType.RECRUITMENT]:'Recrutement',
+    [RequirementType.INTERN_PROJECT] :'Projet interne',
+    [RequirementType.PRODUCT]: 'Produit'
+  };
+
+  reqStatusMap = {
+    [RequirementStatus.POSITIONED]:'Positionné',
+    [RequirementStatus.WON]:'Gagné',
+    [RequirementStatus.LOST] :'Perdu',
+    [RequirementStatus.ABANDONED] :'Abandonné',
+    [RequirementStatus.IN_PROGRESS] :'En cours',
+  };
+
+  availabilityMap = {
+    [Availability.ASAP]: "Le plus tôt possible",
+    [Availability.FROM]: "A partir de",
+    [Availability.IMMEDIATELY]: "Immédiatement",
+    [Availability.MONTH_MAXIMUM]: "Un mois au maximum",
+    [Availability.THREE_MONTHS_MINIMUM]: "Trois mois au minimum"
   }
 }

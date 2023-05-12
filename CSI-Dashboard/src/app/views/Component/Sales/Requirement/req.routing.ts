@@ -16,7 +16,7 @@ export const ReqRoutes: Routes = [
     pathMatch: "full"
   },
   {
-    path: ":iiid",
+    path: ":id",
     component: ReqDetailComponent ,
     pathMatch: "full"
   }

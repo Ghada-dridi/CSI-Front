@@ -36,7 +36,7 @@
               <mat-list-item><mat-icon class="mr-16" color="primary">phone</mat-icon> + {{ partner.refPhoneNumber }}{{ partner.phoneNumberTwo }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16" color="primary">add_location</mat-icon> {{ partner.postCode }}, {{ partner.city }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16" color="primary">public</mat-icon> {{ partner.country }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">devices</mat-icon> <!--strong>Provenance :</strong--> {{ partner.provenance }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">devices</mat-icon> <!--strong>Provenance :</strong--> {{ provenanceMap[partner.provenance] }}</mat-list-item>
             </mat-list>
           </mat-card-content>
         </mat-card>
@@ -51,9 +51,9 @@
             <mat-list>
               <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date début activité :  </strong> {{ partner.activityStartDate }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date partenariat :  </strong>  {{ partner.partnerShipDate }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">label</mat-icon> <strong>Type partenaire :  </strong> {{ partner.companyStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">domain</mat-icon>  <strong>Etat légal :  </strong>{{ partner.legalStatus }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">work</mat-icon> <strong>Secteur d'activité :  </strong> {{ partner.workField }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">label</mat-icon> <strong>Type partenaire :  </strong> {{ CompanyStatusMap[partner.companyStatus] }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">domain</mat-icon>  <strong>Etat légal :  </strong>{{ legalStatusMap[partner.legalStatus] }}</mat-list-item>
+              <mat-list-item><mat-icon class="mr-16" color="primary">work</mat-icon> <strong>Secteur d'activité :  </strong> {{ workFieldMap[partner.workField] }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16" color="primary">group_add</mat-icon> <strong>Taille société :  </strong> {{ partner.staffNumber }}</mat-list-item>
               <mat-list-item><mat-icon class="mr-16" color="primary">attach_money</mat-icon> <strong>Devise :  </strong> {{ partner.devise }}</mat-list-item>
             </mat-list>

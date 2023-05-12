@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudPartnerService } from '../../crudPartner.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Partner } from 'app/shared/models/Partner';
+import { CompanyStatus, LegalStatus, Partner, Provenance } from 'app/shared/models/Partner';
 import { contact } from 'app/shared/models/contact';
-import { req } from 'app/shared/models/req';
+import { WorkField, req } from 'app/shared/models/req';
 import { socialMedia } from 'app/shared/models/socialMedia';
 import { address } from 'app/shared/models/address';
 import { addAddressComponent } from '../../../add-address/add-address.component';
@@ -461,5 +461,37 @@ public accounts: BankAccount[]
             }
             window.open(link, '_blank');
           }
+
+          CompanyStatusMap = {
+            [CompanyStatus.PROSPECT]:'Prospect',
+            [CompanyStatus.SUPPLIER]:'Fournisseur',
+           [CompanyStatus.CLIENT]:'Client',
+           [CompanyStatus.ARCHIVED] :'Archivé'
+          };
+        
+          provenanceMap = {
+            [Provenance.JOBS_FORUM]:'Salon des entreprises',
+            [Provenance.RECOMMENDATION]:'Recommendation',
+           [Provenance.COOPERATION]:'Coopération',
+           [Provenance.OTHER] :'Autre'
+          };
+        
+          workFieldMap = {
+            [WorkField.IT]:'IT',
+            [WorkField.INDUSTRY]:'Industrie',
+           [WorkField.SALES]:'Ventes',
+           [WorkField.AGRICULTURE] :'Agriculture',
+           [WorkField.BANKING] :'Banking',
+           [WorkField.E_COM] :'E-Commerce',
+           [WorkField.ASSURANCE] :'Assurance',
+           [WorkField.FINANCE] :'Finance'
+          };
+        
+          legalStatusMap = {
+            [LegalStatus.SA]:'SA',
+            [LegalStatus.SARL]:'SARL',
+            [LegalStatus.SIRET]: 'SIRET',
+            [LegalStatus.TVA]: 'TVA'
+          };
 }
 

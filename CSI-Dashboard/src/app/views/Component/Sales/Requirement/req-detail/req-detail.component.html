@@ -15,9 +15,10 @@
               <div class="profile-title text-center mb-16">
                 <div class="main-title">{{ req.title }}</div>
                 <div class="subtitle mb-8"><strong>Partenaire:</strong> {{ req.partner }}</div>
-                <div class="subtitle mb-8"><strong>Secteur d'activité:</strong> {{ req.workField }}</div>
-                <div class="subtitle mb-8"><strong>Etat besoin:</strong> {{ req.requirementStatus }}</div>
-                <div class="subtitle mb-8"><strong>Type besoin:</strong> {{ req.requirementType }}</div>
+                <div class="subtitle mb-8"><strong>Société:</strong> {{ req.company }}</div>
+                <div class="subtitle mb-8"><strong>Secteur d'activité:</strong> {{ workFieldMap[req.workField] }}</div>
+                <div class="subtitle mb-8"><strong>Etat besoin:</strong> {{ reqStatusMap[req.requirementStatus] }}</div>
+                <div class="subtitle mb-8"><strong>Type besoin:</strong> {{ reqTypeMap[req.requirementType] }}</div>
                 <!--div class="text-muted">{{ contact.comment }}</div-->
               </div>
               <!--div class="profile-actions mb-16" fxLayoutAlign="center center">
@@ -37,7 +38,7 @@
               <mat-list>
                 <mat-list-item><mat-icon class="mr-16">rule</mat-icon> {{ req.criteria }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">description</mat-icon> {{ req.description }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.availability }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ availabilityMap[req.availability] }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.totalCandidateNumber }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.plannedBudget }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.plannedIncome }}</mat-list-item>

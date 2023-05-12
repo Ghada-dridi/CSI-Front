@@ -41,6 +41,7 @@ export class ReqpopComponent implements OnInit {
       expectedEndDate : [item.expectedEndDate || '', Validators.required],
       responseDate : [item.responseDate || '', Validators.required],
       totalCandidateNumber : [item.totalCandidateNumber || '', Validators.required],
+      company : [item.company || '', Validators.required],
       requirementType : [item.requirementType || '', Validators.required],
       requirementStatus : [item.requirementStatus || '', Validators.required ,],
       workField : [item.workField || '', Validators.required],
@@ -70,6 +71,37 @@ this.CrudService.getItems().subscribe((data :any )=>{
     this.dialogRef.close(this.itemForm.value)
   }
 
-  
+  workFieldMap = {
+    [WorkField.IT]:'IT',
+    [WorkField.INDUSTRY]:'Industrie',
+   [WorkField.SALES]:'Ventes',
+   [WorkField.AGRICULTURE] :'Agriculture',
+   [WorkField.BANKING] :'Banking',
+   [WorkField.E_COM] :'E-Commerce',
+   [WorkField.ASSURANCE] :'Assurance',
+   [WorkField.FINANCE] :'Finance'
+  };
 
+  reqTypeMap = {
+    [RequirementType.MANAGEMENT]:'Management',
+    [RequirementType.RECRUITMENT]:'Recrutement',
+    [RequirementType.INTERN_PROJECT] :'Projet interne',
+    [RequirementType.PRODUCT]: 'Produit'
+  };
+
+  reqStatusMap = {
+    [RequirementStatus.POSITIONED]:'Positionné',
+    [RequirementStatus.WON]:'Gagné',
+    [RequirementStatus.LOST] :'Perdu',
+    [RequirementStatus.ABANDONED] :'Abandonné',
+    [RequirementStatus.IN_PROGRESS] :'En cours',
+  };
+
+  availabilityMap = {
+    [Availability.ASAP]: "Le plus tôt possible",
+    [Availability.FROM]: "A partir de",
+    [Availability.IMMEDIATELY]: "Immédiatement",
+    [Availability.MONTH_MAXIMUM]: "Un mois au maximum",
+    [Availability.THREE_MONTHS_MINIMUM]: "Trois mois au minimum"
+  }
 }

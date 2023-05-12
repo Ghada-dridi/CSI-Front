@@ -15,7 +15,8 @@ export interface contact {
     partnerNum ?:number
     privilege ?: Privilege
     civility: Civility
-    service: Service
+    service: string
+    societe : string
 }
 
 export enum Privilege {

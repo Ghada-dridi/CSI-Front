@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContactService } from '../contact.service';
-import { contact } from 'app/shared/models/contact';
+import { Civility, contact, Privilege } from 'app/shared/models/contact';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -186,5 +186,17 @@ export class ContactDetailComponent implements OnInit {
         } 
       })
   }
+  CivilityMap = {
+    [Civility.MR]:'Mr',
+    [Civility.MRS]:'Mme',
+    [Civility.MS] : 'Mlle'
+   
+  };
+  PrivilegeMap = {
+    [Privilege.HIGH]:'Elevé',
+    [Privilege.MEDIUM]:'Moyen',
+    [Privilege.LOW] : 'Faible'
+   
+  };
 }
 

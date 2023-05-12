@@ -9,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ContactService } from '../../contact.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
-import { contact } from 'app/shared/models/contact';
+import { Civility, contact } from 'app/shared/models/contact';
 import { ContactPopComponent } from '../../contact-pop/contact-pop/contact-pop.component';
 import { Router } from '@angular/router';
 @Component({
@@ -39,7 +39,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
    
    
    getDisplayedColumns() {
-    return ['firstName','lastName','function','actions'];
+    return ['firstName','lastName','societe','function','actions'];
   }
 
 
@@ -137,7 +137,12 @@ applyFilterr(event: Event, key: string) {
     return data[key].trim().toLowerCase().indexOf(filter) !== -1;
   };
 }
-
+CivilityMap = {
+  [Civility.MR]:'Monsieur',
+  [Civility.MRS]:'Madame',
+  [Civility.MS] : 'Mademoiselle'
+ 
+};
 }
 
 

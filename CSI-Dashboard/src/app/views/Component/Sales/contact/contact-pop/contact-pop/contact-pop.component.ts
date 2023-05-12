@@ -47,6 +47,7 @@ export class ContactPopComponent implements OnInit {
       privilege : [item.privilege || '', Validators.required],
       civility : [item.civility || '', Validators.required],
       service : [item.service || '', Validators.required],
+      societe : [item.societe || '', Validators.required],
       partnerNum: [this.data.partnerId || null, Validators.required]
     });
 }
@@ -61,6 +62,18 @@ submit() {
   this.dialogRef.close(this.itemForm.value)
   console.log(this.itemForm.value)
 }
+PrivilegeMap = {
+    [Privilege.HIGH]:'Elevé',
+    [Privilege.MEDIUM]:'Moyen',
+    [Privilege.LOW] : 'Faible'
+   
+  };
+  CivilityMap = {
+    [Civility.MR]:'Mr',
+    [Civility.MRS]:'Mme',
+    [Civility.MS] : 'Mlle'
+   
+  };
 }
 
 

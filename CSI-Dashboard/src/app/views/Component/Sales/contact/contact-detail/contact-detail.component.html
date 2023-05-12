@@ -1,20 +1,22 @@
 <mat-card class="p-0">
     <mat-card-title class="">
-       <div class="card-title-text"><mat-icon>
-        info_outline </mat-icon>Informations générales</div>
-      <mat-divider></mat-divider>
+      
     </mat-card-title>
     <mat-card-content>
       <div fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="30">
           <mat-card class="p-0">
+            <mat-card-title class="">
+              <div class="card-title-text">Informations générales</div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
             <mat-card-content>
               <!--div class="propic text-center">
                 <img src="assets/images/sq-face-220.jpg" alt="">
               </div-->
               <div class="profile-title text-center mb-16">
-                <div class="main-title">{{ contact.firstName }} {{ contact.lastName }}</div>
-                <div class="subtitle mb-8"><strong>Fonction:</strong> {{ contact.function }}</div>
+                <div class="main-title">{{ CivilityMap[contact.civility] }} {{ contact.lastName.toUpperCase()}} {{ contact.firstName}}</div> <br>
+               <div> <mat-list-item><mat-icon class="mr-16">comment</mat-icon>  <strong>Commentaire:</strong>{{ contact.comment }}</mat-list-item></div>
                 <!--<div class="subtitle mb-8"><strong>name: </strong>  {{ partner.ceoName }}</div>-->
                 <!--div class="text-muted">{{ contact.comment }}</div-->
               </div>
@@ -50,10 +52,12 @@
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon class="mr-16">portrait</mat-icon> <strong>Civilité: </strong> {{ contact.civility }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">star_half</mat-icon> <strong>Privilège: </strong>  {{ contact.privilege }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Société: </strong>  {{ contact.societe }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Service: </strong> {{ contact.service }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">comment</mat-icon>  <strong>Commentaire:</strong>{{ contact.comment }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Fonction: </strong> {{ contact.function }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16">star_half</mat-icon> <strong>Privilège: </strong>  {{PrivilegeMap[contact.privilege]}}</mat-list-item>
+                
+                
                 <!--mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
                 <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item-->
               </mat-list>
@@ -68,7 +72,7 @@
                   <mat-panel-title>
                     <mat-icon Orders
                     color="primary">event</mat-icon>
-                    <h6 class="text-18 mb-4">Rendez-vous <strong>{{contact.fullName}}</strong></h6>
+                    <h6 class="text-18 mb-4">Rendez-vous </h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">
@@ -95,7 +99,7 @@
                     
                   <ng-container matColumnDef="duration">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Durée </mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="duration"> {{row.duration}} </mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="duration"> {{row.duration}} heures </mat-cell>
                   </ng-container>
   
                   <ng-container matColumnDef="subject">
@@ -129,7 +133,7 @@
                   <mat-panel-title>
                     <mat-icon Orders
                       color="primary">note</mat-icon>
-                    <h6 class="text-18 mb-4">Notes <strong>{{contact.fullName}}</strong></h6>
+                    <h6 class="text-18 mb-4">Notes</h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                   <button mat-icon-button color="primary" type="button" (click)="openPopUp1({},true)">

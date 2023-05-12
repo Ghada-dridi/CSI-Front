@@ -22,7 +22,7 @@ import { OfferedPopComponent } from '../../offered-pop/offered-pop.component';
 import { offeredService } from 'app/shared/models/offeredService';
 import { AccountPopComponent } from '../../account-pop/account-pop.component';
 import { BankAccount } from 'app/shared/models/BankAccount';
-import { link } from 'fs';
+
 @Component({
   selector: 'app-detail-crud',
   templateUrl: './detail-crud.component.html'

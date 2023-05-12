@@ -14,6 +14,15 @@
     </div-->
 
     <div fxFlex="50"  class="pr-16">
+
+      <mat-form-field class="full-width">
+        <mat-label>Civilité</mat-label>
+        <mat-select  [formControlName]="'civility'">
+          <mat-option *ngFor="let x of Civility" [value]="x">{{ CivilityMap[x]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+    <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
         matInput
@@ -33,7 +42,28 @@
         placeholder="Prénom">
       </mat-form-field>
     </div>
-
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="societe"
+        type="text"
+        [formControlName]="'societe'"
+        placeholder="Société">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input 
+      matInput
+      name="service"
+      type="text"
+      [formControlName]="'service'"
+      placeholder="service">
+      
+    </mat-form-field>
+  </div>
+  
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
@@ -101,32 +131,16 @@
             </mat-form-field>
           </div>
 
-        <div fxFlex="50"  class="pr-16">
 
-          <mat-form-field class="full-width">
-            <mat-label>Civilité</mat-label>
-            <mat-select  [formControlName]="'civility'">
-              <mat-option *ngFor="let x of Civility" [value]="x">{{ x }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
+    
 
-      <div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width">
-          <mat-label>Service</mat-label>
-          <mat-select  [formControlName]="'service'">
-            <mat-option *ngFor="let service of Service" [value]="service">{{service }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
+       
       <div fxFlex="50"  class="pr-16" >
 
         <mat-form-field class="full-width">
           <mat-label>Privilège</mat-label>
           <mat-select  [formControlName]="'privilege'">
-            <mat-option *ngFor="let x of Privilege" [value]="x">{{ x }}</mat-option>
+            <mat-option *ngFor="let x of Privilege" [value]="x">{{PrivilegeMap[x]}}</mat-option>
           </mat-select>
         </mat-form-field>
     </div>

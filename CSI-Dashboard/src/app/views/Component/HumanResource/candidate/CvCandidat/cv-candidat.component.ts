@@ -101,6 +101,7 @@ updateCandidatService: any;
   employee: Employee;
   offers: Offer[];
   isLinear = false;
+  actualEmploymentIsChecked: boolean = false;
 
  
 
@@ -221,7 +222,7 @@ updateCandidatService: any;
       description: new UntypedFormControl('', []),
       objective: new UntypedFormControl('', []),
       driverLicense: new UntypedFormControl('', []),
-      experienceAmount:new UntypedFormControl('', [Validators.required])
+      experienceAmount:new UntypedFormControl('', [Validators.required,Validators.pattern(/^[0-9]*$/)])
     })
 
 

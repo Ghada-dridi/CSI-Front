@@ -114,7 +114,11 @@
                   <mat-list-item><mat-icon color="primary" class="mr-16">person</mat-icon> <strong style="padding-right: 10px;">Intitulé du poste : </strong>{{experiences.experienceTitle}}</mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">keyboard</mat-icon><strong style="padding-right: 10px;">Technologies: </strong>{{experiences.technology}}</mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de début : </strong>{{experiences.experienceStartDate}}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de fin : </strong>{{experiences.experienceEndDate}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de fin : </strong><p>
+                    <ng-container *ngIf="actualEmploymentIsChecked; else experienceEndDate">{{'Present'}}</ng-container>
+                    <ng-template #experienceEndDate>{{experiences.experienceEndDate}}</ng-template>
+                    
+                  </p></mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Actuellement employé : </strong>{{experiences.actualEmployment}}</mat-list-item>
                 </mat-list>
               </mat-list>
@@ -225,121 +229,104 @@
       </button>
       </div>
     </div>
-    
     <div class="resume-container">
     <div id="resume" class="resume">
-      <div class="cv-container">
-      <header>
-        <span class="mat-display-2">{{ employee.firstName }} {{ employee.lastName }}</span>
-        <h2 style="padding-top: 10px;">{{ employeeTitleMap[employee.title]}}</h2>
-    </header>
+        <header>
+          <div >
+          <div class="header-left">
+              <img src="assets/images/logoTB.png" alt="">
+          </div>
+          <div class="header-right">
+            <span class="mat-display-1">{{ technicalFile.reference}}</span>
+            <h2 style="padding-top: 10px;">{{ employeeTitleMap[employee.title]}}</h2>
+          </div>
+          </div>
+          <hr>
+        </header>
     
     <div class="container">
       <div class="left">
-        <div class="profile">
-          <h2>Profil</h2>
-           <hr style="width: 100%; margin: 0 auto;">
-           <div class="profile-body">
-            <p>{{ technicalFile.description}}</p>
-          <strong style="padding-right: 10px;">Objectifs: </strong><p>{{ technicalFile.objective}}</p>
-          <div>
-          </div>
-           </div>
-        </div>
-
-        <div class="skills">
-          <h2>Compétences</h2>
-          <hr style="width: 100%; margin: 0 auto;">
-          <div class="skills-body">
-            <div class="chip-container" *ngFor="let skill of skills">
-              <div class="chip">{{skill.skillsTitle}}</div>
+            <div class="side_object">
+              <h3 class="titles">Objectifs</h3>
+                <p>{{ technicalFile.objective}}</p>
+              <div>
+              </div>
             </div>
-         </div>
-        </div>
 
-        <div class="Edcuation">
-          <h2>Parcours éducatif</h2>
-          <hr style="width: 100%; margin: 0 auto;">
-          <div class="education-body">
-            <ul class="body-list" *ngFor="let educations of education">
-              <li style="padding-bottom:15px">
-                  <div style="display: flex; justify-content: space-between;">
-                      <h3><strong style="padding-right: 10px;color: #4d528c;font-size:medium;">Nom de l'établissement:</strong>{{educations?.institution}}</h3>
-                      <p>{{educations?.startYear}} | {{educations?.obtainedDate}}</p>
-                  </div>
-                  <p><strong style="padding-right: 10px;">Diplôme:</strong>{{educations?.diploma}} | {{educations?.score}}</p>
+            <div class="side_object">
+              <h3 class="titles">Compétences</h3>
+                <ul *ngFor="let skill of skills">
+                  <li class="chip">{{skill.skillsTitle}}</li>
+                </ul>
+            </div>
+
+            <div class="side_object">
+              <h3 class="titles">Parcours éducatif</h3>
+                <ul class="body-list" *ngFor="let educations of education">
+                  <li style="padding-bottom:15px">
+                        <p>{{educations?.startYear}} | {{educations?.obtainedDate}}</p>
+                        <h4><strong style="padding-right: 10px;color: #4d528c;font-size:medium;">Nom de l'établissement:</strong>{{educations?.institution}}</h4>
+                        <p><strong style="padding-right: 10px;">Diplôme:</strong>{{educations?.diploma}} : {{educations?.score}}</p>
+                  </li>
+              </ul>
+            </div>
+
+            <div class="side_object">
+            <h3 class="titles">Langues</h3>
+            <ul *ngFor="let languages of language" class="side-list">
+              <li>
+                  <p>{{languages.language}} : {{LanguageLevelMap[languages.languageLevel]}}</p>
               </li>
-          </ul>
-         </div>
-        </div>
+              <li>{{languages.additionalInformation}}</li>
+            </ul>
+            </div>
 
-        
-        <div class="experince">
-          <h2>Expérience professionnelle</h2>
-          <hr style="width: 100%; margin: 0 auto;">
-          <div class="experince-body">
-            <ul *ngFor="let experiences of experience">
+
+            <div class="side_object">
+            <h3 class="titles">Certifications</h3>
+            <ul *ngFor="let certifications of certification" class="side-list">
               <li>
                 <div style="display: flex; justify-content: space-between;">
-                    <p><strong style="padding-right: 10px;color: #4d528c; font-size:medium;">Intitulé du poste:</strong>{{experiences.experienceTitle}}</p>
-                     <p>{{experiences.experienceStartDate}} | {{experiences.experienceEndDate}}</p>
+                  <p>{{certifications.certificationTitle}}</p>
+                  <p>{{certifications.certificationObtainedDate}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="side_object">
+            <h3 class="titles">Adresse</h3>
+            <ul class="side-list"  style="padding-bottom: 15px;">
+              <li><strong style="padding-right: 10px;">Pays: </strong>{{ employee.country }}</li>
+              <li><strong style="padding-right: 10px;">Ville: </strong>{{employee.city}},{{employee.postCode}}</li>
+            </ul>
+          </div>
+      </div>
+
+
+      <div class="right">
+          <h3 class="titles">Expérience professionnelle</h3>
+            <ul class="side-list" *ngFor="let experiences of experience" style="padding-bottom: 50px;">
+              <li>
+                <div style="display: flex; justify-content: space-between;">
+                    <p><strong style="padding-right: 10px;color: #4d528c; font-size:16px;">{{experiences.experienceCompany}} - {{experiences.experienceTitle}} </strong></p>
+                    <p>
+                      {{experiences.experienceStartDate}} | 
+                      <ng-container *ngIf="actualEmploymentIsChecked; else experienceEndDate">{{'Present'}}</ng-container>
+                    <ng-template #experienceEndDate>{{experiences.experienceEndDate}}</ng-template>
+                    </p>
                 </div>
                 <ul>
-                  <li><strong style="padding-right: 10px;">Technologies utilisées:</strong>{{experiences.technology}}</li>
+                  <li><strong style="padding-right: 10px;">Rôles :</strong>{{experiences. experienceRole}}</li>
+                  <li><strong style="padding-right: 10px;">Technologies utilisées :</strong>{{experiences.technology}}</li>
                 </ul>
               </li>
-          </ul>
-          </div>
-        </div>
-      </div>
-      <div class="right">
-        <h2>Contact</h2>
-        <span class="mat-heading-label">Adresse</span>
-        <ul class="side-list"  style="padding-bottom: 15px;">
-          <li><strong style="padding-right: 10px;">Pays: </strong>{{ employee.country }}</li>
-          <li><strong style="padding-right: 10px;">Ville: </strong>{{employee.city}}{{employee.postCode}}</li>
-          
-          <li><strong style="padding-right: 10px;">Adresse: </strong>{{employee.address}}</li>
-          </ul>
-
-          <span class="mat-heading-label"  >Emails</span>
-          <ul class="side-list"  style="padding-bottom: 15px;">
-            <li> {{ employee.emailOne}}</li>
-            <li> {{ employee.emailTwo}}</li>
-          </ul>
-
-          <span class="mat-heading-label">Numéros</span>
-         <ul class="side-list">
-          <li>{{ employee.phoneNumberOne }}</li>
-          <li>{{ employee.phoneNumberTwo }}</li>
-        </ul>
-
-        <h2 style="padding-top:20px">Langues</h2>
-        <ul *ngFor="let languages of language" class="side-list">
-          <li>
-            <div style="display: flex; justify-content: space-between;">
-              <p>{{languages.language}}</p>
-              <p>{{LanguageLevelMap[languages.languageLevel]}}</p>
-            </div> 
-          </li>
-           <li>{{languages.additionalInformation}}</li>
-        </ul>
-
-        <h2 style="padding-top:20px">Certifications</h2>
-        <ul *ngFor="let certifications of certification" class="side-list">
-          <li>
-            <div style="display: flex; justify-content: space-between;">
-              <p>{{certifications.certificationTitle}}</p>
-              <p>{{certifications.certificationObtainedDate}}</p>
-            </div>
-          </li>
-        </ul>
+            </ul>
       </div>
     </div>
   </div>
-    </div>
-  </div>
-  </mat-tab>
+ </div>
+ </mat-tab>
 </mat-tab-group>
       </div>
     </div>

@@ -613,7 +613,7 @@
                           <div class="form-group mb-1 col-sm-12 col-md-3">
                             <mat-form-field [style.width.cm]=5 appearance="outline" style="padding-right: 0.5cm;">
                               <mat-hint>Date Fin</mat-hint>
-                              <input matInput [matDatepicker]="picker10" formControlName="experienceEndDate" placeholder="Année Fin ">
+                              <input matInput [matDatepicker]="picker10" formControlName="experienceEndDate" placeholder="Année Fin " >
                               <mat-datepicker-toggle matSuffix [for]="picker10"></mat-datepicker-toggle>
                               <mat-datepicker #picker10></mat-datepicker>
                             </mat-form-field>
@@ -621,7 +621,7 @@
                           </div>
 
                       <div class="pb-16">
-                        <mat-checkbox formControlName="actualEmployment">En cours</mat-checkbox>
+                        <mat-checkbox formControlName="actualEmployment"  [(ngModel)]="actualEmploymentIsChecked">En cours</mat-checkbox>
                       </div>
                       <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
                         <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">

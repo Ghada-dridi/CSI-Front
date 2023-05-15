@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {  Validators,  FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Partner,CompanyStatus,WorkField,LegalStatus,Provenance ,Country} from 'app/shared/models/Partner';
-import { Civility, Privilege, Service } from 'app/shared/models/contact';
+import { Civility, Privilege } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType } from 'app/shared/models/req';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -31,7 +31,6 @@ export class NgxTablePopupComponent implements OnInit {
   selectedFile: File;
   Privilege :string []= Object.values(Privilege);
   Civility :string []= Object.values(Civility);
-  Service :string []= Object.values(Service);
   formWidth = 200; //declare and initialize formWidth property
   formHeight = 700; //declare and initialize formHeight property
   Availability : string [] = Object.values(Availability);

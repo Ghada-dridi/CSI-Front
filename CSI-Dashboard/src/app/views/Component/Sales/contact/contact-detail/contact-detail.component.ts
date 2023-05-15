@@ -196,7 +196,6 @@ export class ContactDetailComponent implements OnInit {
     [Privilege.HIGH]:'Elevé',
     [Privilege.MEDIUM]:'Moyen',
     [Privilege.LOW] : 'Faible'
-   
   };
 }
 

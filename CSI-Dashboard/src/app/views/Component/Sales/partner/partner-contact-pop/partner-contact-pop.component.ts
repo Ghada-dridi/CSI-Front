@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Privilege, Civility, Service } from 'app/shared/models/contact';
+import { Privilege, Civility } from 'app/shared/models/contact';
 import { CrudPartnerService } from '../crudPartner.service';
 
 @Component({
@@ -13,7 +13,6 @@ export class PartnerContactPopComponent implements OnInit {
   public itemForm: FormGroup;
   Privilege :string []= Object.values(Privilege);
   Civility :string []= Object.values(Civility);
-  Service :string []= Object.values(Service);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<PartnerContactPopComponent>,
@@ -35,6 +34,7 @@ export class PartnerContactPopComponent implements OnInit {
       emailTwo : [item.emailTwo || '', Validators.required],
       phoneNumberOne : [item.phoneNumberOne || '', Validators.required],
       phoneNumberTwo : [item.phoneNumberTwo || '', Validators.required],
+      localisation : [item.localisation || '', Validators.required],
       comment : [item.comment || '', Validators.required],
       privilege : [item.privilege || '', Validators.required],
       civility : [item.civility || '', Validators.required],
@@ -48,4 +48,15 @@ export class PartnerContactPopComponent implements OnInit {
     console.log(this.itemForm.value)
   }
 
+  PrivilegeMap = {
+    [Privilege.HIGH]:'Elevé',
+    [Privilege.MEDIUM]:'Moyen',
+    [Privilege.LOW] : 'Faible'
+  }
+
+  CivilityMap = {
+    [Civility.MR]:'Mr',
+    [Civility.MRS]:'Mme',
+    [Civility.MS] : 'Mlle'   
+  }
 }

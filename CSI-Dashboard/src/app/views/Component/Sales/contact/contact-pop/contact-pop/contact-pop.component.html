@@ -3,15 +3,6 @@
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
-    <!--div fxLayout="row wrap" fxLayout.lt-sm="column">
-      <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
-        <mat-form-field class="full-width">
-          <mat-label>Nom partenaire</mat-label>
-            <mat-select  [formControlName]="'partnerNum'">
-              <mat-option *ngFor="let partner of listPartner" [value]="partner.id">{{partner.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div-->
 
     <div fxFlex="50"  class="pr-16">
 
@@ -42,16 +33,44 @@
         placeholder="Prénom">
       </mat-form-field>
     </div>
+
     <div fxFlex="50"  class="pr-16">
+      <label>
+        Contact d'un partenaire
+        <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
+      </label>
+    </div>
+
+    <div fxFlex="50"  class="pr-16" *ngIf="!showDiv">
       <mat-form-field class="full-width">
         <input
         matInput
         name="societe"
         type="text"
         [formControlName]="'societe'"
-        placeholder="Société">
+        placeholder="Société/Groupe">
       </mat-form-field>
     </div>
+
+    <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
+      <mat-form-field class="full-width">
+        <mat-label>Nom partenaire</mat-label>
+          <mat-select  [formControlName]="'partnerNum'">
+            <mat-option *ngFor="let partner of listPartner" [value]="partner.id">{{partner.name}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16" *ngIf="showDiv">
+
+      <mat-form-field class="full-width">
+        <mat-label>Classification</mat-label>
+        <mat-select  [formControlName]="'privilege'">
+          <mat-option *ngFor="let x of Privilege" [value]="x">{{PrivilegeMap[x]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div fxFlex="50"  class="pr-16">
     <mat-form-field class="full-width">
       <input 
@@ -61,6 +80,16 @@
       [formControlName]="'service'"
       placeholder="service">
       
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input
+      matInput
+      name="localisation"
+      [formControlName]="'localisation'"
+      placeholder="localisation">
     </mat-form-field>
   </div>
   
@@ -131,35 +160,6 @@
             </mat-form-field>
           </div>
 
-
-    
-
-       
-      <div fxFlex="50"  class="pr-16" >
-
-        <mat-form-field class="full-width">
-          <mat-label>Privilège</mat-label>
-          <mat-select  [formControlName]="'privilege'">
-            <mat-option *ngFor="let x of Privilege" [value]="x">{{PrivilegeMap[x]}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-    </div>
-
-      <div fxFlex="50"  class="pr-16">
-      <label>
-        Contact d'un partenaire
-        <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
-      </label>
-    </div>
-    
-      <div  fxFlex="50"  class="pr-16" *ngIf="showDiv">
-        <mat-form-field class="full-width">
-          <mat-label>Nom partenaire</mat-label>
-            <mat-select  [formControlName]="'partnerNum'">
-              <mat-option *ngFor="let partner of listPartner" [value]="partner.id">{{partner.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-      </div>
 
   <div fxFlex="100" class="mt-16">
       <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>

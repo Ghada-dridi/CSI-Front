@@ -1,7 +1,7 @@
 import { Component, OnInit ,Inject}  from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {  Validators,  FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Privilege,Civility,Service } from 'app/shared/models/contact';
+import { Privilege,Civility } from 'app/shared/models/contact';
 import { ContactService } from '../../contact.service';
 import { Partner } from 'app/shared/models/Partner';
 import { CrudPartnerService } from '../../../partner/crudPartner.service';
@@ -19,7 +19,6 @@ export class ContactPopComponent implements OnInit {
   public itemForm: FormGroup;
   Privilege :string []= Object.values(Privilege);
   Civility :string []= Object.values(Civility);
-  Service :string []= Object.values(Service);
   listPartner : Partner[] = []
   constructor( @Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<ContactPopComponent>,
@@ -38,6 +37,7 @@ export class ContactPopComponent implements OnInit {
     this.itemForm = this.fb.group({
       firstName : [item.firstName || '', Validators.required],
       lastName : [item.lastName || '', Validators.required],
+      localisation : [item.localisation || '', Validators.required],
       function : [item.function || '', Validators.required],
       emailOne : [item.emailOne || '', Validators.required],
       emailTwo : [item.emailTwo || '', Validators.required],

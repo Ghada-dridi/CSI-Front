@@ -47,7 +47,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
   getDisplayedColumns() {
     return [
-      'company','title','criteria','requirementStatus','workField','actions',
+      'title','criteria','requirementStatus','workField','actions',
     ];
   }
 

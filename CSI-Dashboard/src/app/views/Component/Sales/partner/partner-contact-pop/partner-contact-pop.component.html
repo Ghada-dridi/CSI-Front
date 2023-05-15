@@ -1,7 +1,15 @@
 <h1 matDialogTitle>{{data.title}}</h1>
-Nouveau contact 
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <mat-label>Civilité</mat-label>
+          <mat-select  [formControlName]="'civility'">
+            <mat-option *ngFor="let x of Civility" [value]="x">{{ CivilityMap[x] }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
@@ -24,6 +32,36 @@ Nouveau contact
       </mat-form-field>
     </div>
 
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <mat-label>Classification</mat-label>
+        <mat-select  [formControlName]="'privilege'">
+          <mat-option *ngFor="let x of Privilege" [value]="x">{{PrivilegeMap[x]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  <div fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input
+      matInput
+      name="service"
+      type="text"
+      [formControlName]="'service'"
+      placeholder="Service">
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="50"  class="pr-16">
+    <mat-form-field class="full-width">
+      <input
+      matInput
+      name="localisation"
+      [formControlName]="'localisation'"
+      placeholder="localisation">
+    </mat-form-field>
+  </div>
+  
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width">
         <input
@@ -91,36 +129,6 @@ Nouveau contact
             </mat-form-field>
           </div>
 
-          <div fxFlex="50"  class="pr-16">
-
-            <mat-form-field class="full-width">
-              <mat-label>Privilège</mat-label>
-              <mat-select  [formControlName]="'privilege'">
-                <mat-option *ngFor="let x of Privilege" [value]="x">{{ x }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div fxFlex="50"  class="pr-16">
-
-          <mat-form-field class="full-width">
-            <mat-label>Civilité</mat-label>
-            <mat-select  [formControlName]="'civility'">
-              <mat-option *ngFor="let x of Civility" [value]="x">{{ x }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
-
-      <div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width">
-          <mat-label>Service</mat-label>
-          <mat-select  [formControlName]="'service'">
-            <mat-option *ngFor="let service of Service" [value]="service">{{service }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-     
   <div fxFlex="100" class="mt-16">
       <button mat-raised-button color="primary" >{{"Enregistrer" | translate }}</button>
       <span fxFlex></span>

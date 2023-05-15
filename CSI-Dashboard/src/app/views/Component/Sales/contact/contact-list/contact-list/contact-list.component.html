@@ -36,7 +36,7 @@
         <mat-cell *matCellDef="let row" data-label="lastName"> {{row.lastName}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="societe">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Société
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Société/Groupe
           <div style="padding-left: 20px;">
             <mat-form-field style="width:1.5cm;" >
              <input matInput (input)="applyFilterr($event, 'societe')" placeholder="Filtrer par société">

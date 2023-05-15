@@ -6,6 +6,7 @@ export interface contact {
     lastName: string;
     fullName: string;
     function: string;
+    localisation: string
     emailOne:string;
     emailTwo:string;
     comment:string;

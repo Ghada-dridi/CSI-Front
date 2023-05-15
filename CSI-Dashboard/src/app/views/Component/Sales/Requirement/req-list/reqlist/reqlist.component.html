@@ -17,27 +17,7 @@
   
   
     
-        <ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Société(ou partenaire) 
-            <div style="padding-left: 20px;">
-              <div style="display: block;">
-                <mat-form-field style="width: 1.5cm;">
-                  <input matInput (input)="applyFilterr($event, 'company')" placeholder="Filtrer par titre">
-                </mat-form-field>
-              </div>
-            </div>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="company"> {{row.company}} </mat-cell>
-        </ng-container>
-        
-        
-        
-        
-        
-        
-        
-        
-
+  
         <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Titre 
             <div style="padding-left: 20px;">
@@ -51,7 +31,7 @@
   
   
   
-        <!--ng-container matColumnDef="description">
+        <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Description 
             <div style="padding-left: 20px;">
               <mat-form-field style="width:1.5cm;" >
@@ -60,7 +40,7 @@
             </div>
           </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="description"> {{row.description}} </mat-cell>
-        </ng-container-->
+        </ng-container>
   
         
        <ng-container matColumnDef="criteria">
@@ -75,7 +55,7 @@
         </ng-container>
 
                     
-          <!--ng-container matColumnDef="requirementType">
+          <ng-container matColumnDef="requirementType">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Type besoin 
               <div style="padding-left: 20px;">
                 <mat-form-field style="width:1.5cm;" >
@@ -84,7 +64,7 @@
               </div>
             </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="requirementType"> {{row.requirementType}} </mat-cell>
-          </ng-container-->
+          </ng-container>
 
                     
           <ng-container matColumnDef="requirementStatus">
@@ -95,7 +75,7 @@
                </mat-form-field>
               </div>
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{ reqStatusMap[row.requirementStatus] }} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{row.requirementStatus}} </mat-cell>
           </ng-container>
 
                     
@@ -107,7 +87,7 @@
                </mat-form-field>
               </div>
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="workField"> {{ workFieldMap[row.workField] }} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="workField"> {{row.workField}} </mat-cell>
           </ng-container>
   
   

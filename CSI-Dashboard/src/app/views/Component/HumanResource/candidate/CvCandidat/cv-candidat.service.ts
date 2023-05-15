@@ -6,10 +6,22 @@ import { map, catchError, switchMap } from 'rxjs/operators';
 import { EgretCalendarEvent } from 'app/shared/models/event.model';
 import { CalendarEventDB } from 'app/shared/inmemory-db/calendarEvents';
 import { Employee } from 'app/shared/models/Employee';
+import { TechnicalFile } from 'app/shared/models/TechnicalFile';
+import { Offer } from 'app/shared/models/Offer';
+import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
 
 @Injectable()
 export class CvCandidatService {
   private apiUrl = 'http://localhost:8080/rh/employee';
+  private apiTechFile = 'http://localhost:8080/rh/technicalFile';
+  private apiOffer='http://localhost:8080/rh/Offer'
+  private apiEducation = 'http://localhost:8080/rh/education';
+  private apiExperience = 'http://localhost:8080/rh/experience';
+  private apiLanguage = 'http://localhost:8080/rh/Language';
+  private apiSkillCategory = 'http://localhost:8080/rh/skillsCategory';
+  private apiSkill = 'http://localhost:8080/rh/skills';
+  private apiCertification = 'http://localhost:8080/rh/certification';
+  private apiAssOffreCandidat = 'http://localhost:8080/rh/AssOfferCandidate';
   private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
   constructor(private http: HttpClient) {}
@@ -83,6 +95,12 @@ getItems(): Observable<Employee[]> {
     catchError(this.handleError)
   );
 }
+getOfferItems(): Observable<Offer[]> {
+  const apiUrlWithGET = this.apiOffer +'/getAll';
+  return this.http.get<any>(apiUrlWithGET).pipe(
+    catchError(this.handleError)
+  );
+}
 
 
  // GET an item by id
@@ -93,6 +111,7 @@ getItems(): Observable<Employee[]> {
   );
 }
 
+
 // POST a new item
 addItem(candidate: any): Observable<any> {
   const apiUrlWithAdd = this.apiUrl + '/add'; // Append /add to the apiUrl
@@ -102,13 +121,83 @@ addItem(candidate: any): Observable<any> {
 }
 
 //POST TF
-addTF(techfile: any): Observable<any> {
-  const apiUrlWithAdd = this.apiUrl + '/add'; // Append /add to the apiUrl
-  return this.http.post<any>(apiUrlWithAdd, techfile).pipe(
+addTechFile(techfile: any): Observable<any> {
+  const apiTechFileWithAdd = this.apiTechFile + '/addTechnicalFile'; // Append /add to the apiUrl
+  return this.http.post<any>(apiTechFileWithAdd, techfile).pipe(
+    catchError(this.handleError));
+}
+/////ajout candidature//
+addOfferCandidate(offerCandidate : any){
+  const url = this.apiAssOffreCandidat + '/add';
+  return this.http.post<any>(url,offerCandidate).pipe(
+    catchError(this.handleError)
+  );
+}
+//deletecandidature
+deleteOfferCandidate(id: number): Observable<AssOfferCandidate> {
+ 
+  const url = `${this.apiAssOffreCandidat+'/delete/'}${id}`;
+  return this.http.delete<AssOfferCandidate>(url).pipe(
     catchError(this.handleError)
   );
 }
 
+
+
+//POST education
+addEducation(education: any): Observable<any>  {
+  const apiEducationWithAdd = this.apiEducation + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiEducationWithAdd, education).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST experience
+addExperience(exp: any): Observable<any> {
+  const apiExperienceWithAdd = this.apiExperience + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiExperienceWithAdd, exp).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST Certif
+addCertif(certif: any): Observable<any> {
+  const  apiCertificationWithAdd = this.apiCertification + '/addCertification'; // Append /add to the apiUrl
+  return this.http.post<any>( apiCertificationWithAdd, certif).pipe(
+    catchError(this.handleError)
+  );
+}6
+
+//POST langugae
+addLanguage(lang: any): Observable<any> {
+  const  apiLanguageWithAdd = this.apiLanguage + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiLanguageWithAdd, lang).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST skill
+addSkill(skil: any): Observable<any> {
+  const apiSkillWithAdd = this.apiSkill + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiSkillWithAdd, skil).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST skill category
+addSkillCategory(skillCat: any): Observable<any> {
+  const apiSkillCategoryWithAdd = this.apiSkillCategory + '/addSkillsCategory'; // Append /add to the apiUrl
+  return this.http.post<any>(apiSkillCategoryWithAdd, skillCat).pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+
+
+/*getLastEmployeeBack(): Observable<Employee> {
+  return this.http.get<Employee>(`${this.apiUrl}/employees/last`);
+}*/
 
 
 // PUT an existing item
@@ -122,7 +211,7 @@ updateItem(id: number, candidate: Employee): Observable<Employee> {
 // DELETE an item by id
 deleteItem(id: number): Observable<Employee> {
  
-  const url = `${this.apiUrl+'/deleterrr/'}${id}`;
+  const url = `${this.apiUrl+'/delete/'}${id}`;
   return this.http.delete<Employee>(url).pipe(
     catchError(this.handleError)
   );
@@ -172,7 +261,7 @@ getEmployeesSortedByIdDescending(): Observable<Employee[]> {
   return this.http.get<Employee[]>(`${this.apiUrl}`).pipe(
     map(employees => {
       // Sort employees by Id in descending order
-      employees.sort((a, b) => b.Id - a.Id);
+      employees.sort((a, b) => b.id - a.id);
       return employees;
     })
   );
@@ -185,7 +274,7 @@ getEmployeeById(id: number): Observable<Employee> {
 getLastEmployee(): Observable<Employee> {
   return this.getEmployeesSortedByIdDescending().pipe(
     map(employees => employees[0]), // Retrieve the first employee
-    switchMap(lastEmployee => this.getEmployeeById(lastEmployee.Id)) // Retrieve employee details by Id
+    switchMap(lastEmployee => this.getEmployeeById(lastEmployee.id)) // Retrieve employee details by Id
   );
 }
 

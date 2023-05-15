@@ -25,8 +25,6 @@ import { CvTemplate1Service} from './CvTemplate1.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { CvTemplate1 } from './CvTemplate1.routing';
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +37,6 @@ import { CvTemplate1 } from './CvTemplate1.routing';
     MatExpansionModule,
     MatDialogModule,
     MatChipsModule,
-    
     MatCardModule,
     MatButtonModule,
     MatRadioModule,
@@ -61,7 +58,6 @@ import { CvTemplate1 } from './CvTemplate1.routing';
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
     CvTemplate1Component
-    
   ]
 })
 export class CvTemplate1Module { }

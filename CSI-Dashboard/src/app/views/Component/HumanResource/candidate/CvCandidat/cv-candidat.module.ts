@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogClose, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -28,10 +28,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipList, MatChipsModule } from '@angular/material/chips';
 import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { OfferPopupComponent } from './cv-popups/offerPopup.component';
 
 
 @NgModule({
   imports: [
+    MatDialogModule,
     CommonModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -54,12 +58,15 @@ import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
     FlexLayoutModule,
     ColorPickerModule,
     MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
     RouterModule.forChild(CalendarRoutes)
   ],
+  exports: [MatDialogModule,MatDialogClose],
   providers: [CvCandidatService,{
     provide: STEPPER_GLOBAL_OPTIONS,
     useValue: { showError: true }
@@ -67,7 +74,8 @@ import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
     cvcandidatComponent, 
-    CalendarFormDialogComponent
+    CalendarFormDialogComponent,
+    OfferPopupComponent
   ]
 })
 export class CvCandidatModule { }

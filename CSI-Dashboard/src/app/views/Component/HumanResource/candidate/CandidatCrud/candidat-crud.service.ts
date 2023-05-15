@@ -6,16 +6,35 @@ import * as countrycitystatejson from 'countrycitystatejson';
 import { EgretCalendarEvent } from 'app/shared/models/event.model';
 import { CalendarEventDB } from 'app/shared/inmemory-db/calendarEvents';
 import { Employee } from 'app/shared/models/Employee';
+import { Education } from 'app/shared/models/Education';
+import { TechnicalFile } from 'app/shared/models/TechnicalFile';
+import { id } from 'date-fns/locale';
+import { Experience } from 'app/shared/models/Experience';
+import { Certification } from 'app/shared/models/Certification';
+import { Language } from 'highlight.js';
+import { Skills } from 'app/shared/models/Skills';
+import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
 
 @Injectable()
 
 export class CrudService {
   private apiUrl = 'http://localhost:8080/rh/employee';
+  private technicalFileApi='http://localhost:8080/rh/technicalFile'
+  private apiAssOffreCandidat = 'http://localhost:8080/rh/AssOfferCandidate';
+
   private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
 
   constructor(private http: HttpClient) {}
 
+  getTechnicalFile(employeeId: number): Observable<TechnicalFile> {
+    const technicalApi =  `${this.technicalFileApi}/${employeeId}`+'/employee';
+    console.log(this.http.get<any>(technicalApi));
+    return this.http.get<any>(technicalApi).pipe(
+      catchError(this.handleError)
+    );
+  }
+ 
   public getEvents(): Observable<EgretCalendarEvent[]> {
     // return this.http.get('api/calendar/events')
     // .map((events: CalendarEvent[]) => {
@@ -93,6 +112,49 @@ getItems(): Observable<Employee[]> {
     catchError(this.handleError)
   );
 }
+getTechnicalFileById(id: number): Observable<TechnicalFile> {
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/technicalFile';
+  return this.http.get<TechnicalFile>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+getEducationById(id: number): Observable<Education> {
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/education';
+  return this.http.get<Education>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+getExperienceById(id: number): Observable<Experience>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/experience';
+  return this.http.get<Experience>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getCertificationById(id: number): Observable<Certification>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/certificaton';
+  return this.http.get<Certification>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getLanguageById(id: number): Observable<Language>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/language';
+  return this.http.get<Language>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+
+getSkillsById(id: number): Observable<Skills>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/skills';
+  return this.http.get<Skills>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getCandiatureById(id: number): Observable<Employee>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/candidature';
+  return this.http.get<Employee>(url).pipe(
+    catchError(this.handleError)
+  )
+}
 /*getrequirement(id: number): Observable<req[]> {
   const url = `${this.apiUrl}/${id}`;
   return this.http.get<Partner>(url).pipe(map(partner => partner.requirements),
@@ -157,4 +219,57 @@ getCountries() {
 getStatesByCountry(name: string) {
   return this.countryData.getStatesByShort(name);
 }
+
+
+
+///////////Update Status//////
+updateToInProcessById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToInProcessById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToInProgressById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToInProgressById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToPreQualifiedById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToPreQualifiedById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToTopProfilesById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToTopProfilesById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToConvertedToResourceById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToConvertedToResourceById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToDoNotContactById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToDoNotContactById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToArchiveById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToArchiveById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
 }

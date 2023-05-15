@@ -1,0 +1,248 @@
+ <div class="">
+<mat-card class="p-24">
+    <div fxLayout="row wrap">
+      <div fxFlex="70">
+        <mat-card-title>information candidat</mat-card-title>
+        <p class="text-small">
+          nom,prenom,offre/ / / /la note globale est:<span class="font-weight-bold">52</span>
+        </p>
+      </div>
+      <div fxFlex="30">
+        <apx-chart
+          [series]="welcomeProgressChart.series"
+          [chart]="welcomeProgressChart.chartOptions.chart"
+          [grid]="welcomeProgressChart.chartOptions.grid"
+          [plotOptions]="welcomeProgressChart.chartOptions.plotOptions"
+          [colors]="studyChart.chartOptions.colors"
+          [labels]="welcomeProgressChart.chartOptions.labels"
+          [dataLabels]="studyChart.chartOptions.dataLabels"
+          [xaxis]="studyChart.chartOptions.xaxis"
+          [yaxis]="studyChart.chartOptions.yaxis"
+        ></apx-chart>
+      </div>
+    </div>
+  </mat-card>
+  <div style="padding-left: 15px;padding-right: 15px;">
+  <mat-accordion>
+  <!-------------entretien RH----------------->
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>delete_forever</mat-icon> &nbsp; &nbsp;Entretien RH
+        </mat-panel-title>
+        <mat-panel-description>
+          <h3 style="padding-left: 16cm;padding-top: 12px;">20%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+   <!-------------entretien technique----------------->
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>laptop_chromebook</mat-icon> &nbsp; &nbsp;Entretien technique 
+        </mat-panel-title>
+        <mat-panel-description>
+          <h3 style="padding-left: 16cm;padding-top: 12px;">40%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+      <!-------------entretien comportemental----------------->
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>description</mat-icon> &nbsp; &nbsp; Entretien comportemental
+          </mat-panel-title>
+          <mat-panel-description>
+            <h3 style="padding-left: 16cm;padding-top: 12px;">47%</h3>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h3>note</h3>
+        <div
+                class="d-flex justify-content-between align-items-baseline"
+                *ngFor="let r of results"
+              >
+                <div class="mr-2">
+                  <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+                </div>
+                <div class="lm-title flex-grow-1">
+                  <p class="font-weight-semi mb-0">{{r.name}}</p>
+                  <p class="text-small text-muted">{{r.date}}</p>
+                </div>
+                <div class="ul-progressbar flex-grow-1">
+                  <div class="progress-percentage d-flex">
+                    <span class="flex-grow-1"></span>
+                    <span class="text-muted">{{r.completed}}%</span>
+                  </div>
+                  <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+                </div>
+              </div>
+      </mat-expansion-panel>
+    <!-------------Case study Interview----------------->
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>school</mat-icon> &nbsp; &nbsp; Case study Interview
+        </mat-panel-title>
+        <mat-panel-description>
+          <h3 style="padding-left: 16cm;padding-top: 12px;">80%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+    <!-------------entretien Entretien en ligne----------------->
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>videocam</mat-icon> &nbsp; &nbsp;Entretien en ligne
+        </mat-panel-title>
+        <mat-panel-description>
+        <h3 style="padding-left: 16cm;padding-top: 12px;">73%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+    <!-------------entretien Entretien téléphonique----------------->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>phone</mat-icon> &nbsp; &nbsp;Entretien téléphonique
+        </mat-panel-title>
+        <mat-panel-description>
+          <h3 style="padding-left: 16cm;padding-top: 12px;">15%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+    <!-------------entretien presentiel----------------->
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>pin_drop</mat-icon> &nbsp; &nbsp;Entretien presentiel
+        </mat-panel-title>
+        <mat-panel-description>
+         <h3 style="padding-left: 16cm;padding-top: 12px;">33%</h3>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h3>note</h3>
+      <div
+              class="d-flex justify-content-between align-items-baseline"
+              *ngFor="let r of results"
+            >
+              <div class="mr-2">
+                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
+              </div>
+              <div class="lm-title flex-grow-1">
+                <p class="font-weight-semi mb-0">{{r.name}}</p>
+                <p class="text-small text-muted">{{r.date}}</p>
+              </div>
+              <div class="ul-progressbar flex-grow-1">
+                <div class="progress-percentage d-flex">
+                  <span class="flex-grow-1"></span>
+                  <span class="text-muted">{{r.completed}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-expansion-panel>
+  
+  </mat-accordion>
+</div>
+</div>
+  

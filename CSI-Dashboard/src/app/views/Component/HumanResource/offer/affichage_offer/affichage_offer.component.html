@@ -1,0 +1,22 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+     <div class="card-title-text"><mat-icon>
+      </mat-icon>Offre</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="30">
+        <mat-card class="p-0">
+          <mat-card-content>
+            <div class="profile-title text-center mb-16">
+              <div class="main-title"><strong>Référence: </strong>{{ offer.reference }}</div>
+              <div class="subtitle mb-8"><strong>titre: </strong> {{ offer.title }}</div>
+              <div class="subtitle mb-8"><strong>description: </strong>  {{ offer.description}}</div>
+             
+            </div>
+            
+          </mat-card-content>
+        </mat-card>
+      </div>
+    

@@ -2,16 +2,20 @@ import { Component } from '@angular/core';
 import { cvcandidatComponent } from './../CvCandidat/cv-candidat.component';
 import { CandidatCrudTableComponent } from './CandidatCrud-table/candidat-crud-table.component';
 import { Routes } from '@angular/router';
-import { CvTemplate1Component } from '../CvTemplate1/CvTemplate1.component';
-import { candidatAffichageComponent } from '../candidatAffichage/candidatAffichage.component';
+import { updatecandidatComponent } from '../updateCandidat/updateCandidat.component';
+import { id } from 'date-fns/locale';
+//import { CvTemplate1Component } from '../CvTemplate1/CvTemplate1.component';
+import { CandidatDetailComponent } from './Candidat-details/candidat-details.component';
+import { entretienRecrutmentComponent } from '../../entretienRecrutment/affichage_entreteinrecrutment/affichage_entretienRecrutment.component';
 
 
 
-export const CrudsRoutes: Routes = [
+export const CandidatRoutes: Routes = [
   { 
     path: 'CandidatCrud-table', 
     component: CandidatCrudTableComponent, 
-    data: { title: 'Table', breadcrumb: 'Table' } 
+    data: { title: '', breadcrumb: 'Candidat' } 
+    
   },
 
   {
@@ -19,10 +23,35 @@ export const CrudsRoutes: Routes = [
     component:cvcandidatComponent,data: { title: 'CvCandidat' } 
 
   },
+  {
+    path:'updateCandidat/:id',
+    component:updatecandidatComponent,
+    data:{title: 'update'}
+  },
 
   { 
-    path: 'candidatAffichage/:id', 
-   component: candidatAffichageComponent, 
-   data: { title: 'AffichageCandidat' }
-  }
+    path: ":id", 
+   component: CandidatDetailComponent, 
+   pathMatch: "full"
+   //data: { title: 'AffichageCandidat' }
+  },
+
+  { 
+    path: 'evaluationCandidat', 
+component: entretienRecrutmentComponent, 
+data: { title: 'EntretienRecrutment' } },
+
+{ 
+  path: ":id", 
+ component: entretienRecrutmentComponent, 
+ pathMatch: "full"
+ //data: { title: 'AffichageCandidat' }
+},
+
+/*{ 
+  path: ":templateDuCv", 
+ component: templateDuCvComponent, 
+ pathMatch: "full"
+ //data: { title: 'AffichageCandidat' }
+}*/
 ];

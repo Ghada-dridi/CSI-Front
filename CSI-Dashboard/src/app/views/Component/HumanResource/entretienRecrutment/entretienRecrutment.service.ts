@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import * as countrycitystatejson from 'countrycitystatejson';
+import { catchError, map } from 'rxjs/operators';
 import { EgretCalendarEvent } from 'app/shared/models/event.model';
 import { CalendarEventDB } from 'app/shared/inmemory-db/calendarEvents';
+import { Employee } from 'app/shared/models/Employee';
+import { Interview } from 'app/shared/models/Interview';
+import { Evaluation } from 'app/shared/models/Evaluation';
 
 @Injectable()
 export class entretienRecrutmentService {
+  private apiUrl = 'http://localhost:8080/rh/employee';
+  private apiUrlInterview = 'http://localhost:8080/rh/Interview';
+  private apiUrlEvaluation = 'http://localhost:8080/rh/evaluation';
+  private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
   constructor(private http: HttpClient) {}
 
@@ -27,7 +34,7 @@ export class entretienRecrutmentService {
       })
     );
   }
-
+  
   public addEvent(event): Observable<EgretCalendarEvent[]> {
     // return this.http.post('api/calendar/events', event)
     // .map((events: EgretCalendarEvent[]) => {
@@ -65,4 +72,102 @@ export class entretienRecrutmentService {
     this.events = this.events.filter((e) => e._id !== eventID);
     return of(this.events);
   }
+
+
+
+
+
+
+
+  /////////////////////////Back Connection//////////////////////////
+//******* Implement your APIs ********
+getItems(): Observable<Employee[]> {
+  const apiUrlWithGET = this.apiUrl + '/getEmployees';
+  return this.http.get<any>(apiUrlWithGET).pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+ // GET an item by id
+ getItem(id: number): Observable<Employee> {
+  const url = `${this.apiUrl+ '/get'}/${id}`;
+  return this.http.get<Employee>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// POST a new item
+addItem(candidate: any): Observable<any> {
+  const apiUrlWithAdd = this.apiUrl + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiUrlWithAdd, candidate).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// POST a new evaluation
+addEvaluation(evaluation: any): Observable<any> {
+  const apiUrlEvaluationWithAdd = this.apiUrlEvaluation + '/add'; // Append add to the apiUrl
+  return this.http.post<any>(apiUrlEvaluationWithAdd, evaluation).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// GET an evaluation
+getEvaluation(id: number): Observable<Evaluation> {
+  const url = `${this.apiUrlEvaluation+ '/get'}/${id}`;
+  return this.http.get<Evaluation>(url).pipe(
+    catchError(this.handleError)
+  );
+  }
+// POST a new interview
+addInterview(interview: any): Observable<any> {
+  const apiUrlInterviewWithAdd = this.apiUrlInterview + '/add'; // Append /add to the apiUrl
+  return this.http.post<any>(apiUrlInterviewWithAdd, interview).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// GET an interview
+getInterview(id: number): Observable<Interview> {
+  const url = `${this.apiUrlInterview+ '/getBy'}/${id}`;
+  return this.http.get<Interview>(url).pipe(
+    catchError(this.handleError)
+  );
+  }
+
+// PUT an existing item
+updateItem(id: number, candidate: Employee): Observable<Employee> {
+  const url = `${this.apiUrl}/${id}`;
+  return this.http.put<Employee>(url, candidate).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// DELETE an item by id
+deleteItem(id: number): Observable<Employee> {
+ 
+  const url = `${this.apiUrl+'/delete'}/${id}`;
+  return this.http.delete<Employee>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+////////////////////////////////////////////////////////
+private handleError(error: HttpErrorResponse) {
+  if (error.error instanceof ErrorEvent) {
+    // A client-side or network error occurred. Handle it accordingly.
+    console.error('An error occurred:', error.error.message);
+  } else {
+    // The backend returned an unsuccessful response code.
+    // The response body may contain clues as to what went wrong.
+    console.error(
+      `Backend returned code ${error.status}, ` +
+      `body was: ${error.error}`);
+  }
+  // Return an observable with a user-facing error message.
+  return throwError(
+    'Something bad happened; please try again later.');
+}
+
 }

@@ -105,9 +105,9 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Calendar', breadcrumb: 'CALENDAR'}
       },
       {
-        path: 'candidatCrud',
+        path: 'candidat',
         loadChildren: () => import('./views/Component/HumanResource/candidate/CandidatCrud/candidat-crud.module').then(m => m.CandidatCrudModule),
-        data: { title: 'CandidatCrud', breadcrumb: 'CandidatCrud'}
+        data: { title: 'Candidat', breadcrumb: 'Candidat'}
       },
       {
         path: 'cvCandidat',
@@ -115,37 +115,41 @@ export const rootRouterConfig: Routes = [
         data: { title: 'CvCandidat', breadcrumb: 'CVCANDIDAT'}
       },
       {
-        path: 'updateCandidat',
+        path: 'candidatUpdate',
         loadChildren: () => import('./views/Component/HumanResource/candidate/updateCandidat/updateCandidat.module').then(m => m.updateCandidatModule),
-        data: { title: 'UpdateCandidat', breadcrumb: 'CVCANDIDAT'}
+        data: { title: 'update', breadcrumb: 'update'}
       },
 
       {
         path: 'candidatAffichage/:id',
-        loadChildren: () => import('./views/Component/HumanResource/candidate/candidatAffichage/candidatAffichage.module').then(m => m.candidatAffichageModule),
-        data: { title: 'AffichageCandidat', breadcrumb: 'Candidat'}
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CandidatCrud/candidat-crud.module').then(m => m.CandidatCrudModule),
+        data: { title: 'CandidatAffichage', breadcrumb: 'Candidat'}
+      },
+      {
+        path: 'tableOffer',
+        loadChildren: () => import('./views/Component/HumanResource/offer/offer-crud.module').then(m => m.OfferCrudModule),
+        data: { title: 'CandidatAffichage', breadcrumb: 'Candidat'}
+      },
+      {
+        path: 'affichageOffer',
+        loadChildren: () => import('./views/Component/HumanResource/offer/affichage_offer/affichage_offer.module').then(m => m.OfferAffichageModule),
+        data: { title: 'offerAffichage', breadcrumb: 'Candidat'}
       },
 
       {
-        path: 'template1',
-        loadChildren: () => import('./views/Component/HumanResource/candidate/CvTemplate1/CvTemplate1.module').then(m => m.CvTemplate1Module),
-        data: { title: 'templ1', breadcrumb: 'Candidat'}
-      },
-      
-      {
         path: 'CandidatEvaluation',
-        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/entretienRecrutment.module').then(m => m.EntretienRecrutmentModule),
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/affichage_entreteinrecrutment/affichage_entretienRecrutment.module').then(m => m.EntretienRecrutmentModule),
         data: { title: 'EntretienRecrutment', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
       },
 
       {
         path: 'entretienTable',
-        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_entretienRecrutment/crud_entretienRecrutment.module').then(m => m.CrudEntretienRecrutmentModule),
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_table_entretienRecrutment/crud_entretienRecrutment.module').then(m => m.CrudEntretienRecrutmentModule),
         data: { title: 'CrudEvaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
       },
       {
         path: 'evaluationCrud',
-        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_evaluation/crud_evaluation.module').then(m => m.CrudEvaluationModule),
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/add_evaluation/add_crud_evaluation.module').then(m => m.CrudEvaluationModule),
         data: { title: 'Evaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
       },
       
@@ -283,5 +287,4 @@ export const rootRouterConfig: Routes = [
     path: '**',
     redirectTo: 'sessions/404'
   }
-];
-
+]

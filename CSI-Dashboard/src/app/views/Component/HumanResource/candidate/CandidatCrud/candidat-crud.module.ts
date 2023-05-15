@@ -18,10 +18,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from "app/shared/shared.module";
-import { CrudsRoutes } from "./candidat-crud.routing";
+import { CandidatRoutes } from "./candidat-crud.routing";
 import { CrudService } from "./candidat-crud.service";
 import { CandidatCrudTableComponent } from "./CandidatCrud-table/candidat-crud-table.component";
-import { CandidatCrudTablePopupComponent } from "./CandidatCrud-table/CandidatCrud-table-popup/candidat-crud-table-popup/candidat-crud-table-popup.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -29,11 +28,15 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTabsModule } from "@angular/material/tabs";
 import { Ng2TelInputModule } from "ng2-tel-input";
+import { CandidatDetailComponent } from "./Candidat-details/candidat-details.component";
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 @NgModule({
   imports: [
+    
     CommonModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     MatInputModule,
@@ -59,9 +62,9 @@ import { Ng2TelInputModule } from "ng2-tel-input";
     MatDatepickerModule,
     MatExpansionModule,
     MatTabsModule,
-    RouterModule.forChild(CrudsRoutes)
+    RouterModule.forChild(CandidatRoutes)
   ],
-  declarations: [CandidatCrudTableComponent, CandidatCrudTablePopupComponent],
+  declarations: [CandidatCrudTableComponent,  CandidatDetailComponent,],
   providers: [CrudService]
 })
 export class CandidatCrudModule { }

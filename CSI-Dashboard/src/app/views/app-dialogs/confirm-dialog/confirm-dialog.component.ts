@@ -17,6 +17,7 @@ export class ConfirmDialogComponent implements OnInit {
 
   ngOnInit() {
   }
+  
   openDialog() {
     this.confirmService.confirm({title: this.title, message: this.text})
       .subscribe((result) => {

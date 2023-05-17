@@ -1,0 +1,360 @@
+<!--  <mat-horizontal-stepper  [formGroup]="myFormContract">-->  
+    <mat-horizontal-stepper>
+        <form  [formGroup]="myFormContract">
+          <mat-step label="Informations générales" >  
+        
+   <!--  
+            <div class="form-group mb-1 col-sm-12 col-md-3">
+              <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                <mat-label>Employé</mat-label>
+              
+                 <input
+                  matInput
+                  name="resourceId"
+                 
+                  placeholder="Employé"
+                  formControlName="resourceId"
+                  disabled="true"
+                />
+              </mat-form-field>
+            </div>-->
+            
+          
+            <div class="form-group mb-1 col-sm-12 col-md-3   text-center">
+              <mat-form-field appearance="outline" [style.width.cm]=16 style="padding-right: 1cm;">
+                <mat-label>Titre du contrat </mat-label>
+                <input
+                  matInput
+                  name="contractTitle"
+                  formControlName="contractTitle"
+                  placeholder="Titre du contrat"
+                />
+              </mat-form-field>
+            </div> 
+            <div fxLayout="row wrap">
+              <div fxFlex="100" fxFlex.gt-xs="50">
+              <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                  <mat-label>Date  début</mat-label>
+                  <input matInput name="startDate" formControlName="startDate" placeholder="Date début" [matDatepicker]="appDatepicker1" />
+                  <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #appDatepicker1></mat-datepicker>
+              </div>
+              <div class="form-group mb-1 col-sm-12 col-md-3">
+                <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                  <mat-label>Date du contrat </mat-label>
+                  <input matInput name="contactDate" formControlName="contractDate" placeholder="Date de contart" [matDatepicker]="appDatepicker" />
+                  <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #appDatepicker></mat-datepicker>
+              </div>
+                
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="50">
+              
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                  <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                    <mat-label>Date fin </mat-label>
+                    <input matInput name="endDate" formControlName="endDate" placeholder="Date fin" [matDatepicker]="appDatepicker2" />
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker2></mat-datepicker>
+                </div>
+                <div class="form-group mb-1 col-sm-12 col-md-3">
+                    <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                      <mat-label>Lieu du contrat </mat-label>
+                      <input
+                        matInput
+                        name="contractPlace"
+                        formControlName="contractPlace"
+                        placeholder="Lieu du contrat"
+                      />
+                    </mat-form-field>
+                  </div>
+          </div>
+              
+              </div>
+              
+       
+            <div fxFlex="100"  class="pr-16">
+              <mat-card class="p-0">
+                <mat-card-content class="p-0">
+                  <quill-editor theme="snow" formControlName="contractIntroduction" ></quill-editor>
+                </mat-card-content>
+              </mat-card>
+              </div>
+
+              <!--
+              <div fxFlex="100" fxFlex.gt-xs="50">
+            
+                <div class="mb-16">
+                  <p>Signature société</p>
+                  <input type="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+              </div>-->
+               
+             
+              
+            <div>
+              <button mat-raised-button color="primary"  style="margin-left: auto;" style="float: right"  matStepperNext>Suivant</button>
+            </div>
+    
+          </mat-step>
+
+
+
+
+
+
+
+          <mat-step label="Détails de contrat" >
+           
+         <!-- <form [formGroup]="myFormContract">-->
+            <!--
+            <div class="form-group mb-1 col-sm-12 col-md-3">
+              <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                <mat-label>Contract</mat-label>
+                <input
+                  matInput
+                  name="contractId"
+                  [(ngModel)]="selectedContract.id"
+                  placeholder="Contrat"
+                  formControlName="contractId"
+                  disabled="true"
+                />
+              </mat-form-field>
+            </div>-->
+            <div formArrayName="articles" >
+              <div  *ngFor="let article of myArrayControls; let i = index" [formGroupName]="i">
+
+                <div fxLayout="row wrap"   >
+                  <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Numéro Article</mat-label>
+                        <input matInput type="number" name="articleNumber" formControlName="articleNumber" placeholder="Numéro de l'article" />
+                      </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                       <mat-form-field appearance="outline">
+                            <mat-label>Titre de l'article</mat-label>
+                          <mat-select formControlName="id" aria-placeholder="Titre de l'article" (selectionChange)="onArticleTitleChange($event.value,i)">
+                              <mat-option *ngFor="let articleTitle of Articles" [value]="articleTitle.id">{{ articleTitle.articleTitle }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                </div> 
+                 <div  *ngIf="showEditor"    style="padding-bottom: 60px;">
+                      <quill-editor theme="snow" formControlName="description"></quill-editor>
+                  </div>    
+              </div>
+            </div>
+            
+             
+          
+             <div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 16px;">
+              <button mat-icon-button >
+                <mat-icon (click)="addArticleFormGroup()">add</mat-icon>
+              </button>
+            </div>
+       
+            <div> 
+              <button mat-raised-button color="primary" style="float : left"  matStepperPrevious>Précédent</button>
+              <button mat-raised-button color="primary"  style="float: right" (click)="addContract()" >Enregistrer</button>
+            </div>
+          </mat-step>
+
+         
+
+
+         
+
+     <mat-step label="Frais Exceptionnels">
+            <mat-card-title class="light-gray mb-16">
+              <div class="card-title-text">
+                <div class="">Frais Exceptionnels</div>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+
+
+              <form  [formGroup]="myFormExceptionalFee">
+                <div class="card-body" formArrayName="value"  >
+                  <div class="row" >
+                    <div class="repeater-default">
+                      <div fxLayout="row"  fxLayoutAlign="space-evenly center" *ngFor="let val of getMyValueExceptional; let i = index"  [formGroupName]="i"  >
+                      <div>
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                          <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                            <mat-label>Contrat</mat-label>
+                        
+                            <input
+                              matInput
+                              name="contractId"
+                             
+                              value="{{selectedContract.id}}"
+                              placeholder="Contrat"
+                              disabled="true"
+                            />
+                          </mat-form-field>
+                        </div>
+                        
+                        <div class="d-flex ">
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]="12" style="padding-right: 1cm;">
+                              <mat-label>Type de Frais</mat-label>
+                              <mat-select formControlName="feeType" placeholder="Ex. Déplacement" required>
+                                <mat-option *ngFor="let feeType of FeeTypes" [value]="feeType">{{feeType}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=12>
+                              <mat-label>Nom du frais </mat-label>
+                              <input matInput name="name" formControlName="name" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                          </div>
+                       
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=25>
+                              <mat-label>Description du frais </mat-label>
+                              <input matInput name="shortDescription" formControlName="shortDescription" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                          <div class="d-flex ">
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=12  style="padding-right: 1cm;">
+                              <mat-label>Montant </mat-label>
+                              <input matInput name="amount" formControlName="amount" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                          
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]="12" style="padding-right: 1cm;">
+                              <mat-label>Devise</mat-label>
+                              <mat-select formControlName="currency" placeholder="Ex. " required>
+                                <mat-option *ngFor="let currency of Currency" [value]="currency">{{currency}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                          <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
+                        
+                            <button mat-icon-button color="warn" type="button"  (click)="deleteExceptionalFee(i)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" type="button" (click)="addExceptionalFee(i)">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                           
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+              </form>
+              <div> 
+                <button mat-raised-button color="primary" style="float : left"  matStepperPrevious>Précédent</button>
+                <button mat-raised-button color="primary" style="float: right" (click)="confirmerFee()">Suivant</button>
+
+              </div>
+        
+           </mat-card-content>
+            </mat-step>
+            <mat-step label="Bénéfices">
+           <mat-card-title class="light-gray mb-16">
+            <div class="card-title-text">
+              <div class="">Bénéfices</div>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+
+                
+              <form  [formGroup]="myFormBenefit">
+                <div class="card-body"  formArrayName="myValue" >
+                  <div class="row" >
+                    <div class="repeater-default">
+                      <div fxLayout="row"  fxLayoutAlign="space-evenly center" *ngFor="let val of getMyValueBenefit; let i = index"  [formGroupName]="i"  >
+                      <div>
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                          <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
+                            <mat-label>Contrat</mat-label>
+                        
+                            <input
+                              matInput
+                              name="contractId"
+                              value="{{selectedContract.id}}"
+                              placeholder="Contrat"
+                              disabled="true"
+                            />
+                          </mat-form-field>
+                        </div>
+                        
+                        <div class="d-flex ">
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                              <mat-label>Titre</mat-label>
+                              <input matInput name="shortDescription" formControlName="shortDescription" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                          
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]="12" >
+                              <mat-label>Type </mat-label>
+                              <mat-select formControlName="contractBenifitType" placeholder="" required>
+                                <mat-option *ngFor="let contractBenifitType of   ContractBenifitTypes" [value]="contractBenifitType">{{contractBenifitType}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          </div>
+                       
+                          <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <mat-form-field appearance="outline" [style.width.cm]=25>
+                              <mat-label>Description  </mat-label>
+                              <input matInput name="description" formControlName="description" placeholder="" value="" required>
+                            </mat-form-field>
+                          </div>
+                        
+                          <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
+                        
+                            <button mat-icon-button color="warn" type="button" (click)="deletebenefit(i)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" type="button" (click)="addBenefit(i)">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                           
+                          </div>
+                          
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+              </form>
+                    
+
+         </mat-card-content>
+
+             <div>
+              <button mat-raised-button color="primary" style="float : left"  matStepperPrevious>Précédent</button>
+              <button mat-raised-button color="primary" style="float : right" (click)="confirmerBenefit()" >Terminer</button>
+
+            </div>
+        
+        
+          </mat-step>
+          </form>
+        </mat-horizontal-stepper>
+ 
+

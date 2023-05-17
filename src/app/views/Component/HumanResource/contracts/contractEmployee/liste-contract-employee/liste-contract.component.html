@@ -1,0 +1,155 @@
+<div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+    <div class="info-card primary" >
+       <div class="description">Here you can put your alerts!!!</div>
+    </div>
+   <mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
+     <div fxLayout="row wrap">
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-green">show_chart</mat-icon>
+           <h4 class="m-0 ">5040</h4>
+           <small class="m-0 ">Page views</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-blue">cloud_download</mat-icon>
+           <h4 class="m-0 ">1200</h4>
+           <small class="m-0 ">Downloads</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-green">comment</mat-icon>
+           <h4 class="m-0 ">16420</h4>
+           <small class="m-0 ">Comments</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-blue">person</mat-icon>
+           <h4 class="m-0 ">3010</h4>
+           <small class="m-0 ">Profile views</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+       
+         <div class="text-center pt-16 pb-16">
+           <mat-icon class="text-red">favorite</mat-icon>
+           <h4 class="m-0 ">4070</h4>
+           <small class="m-0 ">Likes</small>
+         </div>
+       </div>
+     </div>
+   </mat-card>
+    
+   <button mat-raised-button class="mb-8" style="float: right;" color="primary" routerLink="/Add-contract-employee/add-employee-contract">{{"ADD" | translate }}
+    Contract</button>
+   <div style="clear: both;"></div>
+      
+   
+   
+   <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+     <mat-card-content class="p-0">
+       <mat-table [dataSource]="dataSource" matSort>
+         <ng-container matColumnDef="contractTitle">
+           <mat-header-cell *matHeaderCellDef mat-sort-header > Titre </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractTitle"> {{row.contractTitle}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="contractPlace">
+           <mat-header-cell *matHeaderCellDef mat-sort-header > Lieu </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractPlace"> {{row.contractPlace}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="contractDate">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="contractDate"> {{row.contractDate}} </mat-cell>
+         </ng-container>
+   
+         
+         <ng-container matColumnDef="contractStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Statut </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-chip mat-sm-chip [color]="getStatusColor(row.contractStatus).color">
+              {{ getStatusColor(row.contractStatus).displayText }}
+            </mat-chip>
+          </mat-cell>
+        </ng-container>
+   
+         <ng-container matColumnDef="actions">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+           <mat-cell *matCellDef="let row">
+             <!--<ng-content select="selector"></ng-content><button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+               <mat-icon>edit</mat-icon>
+             </button>-->
+             <button
+             mat-icon-button
+             routerLink="/contractEmployee/{{ row.id }}"
+             routerLinkActive="router-link-active"
+             color="accent" 
+           >
+             <mat-icon>visibility</mat-icon>
+           </button>
+
+            
+             <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+               <mat-icon>delete</mat-icon>
+             </button>
+            
+             <button 
+             class="card-control"
+             mat-icon-button
+             *ngIf="row.contractStatus === 'STILL_PENDING'"
+             [matMenuTriggerFor]="menu2"
+           >
+                  <mat-icon class="text-muted text-18">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu2="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Accepté</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>cancel</mat-icon>
+                    <span>Refusé</span>
+                  </button>
+                 
+                </mat-menu>
+           
+              <mat-divider></mat-divider>
+         
+           </mat-cell>
+         </ng-container>
+   
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
+      <!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>-->
+   
+     </mat-card-content>
+   </mat-card>
+   </div>
+  
+

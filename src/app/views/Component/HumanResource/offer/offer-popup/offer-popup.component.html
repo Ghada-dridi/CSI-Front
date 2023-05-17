@@ -1,0 +1,52 @@
+
+<form [formGroup]="offerForm" (ngSubmit)="submit()" >
+  <mat-card class="p-0">
+    <mat-tab-group mat-stretch-tabs>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: #0077C2;">info</mat-icon>
+      <span class="tab-label" style="color: #0077C2;">Ajouter une Offre</span>
+    </ng-template>
+      <mat-card-content class="mt-16">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" style="padding-top: 25px;">
+
+        <div fxFlex="30"  class="pr-16">
+          <mat-form-field class="full-width" appearance="outline" >
+            <input 
+            matInput
+            [formControlName]="'title'"
+            placeholder="Titre">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="30"  class="pr-16" >
+          <mat-form-field class="full-width" appearance="outline" >
+            <input
+            matInput
+            name="reference"
+            [formControlName]="'reference'"
+            placeholder="Référence">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="80"  class="pr-16">
+          <mat-form-field  [style.width.cm]=18 class="example-full-width" appearance="outline" >
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description"  [formControlName]="'description'"></textarea>
+        </mat-form-field>
+        </div>
+        
+    <div fxFlex="100" class="mt-16">
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Ignorer</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" >{{"Enregsitrer" | translate }}</button>
+    </div>
+  </div>
+  </mat-card-content>
+
+</mat-tab>
+</mat-tab-group>
+    
+</mat-card>
+</form>
+

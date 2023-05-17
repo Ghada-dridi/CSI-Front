@@ -1,0 +1,57 @@
+
+<!-- Informations personnelles-->
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
+    <mat-card class="profile-sidebar mb-16 pb-0">
+      <div class="propic text-center">
+         <img [src]=resource.photo alt="">
+      </div>
+      <div class="profile-title text-center mb-16">
+        <div class="main-title"></div>
+        <div class="subtitle mb-8">{{resource.firstName}} {{ resource.lastName}}</div>
+        <div class="subtitle mb-8">{{resource.title}}</div>
+       </div>
+    </mat-card>
+  
+ 
+
+
+<!-- Contact Information -->
+
+<mat-card class="default">
+  <h3 class="mx-16 my-24">Informations de contact</h3>
+  <mat-card-content class="pt-0">
+    <mat-list>
+      <mat-list-item><mat-icon class="mr-16">email</mat-icon> {{resource.emailOne}}</mat-list-item>
+      <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{resource.phoneNumberOne}}</mat-list-item>
+      <mat-list-item><mat-icon class="mr-16">add_location</mat-icon>{{resource.address}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+</div>
+</div>
+<!-- Informations générales -->
+<div fxFlex.gt-md="800px">
+  <mat-card class="default">
+    <h3 class="mx-16 my-24">Informations générales</h3>
+    <mat-card-content class="pt-0">
+      <mat-list>
+        <mat-list-item><strong>Date de naissance : </strong> {{resource.birthDate}}</mat-list-item>
+        <mat-list-item><strong>Civilité : </strong> {{resource.civility}}</mat-list-item>
+        <mat-list-item><strong>Situation familiale : </strong>{{resource.maritalSituation}}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+<!-- Informations administratives -->
+  <mat-card class="default">
+    <h3 class="mx-16 my-24">Informations administratives</h3>
+    <mat-card-content class="pt-0">
+      <mat-list>
+        <mat-list-item><strong>Matricule : </strong></mat-list-item>
+        <mat-list-item><strong>Département : </strong></mat-list-item>
+        <mat-list-item><strong>Année d'expérience :</strong></mat-list-item>
+        <mat-list-item><strong>Local :</strong></mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

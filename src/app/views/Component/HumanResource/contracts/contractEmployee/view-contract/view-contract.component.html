@@ -1,0 +1,183 @@
+
+<mat-card id="Contrat">
+  <div fxLayout="row">
+    <button mat-icon-button routerLink="/contractEmployee/liste-employee-contracts">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <button  mat-flat-button color="primary" class="ml-16 mr-16" (click)="downloadContract()"> Télécharger </button>
+    <button mat-flat-button color="accent" (click)="print()"> Imprimer </button>
+  </div>
+
+<div id="formImprime"> 
+  <!---->
+  <!-- Format du contrat -->
+    <form>
+      <!-- Begin logo and title  -->
+      <div fxLayout="row wrap" fxLayoutAlign="space-between" class="order-info">
+        <div fxLayout="column" fxFlex="33.33%">
+            <img src="assets/images/csiLogo.png" width="200px">
+        </div>
+        </div>
+        <div class="text-center pt-8 pb-16" style="color: #0081FF;">
+          <U><h2>{{ contract.contractTitle }}</h2></U> 
+        </div>
+        
+      <!-- end  logo and title  -->
+  
+      <div [innerHtml]="contract.contractIntroduction"></div>
+      
+        <div *ngFor="let article of contract.articles">
+          <U><strong>Article{{article.articleNumber}} : {{article.articleTitle}} </strong></U>
+         <div align = "justify">
+          <p style="display: inline-block; margin-left: 1em;"></p>{{article.description}}</div>
+      
+          </div>
+          <div class="text-right pt-8 pb-16">
+            <h6>Fait à {{ contract.contractPlace }} le {{ contract.contractDate }}</h6>
+         </div>
+         <div fxLayout="row wrap" fxLayoutAlign="space-between" class="order-info">
+          <div fxLayout="column" fxFlex="90%">
+            <div style="display: flex; justify-content: space-between;">
+              <div class="text-left pt-8 pb-16">
+                <h6>L’EMPLOYE(E) </h6>
+              </div>
+              <div class="text-right pt-8 pb-16">
+                <h6>L’EMPLOYEUR</h6>
+              </div>
+            </div>
+          </div>
+          <div >
+            <h6 style="padding-top: 0;">(Lu et approuvé) signature légalisée</h6>
+          </div>
+        </div>
+      <!-- billing details -->
+  
+    </form>
+
+  </div>
+  </mat-card>
+  <!-- end of contract -->
+  <!-- =================================================== -->
+
+  <!--Begin Exceptional fee-->
+  <mat-card>
+
+<div class="text-center pt-8 pb-16"  style="color: #0081FF;">
+  <U><h2>Liste des frais exceptionnels</h2></U> 
+</div >
+<!-- item table -->
+<div id="FormExceptionalFee">
+  <div class="item-table">
+    <mat-table [dataSource]="dataSourceE" class="mat-elevation-z4" #table>
+       <!-- Number Column -->
+       <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> Numéro </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Item Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>
+         Nom
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+      </ng-container>
+
+      <!-- Unit type Column -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef>
+         Type
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.feeType}} </mat-cell>
+      </ng-container>
+
+      <!-- Unit description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>
+        Description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.shortDescription }} </mat-cell>
+      </ng-container>
+
+      <!-- amount column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef>
+          Montant
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.amount }}
+        </mat-cell>
+      </ng-container>
+      <!--    currency column -->
+      <ng-container matColumnDef="currency">
+        <mat-header-cell *matHeaderCellDef>
+          Devise
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.currency }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumnsE"></mat-header-row>
+      <mat-row *matRowDef="let element; columns: displayedColumnsE;"></mat-row>
+   
+    </mat-table>
+  </div>
+</div>
+<!-- end of table -->
+</mat-card>
+  <!-- End Exceptional fee-->
+
+  <!--Begin Benefit -->
+<mat-card>
+  <div class="text-center pt-8 pb-16"  style="color: #0081FF;">
+    <U><h2>Liste des bénéfices</h2></U> 
+  </div>
+  <div id="FormExceptionalFee">
+    <div class="item-table">
+      <mat-table [dataSource]="dataSourceB" class="mat-elevation-z4" #table>
+        <!-- Number Column -->
+       <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> Numéro </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+  
+    
+         <!-- Unit name Column -->
+         <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>
+          Nom
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.shortDescription}} </mat-cell>
+        </ng-container>
+  
+        <!-- Unit type Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef>
+           type
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.contractBenifitType}} </mat-cell>
+        </ng-container>
+  
+        <!-- description Column -->
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef>
+          description
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.description }} </mat-cell>
+        </ng-container>
+  
+     
+       
+        <mat-header-row *matHeaderRowDef="displayedColumnsB"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumnsB;"></mat-row>
+     
+      </mat-table>
+    </div>
+  </div>
+</mat-card>
+  <!-- End Benefit -->

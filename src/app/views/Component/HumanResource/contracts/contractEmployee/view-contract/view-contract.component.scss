@@ -1,0 +1,19 @@
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;}
+
+
+    @media print {
+        body {
+          visibility: hidden;
+        }
+        #section-to-print {
+          visibility: visible;
+          
+          overflow:visible; 
+          position:absolute !important; 
+          top:0;
+          left:0
+        }
+      }

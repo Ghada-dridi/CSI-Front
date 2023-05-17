@@ -1,0 +1,328 @@
+<div class="page-layout overflow-hidden pb-8">
+  <div class="header-bg blue"></div>
+
+  <div class="content">
+    <div class="content-header p-24" fxLayout="row wrap" fxLayoutAlign="start center">
+      <mat-list role="list">
+        <mat-list-item  role="listitem" ><h1 class="text-white m-0">{{ employee.firstName }} {{ employee.lastName }}</h1></mat-list-item>
+        <mat-list-item role="listitem"><h2 class="text-white m-0">{{employeeTitleMap[employee.title]}}</h2> </mat-list-item>
+       </mat-list>
+    </div>
+    <div class="content-body">
+      <div class="content-card mat-bg-default">
+          <mat-tab-group>
+              <mat-tab label="Informations Générales"> 
+    <mat-card class="p-0" >
+      <mat-card-content style="padding-top: 20px;">
+        <div div fxLayout="row" fxLayoutAlign="space-evenly center" >
+          <div fxFlex="100" fxFlex.gt-sm="60">
+          <mat-card class="p-0" >
+              <mat-card-title class="cardColor">
+                <div class="card-title-text">Informations Personelles </div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">face</mat-icon> <strong style="padding-right: 10px;">Civilité : </strong>{{ civilityMap[employee.civility]}} </mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">cake</mat-icon><strong style="padding-right: 10px;">Date de naissance : </strong> {{ employee.birthDate }}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">people_outline</mat-icon> <strong style="padding-right: 10px;">Situation Maritale : </strong>{{ maritalSituationMap[employee.maritalSituation] }}</mat-list-item>
+                   <mat-list-item><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Adresse : </strong>{{ employee.address}}</mat-list-item>
+                   <mat-list-item><mat-icon color="primary" class="mr-16">add_locationgit </mat-icon> <strong style="padding-right: 10px;" >Code Postal : </strong>{{ employee.postCode }}</mat-list-item>
+                    <mat-list-item><mat-icon color="primary" class="mr-16">location_city</mat-icon> <strong style="padding-right: 10px;">Ville : </strong>{{ employee.city }}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">public</mat-icon> <strong style="padding-right: 10px;">Pays : </strong>{{ employee.country }}</mat-list-item>
+                </mat-list>
+               <!-- <mat-divider></mat-divider>
+                <div  fxLayoutAlign="center center" style="padding-top: 25px;">
+                  <button mat-raised-button color="primary">Envoyer un Email</button>
+                </div>-->
+              </mat-card-content>
+            </mat-card>
+        </div>
+        <div style="padding-top: 50px;"></div>
+         
+           <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-card class="p-0" >
+              <mat-card-title class="cardColor">
+                <div class="card-title-text">Info de Contact du Candiadat </div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list>
+                  <mat-list-item><mat-icon  color="primary"class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 1 : </strong> {{ employee.emailOne}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 2 : </strong> {{ employee.emailTwo}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 1 : </strong>{{ employee.phoneNumberOne }}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 2 : </strong> {{ employee.phoneNumberTwo }}</mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        
+      </mat-card-content>
+    </mat-card>
+     </mat-tab>
+
+             <mat-tab label="Dossier Technique"> 
+    <mat-card class="p-0">
+      <mat-card-title class="">
+        <div fxLyout="row wrap" >
+          <div class="card-title-text">
+          <span class="mat-heading-label" style=" padding-right: 5px;">Dossier Technique de </span><span class="mat-heading-label" style="font-size: 22px;">{{ employee.firstName }} {{ employee.lastName }}</span>
+          </div>
+          <span fxFlex></span>
+            <span style=" padding-top: 30px;"><mat-icon color="primary" class="mr-16" title="Voir l'évaluation">create</mat-icon></span>
+            <div style="padding-top: 20px; padding-right: 20px;"><button  mat-raised-button  color="primary" (click)="openEvaluationCandidat()" >Voir l'évaluation</button></div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content>
+        <div fxLayout="row">
+          <div fxFlex="100" fxFlex.gt-sm="60" >
+            <mat-card  class="p-0" >
+              <mat-card-title class="cardColor">
+                <div class="card-title-text">Education</div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              
+              <mat-card-content>
+                <mat-list *ngFor="let educations of education">
+                  <mat-list-item><mat-icon color="primary" class="mr-16">school</mat-icon><strong style="padding-right: 10px;">Diplome : </strong>{{educations?.diploma}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">business</mat-icon> <strong style="padding-right: 10px;">Institution : </strong>{{educations?.institution}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date d'inscription : </strong> {{educations?.startYear}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date d'obtention : </strong>{{educations?.obtainedDate}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">border_color</mat-icon> <strong style="padding-right: 10px;">Score : </strong>{{educations?.score}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">add_locationgit </mat-icon> <strong style="padding-right: 10px;" >Actuellement inscri : </strong>{{educations?.actual}}</mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          
+          <div fxFlex="100" fxFlex.gt-sm="60"  >
+            <mat-card class="p-0">
+              <mat-card-title  class="cardColor">
+                <div class="card-title-text">Expérience </div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list *ngFor="let experiences of experience" >
+              
+                <mat-list>
+                  <mat-list-item><mat-icon  color="primary"class="mr-16">business</mat-icon> <strong style="padding-right: 10px;">Société : </strong>{{experiences.experienceCompany}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">person</mat-icon> <strong style="padding-right: 10px;">Intitulé du poste : </strong>{{experiences.experienceTitle}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">keyboard</mat-icon><strong style="padding-right: 10px;">Technologies: </strong>{{experiences.technology}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de début : </strong>{{experiences.experienceStartDate}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de fin : </strong>{{experiences.experienceEndDate}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Actuellement employé : </strong>{{experiences.actualEmployment}}</mat-list-item>
+                </mat-list>
+              </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        
+        <div fxLayout="column">
+          <div fxLayout="row">
+          <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
+            <mat-card class="p-0">
+              <mat-card-title class="cardColor"> 
+                <div class="card-title-text">Compétances</div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list>
+                  <mat-list >
+                  <mat-icon color="primary"></mat-icon><span class="mat-heading-label">Compétences linguistiques:</span>
+                  <mat-list *ngFor="let languages of language">
+                  <mat-list-item ><strong style="padding-right: 10px;">Langue : </strong>{{languages.language}} | {{ LanguageLevelMap[languages.languageLevel]}}</mat-list-item>
+                  <mat-list-item><strong style="padding-right: 10px;">Informations supplémentaire : </strong>{{languages.additionalInformation}}</mat-list-item>
+                </mat-list>
+                </mat-list>
+
+                <mat-icon  color="primary"></mat-icon>
+                <span class="mat-heading-label">Certifications :</span>
+                  <mat-list *ngFor="let certifications of certification" >
+                    <mat-list-item ><strong style="padding-right: 10px;">Certification :   </strong>{{certifications.certificationTitle}}</mat-list-item> 
+                    <mat-list-item ><strong style="padding-right: 10px;">Année d'obtention : </strong>{{certifications.certificationObtainedDate}}</mat-list-item> 
+                </mat-list>
+
+                <mat-icon  color="primary"></mat-icon><span class="mat-heading-label">Compétences :</span>
+                  <mat-list  *ngFor="let skill of skills" >
+                    <mat-list-item ><strong style="padding-right: 10px;">Compétences : </strong>{{skill.skillsTitle}}</mat-list-item> 
+                </mat-list>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+
+          <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
+            <mat-card class="p-0">
+              <mat-card-title class="cardColor"> 
+                <div class="card-title-text">Informations Générales</div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list>
+                  <mat-list-item><mat-icon  color="primary"class="mr-16">bookmark</mat-icon> <strong style="padding-right: 10px;">Référence  : </strong> {{ technicalFile.reference}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">description</mat-icon><strong style="padding-right: 10px;">Déscription : </strong>{{ technicalFile.description }}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">check</mat-icon><strong style="padding-right: 10px;">Objectif : </strong> {{ technicalFile.objective }}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">directions_car</mat-icon> <strong style="padding-right: 10px;">Permit de conduire : </strong>{{ technicalFile.driverLicense}}</mat-list-item>
+  
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          </div> 
+          
+          <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
+            <mat-card class="p-0">
+              <mat-card-title class="cardColor"> 
+                <div class="card-title-text">Offres</div>
+                <mat-divider></mat-divider>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-list *ngFor="let Candidatures of candidature" >
+                  <mat-list-item style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Titre de l'offre : </strong>{{Candidatures.id}}</mat-list-item>
+                  <mat-list-item  style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Déscription de l'offre: </strong></mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+          
+      </mat-card-content>
+    </mat-card> 
+  </mat-tab>
+
+    <mat-tab label="Résumé"> 
+    <div style="padding-top: 20px; padding-left: 20px;">
+      <button mat-raised-button color="primary" (click)="printCv()" style="display: block;">
+        Imprimer le Cv
+      </button>
+      <div style="padding-top: 20px;">
+        <button  mat-raised-button color="primary" (click)="downloadCV()" style="display: block;">
+        Téléchargement en PDF
+      </button>
+      </div>
+    </div>
+    
+    <div id="resume" class="resume">
+      <div class="cv-container">
+      <header>
+        <span class="mat-display-2">{{ employee.firstName }} {{ employee.lastName }}</span>
+        <h2 style="padding-top: 10px;">{{ employeeTitleMap[employee.title]}}</h2>
+    </header>
+    
+    <div class="container">
+      <div class="left">
+        <div class="profile">
+          <h2>Profil</h2>
+           <hr style="width: 100%; margin: 0 auto;">
+           <div class="profile-body">
+            <p>{{ technicalFile.description}}</p>
+          <strong style="padding-right: 10px;">Objectifs: </strong><p>{{ technicalFile.objective}}</p>
+          <div>
+          </div>
+           </div>
+        </div>
+
+        <div class="skills">
+          <h2>Compétances</h2>
+          <hr style="width: 100%; margin: 0 auto;">
+          <div class="skills-body">
+            <div class="chip-container" *ngFor="let skill of skills">
+              <div class="chip">{{skill.skillsTitle}}</div>
+            </div>
+         </div>
+        </div>
+
+        <div class="Edcuation">
+          <h2>Parcours éducatif</h2>
+          <hr style="width: 100%; margin: 0 auto;">
+          <div class="education-body">
+            <ul class="body-list" *ngFor="let educations of education">
+              <li style="padding-bottom:15px">
+                  <div style="display: flex; justify-content: space-between;">
+                      <h3>{{educations?.institution}}</h3>
+                      <p>{{educations?.startYear}} | {{educations?.obtainedDate}}</p>
+                  </div>
+                  <p>{{educations?.diploma}} | {{educations?.score}}</p>
+              </li>
+          </ul>
+         </div>
+        </div>
+
+        
+        <div class="experince">
+          <h2>Expérience professionnelle</h2>
+          <hr style="width: 100%; margin: 0 auto;">
+          <div class="experince-body">
+            <ul *ngFor="let experiences of experience">
+              <li>
+                <div style="display: flex; justify-content: space-between;">
+                    <p>{{experiences.experienceTitle}}</p>
+                     <p>{{experiences.experienceStartDate}} | {{experiences.experienceEndDate}}</p>
+                </div>
+                <ul>
+                  <li>{{experiences.technology}}</li>
+                </ul>
+              </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <h2>Contact</h2>
+        <span class="mat-heading-label">Adresse</span>
+        <ul class="side-list">
+          <li><strong style="padding-right: 10px;">Pays: </strong>{{ employee.country }}</li>
+          <li><strong style="padding-right: 10px;">Ville: </strong>{{employee.city}}{{employee.postCode}}</li>
+          
+          <li><strong style="padding-right: 10px;">Adresse: </strong>{{employee.address}}</li>
+          </ul>
+
+          <span class="mat-heading-label">Emails</span>
+          <ul class="side-list">
+            <li> {{ employee.emailOne}}</li>
+            <li> {{ employee.emailTwo}}</li>
+          </ul>
+
+          <span class="mat-heading-label">Numéros</span>
+         <ul class="side-list">
+          <li>{{ employee.phoneNumberOne }}</li>
+          <li>{{ employee.phoneNumberTwo }}</li>
+        </ul>
+
+        <h2 style="padding-top:20px">Languages</h2>
+        <ul *ngFor="let languages of language" class="side-list">
+          <li>
+            <ul>
+              <li>
+                {{languages.language}} {{LanguageLevelMap[languages.languageLevel]}}</li>
+              <li>{{languages.additionalInformation}}</li>
+            </ul>
+          </li>
+        </ul>
+        <h2 style="padding-top:20px">Certifications</h2>
+        <ul *ngFor="let certifications of certification" class="side-list">
+          <li>
+            <ul>
+              <li>
+                {{certifications.certificationTitle}} |
+                {{certifications.certificationObtainedDate}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </div>
+  
+    </div>
+    </div>
+  </mat-tab>
+          </mat-tab-group>
+      </div>
+    </div>
+
+  </div>
+</div>

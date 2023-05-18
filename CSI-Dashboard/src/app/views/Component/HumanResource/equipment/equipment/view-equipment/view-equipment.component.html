@@ -1,0 +1,62 @@
+<!--<div class="modal-body px-0">
+    <div style="overflow-y: hidden; height: calc(100vh - 15rem);">
+      <div class="px-2" style="overflow-y: auto; height: 100%;">
+          <mat-card class="p-0" >
+                <ng-template mat-tab-label>
+                  <mat-icon style="color: #0077C2;padding-right: 16px;">assignment</mat-icon>
+                  <span class="tab-label" style="color: #0077C2;">Equipement</span>
+                </ng-template>
+                  <mat-card-content class="mt-16">
+                    <div class="container" style="display: flex; flex-direction: column;">
+                      <div class="form-container">
+                      <div class="mini-container" >
+                          <span class="mat-heading-label">Référence</span>
+                      </div>
+                      
+                      <div class="mini-container" >
+                        <span class="mat-heading-label">Type </span>
+                      </div>
+                      
+                      <div class="mini-container" >
+                       <span class="mat-heading-label">Ressource </span>
+                      </div>
+                      
+                      <div class="mini-container" >
+                        <span class="mat-heading-label">Commentaire</span>
+                        <mat-form-field class="full-width"  appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <textarea  class="full-width" matInput placeholder="Description" formControlName="comment"></textarea>
+                          </mat-form-field>
+                      </div>
+                      
+                    </div>
+                <div fxFlex="100" class="mt-16">
+                    <button mat-raised-button color="warn" type="button" (click)="closeDialog()">Retour</button>
+
+                  <span fxFlex></span>
+                </div>
+              </div>
+              </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>-->
+  <div fxFlex.gt-md="600px">
+    <mat-card class="default">
+      <mat-card-header>
+        <mat-card-title class="mx-16 my-24">Fiche équipement</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content class="pt-0">
+        <mat-list>
+          <mat-list-item><strong>Numéro de série : </strong> {{equipment.serialNumber}}</mat-list-item>
+          <mat-list-item><strong>Type : </strong>{{equipment.type}}</mat-list-item>
+          <mat-list-item><strong>Date de remise: </strong>{{equipment.deliveryDate}}</mat-list-item>
+          <mat-list-item><strong>Date de restitution: </strong>{{equipment.returnDate}}</mat-list-item>
+          <mat-list-item><strong>Responsble: </strong>{{equipment.resource}}</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  

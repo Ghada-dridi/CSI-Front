@@ -1,0 +1,77 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<!--{{"ADD" | translate }} {{"MEMBER" | translate }}-->
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="serialNumber"
+        [formControl]="itemForm.controls['serialNumber']"
+        placeholder="Numéro Série">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="type"
+        [formControl]="itemForm.controls['type']"
+        placeholder="Type">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="date"
+        name="deliveryDate"
+        [formControl]="itemForm.controls['deliveryDate']"
+        placeholder="Date Remise">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="date"
+        name="returnDate"
+        [formControl]="itemForm.controls['returnDate']"
+        placeholder="Date Restitution">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="resource"
+        [formControl]="itemForm.controls['resource']"
+        placeholder="Responsable">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="pr-16">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="comment"
+          [formControl]="itemForm.controls['comment']"
+          placeholder="Commentaire"
+          rows="4"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" >{{"Enregistrer" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="gray" type="button" (click)="dialogRef.close(false)">Annuler</button>
+    </div>
+  </div>
+  </form>

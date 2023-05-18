@@ -1,0 +1,123 @@
+<div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+    <div class="info-card primary" >
+       <div class="description">Here you can put your alerts!!!</div>
+    </div>
+   <mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
+     <div fxLayout="row wrap">
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-green">show_chart</mat-icon>
+           <h4 class="m-0 ">5040</h4>
+           <small class="m-0 ">Page views</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-blue">cloud_download</mat-icon>
+           <h4 class="m-0 ">1200</h4>
+           <small class="m-0 ">Downloads</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-green">comment</mat-icon>
+           <h4 class="m-0 ">16420</h4>
+           <small class="m-0 ">Comments</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+         <div class="text-center pt-16 pb-16 border-right-light">
+           <mat-icon class="text-blue">person</mat-icon>
+           <h4 class="m-0 ">3010</h4>
+           <small class="m-0 ">Profile views</small>
+         </div>
+       </div>
+       <div
+         fxFlex="50"
+         fxFlex.gt-sm="20"
+         fxFlex.sm="50"
+       >
+       
+         <div class="text-center pt-16 pb-16">
+           <mat-icon class="text-red">favorite</mat-icon>
+           <h4 class="m-0 ">4070</h4>
+           <small class="m-0 ">Likes</small>
+         </div>
+       </div>
+     </div>
+   </mat-card>
+    
+   
+       <button mat-raised-button class="mb-8" style="float: right;" color="primary"  (click)="openPopUp({}, true)">{{"Nouvel " | translate }}
+        Equipement</button>
+       <div style="clear: both;"></div>
+   
+   
+   <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+     <mat-card-content class="p-0">
+       <mat-table [dataSource]="dataSource" matSort>
+         <ng-container matColumnDef="serialNumber">
+           <mat-header-cell *matHeaderCellDef mat-sort-header > Numéro Série </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="type">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="type"> {{row.type}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="deliveryDate">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Date remise </mat-header-cell>
+           <mat-cell *matCellDef="let row"  data-label="deliveryDate"> {{row.deliveryDate}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="returnDate">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Date restitution </mat-header-cell>
+           <mat-cell *matCellDef="let row"  data-label="returnDate"> {{row.returnDate}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="resource">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Employé </mat-header-cell>
+           <mat-cell *matCellDef="let row"  data-label="resource"> {{row.resource}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="actions">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+           <mat-cell *matCellDef="let row">
+             <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+               <mat-icon>edit</mat-icon>
+             </button>
+             <button mat-icon-button mat-sm-button  class="mr-16" (click)=" openPopUpView(row)">
+               <mat-icon>remove_red_eye </mat-icon>
+             </button>
+             <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+               <mat-icon>delete</mat-icon>
+             </button>
+           </mat-cell>
+         </ng-container>
+   
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
+       <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+   
+     </mat-card-content>
+   </mat-card>
+   </div>

@@ -72,6 +72,7 @@
     <button  mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary"  (click)="goToEvaluer()">
         Ajouter un entretien </button>
        <div style="clear: both;"></div>
+       
    
    
    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
@@ -113,15 +114,22 @@
          <ng-container matColumnDef="actions">
            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
            <mat-cell *matCellDef="let row">
-            <button mat-icon-button mat-sm-button color="primary" class=" mr-16 "  (click)="openPopUp()">
+            <button mat-icon-button mat-sm-button color="primary" class=" mr-16 "  (click)="openPopUp({},true)">
               <mat-icon>work </mat-icon>
             </button>
-             <button mat-icon-button mat-sm-button color="accent" class=" mr-16 "  (click)="openEvaluationCandidat()">
+             <button mat-icon-button mat-sm-button color="accent" class=" mr-16 " (click)="saveEvaluation(row.id)"
+             >
                <mat-icon>remove_red_eye </mat-icon>
              </button>   
              <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
                <mat-icon>delete</mat-icon>
              </button>
+             <button
+             class="card-control"
+             mat-icon-button
+             [matMenuTriggerFor]="menu2">
+                  <mat-icon class="text-muted text-18">more_vert</mat-icon>
+                </button>
              
            </mat-cell>
          </ng-container>

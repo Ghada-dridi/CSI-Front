@@ -219,4 +219,57 @@ getCountries() {
 getStatesByCountry(name: string) {
   return this.countryData.getStatesByShort(name);
 }
+
+
+
+///////////Update Status//////
+updateToInProcessById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToInProcessById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToInProgressById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToInProgressById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToPreQualifiedById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToPreQualifiedById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToTopProfilesById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToTopProfilesById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToConvertedToResourceById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToConvertedToResourceById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToDoNotContactById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToDoNotContactById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateToArchiveById(id: number): Observable<any> {
+  const url = `${this.apiUrl}/updateToArchiveById/${id}`;
+  return this.http.put<any>(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+
 }

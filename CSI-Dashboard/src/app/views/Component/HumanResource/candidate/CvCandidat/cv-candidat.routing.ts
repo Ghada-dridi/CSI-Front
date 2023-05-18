@@ -7,8 +7,8 @@ export const CalendarRoutes: Routes = [{
     path: 'cvCandidat-crud', 
 component: cvcandidatComponent, 
 data: { title: 'CvCandidat' } },
-{ 
-    path: 'CandidatCrud-table', 
+
+{ path: 'CandidatCrud-table', 
     component: CandidatCrudTableComponent, 
     data: { title: 'Table', breadcrumb: 'Table' } 
   },

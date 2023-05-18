@@ -1,3 +1,4 @@
+import { Evaluation } from 'app/shared/models/Evaluation';
 import { entretienRecrutmentService } from './../entretienRecrutment.service';
 import { crudEntretien } from '../crud_entretienRecrutment.routing';
 
@@ -26,10 +27,12 @@ export class crudEntretienRecrutmentComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
   public dataSource: any;
   public displayedColumns: any;
   public getItemSub: Subscription;
+  classAdded = false;
+  evaluation :Evaluation;
+  selectedEvaluation= { id:null};
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -100,42 +103,110 @@ export class crudEntretienRecrutmentComponent implements OnInit {
   goToEvaluer(){
     this.router.navigate(['evaluationCrud/crudEvaluation'])
   }
+
   
-  openPopUp(data:  any , isNew?) {
-    let title = isNew ? 'Nouvelle offre' : 'Modifier offre';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ajoutEntretienPopupComponent, {
-      width: '1000px',
-      disableClose: true,
-      data: { title: title, payload: data }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if(!res) {
-          // If user press cancel
-          return;
-        }
-        if (isNew) {
-          this.loader.open('Ajout en cours');
-          this.crudEntretien.addItem(res)
-            .subscribe((data :any)=> {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Offre ajoutée avec succès!', 'OK', { duration: 2000 });
-              this.getItems();
-            })
-        } else {
-          this.loader.open('modification en cours');
-          this.crudEntretien.updateItem(data.id,res)
-            .subscribe((data:any) => {
-              this.dataSource = data ;
-              this.loader.close();
-              this.snack.open('Offre modifiée avec succées !', 'OK', { duration: 2000 });
-              this.getItems();
-            })
-        }
-      })
+   openPopUp(): void {
+    const dialogRef = this.dialog.open(ajoutEntretienPopupComponent, {
+      width: '900px',
+      data: { /* any data you want to pass */ }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('Result:', result);
+    });
   }
 
+  /*onShowEvaluation() {
+    if (this.classAdded) {
+      // Class has already been added, so just open the view
+      this.openView();
+    } else {
+      // Class hasn't been added, so create a new class, add it, and open the view
+      const newClass = new MyClass();
+      this.myClassService.addClass(newClass).subscribe(() => {
+        this.classAdded = true;
+        this.openView();
+      });
+    }
+  }*/
+  
+  openView(row: any) {
+    this.router.navigate(['/CandidatEvaluation', row.id]);
+  }
+
+
+//fonction tekhdem-----------
+//---PS:ena f request mtei aandi employeeId ken aandek employeeNum badal Num
+// Cordialement w bien à vous 
+
+
+  /*saveEvaluation(id: number): void {
+    this.crudEntretien.addEvaluation({employeeNum:id}).subscribe(
+      response => console.log('Evaluation added successfully'),
+      error => console.error('Error adding evaluation:', error)
+
+    );
+}*/ //gets saved as many times as u press the button 
+
+
+
+
+////EL fonction hedhy ya sidek ben sidek , matkhalich evaluation ttsajel martyn , ama kif taaml refresh tensa l hkeya w taawed taml evluation , heka aleh amalt l fnct eli baadha , eli ma tensech kif trefreshi
+
+
+
+
+private evaluationCreatedMap = new Map<number, boolean>();
+
+saveEvaluation(id: number): void {
+  // Check if an evaluation has already been created for this employee
+  if (this.evaluationCreatedMap.get(id)) {
+    console.log('Evaluation already created for this employee');
+    return;
+  }
+
+  this.crudEntretien.addEvaluation({employeeNum:id}).subscribe(
+    response => {
+      console.log('Evaluation added successfully');
+      // Set flag to indicate that evaluation has been created for this employee
+      this.evaluationCreatedMap.set(id, true);
+    },
+    error => console.error('Error adding evaluation:', error)
+  );
+}
+
+/////////////////////////////////hedhy l fonction eli ma tensech////////////////////////////////
+
+/*saveEvaluation(id: number): void {
+  // Get the evaluationCreatedMap from local storage
+  const evaluationCreatedMapStr = localStorage.getItem('evaluationCreatedMap');
+  let evaluationCreatedMap: Map<number, boolean>;
+  try {
+    evaluationCreatedMap = evaluationCreatedMapStr ? new Map(JSON.parse(evaluationCreatedMapStr)) : new Map<number, boolean>();
+  } catch (error) {
+    console.error('Error parsing evaluationCreatedMap:', error);
+    evaluationCreatedMap = new Map<number, boolean>();
+  }
+
+  // Check if an evaluation has already been created for this employee
+  if (evaluationCreatedMap.get(id)) {
+    console.log('Evaluation already created for this employee');
+    return;
+  }
+  
+  // Create new evaluation
+  this.crudEntretien.addEvaluation({employeeNum:id}).subscribe(
+    response => {
+      console.log('Evaluation added successfully');
+      // Set flag to indicate that evaluation has been created for this employee
+      evaluationCreatedMap.set(id, true);
+      // Save the updated evaluationCreatedMap to local storage
+      localStorage.setItem('evaluationCreatedMap', JSON.stringify(Array.from(evaluationCreatedMap.entries())));
+    },
+    error => console.error('Error adding evaluation:', error)
+  );
+}*/
 
 }
 

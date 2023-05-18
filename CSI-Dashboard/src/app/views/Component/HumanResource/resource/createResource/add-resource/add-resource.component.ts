@@ -38,7 +38,8 @@ export class AddResourceComponent implements OnInit {
   myFormExceptionalFee:FormGroup;
 
   listResource : Employee[] =[];
-
+  countries: Country[];
+  states: string[];
   civilities = Object.keys(Civility).filter((element) => {
     return isNaN(Number(element));
   });
@@ -49,9 +50,9 @@ export class AddResourceComponent implements OnInit {
   EmployeeStatus = Object.values(EmployeeStatus).filter((element) => {
     return isNaN(Number(element));
   });
-  Country = Object.values(Country).filter((element) => {
+  /*Country = Object.values(Country).filter((element) => {
     return isNaN(Number(element));
-  });
+  });*/
   MaritalSituation = Object.values(MaritalSituation).filter((element) => {
     return isNaN(Number(element));
   });
@@ -84,7 +85,7 @@ export class AddResourceComponent implements OnInit {
     private addResourceService :AddResourceService ,
     ) 
     { 
-      
+      this.countries = this.addResourceService.getCountries();
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -139,7 +140,12 @@ export class AddResourceComponent implements OnInit {
      // provenance : new FormControl('', Validators.required), 
   })
 
-
+  this.myForm.get("country").valueChanges.subscribe((country) => {
+    this.myForm.get("city").reset();
+    if (country) {
+      this.states = this.addResourceService.getStatesByCountry(country);
+    }
+  })
 
  
   }

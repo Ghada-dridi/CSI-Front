@@ -1,4 +1,3 @@
-import { ResourceType } from './../../../../../../shared/models/Employee';
 import { CrudService } from './../candidat-crud.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,16 +12,17 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Fruit } from 'assets/examples/material/input-chip/input-chip.component';
 import { FormBuilder, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { CompanyStatus, Country } from 'app/shared/models/Partner';
-import { Civility, Employee, EmployeeStatus, MaritalSituation, Provenance , Title} from 'app/shared/models/Employee';
-import { Service } from 'app/shared/models/contact';
+import { Civility, Employee, EmployeeStatus, MaritalSituation, Provenance, Title } from 'app/shared/models/Employee';
+import { ResourceType } from './../../../../../../shared/models/Employee';
 import { LanguageLevel, Languages } from 'app/shared/models/Language';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Invoice } from 'app/shared/models/invoice.model';
+import { Observable } from 'rxjs-compat';
+
 
 @Component({
   selector: 'app-candidat-crud',
-  templateUrl: './candidat-crud-table.component.html'
+  templateUrl: './candidat-crud-table.component.html',
+  styleUrls: ['./candidat-crud-table.component.scss'],
 })
 
 
@@ -31,7 +31,6 @@ export class CandidatCrudTableComponent implements OnInit {
   console = console;
   submitted = false;
   visible = true;
-  employee : Employee
   selectable = true;
   removable = true;
   addOnBlur = true;
@@ -39,7 +38,7 @@ export class CandidatCrudTableComponent implements OnInit {
   selectedFile: File;
   formWidth = 200; //declare and initialize formWidth property
   formHeight = 700; //declare and initialize formHeight property
-  title :any[]= Object.values(Title);
+  title :string[]= Object.values(Title);
   EmployeeStatus :any= Object.values(EmployeeStatus);
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   fruits: Fruit[] = [];
@@ -50,12 +49,12 @@ export class CandidatCrudTableComponent implements OnInit {
   
   public dataSource: any;
   public displayedColumns: any;
-  public getItemSub: Subscription;
+  public getEmployeesub: Subscription;
   submitBtnLabel = 'Save';
   editMode = false;
-employeeId: number //| null = null;
-employeeList: Employee[];
-filteredEmployees: Employee[] = [];
+  employeeId: number //| null = null;
+  employeeList: Employee[];
+  filteredEmployees: Employee[] = [];
   constructor(
     private _formBuilder: FormBuilder,
     private dialog: MatDialog,
@@ -70,7 +69,7 @@ filteredEmployees: Employee[] = [];
   ngOnInit() {
     
     this.displayedColumns = this.getDisplayedColumns();
-    this.getItems();
+    this.getEmployees();
   }
 
 
@@ -81,6 +80,9 @@ filteredEmployees: Employee[] = [];
     this.router.navigate(['cvCandidat/cvCandidat-crud']);
   }
   
+  /*goToTemplate() {
+    this.router.navigate(['templcv/templateDuCv']);
+  }*/
 
   getDisplayedColumns() {
     return ['firstName', 'lastName', 'title',  'status', 'actions'];
@@ -92,16 +94,16 @@ filteredEmployees: Employee[] = [];
   }
 
   ngOnDestroy() {
-    if (this.getItemSub) {
-      this.getItemSub.unsubscribe()
+    if (this.getEmployeesub) {
+      this.getEmployeesub.unsubscribe()
     }
   }
 
   
   
 
-  getItems() {    
-    this.getItemSub = this.crudService.getItems()
+  getEmployees() {    
+    this.getEmployeesub = this.crudService.getItems()
       .subscribe((data:any)  => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -109,83 +111,50 @@ filteredEmployees: Employee[] = [];
       })
 
   }
-  /*applyFilterFirstName(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data.firstName.trim().toLowerCase().indexOf(filter) !== -1;
-    };
-  }
-  applyFilterLastName(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data.lastName.trim().toLowerCase().indexOf(filter) !== -1;
-    };
-  }
-  applyFilterTitle(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data.title.trim().toLowerCase().indexOf(filter) !== -1;
-    };
-  }*/
-
+  
 
   applyFilterr(event: Event, key: string) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    const filterWords = filterValue.split(' ');
+  
+    this.dataSource.filterPredicate = (data, filter) => {
+      // Split the data value into words and convert to lowercase
+      const dataWords = data[key].trim().toLowerCase().split(' ');
+  
+      // Check if all filter words are present in the data (case-insensitive)
+      return filterWords.every(word => {
+        return dataWords.some(dataWord => dataWord.indexOf(word.toLowerCase()) !== -1);
+      });
+    };
+  
+    this.dataSource.filter = filterValue;
+  
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data[key].trim().toLowerCase().indexOf(filter) !== -1;
-    };
   }
   
- 
-  /*addResourceType(employee : Employee ) {
+  getRoute(resourceType: string): string {
+    switch (resourceType) {
+      case ResourceType[ResourceType.BACKOFFICE_RESOURCE]:
+        return 'add-backoffice-resource/add-backOffice-crud';
+      case ResourceType[ResourceType.EXTERNAL_RESOURCE]:
+        return 'add-external-resource/add-external-crud';
+      case ResourceType[ResourceType.INTERNAL_RESOURCE]:
+        return 'add-resource/add-resource-crud';
+      default:
+        return '';
+    }
+  }
+  
+  addResourceType(row: Employee) {
+    const resourceType = ResourceType[ResourceType[row.resourceType]];
+    this.router.navigate([this.getRoute(resourceType)], { state: { row } });
+  }
     
-    switch ( ResourceType[ResourceType[employee.resourceType]]) {
-      case  ResourceType[ResourceType.BACKOFFICE_RESOURCE] :
-        this.router.navigate(['add-backoffice-resource/add-backOffice-crud']);
-        break;
-        case  ResourceType[ResourceType.EXTERNAL_RESOURCE] :
-        this.router.navigate(['add-external-resource/add-external-crud']);
-        break;
-        case  ResourceType[ResourceType.INTERNAL_RESOURCE] :
-        this.router.navigate(['add-resource/add-resource-crud']);
-        break;
-       
-
-  }
-}*/
-getRoute(resourceType: string): string {
-  switch (resourceType) {
-    case ResourceType[ResourceType.BACKOFFICE_RESOURCE]:
-      return 'add-backoffice-resource/add-backOffice-crud';
-    case ResourceType[ResourceType.EXTERNAL_RESOURCE]:
-      return 'add-external-resource/add-external-crud';
-    case ResourceType[ResourceType.INTERNAL_RESOURCE]:
-      return 'add-resource/add-resource-crud';
-    default:
-      return '';
-  }
-}
-
-addResourceType(row: Employee) {
-  const resourceType = ResourceType[ResourceType[row.resourceType]];
-  this.router.navigate([this.getRoute(resourceType)], { state: { row } });
-}
+  
+  
+  
   
   deleteCandidate(row) {
     this.confirmService.confirm({message: `Delete ${row.firstName}?`})
@@ -197,7 +166,7 @@ addResourceType(row: Employee) {
               this.dataSource = data;
               this.loader.close();
               this.snack.open('candidat supprimé!', 'OK', { duration: 20});
-              this.getItems();
+              this.getEmployees();
             })
         }
       })
@@ -212,11 +181,140 @@ add(){
  
  }
  
-  createRepeatForm(): FormGroup {
-    return this._formBuilder.group({
-    });
+
+  getStatusColor(employeeStatus: string): { color: string, displayText: string } {
+    const STATUS_DATA = {
+      IN_PROCESS: { color: 'primary', displayText: 'En processus' },
+      IN_PROGRESS: { color: 'primary', displayText: 'En progrès' },
+      PRE_QUALIFIED: { color: 'red', displayText: 'Non qualifié' },
+      TOP_PROFILES: { color: 'purple', displayText: 'Top profiles' },
+      CONVERTED_TO_RESOURCE: { color: 'purple', displayText: 'Converti en ressource ' },
+      DO_NOT_CONTACT : { color:'red', displayText: 'A ne plus contacter' },
+      ARCHIVE: { color: 'gray', displayText: 'Archivé' }
+    };
+    return STATUS_DATA[employeeStatus] || { color: 'primary', displayText: 'En processus' };
+}
+/*
+changeEmployeeStatus(employeeStatus: string, employeeId: number): void {
+  console.log('Changing employee status to:', employeeStatus);
+  let updateObservable: Observable<any>;
+  switch (employeeStatus) {
+    case 'employeeStatus.IN_PROCESS':
+      updateObservable = this.crudService.updateToInProcessById(employeeId);
+      break;
+    case 'employeeStatus.IN_PROGRESS':
+      updateObservable = this.crudService.updateToInProgressById(employeeId);
+      break;
+    case 'employeeStatus.PRE_QUALIFIED':
+      updateObservable = this.crudService.updateToPreQualifiedById(employeeId);
+      break;
+    case 'employeeStatus.TOP_PROFILES':
+      updateObservable = this.crudService.updateToTopProfilesById(employeeId);
+      break;
+      case 'employeeStatus.DO_NOT_CONTACT':
+        updateObservable = this.crudService.updateToDoNotContactById(employeeId);
+        break;
+    case 'employeeStatus.CONVERTED_TO_RESOURCE':
+      updateObservable = this.crudService.updateToConvertedToResourceById(employeeId);
+      break;
+    case 'employeeStatus.ARCHIVE':
+      updateObservable = this.crudService.updateToArchiveById(employeeId);
+      break;
+    default:
+      // Cas de statut de contrat non géré
+      console.error('Statut de candidat non géré');
+      return;
+  }
+  
+  updateObservable.subscribe(
+    (data) => {
+      // handle success
+      console.log('Mise à jour effectuée avec succès');
+      this.getEmployees();    
+    },
+    (error) => {
+      console.error('Erreur lors de la mise à jour : ', error);
+    }
+  );
+}*/
+
+changeEmployeeStatus(employeeStatus: string, employeeId: number, row: Employee): void {
+  console.log('Changing employee status to:', employeeStatus);
+  let updateObservable: Observable<any>;
+
+  switch (employeeStatus) {
+    case 'employeeStatus.IN_PROCESS':
+      updateObservable = this.crudService.updateToInProcessById(employeeId);
+      break;
+    case 'employeeStatus.IN_PROGRESS':
+      updateObservable = this.crudService.updateToInProgressById(employeeId);
+      break;
+    case 'employeeStatus.PRE_QUALIFIED':
+      updateObservable = this.crudService.updateToPreQualifiedById(employeeId);
+      break;
+    case 'employeeStatus.TOP_PROFILES':
+      updateObservable = this.crudService.updateToTopProfilesById(employeeId);
+      break;
+    case 'employeeStatus.DO_NOT_CONTACT':
+      updateObservable = this.crudService.updateToDoNotContactById(employeeId);
+      break;
+    case 'employeeStatus.CONVERTED_TO_RESOURCE':
+      updateObservable = this.crudService.updateToConvertedToResourceById(employeeId);
+      break;
+    case 'employeeStatus.ARCHIVE':
+      updateObservable = this.crudService.updateToArchiveById(employeeId);
+      break;
+    default:
+      // Cas de statut de contrat non géré
+      console.error('Statut de candidat non géré');
+      return;
   }
 
-  /***************************  méthode converted to ressource***************************/
-   
+  // S'abonner à l'observable pour attendre la fin de la mise à jour du statut
+  updateObservable.subscribe(() => {
+    const resourceType = ResourceType[ResourceType[row.resourceType]];
+    this.router.navigate([this.getRoute(resourceType)], { state: { row } });
+  });
+}
+
+
+
+employeeTitleMap = {
+  [Title.FRONT_END_DEVELOPER]: 'Développeur Front-End',
+  [Title.BACK_END_DEVELOPER]: 'Développeur Back-End',
+  [Title.FULLSTACK_DEVELOPER]: 'Développeur Full-Stack',
+  [Title.CRM]: 'CRM',
+  [Title.HUMAN_RESOURCE_MANAGER]: 'Responsable des Ressources Humaines',
+  [Title.HUMAN_RESOURCE]: 'Ressources Humaines',
+  [Title.PROJECT_MANAGER]: 'Chef de Projet',
+  [Title.TECH_LEAD]: 'Chef de Projet',
+  [Title.UI_UX_DESIGNER]: 'Concepteur UI/UX',
+  [Title.QA_ENGINEER]: 'Ingénieur QA',
+  [Title.DEVOPS_ENGINEER]: 'Ingénieur DevOps',
+  [Title.WEB_DEVELOPER]: 'Développeur Web',
+  [Title.OFFICE_MANAGER]: 'Responsable d Agence',
+  [Title.ACCOUNTANT]: 'Comptable',
+  [Title.SALES_REPRESENTATIVE]: 'Représentant Commercial',
+  [Title.CUSTOMER_SUPPORT_SPECIALIST]: 'Spécialiste du Support Client',
+  [Title.MARKETING_COORDINATOR]: 'Coordinateur Marketing'
+  
+};
+
+showInput1 = false;
+showInput2 = false;
+showInput3 = false;
+showInput4 = false;
+
+toggleInput1() {
+  this.showInput1 = !this.showInput1;
+}
+
+toggleInput2() {
+  this.showInput2 = !this.showInput2;
+}
+toggleInput3() {
+  this.showInput3 = !this.showInput3;
+}toggleInput4() {
+  this.showInput4 = !this.showInput4;
+}
 }

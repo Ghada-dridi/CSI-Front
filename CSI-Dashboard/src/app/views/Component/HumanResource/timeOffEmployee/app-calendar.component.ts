@@ -3,7 +3,6 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } fr
 import { Subject } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { isSameDay, isSameMonth } from 'date-fns';
-
 import { TimeOffCalendarService } from './app-calendar.service';
 import { CalendarFormDialogComponent } from './calendar-form-dialog/calendar-form-dialog.component';
 import { EgretCalendarEvent } from 'app/shared/models/event.model';

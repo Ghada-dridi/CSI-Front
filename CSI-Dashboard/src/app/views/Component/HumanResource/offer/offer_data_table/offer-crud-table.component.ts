@@ -29,7 +29,7 @@ export class OfferCrudTableComponent implements OnInit {
   public itemForm: FormGroup;;
  
   selectedFile: File;
-  title :any[]= Object.values(Title);
+  title :string[]= Object.values(Title);
 
   formWidth = 200; //declare and initialize formWidth property
   formHeight = 700; //declare and initialize formHeight property
@@ -65,7 +65,7 @@ export class OfferCrudTableComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['reference','title','actions' ];
+    return ['reference','title','startDate','endDate','actions' ];
   }
 
 

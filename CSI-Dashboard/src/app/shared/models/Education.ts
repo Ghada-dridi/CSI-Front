@@ -6,5 +6,5 @@ export interface Education{
     startYear ?: string;
     score ?: string;
     actual ?: boolean;
-    technicalFileId ?: number 
+    technicalFileNum ?: number ;
 }

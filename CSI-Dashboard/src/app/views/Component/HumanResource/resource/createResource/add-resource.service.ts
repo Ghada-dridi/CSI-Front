@@ -3,8 +3,9 @@ import { External } from './../../../../../shared/models/externe';
 import { BackOffice } from './../../../../../shared/models/backOffice';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Employee, EmployeeStatus } from 'app/shared/models/Employee';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Employee } from 'app/shared/models/Employee';
+import * as countrycitystatejson from 'countrycitystatejson';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AddResourceService {
   private apiUrlInternal = 'http://localhost:8084/rh/resource';
   private apiUrlBackOffice = 'http://localhost:8084/rh/backoffice';
   private apiUrlExternal = 'http://localhost:8084/rh/ExternalResource';
-
+  private countryData = countrycitystatejson;
   
 
   constructor(private http: HttpClient) { 
@@ -36,7 +37,7 @@ export class AddResourceService {
     );
   }
  // GET an item by id
- getInternalItem(id: number): Observable<Employee> {
+ getInternalItem(id: number): Observable<Internal> {
   const url = `${this.apiUrlInternal}/${id}`;
   return this.http.get<Internal>(url).pipe(
     catchError(this.handleError)
@@ -101,5 +102,12 @@ private handleError(error: HttpErrorResponse) {
     return throwError(
       'Something bad happened; please try again later.');
   }
+//-----------------------------------------------------------------
+getCountries() {
+  return this.countryData.getCountries();
+}
 
+getStatesByCountry(name: string) {
+  return this.countryData.getStatesByShort(name);
+}
 }

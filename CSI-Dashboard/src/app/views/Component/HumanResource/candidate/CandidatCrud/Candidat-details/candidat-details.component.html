@@ -22,15 +22,15 @@
                 <mat-divider></mat-divider>
               </mat-card-title>
               <mat-card-content>
-                <mat-list>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">face</mat-icon> <strong style="padding-right: 10px;">Civilité : </strong>{{ civilityMap[employee.civility]}} </mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">cake</mat-icon><strong style="padding-right: 10px;">Date de naissance : </strong> {{ employee.birthDate }}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">people_outline</mat-icon> <strong style="padding-right: 10px;">Situation Maritale : </strong>{{ maritalSituationMap[employee.maritalSituation] }}</mat-list-item>
-                   <mat-list-item><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Adresse : </strong>{{ employee.address}}</mat-list-item>
-                   <mat-list-item><mat-icon color="primary" class="mr-16">add_locationgit </mat-icon> <strong style="padding-right: 10px;" >Code Postal : </strong>{{ employee.postCode }}</mat-list-item>
-                    <mat-list-item><mat-icon color="primary" class="mr-16">location_city</mat-icon> <strong style="padding-right: 10px;">Ville : </strong>{{ employee.city }}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">public</mat-icon> <strong style="padding-right: 10px;">Pays : </strong>{{ employee.country }}</mat-list-item>
-                </mat-list>
+                <div class="flex-container">
+                  <div class="flex-item" style="padding-top: 15px;"><mat-icon color="primary" class="mr-16">face</mat-icon> <strong style="padding-right: 10px;">Civilité : </strong>{{ civilityMap[employee.civility]}} </div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">cake</mat-icon><strong style="padding-right: 10px;">Date de naissance : </strong> {{ employee.birthDate }}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">people_outline</mat-icon> <strong style="padding-right: 10px;">Situation Maritale : </strong>{{ maritalSituationMap[employee.maritalSituation] }}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Adresse : </strong>{{ employee.address}}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">add_locationgit </mat-icon> <strong style="padding-right: 10px;" >Code Postal : </strong>{{ employee.postCode }}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">location_city</mat-icon> <strong style="padding-right: 10px;">Ville : </strong>{{ employee.city }}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">public</mat-icon> <strong style="padding-right: 10px;">Pays : </strong>{{ employee.country }}</div>
+                  </div>
                <!-- <mat-divider></mat-divider>
                 <div  fxLayoutAlign="center center" style="padding-top: 25px;">
                   <button mat-raised-button color="primary">Envoyer un Email</button>
@@ -47,12 +47,12 @@
                 <mat-divider></mat-divider>
               </mat-card-title>
               <mat-card-content>
-                <mat-list>
-                  <mat-list-item><mat-icon  color="primary"class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 1 : </strong> {{ employee.emailOne}}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 2 : </strong> {{ employee.emailTwo}}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 1 : </strong>{{ employee.phoneNumberOne }}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 2 : </strong> {{ employee.phoneNumberTwo }}</mat-list-item>
-                </mat-list>
+                <div class="flex-container">
+                  <div class="flex-item" style="padding-top: 15px;"><mat-icon  color="primary"class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 1 : </strong> {{ employee.emailOne}}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">email</mat-icon> <strong style="padding-right: 10px;">Email 2 : </strong> {{ employee.emailTwo}}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 1 : </strong>{{ employee.phoneNumberOne }}</div>
+                  <div class="flex-item"><mat-icon color="primary" class="mr-16">phone</mat-icon><strong style="padding-right: 10px;">Numéro de téléphone 2 : </strong> {{ employee.phoneNumberTwo }}</div>
+                  </div>
               </mat-card-content>
             </mat-card>
           </div>
@@ -71,7 +71,7 @@
           </div>
           <span fxFlex></span>
             <span style=" padding-top: 30px;"><mat-icon color="primary" class="mr-16" title="Voir l'évaluation">create</mat-icon></span>
-            <div style="padding-top: 20px; padding-right: 20px;"><button  mat-raised-button  color="primary" (click)="openEvaluationCandidat()" >Voir l'évaluation</button></div>
+            <div style="padding-top: 20px; padding-right: 20px;"><button  mat-raised-button  color="primary"  (click)="openViewById(id)" >Voir l'évaluation</button></div>
         </div>
         <mat-divider></mat-divider>
       </mat-card-title>
@@ -104,17 +104,24 @@
                 <mat-divider></mat-divider>
               </mat-card-title>
               <mat-card-content>
+                <mat-list>
+                  
+                </mat-list>
+
                 <mat-list *ngFor="let experiences of experience" >
-              
                 <mat-list>
                   <mat-list-item><mat-icon  color="primary"class="mr-16">business</mat-icon> <strong style="padding-right: 10px;">Société : </strong>{{experiences.experienceCompany}}</mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">person</mat-icon> <strong style="padding-right: 10px;">Intitulé du poste : </strong>{{experiences.experienceTitle}}</mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">keyboard</mat-icon><strong style="padding-right: 10px;">Technologies: </strong>{{experiences.technology}}</mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de début : </strong>{{experiences.experienceStartDate}}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de fin : </strong>{{experiences.experienceEndDate}}</mat-list-item>
+                  <mat-list-item><mat-icon color="primary" class="mr-16">date_range</mat-icon> <strong style="padding-right: 10px;">Date de fin : </strong> <ng-container *ngIf="actualEmploymentIsChecked; else experienceEndDate">{{'Present'}}</ng-container>
+                    <ng-template #experienceEndDate>{{experiences.experienceEndDate}}</ng-template></mat-list-item>
                   <mat-list-item><mat-icon color="primary" class="mr-16">location_on</mat-icon> <strong style="padding-right: 10px;">Actuellement employé : </strong>{{experiences.actualEmployment}}</mat-list-item>
                 </mat-list>
               </mat-list>
+              <mat-list-item></mat-list-item>
+              <mat-icon  color="primary"class="mr-16" style="padding-left:15px ;">work_outline</mat-icon><strong style="padding-right: 10px;">Nombre d'années d'expérience : </strong>{{technicalFile.experienceAmount}}
+
               </mat-card-content>
             </mat-card>
           </div>
@@ -131,49 +138,59 @@
               <mat-card-content>
                 <mat-list>
                   <mat-list >
-                  <mat-icon color="primary"></mat-icon><span class="mat-heading-label">Compétences linguistiques:</span>
+                    <span class="mat-heading-label">Compétences linguistiques:</span>
                   <mat-list *ngFor="let languages of language">
-                  <mat-list-item ><strong style="padding-right: 10px;">Langue : </strong>{{languages.language}} | {{ LanguageLevelMap[languages.languageLevel]}}</mat-list-item>
-                  <mat-list-item><strong style="padding-right: 10px;">Informations supplémentaire : </strong>{{languages.additionalInformation}}</mat-list-item>
+                  <mat-list-item ><mat-icon color="primary" style="padding-right: 10px;">language</mat-icon>{{languages.language}} | {{ LanguageLevelMap[languages.languageLevel]}}</mat-list-item>
+                  <mat-list-item><strong style="padding-right: 10px;">Informations supplémentaires : </strong>{{languages.additionalInformation}}</mat-list-item>
                 </mat-list>
                 </mat-list>
 
-                <mat-icon  color="primary"></mat-icon>
                 <span class="mat-heading-label">Certifications :</span>
                   <mat-list *ngFor="let certifications of certification" >
-                    <mat-list-item ><strong style="padding-right: 10px;">Certification :   </strong>{{certifications.certificationTitle}}</mat-list-item> 
-                    <mat-list-item ><strong style="padding-right: 10px;">Année d'obtention : </strong>{{certifications.certificationObtainedDate}}</mat-list-item> 
+                    <mat-list-item ><mat-icon color="primary" style="padding-right: 10px;">verified</mat-icon>{{certifications.certificationTitle}} | {{certifications.certificationObtainedDate}}</mat-list-item> 
                 </mat-list>
 
-                <mat-icon  color="primary"></mat-icon><span class="mat-heading-label">Compétences :</span>
-                  <mat-list  *ngFor="let skill of skills" >
-                    <mat-list-item ><strong style="padding-right: 10px;">Compétences : </strong>{{skill.skillsTitle}}</mat-list-item> 
-                </mat-list>
+                <span class="mat-heading-label">Compétences :</span>
+                  <mat-list>
+                    <mat-list  *ngFor="let skill of skills" >
+                    <mat-list-item > <mat-icon color="primary" style="padding-right: 10px;">lightbulb_outline</mat-icon>{{skill.skillsTitle}}</mat-list-item> 
+                    </mat-list>
+                    <mat-list-item>
+                     <mat-icon color="primary" class="mr-16">directions_car</mat-icon> <strong style="padding-right: 10px;">Permis de conduire : </strong>{{ technicalFile.driverLicense}}
+                    </mat-list-item>
+                  </mat-list>
                 </mat-list>
               </mat-card-content>
             </mat-card>
           </div>
 
 
-          <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
+          <div style="display: flex; flex-direction: column;">
+            <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
             <mat-card class="p-0">
               <mat-card-title class="cardColor"> 
-                <div class="card-title-text">Informations Générales</div>
+                <div class="card-title-text">Déscription & Objectifs</div>
                 <mat-divider></mat-divider>
               </mat-card-title>
               <mat-card-content>
-                <mat-list>
-                  <mat-list-item><mat-icon  color="primary"class="mr-16">bookmark</mat-icon> <strong style="padding-right: 10px;">Référence  : </strong> {{ technicalFile.reference}}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">description</mat-icon><strong style="padding-right: 10px;">Déscription : </strong>{{ technicalFile.description }}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">check</mat-icon><strong style="padding-right: 10px;">Objectif : </strong> {{ technicalFile.objective }}</mat-list-item>
-                  <mat-list-item><mat-icon color="primary" class="mr-16">directions_car</mat-icon> <strong style="padding-right: 10px;">Permit de conduire : </strong>{{ technicalFile.driverLicense}}</mat-list-item>
-  
-                </mat-list>
+                <div class="flex-container">
+                  <div class="flex-item" style="padding-top: 15px;">
+                    <div>
+                      <mat-icon color="primary" class="mr-16">description</mat-icon><strong style="padding-right: 10px;">Déscription : </strong> {{ technicalFile.description }}
+                    </div>
+                  </div>
+                  <div class="flex-item">
+                    <div>
+                      <mat-icon color="primary" class="mr-16">check</mat-icon><strong style="padding-right: 10px;">Objectif : </strong> {{ technicalFile.objective }}
+                    </div>
+                  </div>
+                </div>
+                 <!--<mat-list-item><mat-icon  color="primary"class="mr-16">bookmark</mat-icon> <strong style="padding-right: 10px;">Référence  : </strong> {{ technicalFile.reference}}</mat-list-item>-->
               </mat-card-content>
             </mat-card>
           </div>
-          </div> 
-          
+
+
           <div fxFlex="100" fxFlex.gt-sm="50"  style="width: 14.5cm;">
             <mat-card class="p-0">
               <mat-card-title class="cardColor"> 
@@ -188,6 +205,10 @@
               </mat-card-content>
             </mat-card>
           </div>
+          </div>
+          </div> 
+          
+         
         </div>
           
       </mat-card-content>
@@ -206,6 +227,7 @@
       </div>
     </div>
     
+    <div class="resume-container">
     <div id="resume" class="resume">
       <div class="cv-container">
       <header>
@@ -227,7 +249,7 @@
         </div>
 
         <div class="skills">
-          <h2>Compétances</h2>
+          <h2>Compétences</h2>
           <hr style="width: 100%; margin: 0 auto;">
           <div class="skills-body">
             <div class="chip-container" *ngFor="let skill of skills">
@@ -243,10 +265,10 @@
             <ul class="body-list" *ngFor="let educations of education">
               <li style="padding-bottom:15px">
                   <div style="display: flex; justify-content: space-between;">
-                      <h3>{{educations?.institution}}</h3>
+                      <h3><strong style="padding-right: 10px;color: #4d528c;font-size:medium;">Nom de l'établissement:</strong>{{educations?.institution}}</h3>
                       <p>{{educations?.startYear}} | {{educations?.obtainedDate}}</p>
                   </div>
-                  <p>{{educations?.diploma}} | {{educations?.score}}</p>
+                  <p><strong style="padding-right: 10px;">Diplôme:</strong>{{educations?.diploma}} | {{educations?.score}}</p>
               </li>
           </ul>
          </div>
@@ -260,11 +282,12 @@
             <ul *ngFor="let experiences of experience">
               <li>
                 <div style="display: flex; justify-content: space-between;">
-                    <p>{{experiences.experienceTitle}}</p>
-                     <p>{{experiences.experienceStartDate}} | {{experiences.experienceEndDate}}</p>
+                    <p><strong style="padding-right: 10px;color: #4d528c; font-size:medium;">Intitulé du poste:</strong>{{experiences.experienceTitle}}</p>
+                     <p>{{experiences.experienceStartDate}} |  <ng-container *ngIf="actualEmploymentIsChecked; else experienceEndDate">{{'Present'}}</ng-container>
+                      <ng-template #experienceEndDate>{{experiences.experienceEndDate}}</ng-template></p>
                 </div>
                 <ul>
-                  <li>{{experiences.technology}}</li>
+                  <li><strong style="padding-right: 10px;">Technologies utilisées:</strong>{{experiences.technology}}</li>
                 </ul>
               </li>
           </ul>
@@ -274,15 +297,15 @@
       <div class="right">
         <h2>Contact</h2>
         <span class="mat-heading-label">Adresse</span>
-        <ul class="side-list">
+        <ul class="side-list"  style="padding-bottom: 15px;">
           <li><strong style="padding-right: 10px;">Pays: </strong>{{ employee.country }}</li>
           <li><strong style="padding-right: 10px;">Ville: </strong>{{employee.city}}{{employee.postCode}}</li>
           
           <li><strong style="padding-right: 10px;">Adresse: </strong>{{employee.address}}</li>
           </ul>
 
-          <span class="mat-heading-label">Emails</span>
-          <ul class="side-list">
+          <span class="mat-heading-label"  >Emails</span>
+          <ul class="side-list"  style="padding-bottom: 15px;">
             <li> {{ employee.emailOne}}</li>
             <li> {{ employee.emailTwo}}</li>
           </ul>
@@ -293,34 +316,33 @@
           <li>{{ employee.phoneNumberTwo }}</li>
         </ul>
 
-        <h2 style="padding-top:20px">Languages</h2>
+        <h2 style="padding-top:20px">Langues</h2>
         <ul *ngFor="let languages of language" class="side-list">
           <li>
-            <ul>
-              <li>
-                {{languages.language}} {{LanguageLevelMap[languages.languageLevel]}}</li>
-              <li>{{languages.additionalInformation}}</li>
-            </ul>
+            <div style="display: flex; justify-content: space-between;">
+              <p>{{languages.language}}</p>
+              <p>{{LanguageLevelMap[languages.languageLevel]}}</p>
+            </div> 
           </li>
+           <li>{{languages.additionalInformation}}</li>
         </ul>
+
         <h2 style="padding-top:20px">Certifications</h2>
         <ul *ngFor="let certifications of certification" class="side-list">
           <li>
-            <ul>
-              <li>
-                {{certifications.certificationTitle}} |
-                {{certifications.certificationObtainedDate}}
-              </li>
-            </ul>
+            <div style="display: flex; justify-content: space-between;">
+              <p>{{certifications.certificationTitle}}</p>
+              <p>{{certifications.certificationObtainedDate}}</p>
+            </div>
           </li>
         </ul>
       </div>
+    </div>
   </div>
-  
     </div>
-    </div>
+  </div>
   </mat-tab>
-          </mat-tab-group>
+</mat-tab-group>
       </div>
     </div>
 

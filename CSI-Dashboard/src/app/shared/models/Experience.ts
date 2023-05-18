@@ -8,5 +8,6 @@ export interface Experience {
     technology?: string;
     experienceTitle?: string;
     experiencePost?: string;
+    technicalFileNum ?: number;
 
 }

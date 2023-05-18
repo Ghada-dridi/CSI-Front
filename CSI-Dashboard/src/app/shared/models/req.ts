@@ -1,3 +1,5 @@
+import { Partner } from "./Partner";
+
 export interface req {
 
     id ?:number;
@@ -15,7 +17,8 @@ export interface req {
     responseDate? :string ,
     totalCandidateNumber : number,
     partnerNum :number ,
-    partnerId :number
+    partnerId :number,
+    partner : Partner
   
 }
 

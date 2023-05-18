@@ -32,6 +32,7 @@ import { OfferCrudTableComponent } from "./offer_data_table/offer-crud-table.com
 import { DetailCrudComponent } from "./offer-detail-crud/detail-crud.component";
 import { OfferPopupComponent } from "./offer-popup/offer-popup.component";
 import { affichageOfferComponent } from "./affichage_offer/affichage_offer.component";
+import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
 
 
 
@@ -43,6 +44,7 @@ import { affichageOfferComponent } from "./affichage_offer/affichage_offer.compo
     FlexLayoutModule,
     MatInputModule,
     MatIconModule,
+    MatGridListModule,
     MatCardModule,
     MatMenuModule,
     MatButtonModule,

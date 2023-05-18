@@ -8,11 +8,8 @@ export interface AssOfferCandidate{
 }
 
 export enum ExperienceLevel{
-    JUNIOR="Junior",
-    MID_LEVEL="Confirmé",
-    SENIOR="Senior",
-    LEAD="Lead",
-    ARCHITECT="Architecte",
-    APPRENTICE="Apprentice",
-    EXPERT="Expert"
+    JUNIOR="JUNIOR",
+    MID_LEVEL="MID_LEVEL",
+    SENIOR="SENIOR",
+    EXPERT="EXPERT"
 }

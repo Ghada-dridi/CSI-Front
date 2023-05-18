@@ -1,3 +1,4 @@
+import { employeePopupComponent } from './updateEmployeePopup/employee-popup.component';
 import { MatSelectModule } from '@angular/material/select';
 
 import { NgModule } from '@angular/core';
@@ -9,7 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import {  MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -27,9 +29,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipList, MatChipsModule } from '@angular/material/chips';
 import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
 import { updatecandidatComponent } from './updateCandidat.component';
-import { update } from './updateCandidat.routing';
 import { updateCandidatService } from './updateCandidat.service';
 import { CandidatRoutes } from '../CandidatCrud/candidat-crud.routing';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { techFilePopupComponent } from './updateTechFile/techFile-popup.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { experiencePopupComponent } from './updateExperience/experience-popup.component';
+import { educationPopupComponent } from './updateEducation/education-popup.component';
+import { certificationPopupComponent } from './updateCertification/certificaton-popup.component';
+import { languagePopupComponent } from './updateLanguage/language-popup.component';
+import { skillsPopupComponent } from './updateSkills/skills-popup.component';
+
 
 
 @NgModule({
@@ -41,6 +52,7 @@ import { CandidatRoutes } from '../CandidatCrud/candidat-crud.routing';
     MatStepperModule,
     HttpClientModule,
     MatExpansionModule,
+    MatTableModule,
     FormsModule,
     MatGridListModule,
     MatIconModule,
@@ -49,6 +61,7 @@ import { CandidatRoutes } from '../CandidatCrud/candidat-crud.routing';
     MatButtonModule,
     MatRadioModule,
     MatCardModule,
+    MatPaginatorModule,
     MatListModule,
     MatToolbarModule,
     MatDatepickerModule,
@@ -57,6 +70,7 @@ import { CandidatRoutes } from '../CandidatCrud/candidat-crud.routing';
     FlexLayoutModule,
     ColorPickerModule,
     MatCheckboxModule,
+    MatTabsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -69,7 +83,8 @@ import { CandidatRoutes } from '../CandidatCrud/candidat-crud.routing';
   }],
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
-   updatecandidatComponent,
+   updatecandidatComponent,employeePopupComponent,techFilePopupComponent,educationPopupComponent,experiencePopupComponent,certificationPopupComponent,
+   languagePopupComponent,skillsPopupComponent
   ]
 })
 export class updateCandidatModule { }

@@ -3,6 +3,11 @@
   flex-wrap: wrap;
 }
 
+.container{
+  margin-left: 2cm;
+  margin-right: 2cm;
+}
+
 .example-grid {
   display: flex;
   flex-wrap: wrap;
@@ -30,4 +35,13 @@
   margin-right: 0; /* remove the margin from the last field to avoid extra space */
 }
 
-  
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
+.mat-mdc-form-field {
+  margin-top: 16px;
+}

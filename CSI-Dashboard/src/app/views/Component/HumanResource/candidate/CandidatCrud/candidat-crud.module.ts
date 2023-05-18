@@ -29,12 +29,14 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTabsModule } from "@angular/material/tabs";
 import { Ng2TelInputModule } from "ng2-tel-input";
 import { CandidatDetailComponent } from "./Candidat-details/candidat-details.component";
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 @NgModule({
   imports: [
     
     CommonModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     MatInputModule,
@@ -62,7 +64,7 @@ import { CandidatDetailComponent } from "./Candidat-details/candidat-details.com
     MatTabsModule,
     RouterModule.forChild(CandidatRoutes)
   ],
-  declarations: [CandidatCrudTableComponent,  CandidatDetailComponent],
+  declarations: [CandidatCrudTableComponent,  CandidatDetailComponent,],
   providers: [CrudService]
 })
 export class CandidatCrudModule { }

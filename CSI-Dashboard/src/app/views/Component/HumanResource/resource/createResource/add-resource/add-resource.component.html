@@ -53,7 +53,7 @@
                   <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                     <mat-label>Pays </mat-label>
                     <mat-select formControlName="country">
-                      <mat-option *ngFor="let country of Country" [value]="country">{{ country }}</mat-option>
+                      <mat-option *ngFor="let country of countries" [value]="country.shortName">{{country.name}}</mat-option>
                      </mat-select>
                   </mat-form-field>
                 </div>

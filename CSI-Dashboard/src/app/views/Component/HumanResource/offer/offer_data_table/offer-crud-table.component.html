@@ -4,7 +4,7 @@
   <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({},true)"> Nouvelle offre </button>
 
   <mat-form-field  >
-    <input matInput (keyup)="applyFilter($event)" placeholder="Filtre">
+    <input style="padding-left: 19px;" matInput (keyup)="applyFilter($event)" placeholder="Filtre">
     </mat-form-field> 
  
 
@@ -33,6 +33,30 @@
     <mat-cell *matCellDef="let row" data-label="title" [style.color]="row.color"> {{row.title}} </mat-cell>
   </ng-container>
 
+
+  <ng-container matColumnDef="startDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Date de début
+      <div style="padding-left: 20px;">
+        <mat-form-field style="width:1.5cm;" >
+         <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
+       </mat-form-field>
+       </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="Date de début" [style.color]="row.color"> {{row.startDate}} </mat-cell>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="endDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Date de fin
+      <div style="padding-left: 20px;">
+        <mat-form-field style="width:1.5cm;" >
+         <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
+       </mat-form-field>
+       </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="Date de fin" [style.color]="row.color"> {{row.endDate}} </mat-cell>
+  </ng-container>
 
    <ng-container matColumnDef="actions">
      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>

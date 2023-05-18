@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Civility, Country, Employee, EmployeeStatus, MaritalSituation, Provenance, Title, WorkLocation } from 'app/shared/models/Employee';
+import { Civility,  Employee, EmployeeStatus, MaritalSituation, Provenance, Title, WorkLocation } from 'app/shared/models/Employee';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { FileUploader } from 'ng2-file-upload';
 import { AddResourceService } from '../add-resource.service';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Departement } from 'app/shared/models/externe';
+import { Country } from 'app/shared/models/Partner';
 
 @Component({
   selector: 'app-add-resource-external',
@@ -30,7 +31,9 @@ export class AddResourceExternalComponent implements OnInit {
   myForm:FormGroup;
   myFormContract:FormGroup;
   myFormExceptionalFee:FormGroup;
-
+  countries: Country[];
+  states: string[];
+  
   listResource : Employee[] =[];
 
   civilities = Object.keys(Civility).filter((element) => {
@@ -43,9 +46,9 @@ export class AddResourceExternalComponent implements OnInit {
   EmployeeStatus = Object.values(EmployeeStatus).filter((element) => {
     return isNaN(Number(element));
   });
-  Country = Object.values(Country).filter((element) => {
+  /*Country = Object.values(Country).filter((element) => {
     return isNaN(Number(element));
-  });
+  });*/
   MaritalSituation = Object.values(MaritalSituation).filter((element) => {
     return isNaN(Number(element));
   });
@@ -79,7 +82,7 @@ export class AddResourceExternalComponent implements OnInit {
     private addResourceService :AddResourceService ,
     ) 
     { 
-      
+      this.countries = this.addResourceService.getCountries();
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -134,7 +137,12 @@ export class AddResourceExternalComponent implements OnInit {
   })
 
 
-
+  this.myForm.get("country").valueChanges.subscribe((country) => {
+    this.myForm.get("city").reset();
+    if (country) {
+      this.states = this.addResourceService.getStatesByCountry(country);
+    }
+  })
  
   }
 
@@ -186,12 +194,6 @@ export class AddResourceExternalComponent implements OnInit {
 
 
   
- 
-  
-  
-
-
- 
 
 
 nextTab(tabGroup: MatTabGroup) {
@@ -226,6 +228,10 @@ onFraisTypeSelectionChange(event: any) {
   const selectedFraisType = event.value;
   this.showLocationName = selectedFraisType === 'OTHER_LOCATION';
 }
+onCountryChange(countryShotName: string) {
+  this.states = this.addResourceService.getStatesByCountry(countryShotName);
+}
+
  addExternal(){
 
  }

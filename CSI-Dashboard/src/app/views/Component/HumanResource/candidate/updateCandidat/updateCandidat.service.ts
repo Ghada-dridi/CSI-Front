@@ -7,18 +7,25 @@ import { EgretCalendarEvent } from 'app/shared/models/event.model';
 import { CalendarEventDB } from 'app/shared/inmemory-db/calendarEvents';
 import { Employee } from 'app/shared/models/Employee';
 import { Offer } from 'app/shared/models/Offer';
+import { Skills } from 'app/shared/models/Skills';
+import { Language } from 'highlight.js';
+import { Certification } from 'app/shared/models/Certification';
+import { Experience } from 'app/shared/models/Experience';
+import { Education } from 'app/shared/models/Education';
+import { TechnicalFile } from 'app/shared/models/TechnicalFile';
 
 @Injectable()
 export class updateCandidatService {
-  private apiUrl = 'http://localhost:8084/rh/employee';
-  private apiTechFile = 'http://localhost:8084/rh/technicalFile';
-  private apiOffer='http://localhost:8084/rh/Offer'
-  private apiEducation = 'http://localhost:8084/rh/education';
-  private apiExperience = 'http://localhost:8084/rh/experience';
-  private apiLanguage = 'http://localhost:8084/rh/Language';
+  [x: string]: any;
+  private apiUrl = 'http://localhost:8080/rh/employee';
+  private apiTechFile = 'http://localhost:8080/rh/technicalFile';
+  private apiOffer='http://localhost:8080/rh/Offer'
+  private apiEducation = 'http://localhost:8080/rh/education';
+  private apiExperience = 'http://localhost:8080/rh/experience';
+  private apiLanguage = 'http://localhost:8080/rh/Language';
   private apiSkillCategory = 'http://localhost:8080/rh/skillsCategory';
   private apiSkill = 'http://localhost:8080/rh/skills';
-  private apiCertification = 'http://localhost:8084/rh/certification';
+  private apiCertification = 'http://localhost:8080/rh/certification';
   private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
   constructor(private http: HttpClient) {}
@@ -83,7 +90,7 @@ export class updateCandidatService {
 
 
 
-  /////////////////////////Back Connection//////////////////////////
+  /////////////////////////update//////////////////////////
 
 
 
@@ -95,6 +102,19 @@ export class updateCandidatService {
         console.error('Error updating employee', err);
         return throwError(err);
       })
+    );
+  }
+  updateEducation(id: number, education: Education): Observable<Education> {
+    const url = `${this.apiEducation+ '/update'}/${id}`;
+    return this.http.put<Education>(url, education).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateCertification(id: number, certification: Certification): Observable<Certification> {
+    const url = `${this.apiCertification+ '/updateCertification'}/${id}`;
+    return this.http.put<Certification>(url, certification).pipe(
+      catchError(this.handleError)
     );
   }
 
@@ -178,15 +198,36 @@ getCountries() {
 getStatesByCountry(name: string) {
   return this.countryData.getStatesByShort(name);
 }
+
+
 addTechFile(techfile: any): Observable<any> {
   const apiTechFileWithAdd = this.apiTechFile + '/addTechnicalFile'; // Append /add to the apiUrl
   return this.http.post<any>(apiTechFileWithAdd, techfile).pipe(
     catchError(this.handleError)
   );
 }
-updateTechFile(techfile: any): Observable<any> {
-  const apiTechFileWithAdd = this.apiTechFile + '/addTechnicalFile'; // Append /add to the apiUrl
-  return this.http.put<any>(apiTechFileWithAdd, techfile).pipe(
+
+updateTechFile(id: number, techFile: TechnicalFile): Observable<TechnicalFile> {
+  const url = `${this.apiTechFile+ '/updateTechnicalFile'}/${id}`;
+  return this.http.put<TechnicalFile>(url, techFile).pipe(
+    catchError(this.handleError)
+  );
+}
+updateExperience(id: number, experience: Experience): Observable<Experience> {
+  const url = `${this.apiExperience+ '/update'}/${id}`;
+  return this.http.put<Experience>(url, experience).pipe(
+    catchError(this.handleError)
+  );
+}
+updateLanguage(id: number, language: Language): Observable<Language> {
+  const url = `${this.apiLanguage+ '/update'}/${id}`;
+  return this.http.put<Language>(url, language).pipe(
+    catchError(this.handleError)
+  );
+}
+updateSkills(id: number, skills: Skills): Observable<Skills> {
+  const url = `${this.apiSkill+ '/update'}/${id}`;
+  return this.http.put<Skills>(url, skills).pipe(
     catchError(this.handleError)
   );
 }
@@ -263,6 +304,93 @@ getOfferItems(): Observable<Offer[]> {
     catchError(this.handleError)
   );
 }
+getTechnicalFileById(id: number): Observable<TechnicalFile> {
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/technicalFile';
+  return this.http.get<TechnicalFile>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+getEducationById(id: number): Observable<Education> {
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/education';
+  return this.http.get<Education>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+getExperienceById(id: number): Observable<Experience>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/experience';
+  return this.http.get<Experience>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getCertificationById(id: number): Observable<Certification>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/certificaton';
+  return this.http.get<Certification>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getLanguageById(id: number): Observable<Language>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/language';
+  return this.http.get<Language>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+
+getSkillsById(id: number): Observable<Skills>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/skills';
+  return this.http.get<Skills>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+getCandiatureById(id: number): Observable<Employee>{
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/candidature';
+  return this.http.get<Employee>(url).pipe(
+    catchError(this.handleError)
+  )
+}
+// GET an item by id
+getItemById(id: number): Observable<Employee> {
+  const url = `${this.apiUrl+ '/get'}/${id}`;
+  return this.http.get<Employee>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+//---Delete-----------
+deleteEducation(id: number): Observable<Education> {
+ 
+  const url = `${this.apiEducation+'/delete'}/${id}`;
+  return this.http.delete<Education>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+deleteExperience(id: number): Observable<Experience> {
+ 
+  const url = `${this.apiExperience+'/delete'}/${id}`;
+  return this.http.delete<Experience>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+deleteCertificaion(id: number): Observable<Certification> {
+ 
+  const url = `${this.apiCertification+'/deleteCertification'}/${id}`;
+  return this.http.delete<Certification>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+deleteLanguage(id: number): Observable<Language> {
+ 
+  const url = `${this.apiLanguage+'/delete'}/${id}`;
+  return this.http.delete<Language>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+deleteSkills(id: number): Observable<Skills> {
+ 
+  const url = `${this.apiSkill+'/delete'}/${id}`;
+  return this.http.delete<Skills>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
 
 
 }

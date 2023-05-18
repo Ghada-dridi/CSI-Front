@@ -1,4 +1,4 @@
-import { Employee} from './Employee';
+import { Employee } from './Employee';
 import { Education } from './Education';
 import { Certification } from './Certification';
 import { Language } from './Language';
@@ -11,6 +11,7 @@ export interface TechnicalFile{
     description?: string;
     objective?: string;
     driverLicense?: string;
+    experienceAmount?: number;
     skills?: Skills[];
     experiences?: Experience[];
     languages ?: Language[];

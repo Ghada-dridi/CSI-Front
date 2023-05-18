@@ -30,6 +30,7 @@ import { MatChipList, MatChipsModule } from '@angular/material/chips';
 import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { OfferPopupComponent } from './cv-popups/offerPopup.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { MatTableModule } from '@angular/material/table';
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
     cvcandidatComponent, 
-    CalendarFormDialogComponent
+    CalendarFormDialogComponent,
+    OfferPopupComponent
   ]
 })
 export class CvCandidatModule { }

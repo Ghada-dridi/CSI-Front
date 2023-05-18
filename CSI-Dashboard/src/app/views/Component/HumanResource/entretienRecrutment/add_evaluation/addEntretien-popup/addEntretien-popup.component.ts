@@ -2,19 +2,18 @@ import { catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {  Validators,  FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import {  Validators,  FormGroup, FormBuilder, FormArray, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { entretienRecrutmentService } from '../../entretienRecrutment.service';
-import { InterviewMode } from 'app/shared/models/Interview';
-import { InterviewType } from 'app/shared/models/Question';
+import { Interview, InterviewMode, InterviewType, interviewLocation } from 'app/shared/models/Interview';
 
 
 @Component({
   selector: 'app-ngx-table-popup',
-  templateUrl: './addEntretien-popup.component.html'
+  templateUrl: './addEntretien-popup.component.html',
+  styleUrls:  ['./addEntretien-popup.component.scss']
 })
 export class ajoutEntretienPopupComponent implements OnInit {
-  interviewMode:InterviewMode;
-  interviewType:InterviewType;
+  
   submitted = false;
   visible = true;
   selectable = true;
@@ -23,7 +22,14 @@ export class ajoutEntretienPopupComponent implements OnInit {
   offerForm : FormGroup;
   formWidth = 200; //declare and initialize formWidth property
   formHeight = 700; //declare and initialize formHeight property
-  
+
+  ////////////////Interview Form/////////////
+  interviewType :string []= Object.values(InterviewType);
+  interviewMode :string []= Object.values(InterviewMode);
+  interviewlocation:string []= Object.values(interviewLocation);
+  interview: Interview;
+
+
   selectedFile: File;
   constructor(
     private _formBuilder: FormBuilder,
@@ -35,33 +41,60 @@ export class ajoutEntretienPopupComponent implements OnInit {
   ) { }
 
 
-
-  buildItemForm(item){
-    this.offerForm = this.fb.group({
-      reference : [item.reference || '', Validators.required],
-      title : [item.title || '', Validators.required],
-      description : [item.description || '', Validators.required],
-      intervieMode : [item.intervieMode || '',Validators.required]
-
-    });
-
+  ngOnInit() {
+    this.offerForm = new UntypedFormGroup({
+      
+      interviewDate: new UntypedFormControl('', [Validators.required]),
+      comment: new UntypedFormControl('', []),
+      interviewType: new UntypedFormControl('', [Validators.required]),
+      duration: new UntypedFormControl('', []),
+      interviewMode: new UntypedFormControl('', [Validators.required]),
+      interviewerName: new UntypedFormControl('', []),
+      interviewerEmail: new UntypedFormControl('', [Validators.email]),
+      interviewerPhoneNumber: new UntypedFormControl('', [Validators.pattern(/^[0-9]*$/)]),
+      interviewTime: new UntypedFormControl('', []),
+      interviewlocation: new UntypedFormControl('', []),
+      interviewPlace: new UntypedFormControl('', []),
+    })
+    
   }
+
+  saveInterview(): void {
+    console.log('Submitting cv form...');
+    this.entretien.addInterview({...this.offerForm.value}).subscribe({
+      next: (res) => {
+        console.log('Item added successfully', res);
+        console.log('Form value', this.offerForm.value);
+        this.submitted = true; 
+      },   
+      error: (e) => {
+        console.error('Error adding item', e);
+        console.log('cv Form is invalid');
+        console.log(this.offerForm.errors);
+      }
+    });
+  }
+
+  /*saveInterview(): void {
+    this.entretien.addInterview(this.offerForm.value).subscribe(
+        response => {
+          console.log('Interview saved successfully!');
+          console.log(response); // if you want to see the response from the server
+        },
+        error => {
+          console.error('Error saving interview: ', error);
+        }
+      );
+  }*/
+
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
   }
 
-
-
-  ngOnInit() {
-    this.buildItemForm(this.data.payload)
-    
-
-  }
-
-  submit() {
+  /*submit() {
     this.dialogRef.close(this.offerForm.value)
-  }
+  }*/
 
  
   ///// Form Submit///// 
@@ -82,4 +115,26 @@ export class ajoutEntretienPopupComponent implements OnInit {
   });
   }
 
+InterviewModeMap = {
+  [InterviewMode.REMOTE]: 'À distance',
+  [InterviewMode.ON_SITE]: 'Sur place',
+  [InterviewMode.PHONE_INTERVIEW]: 'Téléphonique',
+  [InterviewMode.VIDEOCONFERENCE]: 'Visioconférence',
+}
+
+
+  InterviewTypeMap = {
+  [InterviewType.TECHNICAL_INTERVIEW]: 'Entretien technique',
+  [InterviewType.HUMAN_RESOURCE_INTERVIEW]: 'Entretien ressources humaines'
+}
+interviewLocationMap={
+  [interviewLocation.INTERNAL]: 'Interne',
+  [interviewLocation.EXTERNAL]: 'Externe'
+}
+
+weekendFilter = (d: Date | null): boolean => {
+  const day = (d || new Date()).getDay();
+  // Prevent Saturday and Sunday from being selected.
+  return day !== 0 && day !== 6;
+};
 }

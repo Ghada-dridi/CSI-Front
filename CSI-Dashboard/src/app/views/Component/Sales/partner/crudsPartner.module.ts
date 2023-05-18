@@ -29,8 +29,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule} from '@angular/core';
-import { CrudNgxTableComponent } from 'app/views/Component/Sales/Partner/crud-ngx-table/crud-ngx-table.component';
+import { CrudNgxTableComponent } from './crud-ngx-table/crud-ngx-table.component';
 import { CrudPartnerService } from './crudPartner.service';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ContactService } from '../contact/contact.service';
+import { RequirementDetailsComponent } from './requirements-details/requirements-details.component';
+import { ContactsDetailsComponent } from './crud-ngx-table/contacts-details/contacts-details.component';
 
 
 
@@ -62,11 +66,12 @@ import { CrudPartnerService } from './crudPartner.service';
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
+    MatTabsModule,
 
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent],
-  providers: [CrudPartnerService]
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent],
+  providers: [ContactService, CrudPartnerService]
 })
 export class PartnerModule { }

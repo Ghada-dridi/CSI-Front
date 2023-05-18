@@ -124,8 +124,7 @@ addItem(candidate: any): Observable<any> {
 addTechFile(techfile: any): Observable<any> {
   const apiTechFileWithAdd = this.apiTechFile + '/addTechnicalFile'; // Append /add to the apiUrl
   return this.http.post<any>(apiTechFileWithAdd, techfile).pipe(
-    catchError(this.handleError)
-  );
+    catchError(this.handleError));
 }
 /////ajout candidature//
 addOfferCandidate(offerCandidate : any){

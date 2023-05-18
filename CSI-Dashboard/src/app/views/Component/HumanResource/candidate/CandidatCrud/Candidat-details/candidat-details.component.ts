@@ -1,8 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from '../candidat-crud.service';
-import { Employee, MaritalSituation, ResourceType, Title } from 'app/shared/models/Employee';
+import { Employee, MaritalSituation, Title } from 'app/shared/models/Employee';
 import { Education } from 'app/shared/models/Education';
 import { Skills } from 'app/shared/models/Skills';
 import { SkillsCategory } from 'app/shared/models/SkillsCategory';
@@ -35,13 +34,10 @@ certification : Certification
 experience : Experience
 candidature : AssOfferCandidate
 private router: Router
-title :any[]= Object.values(Title);
+title :string[]= Object.values(Title);
 Civility :string []= Object.values(Civility);
-MaritalSituation :any []= Object.values(MaritalSituation);
+MaritalSituation :string []= Object.values(MaritalSituation);
 LanguageLevel : string[] = Object.values(LanguageLevel);
-
-
-
 
 
   constructor(    private route: ActivatedRoute,
@@ -65,7 +61,6 @@ LanguageLevel : string[] = Object.values(LanguageLevel);
     }*/
 
   }
- 
 
   //////////////////CV Print///////////////////
   printCv() {
@@ -84,7 +79,7 @@ LanguageLevel : string[] = Object.values(LanguageLevel);
       .save('my-cv.pdf');
   }  
 
- 
+
 
   getemployee() {
     this.candidatService.getItemById(this.id).subscribe((data: any) => {
@@ -139,6 +134,11 @@ LanguageLevel : string[] = Object.values(LanguageLevel);
     this.router.navigate(['CandidatEvaluation/evaluationCandidat'])
   }
 
+
+  openViewById(id: number) {
+  this.router.navigate(['/CandidatEvaluation', id]);
+}
+
   employeeTitleMap = {
     [Title.FRONT_END_DEVELOPER]: 'Développeur Front-End',
     [Title.BACK_END_DEVELOPER]: 'Développeur Back-End',
@@ -188,6 +188,5 @@ LanguageLevel : string[] = Object.values(LanguageLevel);
     [LanguageLevel.NATIVE_LANGUAGE]: 'Langue Maternelle',
     [LanguageLevel.BILINGUAL]: 'Bilingue'
   };
- 
-   
+  
 }

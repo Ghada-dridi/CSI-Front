@@ -1,3 +1,6 @@
+//import { html2pdf } from 'html2pdf.js';
+
+
 import { benefit, exceptionalFee } from './../../../../../../shared/models/avantagesContrat';
 import { ActivatedRoute } from '@angular/router';
 import { ContractEmployeeService } from '../contract-employee.service';
@@ -9,7 +12,7 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import html2pdf from 'html2pdf.js';
+
 
 
 @Component({
@@ -90,13 +93,13 @@ export class ViewContractComponent implements OnInit {
     }
 
     /******************************************  téléchargement du PDF   ****************************************/
-    downloadContract() {
+    /*downloadContract() {
       const element = document.getElementById("formImprime");
       html2pdf()
         .from(element)
         .save('MonContrat.pdf');
     }
-    
+    */
   
     /********************************************  imprimer contrat     ******************************************/
  

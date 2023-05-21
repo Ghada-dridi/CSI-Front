@@ -75,11 +75,22 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="photo">
           <div class="avatar">
-            <img [src]="row.photo" alt="Photo"  style="width: 50px !important;">
+            <img [src]="row.photo" alt="Photo" style="width: 50px !important;">
           </div>
         </mat-cell>
       </ng-container>
-
+<!-- 
+     <ng-container matColumnDef="photo" rowHeight="1:1" class="app-gallery">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="photo">
+          <img mat-list-avatar class="mr-16" [src]="row.photo" alt="Photo">
+        </mat-cell>
+      </ng-container>-->
+       <ng-container matColumnDef="serialNumber">
+         <mat-header-cell *matHeaderCellDef mat-sort-header > Matricule </mat-header-cell>
+         <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
+       </ng-container>
+ 
        <ng-container matColumnDef="firstName">
          <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
          <mat-cell *matCellDef="let row" data-label="firstName"> {{row.firstName}} </mat-cell>

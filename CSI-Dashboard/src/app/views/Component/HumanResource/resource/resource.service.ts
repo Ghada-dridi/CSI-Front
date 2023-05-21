@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Resource } from 'app/shared/models/Resource';
+import { Employee } from 'app/shared/models/Employee';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -15,38 +15,38 @@ export class ResourceService {
   }
 /******* API InternalResource ********/
  // Get All InetrnalResource
-getItems(): Observable<Resource[]> {
-  return this.http.get<Resource[]>(this.apiUrl + '/getAllResourcesInterne').pipe(
+getItems(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrl + '/getAllResourcesInterne').pipe(
     catchError(this.handleError)
   );
 }
 
-getItem(id: number): Observable<Resource> {
+getItem(id: number): Observable<Employee> {
   const url = `${this.apiUrl}/get/${id}`;
-  return this.http.get<Resource>(url).pipe(
+  return this.http.get<Employee>(url).pipe(
     catchError(this.handleError)
   );
 }
 
  // DELETE  Resource by id
- deleteItem(id: number): Observable<Resource> {
+ deleteItem(id: number): Observable<Employee> {
   const url = `${this.apiUrl+'/delete'}/${id}`;
-  return this.http.delete<Resource>(url).pipe(
+  return this.http.delete<Employee>(url).pipe(
     catchError(this.handleError)
   );
 }
 /******* API ExternalResource ********/
  // Get All ExternaResource
-getItemsExternal(): Observable<Resource[]> {
-  return this.http.get<Resource[]>(this.apiUrl + '/getAllResourcesExterne').pipe(
+getItemsExternal(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrl + '/getAllResourcesExterne').pipe(
     catchError(this.handleError)
   );
 }
 
 /******* API BackOfficeResource ********/
  // Get All BackOfficeResource
-getItemsBackOffice(): Observable<Resource[]> {
-  return this.http.get<Resource[]>(this.apiUrl + '/getAllResourcesBackOffice').pipe(
+getItemsBackOffice(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrl + '/getAllResourcesBackOffice').pipe(
     catchError(this.handleError)
   );
 }
@@ -70,3 +70,5 @@ private handleError(error: HttpErrorResponse) {
 
   
 }
+
+

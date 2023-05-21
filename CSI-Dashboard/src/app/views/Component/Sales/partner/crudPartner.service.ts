@@ -1,10 +1,12 @@
 import { Partner } from '../../../../shared/models/Partner';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable,  throwError } from 'rxjs';
+import { Observable,  of,  throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import * as countrycitystatejson from 'countrycitystatejson';
+import { req } from 'app/shared/models/req';
+import { map } from 'rxjs-compat/operator/map';
 
 @Injectable()
 export class CrudPartnerService {
@@ -30,6 +32,14 @@ export class CrudPartnerService {
       catchError(this.handleError)
     );
   }
+  /*getrequirement(id: number): Observable<req[]> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Partner>(url).pipe(map(partner => partner.requirements),
+    catchError(error => {
+      console.error(error);
+      return of([]);
+    }));
+  }*/
 
   // POST a new item
   addItem(customer: any): Observable<any> {

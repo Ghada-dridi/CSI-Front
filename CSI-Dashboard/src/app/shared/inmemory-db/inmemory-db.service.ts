@@ -1,7 +1,8 @@
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { ChatDB } from './chat-db';
-import { InvoiceDB } from './invoices';
-import { Todo, TodoTag } from './todo';
+import { InMemoryDbService } from "angular-in-memory-web-api";
+import { ChatDB } from "./chat-db";
+import { InvoiceDB } from "./invoices";
+import { Todo, TodoTag } from "./todo";
+
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {

@@ -19,7 +19,7 @@ export const ResourceRoutes: Routes = [
   { 
     path: 'backOfficeResource-crud', 
     component: BackOfficeComponent, 
-    data: { title: 'Back Office Resources', breadcrumb: 'Back Office Resource' } 
+    data: { title: 'BackOffice Resources', breadcrumb: 'BackOffice Resource' } 
   },{
     path: ":id",
     component: ViewResourceComponent ,

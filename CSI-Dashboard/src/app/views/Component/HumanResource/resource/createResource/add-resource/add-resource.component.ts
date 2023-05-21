@@ -1,8 +1,7 @@
-
 import { AddResourceService } from '../add-resource.service';
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
-import { Civility, Country, Departement, EmployeeStatus, MaritalSituation, Provenance, Resource, Title, WorkLocation } from 'app/shared/models/Resource';
+import { Civility, Country, EmployeeStatus, MaritalSituation, Provenance, Employee, Title, WorkLocation, Departement } from 'app/shared/models/Employee';
 import { FileUploader } from 'ng2-file-upload';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Currency, FeeType } from 'app/shared/models/avantagesContrat';
@@ -27,7 +26,7 @@ export class AddResourceComponent implements OnInit {
   panelOpenState = false;
   showLocationName = false;
   repeatForm : FormGroup;
-
+  row : any;
 
   public uploader: FileUploader = new FileUploader({ url: 'https://evening-anchorage-315.herokuapp.com/api/' });
   public hasBaseDropZoneOver: boolean = false;
@@ -38,8 +37,9 @@ export class AddResourceComponent implements OnInit {
   myFormContract:FormGroup;
   myFormExceptionalFee:FormGroup;
 
-  listResource : Resource [] =[];
-
+  listResource : Employee[] =[];
+  countries: Country[];
+  states: string[];
   civilities = Object.keys(Civility).filter((element) => {
     return isNaN(Number(element));
   });
@@ -50,9 +50,9 @@ export class AddResourceComponent implements OnInit {
   EmployeeStatus = Object.values(EmployeeStatus).filter((element) => {
     return isNaN(Number(element));
   });
-  Country = Object.values(Country).filter((element) => {
+  /*Country = Object.values(Country).filter((element) => {
     return isNaN(Number(element));
-  });
+  });*/
   MaritalSituation = Object.values(MaritalSituation).filter((element) => {
     return isNaN(Number(element));
   });
@@ -62,7 +62,7 @@ export class AddResourceComponent implements OnInit {
   WorkLocation = Object.values( WorkLocation).filter((element) => {
     return isNaN(Number(element));
   });
-  Departement = Object.values( Departement).filter((element) => {
+ Departement= Object.values( Departement).filter((element) => {
     return isNaN(Number(element));
   });
  
@@ -85,7 +85,7 @@ export class AddResourceComponent implements OnInit {
     private addResourceService :AddResourceService ,
     ) 
     { 
-      
+      this.countries = this.addResourceService.getCountries();
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -95,13 +95,13 @@ export class AddResourceComponent implements OnInit {
       secondCtrl: ['', Validators.required],
     });
     getResource(){
-      this.addResourceService.getItems().subscribe((data :any )=>{
+      this.addResourceService.getInternalItems().subscribe((data :any )=>{
         this.listResource = data
       });
       
       }
   ngOnInit() : void{
-    
+    this.row = history.state.row;
     this.repeatForm = this.fb.group({
       repeatArray: this.fb.array([this.createRepeatForm()])
     });
@@ -112,97 +112,55 @@ export class AddResourceComponent implements OnInit {
     console.log("before  init");
 
     this.myForm = new FormGroup({
-      lastName : new FormControl('', Validators.required),
-      firstName : new FormControl('', Validators.required), 
-      birthDate : new FormControl ('', Validators.required),
-      emailOne : new FormControl('', Validators.required),
-      emailTwo : new FormControl('', Validators.required),
-      address : new FormControl('', Validators.required),
-      phoneNumberOne: new FormControl('', Validators.required),
-      phoneNumberTwo:new FormControl('', Validators.required),
-      postCode :new FormControl('', Validators.required),
-      city : new FormControl('', Validators.required),
+      lastName : new FormControl(this.row.lastName, Validators.required),
+      firstName : new FormControl(this.row.firstName, Validators.required), 
+      birthDate : new FormControl (this.row.birthDate, Validators.required),
+      emailOne : new FormControl(this.row.emailOne, Validators.required),
+      emailTwo : new FormControl(this.row.emailTwo, Validators.required),
+      address : new FormControl(this.row.address, Validators.required),
+      phoneNumberOne: new FormControl(this.row.phoneNumberOne, Validators.required),
+      phoneNumberTwo:new FormControl(this.row.phoneNumberTwo, Validators.required),
+      postCode :new FormControl(this.row.postCode, Validators.required),
+      city : new FormControl(this.row.city, Validators.required),
       workLocation : new FormControl('', Validators.required),
      //  experience : new FormControl('', Validators.required),
      // experienceDetails : new FormControl('', Validators.required),
      // employeeFirstName : new FormControl('', Validators.required),
      // employeeLastName : new FormControl('', Validators.required),
-     // employeeSerialNumber : new FormControl('', Validators.required),
-      civility : new FormControl('', Validators.required),
-      title : new FormControl('', Validators.required),
+     //employeeSerialNumber : new FormControl('', Validators.required),
+      civility : new FormControl(this.row.Civility, Validators.required),
+      title : new FormControl(this.row.title, Validators.required),
      // employeeStatus : new FormControl('', Validators.required),
       photo : new FormControl(null,Validators.required),
-      country : new FormControl('', Validators.required),
-      maritalSituation : new FormControl('', Validators.required),
+      country : new FormControl(this.row.country, Validators.required),
+      maritalSituation : new FormControl(this.row.MaritalSituation, Validators.required),
       locationName : new FormControl('', Validators.required),
       socialSecurityNumber : new FormControl('', Validators.required),
-      departement : new FormControl('', Validators.required), 
+      departement : new FormControl('',Validators.required),
      // provenance : new FormControl('', Validators.required), 
   })
 
-
+  this.myForm.get("country").valueChanges.subscribe((country) => {
+    this.myForm.get("city").reset();
+    if (country) {
+      this.states = this.addResourceService.getStatesByCountry(country);
+    }
+  })
 
  
   }
 
   
   
-/*
-  addResource(): void {
-    console.log('Submitting form...');
-    
-    this.addResourceService.addItem(this.myForm.value).subscribe({
-      next: (res) => {
-        console.log('Item added successfully', res);
-        this.selectedEmployee = res;
-       console.log('Form value', this.myForm.value);
-        this.submitted = true;
-  
-      
-      },
-      error: (e) => {
-        console.error('Error adding item', e);
-        console.log('Form is invalid');
-        console.log(this.myForm.errors);
-      }
-    });
-  }
-  */
 
-  /*addResource(): void {
-    console.log('Submitting form...');
+
   
-    this.confirmService.confirm({ message: 'Are you sure you want to add this resource?' }).subscribe((res) => {
-      if (res) {
-        this.loader.open('Adding Resource');
-        this.addResourceService.addItem(this.myForm.value).subscribe({
-          next: (res) => {
-            console.log('Item added successfully', res);
-            this.selectedEmployee = res;
-            console.log('Form value', this.myForm.value);
-            this.submitted = true;
-  
-            this.loader.close();
-            this.snack.open('Resource added successfully!', 'OK', { duration: 4000 });
-          },
-          error: (e) => {
-            console.error('Error adding item', e);
-            console.log('Form is invalid');
-            console.log(this.myForm.errors);
-  
-            this.loader.close();
-            this.snack.open('Error adding resource', 'OK', { duration: 4000 });
-          }
-        });
-      }
-    });
-  }*/
-  addResource(): void {
+  addInternalResource(): void {
     console.log('Submitting form...');
     
     this.loader.open('Ajouter une nouvelle  ressource ');
     
-    this.addResourceService.addItem(this.myForm.value).subscribe({
+    this.addResourceService.addInternalItem(this.myForm.value).subscribe({
       next: (res) => {
         console.log('Item added successfully', res);
         this.selectedEmployee = res;

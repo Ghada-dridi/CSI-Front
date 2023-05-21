@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { contact } from 'app/shared/models/Contact';
+import { contact } from 'app/shared/models/contact';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable,  throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable,  of,  throwError } from 'rxjs';
+import { catchError, delay, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
   private apiUrl2 = 'http://localhost:8085/crm/contacts';
+  items: any[];
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<contact[]> {
@@ -33,6 +34,27 @@ export class ContactService {
   deleteItem(id: number): Observable<contact> {
     const url = `${this.apiUrl2}/${id}`;
     return this.http.delete<contact>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  addItem(contact: any): Observable<any> {
+   
+    return this.http.post<any>(this.apiUrl2, contact).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateItem(id: number, contact: contact): Observable<contact> {
+    const url = `${this.apiUrl2}/${id}`;
+    return this.http.put<contact>(url,contact).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+
+  // GET an item by id
+  getItem(id: number): Observable<contact> {
+    const url = `${this.apiUrl2}/${id}`;
+    return this.http.get<contact>(url).pipe(
       catchError(this.handleError)
     );
   }

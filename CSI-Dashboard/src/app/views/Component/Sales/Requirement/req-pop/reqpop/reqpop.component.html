@@ -1,5 +1,4 @@
 <h1 matDialogTitle>{{data.title}}</h1>
-{{"ADD" | translate }} {{"Partner" | translate }}
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
@@ -10,7 +9,7 @@
         name="title"
         type="text"
         [formControlName]="'title'"
-        placeholder="title">
+        placeholder="Titre">
       </mat-form-field>
     </div>
 
@@ -21,7 +20,7 @@
         name="description"
         type="text"
         [formControlName]="'description'"
-        placeholder="staffNumbdescriptioner">
+        placeholder="Description">
       </mat-form-field>
     </div>
 
@@ -32,7 +31,7 @@
         name="criteria"
         type="text"
         [formControlName]="'criteria'"
-        placeholder="criteria">
+        placeholder="Critère">
       </mat-form-field>
     </div>
 
@@ -43,7 +42,7 @@
         name="plannedBudget"
         type="number"
         [formControlName]="'plannedBudget'"
-        placeholder="plannedBudget">
+        placeholder="Budget envisagé">
       </mat-form-field>
     </div>
 
@@ -54,7 +53,7 @@
         type="number"
         name="plannedIncome"
         [formControlName]="'plannedIncome'"
-        placeholder="plannedIncome">
+        placeholder="Chiffre d'affaire envisagé">
       </mat-form-field>
     </div>
 
@@ -65,27 +64,16 @@
           type="number"
           name="totalCandidateNumber"
           [formControlName]="'totalCandidateNumber'"
-          placeholder="totalCandidateNumber">
+          placeholder="Nombre total de candidats">
         </mat-form-field>
       </div>
 
     
-      
-          <div fxFlex="50"  class="pr-16">
-            <mat-form-field class="full-width">
-              <input
-              matInput
-              name="description"
-              type="text"
-              [formControlName]="'description'"
-              placeholder="description">
-            </mat-form-field>
-          </div>
 
           <div fxFlex="50"  class="pr-16">
 
             <mat-form-field class="full-width">
-              <mat-label>WorkField</mat-label>
+              <mat-label>Secteur d'activité</mat-label>
               <mat-select  [formControlName]="'workField'">
                 <mat-option *ngFor="let x of WorkField" [value]="x">{{ x }}</mat-option>
               </mat-select>
@@ -97,7 +85,7 @@
       <div fxFlex="50"  class="pr-16">
 
         <mat-form-field class="full-width">
-          <mat-label>requirementType</mat-label>
+          <mat-label>Type besoin</mat-label>
           <mat-select  [formControlName]="'requirementType'">
             <mat-option *ngFor="let requirementType of RequirementType" [value]="requirementType">{{requirementType }}</mat-option>
           </mat-select>
@@ -107,7 +95,7 @@
       <div fxFlex="50"  class="pr-16">
 
         <mat-form-field class="full-width">
-          <mat-label>requirementStatus</mat-label>
+          <mat-label>Etat besoin</mat-label>
           <mat-select  [formControlName]="'requirementStatus'">
             <mat-option *ngFor="let requirementStatus of RequirementStatus" [value]="requirementStatus">{{ requirementStatus }}</mat-option>
           </mat-select>
@@ -117,37 +105,36 @@
       <div fxFlex="50"  class="pr-16">
 
         <mat-form-field class="full-width">
-          <mat-label>availability</mat-label>
+          <mat-label>Démarrage dans</mat-label>
           <mat-select  [formControlName]="'availability'">
             <mat-option *ngFor="let availability of Availability" [value]="availability">{{ availability }}</mat-option>
           </mat-select>
         </mat-form-field>
     </div>
-<div>
+
+  <div fxFlex="50"  class="pr-16">
+
     <mat-form-field class="full-width">
-        <mat-label>partnerNum</mat-label>
+        <mat-label>Partenaire</mat-label>
         <mat-select  [formControlName]="'partnerNum'">
-          <mat-option *ngFor="let partnerNum of listpartner" [value]="partnerNum.id">{{ partnerNum.name}}</mat-option>
+          <mat-option *ngFor="let partnerNum of listpartner" [value]="partnerNum.id">{{ partnerNum.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-  </div>
+    </div>
 
-
-
-      <div  fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width">
-          <input
-            formControlName="expectedEndDate"
-            matInput
-            [matDatepicker]="picker"
-            placeholder="expectedEndDate"
-            required
-          />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
+    <div  fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+          formControlName="responseDate"
+          matInput
+          [matDatepicker]="picker3"
+          placeholder="Date de réponse"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+    </div>
 
       <div  fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
@@ -155,7 +142,7 @@
             formControlName="startDate"
             matInput
             [matDatepicker]="picker2"
-            placeholder="startDate"
+            placeholder="Date de Démarrage"
             required
           />
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -166,27 +153,21 @@
       <div  fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width">
           <input
-            formControlName="responseDate"
+            formControlName="expectedEndDate"
             matInput
-            [matDatepicker]="picker3"
-            placeholder="responseDate"
+            [matDatepicker]="picker"
+            placeholder="Date prévue de clôture"
             required
           />
-          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-          <mat-datepicker #picker3></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
 
-        
-  
-
-  
-
-
     <div fxFlex="100" class="mt-16">
-      <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
+      <button mat-raised-button color="primary" >Enregistrer</button>
       <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Annuler</button>
     </div>
   </div>
   </form>

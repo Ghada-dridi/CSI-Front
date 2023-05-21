@@ -3,17 +3,15 @@ import { AppLoaderService } from './../../../../../shared/services/app-loader/ap
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { NgxTablePopupComponent } from './ngx-table-popup/ngx-table-popup.component';
 import { Subscription } from 'rxjs';
-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Partner } from 'app/shared/models/Partner';
+import { Router } from '@angular/router';
 
 
 
@@ -23,6 +21,7 @@ import { Partner } from 'app/shared/models/Partner';
   templateUrl: './crud-ngx-table.component.html',
   animations: egretAnimations
 })
+
 export class CrudNgxTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,25 +33,22 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    
+    private router : Router,
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private crudService: CrudPartnerService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService
-  ) {     this.dataSource = new MatTableDataSource<Partner>([]);
-  }
+  ) {     this.dataSource = new MatTableDataSource<Partner>([]);}
+
 
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()
- 
-
-      
+    this.getItems()  
   }
 
   getDisplayedColumns() {
-    return ['name','parentCompany','ceoName','phoneNumber','Country','city','CompanyStatus','actions'];
+    return ['name','parentCompany','ceoName','Country','CompanyStatus','actions'];
   }
 
 
@@ -78,9 +74,9 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   openPopUp(data:  any , isNew?) {
-    let title = isNew ? 'Add new Partner' : 'Update Partner';
+    let title = isNew ? 'Nouveau partenaire' : 'Modifier Partenaire';
     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-      width: '720px',
+      width: '1000px',
       disableClose: true,
       data: { title: title, payload: data }
     })
@@ -91,21 +87,21 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           return;
         }
         if (isNew) {
-          this.loader.open('Adding new Partner');
+          this.loader.open('Ajout en cours');
           this.crudService.addItem(res)
             .subscribe((data :any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Partner Added!', 'OK', { duration: 2000 });
+              this.snack.open('Partenaire ajouté avec succès!', 'OK', { duration: 2000 });
               this.getItems();
             })
         } else {
-          this.loader.open('Updating Partner');
+          this.loader.open('modification en cours');
           this.crudService.updateItem(data.id,res)
             .subscribe((data:any) => {
               this.dataSource = data ;
               this.loader.close();
-              this.snack.open('Partner Updated!', 'OK', { duration: 2000 });
+              this.snack.open('Partenaire modifié avec succées !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -115,21 +111,35 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('Deleting Partner');
+          this.loader.open('Supprission du partenaire');
           this.crudService.deleteItem(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Partner deleted!', 'OK', { duration: 2000 });
+              this.snack.open('Partenaire supprimé!', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
       })
   }
-
+add(){
+  this.router.navigateByUrl('add-partner/add-partner');
+}
   applyFilter(event :Event){
     const FilterValue = (event.target as HTMLInputElement).value ;
      this.dataSource.filter = FilterValue.trim().toLowerCase();
  
  }
+/*moreAboutItem(itemId: number) {
+    // Open menu and listen for menu item selection
+  }
+
+  handleMenuItemSelection(menuItem: string, itemId: number) {
+    // Redirect to appropriate interface based on menu item selection
+    if (menuItem === 'requirement') {
+      this.router.navigate(['/requirements', itemId]);
+    } else if (menuItem === 'contacts') {
+      this.router.navigate(['/contacts', itemId]);
+    }
+  }*/
 }

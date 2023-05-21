@@ -65,22 +65,22 @@ export class NavigationService {
       tooltip: 'RH',
       icon: 'group',
       sub: [
-        { name: 'Candidats', state: 'cruds/ngx-table' },
-        { name: 'Entretiens & Recrutement', state: 'cruds/ngx-table' },
-        { name: 'Ressources', state: 'resource/resource-crud' },
+        { name: 'Candidats', state: 'candidat/CandidatCrud-table' },
+        { name: 'Offers', state: 'tableOffer/offerTable' },
+	      { name: 'Entretiens & Recrutement', state: 'entretienTable/tableEntretien' },
+        { name: 'Ressources', state: 'resource/resource-crud' },    
+        { name: 'Equipements', state: 'equipment/equipment-crud' },
+        { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
         { name: 'BackOfficeRessources', state: 'backOfficeResource/backOfficeResource-crud' },
         { name: 'ExternalRessources', state: 'externalResource/externalResource-crud' },
-        { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
         { name: 'Contrat Employee', state: 'contractEmployee/liste-employee-contracts' },
         { name: 'Contrat Projet', state: 'contractEmployee/liste-employee-contracts' },
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
         { name: 'Congés Empoyées', state: 'time-off-employee/timeOffEmployee-crud' },
-        { name: 'Equipements', state: 'equipment/equipment-crud' },
         { name: 'Rapports', state: 'shop/checkout' }
       ]
     },
-
 
     {
       name: 'Vente ',
@@ -882,3 +882,7 @@ export class NavigationService {
     }
   }
 }
+
+
+
+ 

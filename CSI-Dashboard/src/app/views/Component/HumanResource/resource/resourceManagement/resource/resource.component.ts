@@ -8,7 +8,8 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { ResourceService } from '../../resource.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Resource } from 'app/shared/models/Resource';
+import { Employee } from 'app/shared/models/Employee';
+
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ResourceComponent implements OnInit,OnDestroy{
   @ViewChild(MatSort) sort: MatSort;
   
 
-  public dataSource:MatTableDataSource<Resource>;
+  public dataSource:MatTableDataSource<Employee>;
   public displayedColumns: any;
   public getItemSub: Subscription;
  
@@ -33,7 +34,7 @@ export class ResourceComponent implements OnInit,OnDestroy{
     private resourceService: ResourceService ,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService
-  ) {     this.dataSource = new MatTableDataSource<Resource>([]);}
+  ) {     this.dataSource = new MatTableDataSource<Employee>([]);}
 
 
   
@@ -54,7 +55,7 @@ export class ResourceComponent implements OnInit,OnDestroy{
   }
 
   getDisplayedColumns() {
-    return ['photo','firstName', 'lastName',  'title', 'departement','actions'];
+    return ['photo', 'serialNumber','firstName', 'lastName',  'title', 'departement','actions'];
   }
   
   getItems() {    
@@ -66,40 +67,7 @@ export class ResourceComponent implements OnInit,OnDestroy{
       })
 
   }
-/*
-  openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Add new Candidat' : 'Update Candidat';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-      width: '720px',
-      disableClose: true,
-      data: { title: title, payload: data }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if(!res) {
-          // If user press cancel
-          return;
-        }
-        if (isNew) {
-          this.loader.open('Adding new Candidat');
-          this.resourceService.addItem(res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Candidat Added!', 'OK', { duration: 4000 })
-            })
-        } else {
-          this.loader.open('Updating Candidat');
-          this.resourceService.updateItem(data._id, res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Candidat Updated!', 'OK', { duration: 4000 })
-            })
-        }
-      })
-  }
-  */
+
   deleteItem(row) {
     
     this.confirmService.confirm({message: `Delete ${row.firstName} ${row.lastName}?`})
@@ -118,3 +86,8 @@ export class ResourceComponent implements OnInit,OnDestroy{
   }
 
 }
+
+
+
+
+  

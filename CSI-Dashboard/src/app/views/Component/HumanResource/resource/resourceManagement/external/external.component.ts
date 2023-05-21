@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ResourceService } from '../../resource.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { Employee } from 'app/shared/models/Employee';
 
 @Component({
   selector: 'app-external',
@@ -21,7 +22,7 @@ export class ExternalComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   
 
-  public dataSource:MatTableDataSource<Resource>;
+  public dataSource:MatTableDataSource<Employee>;
   public displayedColumns: any;
   public getItemSub: Subscription;
  
@@ -33,7 +34,7 @@ export class ExternalComponent implements OnInit {
     private resourceService: ResourceService ,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService
-  ) {     this.dataSource = new MatTableDataSource<Resource>([]);}
+  ) {     this.dataSource = new MatTableDataSource<Employee>([]);}
 
 
   
@@ -54,7 +55,7 @@ export class ExternalComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['photo', 'firstName', 'lastName',  'title', 'departement','actions'];
+    return ['photo', 'serialNumber','firstName', 'lastName',  'title', 'departement','actions'];
   }
   
   getItems() {    
@@ -86,3 +87,6 @@ export class ExternalComponent implements OnInit {
   }
   
 }
+
+
+

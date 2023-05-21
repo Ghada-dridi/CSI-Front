@@ -7,7 +7,7 @@ export const ReqRoutes: Routes = [
   { 
     path: 'requirement-crud', 
     component: ReqlistComponent, 
-    data: { title: 'Table', breadcrumb: 'Table' } 
+    data: { title: '', breadcrumb: 'Table' } 
   },
   {
     path: ":iiid",

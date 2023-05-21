@@ -25,7 +25,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { Ng2TelInputModule } from 'ng2-tel-input';
-import { AddResourceComponent } from './add-resource/add-resource.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -36,13 +35,18 @@ import { NgChartsModule } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MatStepperModule } from '@angular/material/stepper';
 import { QuillModule } from 'ngx-quill';
-import { MatTree, MatTreeModule } from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
+import { AddResourceExternalComponent } from './add-resource-external/add-resource-external.component';
+import { AddResourceBackofficeComponent } from './add-resource-backoffice/add-resource-backoffice.component';
+import { AddResourceComponent } from './add-resource/add-resource.component';
 
 
 
 @NgModule({
   declarations: [
-    AddResourceComponent
+    AddResourceComponent,
+    AddResourceExternalComponent,
+    AddResourceBackofficeComponent
   ],
   imports: [
     CommonModule,
@@ -91,3 +95,5 @@ import { MatTree, MatTreeModule } from '@angular/material/tree';
   
 })
 export class AddResourceModule { }
+
+

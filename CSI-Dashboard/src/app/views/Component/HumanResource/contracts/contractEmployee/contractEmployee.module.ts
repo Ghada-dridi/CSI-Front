@@ -1,3 +1,4 @@
+
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -40,7 +41,6 @@ import { QuillModule } from "ngx-quill";
 import { BrowserModule } from "@angular/platform-browser";
 import { AddContractEmployeeComponent } from "./add-contract-employee/add-contract-employee.component";
 import { ViewContractComponent } from './view-contract/view-contract.component';
-
 
 
 

@@ -1,6 +1,3 @@
-import { EquipmentComponent } from './views/Component/HumanResource/equipment/equipment/equipment.component';
-
-import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
@@ -201,6 +198,16 @@ export const rootRouterConfig: Routes = [
         data: { title: 'AddResource', breadcrumb: 'AddResources'}
       },
       {
+        path: 'add-backoffice-resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/createResource/add-resource.module').then(m => m.AddResourceModule),
+        data: { title: 'AddBackOfficeResource', breadcrumb: 'AddBackOfficeResources'}
+      },
+      {
+        path: 'add-external-resource',
+        loadChildren: () => import('./views/Component/HumanResource/resource/createResource/add-resource.module').then(m => m.AddResourceModule),
+        data: { title: 'AddExternalResource', breadcrumb: 'AddExternalResources'}
+      },
+      {
         path: 'contractEmployee',
         loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
         data: { title: '', breadcrumb: ''}
@@ -210,21 +217,62 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/Component/HumanResource/resource/resource.module').then(m => m.ResourceModule),
         data: { title: '', breadcrumb: ''}
       },
+ {
+        path: 'candidat',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CandidatCrud/candidat-crud.module').then(m => m.CandidatCrudModule),
+        data: { title: 'Candidat', breadcrumb: 'Candidat'}
+      },
+      {
+        path: 'cvCandidat',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/CvCandidat/cv-candidat.module').then(m => m.CvCandidatModule),
+        data: { title: 'CvCandidat', breadcrumb: 'CVCANDIDAT'}
+      },
+      {
+        path: 'candidatUpdate',
+        loadChildren: () => import('./views/Component/HumanResource/candidate/updateCandidat/updateCandidat.module').then(m => m.updateCandidatModule),
+        data: { title: 'update', breadcrumb: 'update'}
+      },
+      
+      
+      {
+        path: 'tableOffer',
+        loadChildren: () => import('./views/Component/HumanResource/offer/offer-crud.module').then(m => m.OfferCrudModule),
+        data: { title: 'CandidatAffichage', breadcrumb: 'Candidat'}
+      },
+      {
+        path: 'affichageOffer',
+        loadChildren: () => import('./views/Component/HumanResource/offer/affichage_offer/affichage_offer.module').then(m => m.OfferAffichageModule),
+        data: { title: 'offerAffichage', breadcrumb: 'Candidat'}
+      },
+
+      {
+        path: 'CandidatEvaluation',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/affichage_entreteinrecrutment/affichage_entretienRecrutment.module').then(m => m.EntretienRecrutmentModule),
+        data: { title: 'EntretienRecrutment', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+
+      {
+        path: 'entretienTable',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/crud_table_entretienRecrutment/crud_entretienRecrutment.module').then(m => m.CrudEntretienRecrutmentModule),
+        data: { title: 'CrudEvaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+      {
+        path: 'evaluationCrud',
+        loadChildren: () => import('./views/Component/HumanResource/entretienRecrutment/add_evaluation/add_crud_evaluation.module').then(m => m.CrudEvaluationModule),
+        data: { title: 'Evaluation', breadcrumb: 'ENTRETIEN&RECRUTMENT'}
+      },
+      
+      {
+        path: 'equipment',
+        loadChildren: () => import('./views/Component/HumanResource/equipment/equipment.module').then(m => m.EquipmentModule),
+        data: { title: 'Equipements', breadcrumb: 'Liste équipements'}
+      },
+      
       
       {
         path: 'Add-contract-employee',
         loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
         data: { title: 'AddContractEmployee', breadcrumb: 'AddContractEmployee'}
-      }, 
-      {
-        path: 'equipment',
-        loadChildren: () => import('./views/Component/HumanResource/equipment/equipment.module').then(m => m.EquipmentModule),
-        data: { title: 'Equipment', breadcrumb: 'Equipment'}
-      },
-      {
-        path: 'view-equipment',
-        loadChildren: () => import('./views/Component/HumanResource/equipment/equipment.module').then(m => m.EquipmentModule),
-        data: { title: 'Equipment', breadcrumb: 'Equipment'}
       }
       
     ]

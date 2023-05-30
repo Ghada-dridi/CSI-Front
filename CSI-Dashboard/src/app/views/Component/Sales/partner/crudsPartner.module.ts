@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule} from '@angular/core';
 import { CrudNgxTableComponent } from './crud-ngx-table/crud-ngx-table.component';
 import { CrudPartnerService } from './crudPartner.service';
@@ -39,6 +39,11 @@ import { PartnerContactPopComponent } from './partner-contact-pop/partner-contac
 import { SocialMediaPopComponent } from './social-media-pop/social-media-pop.component';
 import { OfferedPopComponent } from './offered-pop/offered-pop.component';
 import { AccountPopComponent } from './account-pop/account-pop.component';
+import { PartnerStepperComponent } from './partner-stepper/partner-stepper.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -66,17 +71,20 @@ import { AccountPopComponent } from './account-pop/account-pop.component';
     MatSortModule,
     SharedModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     FormsModule,
-    
+    MatStepperModule,
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
     MatTabsModule,
+    MatGridListModule,
+    MatNativeDateModule,
 
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent],
-  providers: [ContactService, CrudPartnerService] 
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent, PartnerStepperComponent],
+  providers: [ContactService, CrudPartnerService, DatePipe] 
 })
 export class PartnerModule { }

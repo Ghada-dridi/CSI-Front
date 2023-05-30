@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudPartnerService } from '../../crudPartner.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { CompanyStatus, LegalStatus, Partner, Provenance } from 'app/shared/models/Partner';
+import { CompanyStatus, LegalStatus, Partner, PaymentCondition, PaymentMode, Provenance } from 'app/shared/models/Partner';
 import { contact } from 'app/shared/models/contact';
 import { WorkField, req } from 'app/shared/models/req';
 import { socialMedia } from 'app/shared/models/socialMedia';
@@ -22,6 +22,7 @@ import { OfferedPopComponent } from '../../offered-pop/offered-pop.component';
 import { offeredService } from 'app/shared/models/offeredService';
 import { AccountPopComponent } from '../../account-pop/account-pop.component';
 import { BankAccount } from 'app/shared/models/BankAccount';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail-crud',
@@ -54,7 +55,8 @@ public accounts: BankAccount[]
     private reqService : ReqService,
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private loader: AppLoaderService
+    private loader: AppLoaderService,
+    private datePipe: DatePipe
     ) { 
       this.dataSource = new MatTableDataSource<contact>([]);
       this.dataSource1 = new MatTableDataSource<socialMedia>([]);
@@ -462,11 +464,10 @@ public accounts: BankAccount[]
             window.open(link, '_blank');
           }
 
-          CompanyStatusMap = {
+          companyStatusMap = {
             [CompanyStatus.PROSPECT]:'Prospect',
             [CompanyStatus.SUPPLIER]:'Fournisseur',
-           [CompanyStatus.CLIENT]:'Client',
-           [CompanyStatus.ARCHIVED] :'Archivé'
+           [CompanyStatus.CLIENT]:'Client'
           };
         
           provenanceMap = {
@@ -489,9 +490,33 @@ public accounts: BankAccount[]
         
           legalStatusMap = {
             [LegalStatus.SA]:'SA',
-            [LegalStatus.SARL]:'SARL',
-            [LegalStatus.SIRET]: 'SIRET',
-            [LegalStatus.TVA]: 'TVA'
-          };
+            [LegalStatus.SARL]:'SARL'
+          }
+
+          paymentConditionMap = {
+            [PaymentCondition.IMMEDIATE]:'Paiement immédiat',
+            [PaymentCondition.ADVANCED]:"Paiement à l'avance",
+            [PaymentCondition.ORDER]:'Paiement à la commande',
+            [PaymentCondition.ON_DELIVERY] :'Paiement à la livraison',
+            [PaymentCondition._30_DAYS] :'Paiement à 30 jours nets',
+            [PaymentCondition._60_DAYS] :'Paiement à 60 jours nets ',
+            [PaymentCondition._90_DAYS] :'Paiement à 90 jours nets',
+            [PaymentCondition.IN_TERM] :'Paiement à terme',
+            [PaymentCondition.ADVANCE] :'Paiement anticipé',
+            [PaymentCondition.AT_REQUEST] :'Paiement à la réception'
+          }
+        
+          paymentModeMap = {
+            [PaymentMode.CASH]:'Cash',
+            [PaymentMode.CREDIT]:'Crédit',
+            [PaymentMode.DEBIT_CARD]:'Carte de débit',
+            [PaymentMode.BANK_TRANSFER] :'Virement bancaire',
+            [PaymentMode.PAYPAL] :'Paypal',
+            [PaymentMode.CHECK] :'Chèque'
+          }
+
+          formatDate(date: string): string {
+            return this.datePipe.transform(date, 'dd-MM-yyyy');
+          }
 }
 

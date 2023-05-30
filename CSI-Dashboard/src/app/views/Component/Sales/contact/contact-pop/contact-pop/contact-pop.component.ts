@@ -66,7 +66,6 @@ PrivilegeMap = {
     [Privilege.HIGH]:'Elevé',
     [Privilege.MEDIUM]:'Moyen',
     [Privilege.LOW] : 'Faible'
-   
   };
   CivilityMap = {
     [Civility.MR]:'Mr',

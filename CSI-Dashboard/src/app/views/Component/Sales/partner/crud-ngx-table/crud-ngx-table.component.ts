@@ -47,7 +47,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['logo','name','parentCompany','ceoName','Country','CompanyStatus','actions'];
+    return ['logo','ref','name','majorShareHolder','companyStatus','actions'];
   }
 
 
@@ -182,8 +182,6 @@ add(){
 
   legalStatusMap = {
     [LegalStatus.SA]:'SA',
-    [LegalStatus.SARL]:'SARL',
-    [LegalStatus.SIRET]:'SIRET',
-    [LegalStatus.TVA]:'TVA'
+    [LegalStatus.SARL]:'SARL'
   };
 }

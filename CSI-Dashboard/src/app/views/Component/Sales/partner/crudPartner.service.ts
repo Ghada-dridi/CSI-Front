@@ -107,6 +107,38 @@ export class CrudPartnerService {
     );
   }
 
+  //ajouter les coordonnées du partnaire (step 2)
+  addPartnerCoordonnees(partner: any): Observable<any>{
+    const url = `${this.apiUrl}/coordonnees`;
+    return this.http.post<any>(url, partner).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  // Ajouter un compte bancaire au partenaire(step 3)
+  addBankAccount(bankAccount: any): Observable<any> {
+    const url = `${this.apiUrl6}`
+    return this.http.post<any>(url, bankAccount).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //ajouter les infos financières du partnaire (step 3)
+  addPartnerFinancial(partner: any): Observable<any>{
+    const url = `${this.apiUrl}/financial`;
+    return this.http.post<any>(url, partner).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  //ajouter les infos complémentaires du partnaire (step 5)
+  finishPartnerInfos(partner: any): Observable<any>{
+    const url = `${this.apiUrl}/final`;
+    return this.http.post<any>(url, partner).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   //add a new partner contact
   addContact(contact: any): Observable<any>{
     return this.http.post<any>(this.apiUrl3, contact).pipe(
@@ -253,5 +285,7 @@ export class CrudPartnerService {
   getStatesByCountry(name: string) {
     return this.countryData.getStatesByShort(name);
   }
+
+  
 }
 

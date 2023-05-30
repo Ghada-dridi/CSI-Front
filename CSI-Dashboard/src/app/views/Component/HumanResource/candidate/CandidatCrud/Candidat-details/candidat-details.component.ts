@@ -11,7 +11,7 @@ import { Experience } from 'app/shared/models/Experience';
 import { TechnicalFile } from 'app/shared/models/TechnicalFile';
 import { Language, LanguageLevel } from 'app/shared/models/Language';
 import { Civility } from 'app/shared/models/contact';
-import html2pdf from 'html2pdf.js';
+//import html2pdf from 'html2pdf.js';
 import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
 
 @Component({
@@ -73,12 +73,12 @@ LanguageLevel : string[] = Object.values(LanguageLevel);
     document.body.innerHTML = originalContents;
   }
   
- downloadCV() {
+ /*downloadCV() {
     const element = document.getElementById("resume");
     html2pdf()
       .from(element)
       .save('my-cv.pdf');
-  }  
+  }  */
 
 
 

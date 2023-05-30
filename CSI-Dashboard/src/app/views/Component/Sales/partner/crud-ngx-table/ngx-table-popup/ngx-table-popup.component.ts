@@ -164,10 +164,10 @@ export class NgxTablePopupComponent implements OnInit {
    [WorkField.E_COM] :'E-Commerce',
    [WorkField.ASSURANCE] :'Assurance',
    [WorkField.FINANCE] :'Finance'
-  };
+  }
 
   legalStatusMap = {
     [LegalStatus.SA]:'SA',
     [LegalStatus.SARL]:'SARL'
-  };
+  }
 }

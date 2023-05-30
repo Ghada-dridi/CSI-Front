@@ -166,7 +166,7 @@ addCertif(certif: any): Observable<any> {
   return this.http.post<any>( apiCertificationWithAdd, certif).pipe(
     catchError(this.handleError)
   );
-}6
+}
 
 //POST langugae
 addLanguage(lang: any): Observable<any> {

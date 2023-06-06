@@ -1,7 +1,7 @@
 <mat-card class="p-0">
   <mat-card-title class="">
      <div class="card-title-text"><mat-icon>
-      info_outline </mat-icon>Fiche partenaire {{partner.ref}} <strong>{{partner.name}}</strong></div>
+      info_outline </mat-icon>Fiche partenaire <small>{{partner.ref}}  </small> <strong>{{partner.name}}</strong></div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -12,26 +12,26 @@
         <mat-divider></mat-divider>
       </mat-card-title>
       <mat-card-content >
-        <div style="padding-top:25px; padding-left: 35px;">
+        <div style="padding-top:25px;">
           <div fxFlex="30"> 
-          <div>
-           <p><mat-icon color="primary">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{partner.currency}}</p> 
-           <p><mat-icon color="primary">compare_arrows</mat-icon><strong style="padding-right: 13px;">Mode de paiement :</strong> {{paymentModeMap[partner.paymentMode]}}</p> 
-          </div>
+            <mat-list>
+              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{partner.currency}}</mat-list-item>
+              <mat-list-item><mat-icon color="primary"  style="padding-right:10px;">compare_arrows</mat-icon><strong style="padding-right: 13px;">Mode de paiement :</strong> {{paymentModeMap[partner.paymentMode]}}</mat-list-item>
+            </mat-list>
           </div>
           
-        <div fxFlex="39">
-          <div>
-            <p><mat-icon color="primary">payment</mat-icon><strong style="padding-right: 10px;">Condition de paiement :</strong> {{paymentConditionMap[partner.paymentCondition]}}</p> 
-            <p><mat-icon color="primary">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}}</p> 
-          </div>
+        <div fxFlex="45">
+            <mat-list>
+              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">payment</mat-icon><strong style="padding-right: 10px;">Condition de paiement :</strong> {{paymentConditionMap[partner.paymentCondition]}}</mat-list-item>
+              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}}</mat-list-item>
+            </mat-list>
         </div>
-        <div fxFlex="30">
-          <div>
-            <p><mat-icon color="primary">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{partner.controlType}}</p> 
-            <p><mat-icon color="primary">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}}</p> 
+        <div fxFlex="25">
+          <mat-list>
+            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{partner.controlType}}</mat-list-item>
+            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}}</mat-list-item>
+          </mat-list>
           </div>
-        </div>
         </div>
 
         

@@ -53,6 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatButtonModule,
     FlexLayoutModule,
     MatInputModule,
     MatIconModule,

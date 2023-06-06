@@ -47,7 +47,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['logo','ref','name','majorShareHolder','companyStatus','actions'];
+    return ['logo','companyStatus','ref','name','blocked','actions'];
   }
 
 
@@ -75,7 +75,8 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   openPopUp(data:  any , isNew?) {
     let title = isNew ? 'Nouveau partenaire' : 'Modifier Partenaire';
     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-      width: '1000px',
+      width: '1200px',
+      height: '620px',
       disableClose: true,
       data: { title: title, payload: data }
     })
@@ -154,6 +155,11 @@ add(){
       return data[key].trim().toLowerCase().indexOf(filter) !== -1;
     };
   }
+
+  // Mapper function to map 'blocked' field values to labels
+  mapBlockedStatus(blocked: boolean): string {
+    return blocked ? 'Bloqué' : 'Actif';
+}
 
   CompanyStatusMap = {
     [CompanyStatus.PROSPECT]:'Prospect',

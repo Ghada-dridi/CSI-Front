@@ -15,24 +15,6 @@
                         <div>
                             <mat-grid-list cols="2" rowHeight="100px">
                                 <mat-grid-tile>
-                                    <div class="pb-16">
-                                      <!--Référence partenaire-->
-                                        <mat-form-field appearance="outline" [style.width.cm]="10">
-                                            <mat-label>Code partenaire</mat-label>
-                                            <input
-                                              matInput
-                                              required
-                                              name="ref"
-                                              formControlName="ref"
-                                              placeholder="Code partenaire"
-                                            />
-                                            <mat-error *ngIf="partnerForm.get('ref').invalid && partnerForm.get('ref').touched">
-                                              Le nom est requis et doit comporter 10 caractères alphanumériques.
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </mat-grid-tile>
-                                <mat-grid-tile>
                                     <!--Type partenariat-->
                                     <div class="pb-16">
                                      <mat-form-field appearance="outline" [style.width.cm]=10>
@@ -68,16 +50,33 @@
                                     <!--status juridique société-->
                                     <div class="pb-16">
                                      <mat-form-field appearance="outline" [style.width.cm]=10>
-                                     <mat-label>Qualité</mat-label>
+                                     <mat-label>Forme juridique</mat-label>
                                      <mat-select formControlName="legalStatus">
                                        <mat-option  *ngFor="let status of legalStatus " [value]="status">{{ legalStatusMap[status] }}</mat-option>
                                      </mat-select>
                                      <mat-error *ngIf="partnerForm.get('legalStatus').invalid && partnerForm.get('legalStatus').touched">
-                                      Le champs qualité est requis.
+                                      Le champs forme juridique est requis.
                                      </mat-error>
                                      </mat-form-field>
                                    </div>
                                 </mat-grid-tile>
+
+                                <mat-grid-tile>
+                                    
+                                  <div class="pb-16">
+                                    <!--Référence externe-->
+                                      <mat-form-field appearance="outline" [style.width.cm]="10">
+                                          <mat-label>Référence externe</mat-label>
+                                          <input
+                                            matInput
+                                            required
+                                            name="externalReference"
+                                            formControlName="externalReference"
+                                            placeholder="Référence externe"
+                                          />
+                                      </mat-form-field>
+                                  </div>
+                              </mat-grid-tile>
 
                                 <mat-grid-tile>
                                     
@@ -137,10 +136,10 @@
 
 
                                 <mat-grid-tile>
-                                  <!--Identifiant juridique entreprise-->
-                                  <mat-label>Logo</mat-label>
-                                  <div  fxFlex="50"  class="pr-16">
-                                    <input type="file" (change)="onFileSelected($event)">
+                                  <!--Logo-->
+                                  <mat-label style="margin-bottom: 10px;">Logo</mat-label>
+                                  <div  fxFlex="50"  class="pr-16" >
+                                    <input type="file" style="padding: 12px;" (change)="onFileSelected($event)">
                                   </div>
                                 </mat-grid-tile>
                             </mat-grid-list>
@@ -167,7 +166,7 @@
                     <ng-template matStepLabel>Coordonnées</ng-template>
                     <mat-card-title class="">
                         <mat-divider></mat-divider>
-                        <div class="card-title-text">Indiquez les Coordonnées téléphoniques et électroniques</div>
+                        <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
                         <mat-divider></mat-divider>
                     </mat-card-title>
 
@@ -243,7 +242,7 @@
                               </div>
                             </form>
                             <mat-card-title>
-                              <div class="card-title-text">Indiquez les adresses du partenaire</div>
+                              <div class="card-title-text">Ajoutez les adresses</div>
                           </mat-card-title>
                             <mat-divider></mat-divider>
                             <div style="padding-bottom: 1.8cm;"></div>
@@ -407,7 +406,7 @@
                 <ng-template matStepLabel>Infos financières</ng-template>
                 <mat-card-title class="">
                     <mat-divider></mat-divider>
-                        <div class="card-title-text">Indiquez les infos financières du partenaire</div>
+                        <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
                     <mat-divider></mat-divider>
                 </mat-card-title>
 
@@ -421,7 +420,7 @@
                                     <mat-form-field appearance="outline" [style.width.cm]="10">
                                         <mat-label>Devise</mat-label>
                                         <mat-select formControlName="currency">
-                                          <mat-option  *ngFor="let currency of sortedCurrencies " [value]="currency">{{ currency }}</mat-option>
+                                          <mat-option  *ngFor="let currency of sortedCurrencies " [value]="currency">{{ currencyMap[currency] }}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -451,7 +450,7 @@
                           </form>
                         </mat-grid-list>
                         <mat-card-title>
-                            <div class="card-title-text">Ajouter les comptes bancaires</div>
+                            <div class="card-title-text">Ajoutez les comptes bancaires</div>
                         </mat-card-title>
                         <mat-divider></mat-divider>
                         <div style="padding-bottom: 1.8cm;"></div>
@@ -583,7 +582,7 @@
                   <ng-template matStepLabel>Contacts</ng-template>
                   <mat-card-title class="">
                       <mat-divider></mat-divider>
-                          <div class="card-title-text">Ajouter des contacts</div>
+                          <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
                       <mat-divider></mat-divider>
                   </mat-card-title>
                   <mat-card-content class="container" style="padding-top: 1.5cm;">
@@ -637,34 +636,16 @@
                                           </mat-error>
                                       </mat-form-field>
                                   </div>
-                              <!--Code postal-->
                               <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <!--Type adresse-->
                                         <mat-form-field appearance="outline" [style.width.cm]="10" style="padding-right: 1cm;">
-                                            <mat-label>Classification</mat-label>
+                                            <mat-label>Niveau d'accessibilité</mat-label>
                                             <mat-select formControlName="privilege">
                                               <mat-option  *ngFor="let privilege of privileges" [value]="privilege">{{ privilegeMap[privilege] }}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                               </div>
                             </div>
-                              <!--Contact privilégié-->
-                                <div class="d-flex">
-                                <!--Contact privilégié-->
-                                <div fxFlex="50"  class="pr-16" *ngIf = "isAnyContactPrivileged()" >
-                                  <label>
-                                    Contact privilégié
-                                    <input type="checkbox" formControlName="privilegedContact">
-                                  </label>
-                                </div>
-                                <!--Prise de rendez-vous-->
-                                <div fxFlex="50"  class="pr-16">
-                                  <label>
-                                    Prise de rendez-vous
-                                    <input type="checkbox" formControlName="appointmentMaking">
-                                  </label>
-                                </div>
-                                </div>
+                                
                                 <div class="d-flex">
                                   <!--Service-->
                                       <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -764,6 +745,22 @@
                                       </mat-form-field>
                                   </div>
                                 </div>
+                                <div class="d-flex">
+                                <!--Contact privilégié-->
+                                <div fxFlex="50" class="pr-16" *ngIf="isAnyContactPrivileged()">
+                                  <label>
+                                    Contact privilégié
+                                    <input type="checkbox" [disabled]="column === 'plus'" formControlName="privilegedContact">
+                                  </label>
+                                </div>
+                                <!--Prise de rendez-vous-->
+                                <div fxFlex="50"  class="pr-16">
+                                  <label>
+                                    Prise de rendez-vous
+                                    <input type="checkbox" formControlName="appointmentMaking">
+                                  </label>
+                                </div>
+                                </div>
                             <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
                               <label >Enregistrer et ajouter un autre contact</label>
                               <button mat-icon-button color="primary" type="button" (click)="saveContact(i)">
@@ -798,7 +795,7 @@
                   <ng-template matStepLabel>Infos complémentaires</ng-template>
                   <mat-card-title class="">
                       <mat-divider></mat-divider>
-                          <div class="card-title-text">Compléter les infos du partenaire</div>
+                          <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
                       <mat-divider></mat-divider>
                   </mat-card-title>
   
@@ -845,19 +842,30 @@
                                       </mat-form-field>
                                   </div>
                               </mat-grid-tile>
-                              <!--Type de contrôle-->
+                              <!--classification-->
+                              <mat-grid-tile>
+                                <div class="pb-16">
+                                  <mat-form-field appearance="outline" [style.width.cm]="10" >
+                                    <mat-label>Classification</mat-label>
+                                    <mat-select formControlName="classification">
+                                      <mat-option  *ngFor="let privilege of privileges" [value]="privilege">{{ privilegeMap[privilege] }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </mat-grid-tile>
+                              <!--Capital-->
                               <mat-grid-tile>
                                   <div class="pb-16">
                                       <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>Type de contrôle</mat-label>
+                                          <mat-label>Capital (en {{selectedPartner.currency}})</mat-label>
                                           <input
                                             matInput
                                             required
-                                            name="controlType"
-                                            formControlName="controlType"
-                                            placeholder="Type de contrôle"
+                                            name="capital"
+                                            formControlName="capital"
+                                            placeholder="Capital"
                                           />
-                                          <mat-error *ngIf="complInfoForm.get('controlType').invalid && complInfoForm.get('controlType').touched">
+                                          <mat-error *ngIf="complInfoForm.get('capital').invalid && complInfoForm.get('capital').touched">
                                             Ce champs est requis.
                                           </mat-error>
                                       </mat-form-field>
@@ -899,35 +907,17 @@
                                     </mat-form-field>
                                 </div>
                               </mat-grid-tile>
-                              <!--Capital-->
-                              <mat-grid-tile>
-                                  <div class="pb-16">
-                                      <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>Capital</mat-label>
-                                          <input
-                                            matInput
-                                            required
-                                            name="capital"
-                                            formControlName="capital"
-                                            placeholder="Capital(en {{selectedPartner.currency}})"
-                                          />
-                                          <mat-error *ngIf="complInfoForm.get('capital').invalid && complInfoForm.get('capital').touched">
-                                            Ce champs est requis.
-                                          </mat-error>
-                                      </mat-form-field>
-                                  </div>
-                              </mat-grid-tile>
                               <!--En cours autorisé-->
                               <mat-grid-tile>
                                   <div class="pb-16">
                                       <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>En cours autorisé</mat-label>
+                                          <mat-label>En cours autorisé (en {{selectedPartner.currency}})</mat-label>
                                           <input
                                             matInput
                                             required
                                             name="inProgressAuthorized"
                                             formControlName="inProgressAuthorized"
-                                            placeholder="En cours autorisé (en {{selectedPartner.currency}})"
+                                            placeholder="En cours autorisé"
                                           />
                                           <mat-error *ngIf="complInfoForm.get('inProgressAuthorized').invalid && complInfoForm.get('inProgressAuthorized').touched">
                                             Ce champs est requis.
@@ -935,36 +925,49 @@
                                       </mat-form-field>
                                   </div>
                               </mat-grid-tile>
-                              <!--Actionnaire majoritaire-->
+                              <!--Taux de tolérance-->
                               <mat-grid-tile>
-                                  <div class="pb-16">
-                                      <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>Actionnaire majoritaire</mat-label>
-                                          <input
-                                            matInput
-                                            required
-                                            name="majorShareHolder"
-                                            formControlName="majorShareHolder"
-                                            placeholder="Actionnaire majoritaire"
-                                          />
-                                          <mat-error *ngIf="complInfoForm.get('majorShareHolder').invalid && complInfoForm.get('majorShareHolder').touched">
-                                            Ce champs est requis.
-                                          </mat-error>
-                                      </mat-form-field>
-                                  </div>
+                                <div class="pb-16">
+                                    <mat-form-field appearance="outline" [style.width.cm]="10">
+                                        <mat-label>Taux de tolérance(%)</mat-label>
+                                        <input
+                                          type="number"
+                                          matInput
+                                          required
+                                          name="toleranceRate"
+                                          formControlName="toleranceRate"
+                                          placeholder="Taux de tolérance(%)"
+                                        />
+                                        <mat-error *ngIf="complInfoForm.get('toleranceRate').invalid && complInfoForm.get('toleranceRate').touched">
+                                          Ce champs est requis et doit être inférieur à 50%.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </mat-grid-tile>
+                              <!--Type de contrôle-->
+                              <mat-grid-tile>
+                                <div class="pb-16">
+                                  <mat-form-field appearance="outline" [style.width.cm]="10" >
+                                    <mat-label>Type de contrôle</mat-label>
+                                    <mat-select formControlName="controlType">
+                                      <mat-option  *ngFor="let controlType of controlTypes" [value]="controlType">{{ controlTypeMap[controlType] }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
                               </mat-grid-tile>
                               <!--Commentaire-->
-                              <mat-grid-tile>
+                              <mat-grid-tile style="padding-bottom: 3cm;">
                                   <div class="pb-16">
                                       <mat-form-field appearance="outline" [style.width.cm]="10">
                                           <mat-label>Commentaire</mat-label>
-                                          <input
+                                          <textarea
                                             matInput
                                             required
                                             name="comment"
                                             formControlName="comment"
                                             placeholder="Commentaire"
-                                          />
+                                          >
+                                          </textarea>
                                       </mat-form-field>
                                   </div>
                               </mat-grid-tile>

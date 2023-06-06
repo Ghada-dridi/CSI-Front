@@ -29,49 +29,10 @@
           </div>
         </mat-cell>
       </ng-container>
-
-
-      <ng-container matColumnDef="ref">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Référence partenaire 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'ref')" placeholder="Filtrer par référence">
-           </mat-form-field>
-          </div>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="ref"> {{row.ref}} </mat-cell>
-      </ng-container>
-
-
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer par nom">
-           </mat-form-field>
-          </div>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
-      </ng-container>
-
-
-
-      <ng-container matColumnDef="majorShareHolder">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Actionnaire majoritaire 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'majorShareHolder')" placeholder="Filtrer par actionnaire majoritaire">
-           </mat-form-field>
-          </div>
-
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="majorShareHolder"> {{row.majorShareHolder}} </mat-cell>
-      </ng-container>
       
-
-
+      
       <ng-container matColumnDef="companyStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Type partenariat 
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Type 
           <div style="padding-left: 20px;">
             <mat-form-field style="width:1cm;" >
              <input matInput (input)="applyFilterr($event, 'companyStatus')" placeholder="Filtrer par type partenariat">
@@ -82,6 +43,41 @@
       </ng-container>
 
 
+      <ng-container matColumnDef="ref">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Référence
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1cm;" >
+             <input matInput (input)="applyFilterr($event, 'ref')" placeholder="Filtrer par référence">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="ref"> {{row.ref}} </mat-cell>
+      </ng-container>
+      
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Désignation
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1cm;" >
+             <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer par désignation">
+           </mat-form-field>
+          </div>
+
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
+      </ng-container>
+      
+
+      <ng-container matColumnDef="blocked">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Etat
+          <div style="padding-left: 20px;">
+            <mat-form-field style="width:1cm;" >
+             <input matInput (input)="applyFilterr($event, 'blocked')" placeholder="Filtrer par état">
+           </mat-form-field>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name"> {{mapBlockedStatus(row.blocked)}} </mat-cell>
+      </ng-container>
 
 
       <ng-container matColumnDef="actions">

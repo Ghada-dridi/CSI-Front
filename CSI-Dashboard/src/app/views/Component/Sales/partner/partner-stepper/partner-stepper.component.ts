@@ -98,8 +98,8 @@ export class PartnerStepperComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     public dialog: MatDialog,
-    private datePipe: DatePipe
-  ) { }
+    private datePipe: DatePipe,
+  ) {}
 
   ngOnInit(): void {
     this.partnerForm = new UntypedFormGroup({
@@ -336,8 +336,8 @@ export class PartnerStepperComponent implements OnInit {
       });
     }
 
-  // Ajouter une adresse au partenaire
-  saveAddress(i:any): void {
+  // Save previous address and open a new address form
+  saveAddAddress(i:any): void {
      
     this.addressService.addAddress({...this.partnerAddressForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
@@ -363,8 +363,26 @@ export class PartnerStepperComponent implements OnInit {
    })
   }
 
-  // Ajouter un compte bancaire au partenaire 
-  saveBankAccount(i:any): void {
+  // Enregistrer dernière adresse du partenaire
+  saveAddress(i:any): void {
+     
+    this.addressService.addAddress({...this.partnerAddressForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+     next: (res) => {
+      console.log('Item added successfully', res);
+      console.log('Form value', this.partnerAddressForm.value.value[i]);
+       this.submitted = true;
+       this.addressId=res.id
+     },
+     error: (e) => {
+       console.error('Error adding item', e);
+       console.log('partner details is invalid');
+       console.log(this.partnerAddressForm.errors);
+     }
+   })
+  }
+
+  // Save previous bank account and open a new bank account form
+  saveAddBankAccount(i:any): void {
      
     this.partnerService.addBankAccount({...this.bankAccountForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
@@ -388,9 +406,26 @@ export class PartnerStepperComponent implements OnInit {
    })
   }
 
-  // Ajouter une adresse au partenaire
-  saveContact(i:any): void {
+  // Enregistrer dernier compte bancaire au partenaire 
+  saveBankAccount(i:any): void {
      
+    this.partnerService.addBankAccount({...this.bankAccountForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+     next: (res) => {
+      console.log('Item added successfully', res);
+      console.log('Form value', this.bankAccountForm.value.value[i]);
+       this.submitted = true;
+       this.bankAccountId=res.id
+     },
+     error: (e) => {
+       console.error('Error adding item', e);
+       console.log('partner details is invalid');
+       console.log(this.bankAccountForm.errors);
+     }
+   })
+  }
+
+  // Save previous contact and open a new contact form
+  saveAddContact(i:any): void {
     this.partnerService.addContact({...this.contactForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
@@ -420,6 +455,27 @@ export class PartnerStepperComponent implements OnInit {
    })
   }
 
+
+  // Enregistrer dernier contact au partenaire
+  saveContact(i:any): void {
+     
+    this.partnerService.addContact({...this.contactForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+     next: (res) => {
+      console.log('Item added successfully', res);
+      console.log('Form value', this.contactForm.value.value[i]);
+       this.submitted = true;
+       this.contactId=res.id
+       (this.contactForm.get('value.' + i) as FormGroup).reset();
+     },
+     error: (e) => {
+       console.error('Error adding item', e);
+       console.log('partner details is invalid');
+       console.log(this.partnerAddressForm.errors);
+     }
+   })
+  }
+
+  
   isAnyContactPrivileged(): boolean {
     const formArray = this.contactForm.get('value') as FormArray;
   

@@ -773,10 +773,10 @@
                                 </div>
                                 <div class="d-flex">
                                 <!--Contact privilégié-->
-                                <div fxFlex="50" class="pr-16" *ngIf="isAnyContactPrivileged()">
+                                <div fxFlex="50" class="pr-16">
                                   <label>
                                     Contact privilégié
-                                    <input type="checkbox" formControlName="privilegedContact">
+                                    <input type="checkbox" formControlName="privilegedContact" [disabled]="isAnyContactPrivileged(i)">
                                   </label>
                                 </div>
                                 <!--Prise de rendez-vous-->

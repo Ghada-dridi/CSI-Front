@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CompanyStatus, ControlType, Currency, LegalStatus, PaymentCondition, PaymentMode, WorkField } from 'app/shared/models/Partner';
@@ -476,20 +476,19 @@ export class PartnerStepperComponent implements OnInit {
   }
 
   
-  isAnyContactPrivileged(): boolean {
+  isAnyContactPrivileged(i): void {
     const formArray = this.contactForm.get('value') as FormArray;
+    const item = formArray.at(i) as FormGroup;
+    const privilegedContact = item.get('privilegedContact');
   
-    for (let i = 0; i < formArray.length; i++) {
-      const item = formArray.at(i) as FormGroup;
-      const privilegedContact = item.get('privilegedContact').value;
-  
-      if (privilegedContact) {
-        return false; // Found an item with privilegedContact = true
+    if (privilegedContact.value == true) {
+      for (let j = i + 1; j < formArray.length; j++) {
+      const item = formArray.at(j) as FormGroup;
+      item.get('privilegedContact').disable();
       }
     }
-  
-    return true; // All items have privilegedContact = false
   }
+  
 
   currencyMap: {[key: string]: string} = {
     'AFN': 'AFN - Afghani afghan',

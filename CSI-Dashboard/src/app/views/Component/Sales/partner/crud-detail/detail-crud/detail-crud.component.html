@@ -1,132 +1,168 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-     <div class="card-title-text"><mat-icon>
-      info_outline </mat-icon>Fiche partenaire <small>{{partner.ref}}  </small> <strong>{{partner.name}}</strong></div>
+     <div class="card-title-text"><mat-icon>info_outline </mat-icon>
+      Fiche partenaire <small>{{partner.ref}}  </small> <strong>{{partner.name}}</strong></div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
 
-    <mat-card class="p-0">
+    <mat-card class="partner-card">
+      <mat-card-content>
+        <div fxLayout="row" class="partner-info">
+
+            <div fxFlex="30%" class="partner-logo">
+              <img [src]="partner.logo" alt="Partner Logo">
+            </div>
+          
+            <div fxFlex="40%" class="partner-details">
+              <div class="main-title">Type partenariat: {{ companyStatusMap[partner.companyStatus] }}</div>
+              <div class="subtitle"><strong>Qualité:</strong> {{ partner.legalStatus }}</div>
+              <div class="subtitle"><strong>Identifiant juridique entreprise:</strong> {{ partner.legalIdentifier }}</div>
+              <div class="subtitle"><strong>Identifiant TVA:</strong> {{ partner.tvaIdentifier }}</div>
+              <div class="subtitle"><strong>Code Naf:</strong> {{ partner.nafCode }}</div>
+          </div>
+          
+         <!-- <div fxFlex="35%" class="partner-details">
+            <div class="main-title">Infos complémentaires</div>
+            <div class="subtitle"><strong>Police d'assurance :</strong> {{ partner.insurancePolicy }}</div>
+            <div class="subtitle"><strong>Compagnie d'assurance :</strong> {{ partner.insuranceCompany }}</div>
+            <div class="subtitle"><button mat-button (click)="openComment()"> <strong>Commentaire</strong></button></div>
+            <div class="subtitle"><strong>Code Naf:</strong> {{ partner.nafCode }}</div>
+        </div>-->
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+
+    
+
+
+  
+    <mat-card style="margin-top: 20px;margin-bottom: 20px;">
+      <mat-card-title class="">
+        <div class="card-title-text">Coordonnées partenaire</div>
+      </mat-card-title>
+      <mat-card-content >
+        <div class="coord-card1" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+          <mat-list fxFlex="50%" fxFlex.xs="100%">
+            <mat-list-item class="cc1-title">
+              <mat-icon color="primary" class="mr-16">phone</mat-icon>
+              <span style="font-weight: bold;color: rgb(134, 134, 139);">Fixe</span>
+            </mat-list-item>
+            <mat-list-item>{{ partner.phoneNumber }}</mat-list-item>
+          </mat-list>
+        
+          <mat-list fxFlex="50%" fxFlex.xs="100%">
+            <mat-list-item class="cc1-title">
+              <mat-icon color="primary" class="mr-16">smartphone</mat-icon>
+              <span  style="font-weight: bold;color: rgb(134, 134, 139);">Mobile</span>
+            </mat-list-item>
+            <mat-list-item>{{ partner.mobilePhoneNumber }}</mat-list-item>
+          </mat-list>
+        
+          <mat-list fxFlex="50%" fxFlex.xs="100%">
+            <mat-list-item class="cc1-title">
+              <mat-icon color="primary" class="mr-16">add_location</mat-icon>
+              <span  style="font-weight: bold;color: rgb(134, 134, 139);">Adresse</span>
+            </mat-list-item>
+            <mat-list-item>{{ partner.addresses[0].country }}, {{ partner.addresses[0].city }}</mat-list-item>
+          </mat-list>
+        
+          <mat-list fxFlex="50%" fxFlex.xs="100%">
+            <mat-list-item class="cc1-title">
+              <mat-icon color="primary" class="mr-16">email</mat-icon>
+              <span  style="font-weight: bold;color: rgb(134, 134, 139);">Email</span>
+            </mat-list-item>
+            <mat-list-item>{{ partner.email }}</mat-list-item>
+          </mat-list>
+        
+          <mat-list fxFlex="50%" fxFlex.xs="100%">
+            <mat-list-item class="cc1-title">
+              <mat-icon color="primary" class="mr-16">email</mat-icon>
+              <span  style="font-weight: bold;color: rgb(134, 134, 139);">Site Web</span>
+            </mat-list-item>
+            <mat-list-item>{{ partner.webSite }}</mat-list-item>
+          </mat-list>
+        </div>
+        
+      </mat-card-content>
+
+      <mat-card-title class="">
+        <div class="card-title-text">Infos complémentaires</div>
+      </mat-card-title>
+      <mat-card-content >
+        <div class="coord-card1" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+         
+            <mat-list fxFlex="50%" fxFlex.xs="100%">
+              <mat-list-item class="cc1-title">
+                <mat-icon color="primary" class="mr-16">assignment</mat-icon>
+                <span  style="font-weight: bold;color: rgb(134, 134, 139);">Police d'assurance : </span>
+              </mat-list-item>
+              <mat-list-item>{{ partner.insurancePolicy }}</mat-list-item>
+            </mat-list>
+
+            <mat-list fxFlex="50%" fxFlex.xs="100%">
+              <mat-list-item class="cc1-title">
+                <mat-icon color="primary" class="mr-16">business</mat-icon>
+                <span  style="font-weight: bold;color: rgb(134, 134, 139);">Compagnie d'assurance :</span>
+              </mat-list-item>
+              <mat-list-item>{{ partner.insuranceCompany }}</mat-list-item>
+            </mat-list>
+
+            <mat-list fxFlex="50%" fxFlex.xs="100%">
+              <button mat-button (click)="openComment()"> 
+              <mat-list-item class="cc1-title">
+                <mat-icon color="primary" class="mr-16">comment</mat-icon>
+                <span  style="font-weight: bold;color: rgb(134, 134, 139);">Commentaire</span>
+              </mat-list-item>
+              </button>
+            </mat-list>
+
+            <mat-list fxFlex="50%" fxFlex.xs="100%">
+              <button mat-button (click)="openDates()">
+                <mat-list-item class="cc1-title" >
+                  <mat-icon color="primary" class="mr-16">date_range</mat-icon>
+                  <span style="font-weight: bold; color: rgb(134, 134, 139);">Dates</span>
+                </mat-list-item>
+              </button>
+              
+            </mat-list>
+        </div>
+        
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card style="margin-top: 20px;margin-bottom: 20px;" class="p-0">
       <mat-card-title class="">
         <div class="card-title-text">Infos financières</div>
         <mat-divider></mat-divider>
       </mat-card-title>
       <mat-card-content >
-        <div style="padding-top:25px;">
-          <div fxFlex="30"> 
+        <div class="financial-nfo" >
+          <div fxFlex="25.5"> 
             <mat-list>
               <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{partner.currency}}</mat-list-item>
               <mat-list-item><mat-icon color="primary"  style="padding-right:10px;">compare_arrows</mat-icon><strong style="padding-right: 13px;">Mode de paiement :</strong> {{paymentModeMap[partner.paymentMode]}}</mat-list-item>
             </mat-list>
           </div>
           
-        <div fxFlex="45">
+        <div fxFlex="39">
             <mat-list>
               <mat-list-item><mat-icon color="primary" style="padding-right:10px;">payment</mat-icon><strong style="padding-right: 10px;">Condition de paiement :</strong> {{paymentConditionMap[partner.paymentCondition]}}</mat-list-item>
               <mat-list-item><mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}}</mat-list-item>
             </mat-list>
         </div>
-        <div fxFlex="25">
+        <div fxFlex="35.5">
           <mat-list>
             <mat-list-item><mat-icon color="primary" style="padding-right:10px;">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{partner.controlType}}</mat-list-item>
             <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}}</mat-list-item>
           </mat-list>
           </div>
         </div>
-
-        
-
       </mat-card-content>
-    </mat-card>
-   <!-- <div fxLayout="row " style="margin-right: 20px;">
-      <mat-card fxLayout = "row" fxFill class="p-0">
-        <mat-card-title class="">
-          <div class="card-title-text">Infos financières</div>
-          <mat-divider></mat-divider>
-        </mat-card-title>
-        
-        <mat-card-content>
+    </mat-card> 
 
-          <div fxFlex="33"> 
-            <div>Devise : {{partner.currency}}</div>
-            <div>Mode de paiement : {{partner.paymentMode}}</div>
-          </div>
-          <div fxFlex="33">
-            <div>
-              Condition de paiement : {{partner.paymentCondition}}
-            </div>
-            <div>En cours autorisé : {{partner.inProgressAuthorized}}</div>
-          </div>
-          <div fxFlex="33">
-            <div>Type de contrôle : {{partner.controlType}}</div>
-            <div>Capital : {{partner.capital}}</div>
-          </div>
-
-        </mat-card-content>
-      </mat-card>
-    </div>-->
-    <div fxLayout="row wrap">
-      <div fxFlex="100" fxFlex.gt-sm="28">
-        <mat-card class="p-0">
-          <mat-card-content>
-            <div class="propic text-center">
-              <img [src]= partner.logo alt="">
-            </div>
-            <div class="profile-title text-center mb-16">
-              <div class="main-title"><strong>Type partenariat : </strong>{{ companyStatusMap[partner.companyStatus] }}</div>
-              <div class="subtitle mb-8"><strong>Qualité : </strong>  {{ partner.legalStatus }}</div>
-              <div class="subtitle mb-8"><strong>Identifiant juridique entreprise : </strong>  {{ partner.legalIdentifier }}</div>
-              <div class="subtitle mb-8"><strong>Identifiant TVA : </strong>  {{ partner.tvaIdentifier }}</div>
-              <div class="subtitle mb-8"><strong>Code Naf : </strong>  {{ partner.nafCode }}</div>
-              <!--div class="text-muted">{{ partner.description }}</div-->
-            </div>
-            <!--div class="profile-actions mb-16" fxLayoutAlign="center center">
-              <button mat-raised-button color="primary">Message</button>
-              <span fxFlex="8px"></span>
-            </div-->
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div fxFlex="100" fxFlex.gt-sm="34">
-        <mat-card class="p-0">
-          <mat-card-title class="">
-            <div class="card-title-text">Coordonnées partenaire</div>
-            <mat-divider></mat-divider>
-          </mat-card-title>
-          <mat-card-content>
-            <mat-list>
-              <mat-list-item><mat-icon class="mr-16" color="primary">phone</mat-icon> + {{ partner.phoneNumber }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">smartphone</mat-icon> + {{ partner.mobilePhoneNumber }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">add_location</mat-icon> {{ partner.addresses[0].country }}, {{ partner.addresses[0].city }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">mail</mat-icon> {{ partner.email }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">website</mat-icon> {{ partner.webSite }}</mat-list-item>
-              <!--mat-list-item><mat-icon class="mr-16" color="primary">devices</mat-icon> <strong>Provenance :</strong> {{ provenanceMap[partner.provenance] }}</mat-list-item-->
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div fxFlex="100" fxFlex.gt-sm="38">
-        <mat-card class="p-0">
-          <mat-card-title class="">
-            <div class="card-title-text">Infos complémentaires</div>
-            <mat-divider></mat-divider>
-          </mat-card-title>
-          <mat-card-content>
-            <mat-list>
-              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date partenariat : </strong>  {{ formatDate(partner.partnerShipDate) }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date début activité : </strong> {{ formatDate(partner.activityStartDate) }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date fin activité : </strong> {{ formatDate(partner.activityEndDate) }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon> <strong>Date création de l'entreprise : </strong> {{ formatDate(partner.foundedSince) }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">assignment</mat-icon> <strong>Police d'assurance : </strong> {{ partner.insurancePolicy }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">business</mat-icon> <strong>Compagnie d'assurance : </strong> {{ partner.insuranceCompany }}</mat-list-item>
-              <mat-list-item><mat-icon class="mr-16" color="primary">comment</mat-icon> <strong>Commentaire : </strong> {{ partner.comment }}</mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
           <mat-accordion multi="false">
-            
               <mat-expansion-panel >
                 <mat-expansion-panel-header>
                   <mat-panel-title>

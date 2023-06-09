@@ -23,10 +23,13 @@ import { offeredService } from 'app/shared/models/offeredService';
 import { AccountPopComponent } from '../../account-pop/account-pop.component';
 import { BankAccount } from 'app/shared/models/BankAccount';
 import { DatePipe } from '@angular/common';
+import { DatesPopupComponent } from './dates-popup/dates-popup.component';
+import { CommentPopupComponent } from './comment-popup/comment-popup.component';
 
 @Component({
   selector: 'app-detail-crud',
-  templateUrl: './detail-crud.component.html'
+  templateUrl: './detail-crud.component.html',
+  styleUrls: ['./detail-crud.component.scss'],
 })
 export class DetailCrudComponent implements OnInit {
 id: number
@@ -56,7 +59,7 @@ public accounts: BankAccount[]
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private loader: AppLoaderService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
     ) { 
       this.dataSource = new MatTableDataSource<contact>([]);
       this.dataSource1 = new MatTableDataSource<socialMedia>([]);
@@ -516,7 +519,25 @@ public accounts: BankAccount[]
           }
 
           formatDate(date: string): string {
+
             return this.datePipe.transform(date, 'dd-MM-yyyy');
+
+          }
+
+
+          openComment() {
+            this.dialog.open(CommentPopupComponent, {
+              data: {comment: this.partner.comment
+              },
+            });
+          }
+          openDates() {
+            this.dialog.open(DatesPopupComponent, {
+              data: { startDate: this.partner.activityStartDate ,partnershipDate: this.partner.partnerShipDate,
+                endDate : this.partner.activityEndDate, foundingDate: this.partner.foundedSince,
+                
+              },
+            });
           }
 }
 

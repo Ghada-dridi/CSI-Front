@@ -44,6 +44,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DatesPopupComponent } from './crud-detail/detail-crud/dates-popup/dates-popup.component';
+import { CommentPopupComponent } from './crud-detail/detail-crud/comment-popup/comment-popup.component';
 
 
 
@@ -85,7 +87,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent, PartnerStepperComponent],
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent, PartnerStepperComponent,DatesPopupComponent,CommentPopupComponent],
   providers: [ContactService, CrudPartnerService, DatePipe] 
 })
 export class PartnerModule { }

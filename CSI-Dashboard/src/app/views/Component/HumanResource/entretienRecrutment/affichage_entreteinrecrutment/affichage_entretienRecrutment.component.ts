@@ -192,6 +192,7 @@ export class entretienRecrutmentComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.getEmployee();
     this.getInterviews();
+    this.getEvaluation();
     this.getCategoryTypes();
     console.log(this.selectedInterviewId);
   }
@@ -221,6 +222,13 @@ export class entretienRecrutmentComponent implements OnInit {
       });
   }
   
+
+  getEvaluation() {
+    this.service.getEvaluation(this.id).subscribe((data: any) => {
+      this.evaluation = data;
+    });
+    console.log(this.evaluation);
+  }
 
   getEmployee() {
     this.service.getEmployeeById(this.id).subscribe((data: any) => {

@@ -10,16 +10,8 @@
         </div>
       </div>
       <div fxFlex="30">
-        <apx-chart
-        [series]="welcomeProgressChart.series"
-        [chart]="welcomeProgressChart.chartOptions.chart"
-        [grid]="welcomeProgressChart.chartOptions.grid"
-        [plotOptions]="welcomeProgressChart.chartOptions.plotOptions"
-        [labels]="welcomeProgressChart.chartOptions.labels"
-        [dataLabels]="studyChart.chartOptions.dataLabels"
-        [xaxis]="studyChart.chartOptions.xaxis"
-        [yaxis]="studyChart.chartOptions.yaxis"
-        ></apx-chart>
+        <app-half-circle-dashboard [globalAppreciation]="evaluation.globalAppreciation"></app-half-circle-dashboard>
+
       </div>
     </div>
 

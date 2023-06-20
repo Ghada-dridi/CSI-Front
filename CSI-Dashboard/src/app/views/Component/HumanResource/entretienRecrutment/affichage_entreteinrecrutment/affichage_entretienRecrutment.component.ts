@@ -15,8 +15,10 @@ import { EMPTY, Observable, catchError, forkJoin, map } from 'rxjs';
 import { InterviewDetailsDialogComponent } from './interviewDetails/interviewDetails-popup.component';
 import { UpdatedQuestion } from 'app/shared/models/UpdtaedQuestion';
 import { addAdminstrativeDataComponent } from './add-AdsministrativeData-popup/addAdministartiveData-popup.component';
-
+import { Location } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 import { Evaluation } from 'app/shared/models/Evaluation';
+import { ViewAdministrativeDataComponent } from './viewAdministartiveData/viewAdministrativeData.component';
 
 @Component({
   selector: 'app-candidat-crud',
@@ -42,6 +44,7 @@ export class entretienRecrutmentComponent implements OnInit {
   isCheckDisabled: boolean = true;
   sliderValue: number = 0;
   globalAppreciation: number;
+ hasAdministrativeData: boolean;
 
 
   //Global appreciation chart 
@@ -195,6 +198,7 @@ export class entretienRecrutmentComponent implements OnInit {
     this.getEvaluation();
     this.getCategoryTypes();
     console.log(this.selectedInterviewId);
+    this.checkAdministrativeData();
   }
   initUpdatedQuestionForm() {
     this.updatedQuestionForm = this.FormBuilder.group({
@@ -215,14 +219,30 @@ export class entretienRecrutmentComponent implements OnInit {
     .then((response: any) => {
       console.log('Response:', response);
       this.globalAppreciation = parseFloat(response.result);
+      this.refreshPage();
     })
       .catch((error: any) => {
         console.error('Error calculating global appreciation:', error);
         // Handle the error and display an appropriate message
       });
   }
+  checkAdministrativeData() {
+    this.service.checkAdministrativeData(this.id)
+      .subscribe(
+        result => {
+          this.hasAdministrativeData = result;
+          console.log(this.hasAdministrativeData);
+        },
+        error => {
+          console.log('Error checking administrative data:', error);
+        }
+      );
+  }
   
-
+  refreshPage(): void {
+    location.reload();
+  }
+  
   getEvaluation() {
     this.service.getEvaluation(this.id).subscribe((data: any) => {
       this.evaluation = data;
@@ -255,6 +275,7 @@ export class entretienRecrutmentComponent implements OnInit {
       (updatedQuestions: UpdatedQuestion[]) => {
         // Process the retrieved UpdatedQuestion array
         this.updatedQuestion = updatedQuestions;
+        
       },
       (error) => {
         console.error('Failed to retrieve updated questions for interview', error);
@@ -289,7 +310,7 @@ export class entretienRecrutmentComponent implements OnInit {
         this.service.addInterview({...res,evaluationNum:this.id}).subscribe(
           (response) => {
             console.log('Item updated successfully', response);
-            this.snack.open('Compte bancaire modifié avec succès!', 'OK', { duration: 2000 });
+            this.refreshPage();       
             this.getInterviews();
           },
           (error) => {
@@ -328,7 +349,7 @@ export class entretienRecrutmentComponent implements OnInit {
   
       dialogRef.componentInstance.questionnaireAdded.subscribe((emittedInterviewId: number) => {
           dialogRef.close({ interviewId: interviewId });
-        
+          this.refreshPage();
       });
   
       dialogRef.afterClosed().subscribe((result: any) => {
@@ -336,35 +357,50 @@ export class entretienRecrutmentComponent implements OnInit {
         if (result) {
           this.selectedInterviewId = result.interviewId;
           console.log(this.selectedInterviewId);
+          this.refreshPage();
         }
       });
     });
   }
- openPopupAdministrativeData(id:number,data: any, isNew?){
-  let title = isNew ? 'Nouveau entretien' : 'Modifier entretien';
-  console.log(id);
-
-  const dialogRef: MatDialogRef<any> = this.dialog.open(addAdminstrativeDataComponent, {
-    disableClose: true,
-    data: { title: title, payload: data, evaluationNum: this.id }
-  });
-
-  dialogRef.afterClosed().subscribe(res => {
-    if (res) {
-      this.service.addAdminstrativeData({...res,employeeNum:id}).subscribe(
-        (response) => {
-          console.log('Item updated successfully', response);
-          this.snack.open('Compte bancaire modifié avec succès!', 'OK', { duration: 2000 });
-          this.getInterviews();
-        },
-        (error) => {
-          console.error('Error adding item', error);
-          this.snack.open('Une erreur est survenue lors de la modification du compte bancaire.', 'OK', { duration: 2000 });
+  openPopupAdministrativeData(id: number, data: any, isNew?: boolean) {
+    let title = isNew ? 'Données administratives' : 'Données administratives';
+    console.log(id);
+  
+    if (this.hasAdministrativeData) {
+      // Open the popup for viewing administrative data
+      const dialogRef: MatDialogRef<any> = this.dialog.open(ViewAdministrativeDataComponent, {
+        disableClose: true,
+        data: { employeeId: id, title: title, payload: data, evaluationNum: this.id }
+      });
+  
+      dialogRef.afterClosed().subscribe(res => {
+        // Handle any necessary logic after closing the dialog
+      });
+    } else {
+      // Open the popup for adding administrative data
+      const dialogRef: MatDialogRef<any> = this.dialog.open(addAdminstrativeDataComponent, {
+        disableClose: true,
+        data: { title: title, payload: data, evaluationNum: this.id }
+      });
+  
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.service.addAdminstrativeData({...res, employeeNum: id}).subscribe(
+            (response) => {
+              console.log('Item added successfully', response);
+             this.refreshPage();
+            },
+            (error) => {
+              console.error('Error adding item', error);
+              this.snack.open('Une erreur est survenue lors de l\'ajout du compte administratif.', 'OK', { duration: 2000 });
+            }
+          );
         }
-      );
+      });
     }
-  });
-}
+  }
+  
+  
   getCategoryTypes(): Observable<any> {
     return forkJoin([
       this.service.getAllQuestiontypes(),

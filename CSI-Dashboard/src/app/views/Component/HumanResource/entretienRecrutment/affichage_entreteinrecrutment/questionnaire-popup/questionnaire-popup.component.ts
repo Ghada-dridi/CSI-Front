@@ -59,7 +59,9 @@ export class questionnairePopupComponent {
   ngOnInit() {
     this.getCategoryTypes();
   }
-
+  refreshPage(): void {
+    location.reload();
+  }
   getCategoryTypes() {
     this.service.getAllQuestiontypes().subscribe(
       (questionTypes: QuestionType[]) => {
@@ -138,6 +140,7 @@ export class questionnairePopupComponent {
     console.log(questionnaire)
     // Call the addQuestionnaire() method
     this.addQuestionnaire(questionnaire);
+    this.refreshPage();
   }
   
   createUpdatedQuestionsFromQuestions(questionStrings: string[], interviewId: number): void {

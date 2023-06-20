@@ -18,7 +18,11 @@
     <!-- Buttons to add interview and administrative data -->
     <div>
       <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary" (click)="openPopUpEntretien({}, true)">Ajouter un entretien</button>
-      <button (click)="calculateGlobalAppreciation()">Calculate Global Appreciation</button>
+      <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary" (click)="openPopupAdministrativeData(employee.id, {}, !hasAdministrativeData)">
+        {{ hasAdministrativeData ? 'Voir les informations administratives' : 'Ajouter des informations administratives' }}
+      </button>
+      
+      <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary"  (click)="calculateGlobalAppreciation()">Calculate Global Appreciation</button>
 
     </div>
   </mat-card>

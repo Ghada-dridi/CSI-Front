@@ -16,6 +16,7 @@ import { QuestionCategory } from 'app/shared/models/QuestionCategory';
 import { Question } from 'app/shared/models/Question';
 import { ExperienceLevel } from 'app/shared/models/AssOfferCandidate';
 import { UpdatedQuestion } from 'app/shared/models/UpdtaedQuestion';
+import { AdministrativeData } from 'app/shared/models/AdministrativeData';
 
 @Injectable()
 export class entretienRecrutmentService {
@@ -28,7 +29,7 @@ export class entretienRecrutmentService {
   private apiAdministrativeData = 'http://localhost:8080/rh/administrativeData';
 
 
-
+  private hasAdministrativeData: boolean;
   private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
   constructor(private http: HttpClient) {}
@@ -151,7 +152,17 @@ addAdminstrativeData(candidate: any): Observable<any> {
     catchError(this.handleError)
   );
 }
-
+checkAdministrativeData(id:number): Observable<boolean> {
+  const url = `${this.apiUrl}/${id}/hasAdministrativeData`;
+  return this.http.get<boolean>(url) ;
+ 
+}
+getAdministrativeDataById(id: number): Observable<AdministrativeData> {
+  const url = `${this.apiUrl+ '/get'}/${id}`+ '/administrativeData';
+  return this.http.get<AdministrativeData>(url).pipe(
+    catchError(this.handleError)
+  );
+}
  // GET an item by id
  getItem(id: number): Observable<Employee> {
   const url = `${this.apiUrl+ '/get'}/${id}`;

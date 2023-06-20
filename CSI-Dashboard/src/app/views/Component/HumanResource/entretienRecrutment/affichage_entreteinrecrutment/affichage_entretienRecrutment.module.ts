@@ -34,6 +34,7 @@ import { addAdminstrativeDataComponent } from './add-AdsministrativeData-popup/a
 import { MatSliderModule } from '@angular/material/slider';
 import { HalfCircleDashboardComponent } from './GlobalAppDash/globalAppDash.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ViewAdministrativeDataComponent } from './viewAdministartiveData/viewAdministrativeData.component';
 
 
 @NgModule({
@@ -77,6 +78,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
     entretienRecrutmentComponent,questionnairePopupComponent,ajoutEntretienPopupComponent,InterviewDetailsDialogComponent,
-    addAdminstrativeDataComponent,HalfCircleDashboardComponent]
+    addAdminstrativeDataComponent,ViewAdministrativeDataComponent,HalfCircleDashboardComponent]
 })
 export class EntretienRecrutmentModule { }

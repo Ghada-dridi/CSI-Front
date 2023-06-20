@@ -20,8 +20,13 @@ export class addAddressComponent implements OnInit {
   ) { }
   buildItemForm(item){
     this.itemForm = this.fb.group({
-      addressTitle : [item.addressTitle || '', Validators.required],
+      type : [item.type || '', Validators.required],
+      num : [item.num || '', Validators.required],
       street : [item.street || '', Validators.required], 
+      postalCode : [item.postalCode || '', Validators.required],
+      city : [item.city || '', Validators.required],
+      region : [item.region || '', Validators.required],
+      country : [item.country || '', Validators.required],
       partnerNum: [this.data.partnerId, Validators.required]
      })}
     ngOnInit(): void {
@@ -29,6 +34,7 @@ export class addAddressComponent implements OnInit {
         this.buildItemForm(this.data.payload)
     }
     submit() {
+        console.log(this.itemForm.value)
         this.dialogRef.close(this.itemForm.value)
         this.crudPartnerService.getItemAddresses(this.partnerId)
       }

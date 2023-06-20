@@ -16,8 +16,8 @@
               </div-->
               <div class="profile-title text-center mb-16">
                 <div class="main-title">{{ CivilityMap[contact.civility] }} <strong>{{ contact.lastName.toUpperCase()}} {{ contact.firstName}} </strong></div> <br>
-                <div> <mat-list-item><mat-icon class="mr-16">localisation_on</mat-icon> {{ contact.localisation }}</mat-list-item></div>
-               <div> <mat-list-item><mat-icon class="mr-16">comment</mat-icon> {{ contact.comment }}</mat-list-item></div>
+                <div> <mat-list-item><mat-icon class="mr-16" color="primary">localisation_on</mat-icon> {{ contact.localisation }}</mat-list-item></div>
+               <div> <mat-list-item><mat-icon class="mr-16" color="primary">comment</mat-icon> {{ contact.comment }}</mat-list-item></div>
                 <!--<div class="subtitle mb-8"><strong>name: </strong>  {{ partner.ceoName }}</div>-->
                 <!--div class="text-muted">{{ contact.comment }}</div-->
               </div>
@@ -36,10 +36,9 @@
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{ contact.phoneNumberOne }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{ contact.phoneNumberTwo }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ contact.emailOne }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ contact.emailTwo }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">smartphone</mat-icon> {{ contact.mobilePhoneNumber }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">phone</mat-icon> {{ contact.phoneNumber }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">mail</mat-icon> {{ contact.email }}</mat-list-item>
                 <!--mat-list-item><mat-icon class="mr-16">devices</mat-icon> <strong>Provenance:</strong> {{ partner.provenance }}</mat-list-item-->
               </mat-list>
             </mat-card-content>
@@ -53,10 +52,11 @@
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon class="mr-16">work</mat-icon> Société/Groupe : <strong>  {{ contact.societe }} </strong></mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">work</mat-icon> Service : <strong> {{ contact.service }} </strong></mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">work</mat-icon> Fonction : <strong> {{ contact.function }} </strong></mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">star_half</mat-icon> Classification : <strong>  {{PrivilegeMap[contact.privilege]}} </strong></mat-list-item>
+                <mat-list-item *ngIf="partnerContact()"><mat-icon class="mr-16" color="primary">business</mat-icon> Société/Groupe : <strong>  {{ contact.company }} </strong></mat-list-item>
+                <mat-list-item *ngIf ="!partnerContact()"><mat-icon class="mr-16" color="primary">business</mat-icon> Partenaire : <strong>  {{ partner.name }} </strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">work</mat-icon> Service : <strong> {{ contact.service }} </strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">work</mat-icon> Fonction : <strong> {{ contact.function }} </strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16"color="primary">star_half</mat-icon> Classification : <strong>  {{PrivilegeMap[contact.privilege]}} </strong></mat-list-item>
               </mat-list>
             </mat-card-content>
           </mat-card>

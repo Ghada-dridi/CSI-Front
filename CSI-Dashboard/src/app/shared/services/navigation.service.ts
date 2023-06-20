@@ -85,11 +85,12 @@ export class NavigationService {
       sub: [
         { name: 'Contact', state: 'contact/contact-list' },
         { name: 'Rendez-vous', state: 'rendezVous/rendezVous' },
-        { name:  'Partenaires', state: 'partner/partner-crud'},
-        { name: 'Contrats', state: 'shop' },
+        { name: 'Partenaires', state: 'partner/partner-crud'},
+        { name: 'Contrats clients', state: 'contract/liste-client-contracts' },
+        { name: 'Avenants clients', state: 'endorsement/endorsement-crud' },
         { name: 'Prestation', state: 'benefit/benefit-list' },
-        { name:  'Besoin', state: 'requirement/requirement-crud'},
-        { name: 'Vente & Commande', state: 'shop/cart' },
+        { name: 'Opportunités', state: 'requirement/requirement-crud'},
+        { name: 'Devis & Commandes', state: 'shop/cart' },
         { name: 'Rapports', state: 'shop/checkout' }
       ]
     },

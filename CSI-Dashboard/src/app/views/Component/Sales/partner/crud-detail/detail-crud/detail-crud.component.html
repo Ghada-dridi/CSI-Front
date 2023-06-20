@@ -14,7 +14,7 @@
               <img [src]="partner.logo" alt="Partner Logo">
             </div>
           
-            <div fxFlex="40%" class="partner-details">
+            <div fxFlex="50%" class="partner-details">
               <div class="main-title">Type partenariat: {{ companyStatusMap[partner.companyStatus] }}</div>
               <div class="subtitle"><strong>Qualité:</strong> {{ partner.legalStatus }}</div>
               <div class="subtitle"><strong>Identifiant juridique entreprise:</strong> {{ partner.legalIdentifier }}</div>
@@ -78,7 +78,7 @@
         
           <mat-list fxFlex="50%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
-              <mat-icon color="primary" class="mr-16">email</mat-icon>
+              <mat-icon color="primary" class="mr-16">public</mat-icon>
               <span  style="font-weight: bold;color: rgb(134, 134, 139);">Site Web</span>
             </mat-list-item>
             <mat-list-item>{{ partner.webSite }}</mat-list-item>
@@ -139,23 +139,23 @@
       </mat-card-title>
       <mat-card-content >
         <div class="financial-nfo" >
-          <div fxFlex="25.5"> 
+          <div fxFlex="24"> 
             <mat-list>
-              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{partner.currency}}</mat-list-item>
+              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{ currencyMap[partner.currency] }}</mat-list-item>
               <mat-list-item><mat-icon color="primary"  style="padding-right:10px;">compare_arrows</mat-icon><strong style="padding-right: 13px;">Mode de paiement :</strong> {{paymentModeMap[partner.paymentMode]}}</mat-list-item>
             </mat-list>
           </div>
           
-        <div fxFlex="39">
+        <div fxFlex="38">
             <mat-list>
               <mat-list-item><mat-icon color="primary" style="padding-right:10px;">payment</mat-icon><strong style="padding-right: 10px;">Condition de paiement :</strong> {{paymentConditionMap[partner.paymentCondition]}}</mat-list-item>
-              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}}</mat-list-item>
+              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}} {{partner.currency}}</mat-list-item>
             </mat-list>
         </div>
-        <div fxFlex="35.5">
+        <div fxFlex="38">
           <mat-list>
-            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{partner.controlType}}</mat-list-item>
-            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}}</mat-list-item>
+            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{controlTypeMap[partner.controlType]}}</mat-list-item>
+            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}} {{partner.currency}}</mat-list-item>
           </mat-list>
           </div>
         </div>
@@ -192,7 +192,8 @@
                         <small>
                           {{address.num}} 
                           {{address.street}}, 
-                          {{address.city}}, 
+                          {{address.city}} 
+                          {{address.postalCode}},
                           {{address.region}}, 
                           {{address.country}}
                         </small>
@@ -361,7 +362,7 @@
               
               </mat-expansion-panel>
                 
-              <!--Besoins here-->
+              <!--Opportunités here-->
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>

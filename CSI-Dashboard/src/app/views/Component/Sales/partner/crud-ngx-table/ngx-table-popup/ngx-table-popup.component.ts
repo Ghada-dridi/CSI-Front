@@ -58,6 +58,10 @@ export class NgxTablePopupComponent implements OnInit {
 
 
   buildItemForm(item){
+    //this.notProspectPartner()
+    const companyStatus = Object.values(CompanyStatus).filter(status => {
+      return !(item.companyStatus && item.companyStatus !== CompanyStatus.PROSPECT && status === CompanyStatus.PROSPECT);
+    });
     this.itemForm = this.fb.group({
       name : [item.name || '', Validators.required],
       ref : [item.ref || '', Validators.required], 
@@ -99,7 +103,7 @@ export class NgxTablePopupComponent implements OnInit {
       //workField : [item.workField || '', Validators.required],
       //provenance : [item.provenance || '', Validators.required],
     });
-
+    this.CompanyStatus = companyStatus;
   }
 
   
@@ -115,13 +119,7 @@ export class NgxTablePopupComponent implements OnInit {
     this.itemForm.get('currency').valueChanges.subscribe((value) => {
     this.selectedCurrency = value;
   });
-    /*this.itemForm.get("country").valueChanges.subscribe((country) => {
-      this.itemForm.get("city").reset();
-      if (country) {
-        this.states = this.crudService.getStatesByCountry(country);
-   
-      }
-    });*/
+    
   }
 
   submit() {
@@ -129,6 +127,12 @@ export class NgxTablePopupComponent implements OnInit {
     this.dialogRef.close(this.itemForm.value)
 
 
+  }
+
+  notProspectPartner(){
+    if(this.data.payload.companyStatus && this.data.payload.companyStatus != CompanyStatus.PROSPECT){
+      this.CompanyStatus.filter(status => status !== CompanyStatus.PROSPECT);
+    }
   }
 
   onCountryChange(countryShotName: string) {

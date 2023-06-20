@@ -1,66 +1,83 @@
 <mat-card class="p-0">
     <mat-card-title class="">
-       <div class="card-title-text"><mat-icon>
-        info_outline </mat-icon>Informations générales</div>
+       <div class="card-title-text">
+          <mat-icon>
+            info_outline
+          </mat-icon>
+          <strong>{{ req.title }}</strong>
+        </div>
       <mat-divider></mat-divider>
     </mat-card-title>
     <mat-card-content>
       <div fxLayout="row wrap">
-        <div fxFlex="100" fxFlex.gt-sm="45">
+        <div fxFlex="100" fxFlex.gt-sm="33">
           <mat-card class="p-0">
+            <mat-card-title class="">
+              <div class="card-title-text">Informations générales</div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
             <mat-card-content>
               <!--div class="propic text-center">
                 <img src="assets/images/sq-face-220.jpg" alt="">
               </div-->
-              <div class="profile-title text-center mb-16">
-                <div class="main-title">{{ req.title }}</div>
-                <div class="subtitle mb-8"><strong>Partenaire:</strong> {{ req.partner }}</div>
-                <div class="subtitle mb-8"><strong>Société:</strong> {{ req.company }}</div>
-                <div class="subtitle mb-8"><strong>Secteur d'activité:</strong> {{ workFieldMap[req.workField] }}</div>
-                <div class="subtitle mb-8"><strong>Etat besoin:</strong> {{ reqStatusMap[req.requirementStatus] }}</div>
-                <div class="subtitle mb-8"><strong>Type besoin:</strong> {{ reqTypeMap[req.requirementType] }}</div>
-                <!--div class="text-muted">{{ contact.comment }}</div-->
-              </div>
-              <!--div class="profile-actions mb-16" fxLayoutAlign="center center">
-                <button mat-raised-button color="primary">Mail</button>
-                <span fxFlex="8px"></span>
-              </div-->
+              <mat-list>
+                <div *ngIf = "partnerReq()">
+                  <mat-list-item><mat-icon class="mr-16" color="primary">business</mat-icon>
+                    Partenaire : <strong>{{ partner.name }}</strong> 
+                  </mat-list-item>
+                </div>
+                <div *ngIf = "!partnerReq()">
+                  <mat-list-item>
+                    <mat-icon class="mr-16" color="primary">business</mat-icon>
+                    Société : <strong>{{ req.company }}</strong>
+                  </mat-list-item>
+                </div>
+                <mat-list-item>
+                  <mat-icon class="mr-16" color="primary">work</mat-icon>
+                  Secteur d'activité : <strong>{{ workFieldMap[req.workField] }}</strong> 
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon class="mr-16" color="primary">timeline</mat-icon>
+                  Etat opportunité : <strong>{{ reqStatusMap[req.requirementStatus] }}</strong> 
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon class="mr-16" color="primary">category</mat-icon>
+                  Type : <strong>{{ reqTypeMap[req.requirementType] }}</strong> 
+                </mat-list-item>
+              </mat-list>
             </mat-card-content>
           </mat-card>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="45">
+        <div fxFlex="100" fxFlex.gt-sm="33">
           <mat-card class="p-0">
             <mat-card-title class="">
-              <div class="card-title-text">Détails Besoin</div>
+              <div class="card-title-text" style = "text-align:center">Détails opportunité</div>
               <mat-divider></mat-divider>
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon class="mr-16">rule</mat-icon> {{ req.criteria }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">description</mat-icon> {{ req.description }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ availabilityMap[req.availability] }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.totalCandidateNumber }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.plannedBudget }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">mail</mat-icon> {{ req.plannedIncome }}</mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">rule</mat-icon> Critère : <strong>{{ req.criteria }}</strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">description</mat-icon> Description : <strong>{{ req.description }}</strong></mat-list-item>
+                <!--mat-list-item><mat-icon class="mr-16" color="primary">schedule</mat-icon> Disponibilité : <strong>{{ availabilityMap[req.availability] }}</strong></mat-list-item-->
+                <mat-list-item><mat-icon class="mr-16" color="primary">people</mat-icon> Total des candidats : <strong>{{ req.totalCandidateNumber }}</strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">attach_money</mat-icon> Budget planifié : <strong>{{ req.plannedBudget }}</strong></mat-list-item>
+                <!--mat-list-item><mat-icon class="mr-16" color="primary">mail</mat-icon> {{ req.plannedIncome }}</mat-list-item-->
                 <!--mat-list-item><mat-icon class="mr-16">devices</mat-icon> <strong>Provenance:</strong> {{ partner.provenance }}</mat-list-item-->
               </mat-list>
             </mat-card-content>
           </mat-card>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="60">
+        <div fxFlex="100" fxFlex.gt-sm="34">
           <mat-card class="p-0">
             <mat-card-title class="">
-              <div class="card-title-text">Dates</div>
+              <div class="card-title-text" style = "text-align:center">Dates</div>
               <mat-divider></mat-divider>
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon class="mr-16">portrait</mat-icon> <strong>Date réponse: </strong> {{ req.responseDate }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">star_half</mat-icon> <strong>Date début: </strong>  {{ req.startDate }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Date de fin prévu: </strong> {{ req.expectedEndDate }}</mat-list-item>
-                <!--mat-list-item><mat-icon class="mr-16">comment</mat-icon>  <strong>Commentaire:</strong>{{ req.comment }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">work</mat-icon> <strong>Work Field:</strong> {{ partner.workField }}</mat-list-item>
-                <mat-list-item><mat-icon class="mr-16">group_add</mat-icon> <strong>Staff Number:</strong> {{ partner.staffNumber }}</mat-list-item-->
+                <mat-list-item><mat-icon class="mr-16" color="primary">event</mat-icon>Date réponse : <strong>{{ req.responseDate }}</strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">calendar_today</mat-icon>Date début : <strong>{{ req.startDate }}</strong></mat-list-item>
+                <mat-list-item><mat-icon class="mr-16" color="primary">date_range</mat-icon>Date de fin prévu : <strong>{{ req.expectedEndDate }}</strong></mat-list-item>
               </mat-list>
             </mat-card-content>
           </mat-card>

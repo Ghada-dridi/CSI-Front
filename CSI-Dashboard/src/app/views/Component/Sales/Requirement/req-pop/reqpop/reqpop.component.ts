@@ -4,6 +4,7 @@ import {  Validators,  FormGroup, FormBuilder } from '@angular/forms';
 import { Availability,WorkField,RequirementStatus,RequirementType} from 'app/shared/models/req';
 import { Partner } from 'app/shared/models/Partner';
 import { CrudPartnerService } from '../../../partner/crudPartner.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reqpop',
@@ -11,11 +12,17 @@ import { CrudPartnerService } from '../../../partner/crudPartner.service';
   
 })
 export class ReqpopComponent implements OnInit {
+  showDiv = false; 
+  toggleDiv() {
+    this.showDiv = !this.showDiv;
+  }
+
+  isNew: boolean
 
   public itemForm: FormGroup;
   Availability = Object.values(Availability);
   WorkField :string []= Object.values(WorkField);
-  RequirementStatus = Object.values(RequirementStatus);
+  RequirementStatus: string [] = Object.values(RequirementStatus);
   RequirementType = Object.values(RequirementType);
   listpartner : Partner [] =[];
   private partnerId : number
@@ -24,8 +31,8 @@ export class ReqpopComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ReqpopComponent>,
-    private fb: FormBuilder, private CrudService:CrudPartnerService
-
+    private fb: FormBuilder, private CrudService:CrudPartnerService,
+    //private datePipe: DatePipe
   ) { }
 
 
@@ -62,14 +69,31 @@ this.CrudService.getItems().subscribe((data :any )=>{
 
   ngOnInit() {
     this.buildItemForm(this.data.payload)
-     this.getpartnern()
-
+    this.getpartnern()
+    console.log(this.data.isNew)
+    console.log(this.data.payload)
+    this.isNew = this.data.isNew 
   }
 
   submit() {
-    
+    console.log((this.itemForm.value))
     this.dialogRef.close(this.itemForm.value)
   }
+
+  /*get responseDate() {
+    const value = this.itemForm.get('responseDate').value;
+    return this.datePipe.transform(value, 'yy/MM/dd');
+  }
+  
+  get startDate() {
+    const value = this.itemForm.get('startDate').value;
+    return this.datePipe.transform(value, 'yy/MM/dd');
+  }
+  
+  get expectedEndDate() {
+    const value = this.itemForm.get('expectedEndDate').value;
+    return this.datePipe.transform(value, 'yy/MM/dd');
+  }*/
 
   workFieldMap = {
     [WorkField.IT]:'IT',
@@ -85,16 +109,23 @@ this.CrudService.getItems().subscribe((data :any )=>{
   reqTypeMap = {
     [RequirementType.MANAGEMENT]:'Management',
     [RequirementType.RECRUITMENT]:'Recrutement',
-    [RequirementType.INTERN_PROJECT] :'Projet interne',
-    [RequirementType.PRODUCT]: 'Produit'
+    [RequirementType.INTERN_PROJECT] :'Projet interne'
   };
 
   reqStatusMap = {
+    [RequirementStatus.IN_PROGRESS] :'En progrès',
     [RequirementStatus.POSITIONED]:'Positionné',
     [RequirementStatus.WON]:'Gagné',
     [RequirementStatus.LOST] :'Perdu',
     [RequirementStatus.ABANDONED] :'Abandonné',
-    [RequirementStatus.IN_PROGRESS] :'En cours',
+  };
+
+  inverseReqStatusMap = {
+    ['En progrès'] :RequirementStatus.IN_PROGRESS,
+    ['Positionné']:RequirementStatus.POSITIONED,
+    ['Gagné']:RequirementStatus.WON,
+    ['Perdu'] :RequirementStatus.LOST,
+    ['Abandonné'] :RequirementStatus.ABANDONED,
   };
 
   availabilityMap = {

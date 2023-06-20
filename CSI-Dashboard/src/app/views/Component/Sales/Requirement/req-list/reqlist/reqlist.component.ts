@@ -76,12 +76,12 @@ export class ReqlistComponent implements OnInit , OnDestroy {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('Suppression besoin en cours');
+          this.loader.open('Suppression opportunité en cours');
           this.ReqService.deleteItem(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Besoin supprimé !', 'OK', { duration: 2000 });
+              this.snack.open('Opportunité supprimée !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -94,11 +94,12 @@ export class ReqlistComponent implements OnInit , OnDestroy {
  }
 
  openPopUp(data:  any , isNew?) {
-  let title = isNew ? 'Ajouter besoin' : 'Mettre à jour besoin';
+  let title = isNew ? 'Ajouter opportunité' : 'Mettre à jour opportunité';
   let dialogRef: MatDialogRef<any> = this.dialog.open(ReqpopComponent, {
+    height: '620px',
     width: '720px',
     disableClose: true,
-    data: { title: title, payload: data }
+    data: { title: title, payload: data , isNew: isNew}
   })
   dialogRef.afterClosed()
     .subscribe(res => {
@@ -107,21 +108,21 @@ export class ReqlistComponent implements OnInit , OnDestroy {
         return;
       }
       if (isNew) {
-        this.loader.open('Ajout besoin en cours');
+        this.loader.open('Ajout opportunité en cours');
         this.ReqService.addReq(res)
           .subscribe((data :any)=> {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Besoin ajouté avec succès !', 'OK', { duration: 2000 });
+            this.snack.open('Opportunité ajoutée avec succès !', 'OK', { duration: 2000 });
             this.getItems();
           })
       } else {
-        this.loader.open('Mise à jour besoin');
+        this.loader.open('Mise à jour opportunité');
         this.ReqService.updateReq(data.id, res)
           .subscribe((data:any) => {
             this.dataSource = data ;
             this.loader.close();
-            this.snack.open('Besoin mis à jour !', 'OK', { duration: 2000 });
+            this.snack.open('Opportunité mise à jour !', 'OK', { duration: 2000 });
             this.getItems();
           })
       }
@@ -153,8 +154,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   reqTypeMap = {
     [RequirementType.MANAGEMENT]:'Management',
     [RequirementType.RECRUITMENT]:'Recrutement',
-    [RequirementType.INTERN_PROJECT] :'Projet interne',
-    [RequirementType.PRODUCT]: 'Produit'
+    [RequirementType.INTERN_PROJECT] :'Projet interne'
   };
 
   reqStatusMap = {

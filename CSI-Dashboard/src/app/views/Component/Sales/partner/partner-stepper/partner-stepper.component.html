@@ -166,7 +166,7 @@
                     <ng-template matStepLabel>Coordonnées</ng-template>
                     <mat-card-title class="">
                         <mat-divider></mat-divider>
-                        <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
+                        <div class="card-title-text"><small>{{selectedPartner.ref}} : </small><strong>{{selectedPartner.name}}</strong></div>
                         <mat-divider></mat-divider>
                     </mat-card-title>
 
@@ -272,13 +272,13 @@
                                       <!--Numéro-->
                                           <div class="form-group mb-1 col-sm-12 col-md-3">
                                               <mat-form-field appearance="outline" [style.width.cm]="10">
-                                                  <mat-label>Numéro adresse</mat-label>
+                                                  <mat-label>N°</mat-label>
                                                   <input
                                                     matInput
                                                     required
                                                     name="num"
                                                     formControlName="num"
-                                                    placeholder="Numéro adresse"
+                                                    placeholder="N°"
                                                   />
                                                   <mat-error *ngIf="partnerAddressForm.get('value').at(i).get('num').invalid && partnerAddressForm.get('value').at(i).get('num').touched">
                                                     Ce champs est requis.
@@ -419,7 +419,7 @@
                 <ng-template matStepLabel>Infos financières</ng-template>
                 <mat-card-title class="">
                     <mat-divider></mat-divider>
-                        <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
+                        <div class="card-title-text"><small>{{selectedPartner.ref}} : </small><strong>{{selectedPartner.name}}</strong></div>
                     <mat-divider></mat-divider>
                 </mat-card-title>
 
@@ -608,7 +608,7 @@
                   <ng-template matStepLabel>Contacts</ng-template>
                   <mat-card-title class="">
                       <mat-divider></mat-divider>
-                          <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
+                          <div class="card-title-text"><small>{{selectedPartner.ref}} : </small><strong>{{selectedPartner.name}}</strong></div>
                       <mat-divider></mat-divider>
                   </mat-card-title>
                   <mat-card-content class="container" style="padding-top: 1.5cm;">
@@ -757,17 +757,20 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                    <!--Commentaire-->
-                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                      <mat-form-field appearance="outline" [style.width.cm]=10 style="padding-right: 1cm;">
+                                  
+                                </div>
+                                <div class="d-flex">
+                                  <!--Commentaire-->
+                                  <div class="form-group mb-1 col-sm-12 col-md-3">
+                                      <mat-form-field appearance="outline" [style.width.cm]=21 style="padding-right: 1cm;">
                                           <mat-label>Commentaire</mat-label>
-                                          <input
+                                          <textarea
                                             matInput
                                             required
                                             name="comment"
                                             formControlName="comment"
-                                            placeholder="Commentaire"
-                                          />
+                                            placeholder="Saisissez un commentaire si nécessaire."
+                                          ></textarea>
                                       </mat-form-field>
                                   </div>
                                 </div>
@@ -828,7 +831,7 @@
                   <ng-template matStepLabel>Infos complémentaires</ng-template>
                   <mat-card-title class="">
                       <mat-divider></mat-divider>
-                          <div class="card-title-text"><small>{{selectedPartner.ref}} </small> <strong>{{selectedPartner.name}}</strong></div>
+                          <div class="card-title-text"><small>{{selectedPartner.ref}} : </small><strong>{{selectedPartner.name}}</strong></div>
                       <mat-divider></mat-divider>
                   </mat-card-title>
   
@@ -904,19 +907,19 @@
                                       </mat-form-field>
                                   </div>
                               </mat-grid-tile>
-                              <!--Police assurance-->
+                              <!--En cours autorisé-->
                               <mat-grid-tile>
                                   <div class="pb-16">
                                       <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>Police assurance</mat-label>
+                                          <mat-label>En cours autorisé (en {{selectedPartner.currency}})</mat-label>
                                           <input
                                             matInput
                                             required
-                                            name="insurancePolicy"
-                                            formControlName="insurancePolicy"
-                                            placeholder="Police assurance"
+                                            name="inProgressAuthorized"
+                                            formControlName="inProgressAuthorized"
+                                            placeholder="En cours autorisé"
                                           />
-                                          <mat-error *ngIf="complInfoForm.get('insurancePolicy').invalid && complInfoForm.get('insurancePolicy').touched">
+                                          <mat-error *ngIf="complInfoForm.get('inProgressAuthorized').invalid && complInfoForm.get('inProgressAuthorized').touched">
                                             Ce champs est requis.
                                           </mat-error>
                                       </mat-form-field>
@@ -940,19 +943,19 @@
                                     </mat-form-field>
                                 </div>
                               </mat-grid-tile>
-                              <!--En cours autorisé-->
+                              <!--Police assurance-->
                               <mat-grid-tile>
                                   <div class="pb-16">
                                       <mat-form-field appearance="outline" [style.width.cm]="10">
-                                          <mat-label>En cours autorisé (en {{selectedPartner.currency}})</mat-label>
+                                          <mat-label>Police assurance</mat-label>
                                           <input
                                             matInput
                                             required
-                                            name="inProgressAuthorized"
-                                            formControlName="inProgressAuthorized"
-                                            placeholder="En cours autorisé"
+                                            name="insurancePolicy"
+                                            formControlName="insurancePolicy"
+                                            placeholder="Police assurance"
                                           />
-                                          <mat-error *ngIf="complInfoForm.get('inProgressAuthorized').invalid && complInfoForm.get('inProgressAuthorized').touched">
+                                          <mat-error *ngIf="complInfoForm.get('insurancePolicy').invalid && complInfoForm.get('insurancePolicy').touched">
                                             Ce champs est requis.
                                           </mat-error>
                                       </mat-form-field>
@@ -972,7 +975,7 @@
                                           placeholder="Taux de tolérance(%)"
                                         />
                                         <mat-error *ngIf="complInfoForm.get('toleranceRate').invalid && complInfoForm.get('toleranceRate').touched">
-                                          Ce champs est requis et doit être inférieur à 50%.
+                                          Ce champs est requis et doit être inférieur à 5%.
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
@@ -988,23 +991,25 @@
                                   </mat-form-field>
                                 </div>
                               </mat-grid-tile>
-                              <!--Commentaire-->
-                              <mat-grid-tile style="padding-bottom: 3cm;">
-                                  <div class="pb-16">
-                                      <mat-form-field appearance="outline" [style.width.cm]="10">
+                              
+                              
+                          </mat-grid-list>
+                          <!--Commentaire-->
+                              
+                                  <div class="mini-container" style="padding-left: 8px;">
+                                      <mat-form-field appearance="outline" class="example-full-width" [style.width.cm]="20.4">
                                           <mat-label>Commentaire</mat-label>
                                           <textarea
                                             matInput
                                             required
                                             name="comment"
                                             formControlName="comment"
-                                            placeholder="Commentaire"
+                                            placeholder="Saisissez un commentaire si nécessaire."
                                           >
                                           </textarea>
                                       </mat-form-field>
                                   </div>
-                              </mat-grid-tile>
-                          </mat-grid-list>
+
                       </div>
                   </mat-card-content>
                   <div  fxLayout="row" dir="rtl"  fxLayoutAlign="space-between center">

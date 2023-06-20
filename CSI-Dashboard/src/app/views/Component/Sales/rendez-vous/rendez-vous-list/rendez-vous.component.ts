@@ -59,7 +59,7 @@ export class RendezVouslistComponent implements OnInit , OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['Date','Time','Duration','Location','Subject','Contact','actions'];
+    return ['date','time','duration','location','subject','contact','actions'];
   }
 
 

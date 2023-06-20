@@ -19,6 +19,7 @@ export interface req {
     company : string,
     partnerNum :number ,
     partnerId :number,
+    comment: string,
     partner : Partner
   
 }
@@ -36,17 +37,16 @@ export enum RequirementType {
 
     MANAGEMENT ="MANAGEMENT",
      RECRUITMENT ="RECRUITMENT",
-      INTERN_PROJECT="INTERN_PROJECT",
-      PRODUCT="PRODUCT"
+      INTERN_PROJECT="INTERN_PROJECT"
 }
 
 export enum RequirementStatus {
 
     POSITIONED ="POSITIONED",
-     WON="WON" ,
-      LOST="LOST" ,
-       ABANDONED ="ABANDONED", 
-       IN_PROGRESS="IN_PROGRESS"
+    WON="WON" , 
+    IN_PROGRESS="IN_PROGRESS",
+    LOST="LOST" ,
+    ABANDONED ="ABANDONED"
 }
 
 export enum WorkField {

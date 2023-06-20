@@ -32,49 +32,52 @@
       
       
       <ng-container matColumnDef="companyStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Type 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'companyStatus')" placeholder="Filtrer par type partenariat">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;">
+            <span>Type</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'companyStatus')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="CompanyStatus"> {{CompanyStatusMap[row.companyStatus]}} </mat-cell>
       </ng-container>
 
 
       <ng-container matColumnDef="ref">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Référence
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'ref')" placeholder="Filtrer par référence">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;">
+            <span>Référence</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'ref')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="ref"> {{row.ref}} </mat-cell>
       </ng-container>
       
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Désignation
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer par désignation">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;">
+            <span>Désignation</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
-
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name"> {{row.name}} </mat-cell>
       </ng-container>
       
 
       <ng-container matColumnDef="blocked">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Etat
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1cm;" >
-             <input matInput (input)="applyFilterr($event, 'blocked')" placeholder="Filtrer par état">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;">
+            <span>Etat</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'blocked')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name"> {{mapBlockedStatus(row.blocked)}} </mat-cell>
       </ng-container>
@@ -106,7 +109,7 @@
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/partner/besoins', row.id]"
             routerLinkActive="router-link-active"
-            color="primary">Besoins</button>
+            color="primary">Opportunités</button>
 
             <button mat-menu-item [routerLink]="['/partner/contacts', row.id]"
             routerLinkActive="router-link-active">Contacts</button>

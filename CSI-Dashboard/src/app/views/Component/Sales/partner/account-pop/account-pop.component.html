@@ -4,7 +4,8 @@
 <div fxLayout="row wrap" fxLayout.lt-sm="column">
     
     <div fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Banque</mat-label>
           <input
           matInput
           name="bankName"
@@ -14,13 +15,47 @@
         </mat-form-field>
       </div> 
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>RIB</mat-label>
         <input
         matInput
         name="rib"
         type="number"
         [formControlName]="'rib'"
         placeholder="RIB">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>BIC</mat-label>
+        <input
+        matInput
+        name="bic"
+        type="number"
+        [formControlName]="'bic'"
+        placeholder="BIC">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>IBAN</mat-label>
+        <input
+        matInput
+        name="iban"
+        type="number"
+        [formControlName]="'iban'"
+        placeholder="IBAN">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Adresse banque</mat-label>
+        <input
+        matInput
+        name="bankAddress"
+        type="text"
+        [formControlName]="'bankAddress'"
+        placeholder="N°, rue, ville, code postal, région, pays">
       </mat-form-field>
     </div> 
     <div fxFlex="100" class="mt-16">

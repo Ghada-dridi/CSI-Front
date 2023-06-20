@@ -1,27 +1,84 @@
-<h1 matDialogTitle>{{data.title}}</h1>{{"Adresse" | translate }}
+<h1 matDialogTitle>{{data.title}}</h1>
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <mat-card class="p-0">
 <div fxLayout="row wrap" fxLayout.lt-sm="column">
-    
+    <!--Type adresse-->
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Type adresse</mat-label>
         <input
         matInput
-        name="addressTitle"
-        [formControlName]="'addressTitle'"
-        placeholder="Ville">
+        name="type"
+        [formControlName]="'type'"
+        placeholder="Exemple : siège">
       </mat-form-field>
     </div>
+    <!--Numéro-->
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>N°</mat-label>
+        <input
+        matInput
+        name="num"
+        [formControlName]="'num'"
+        placeholder="N°">
+      </mat-form-field>
+    </div>
+    <!--Rue-->
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Rue</mat-label>
         <input
         matInput
         name="street"
-        type="text"
         [formControlName]="'street'"
         placeholder="Rue">
       </mat-form-field>
-    </div> 
+    </div>
+    <!--Code postal-->
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Code postal</mat-label>
+        <input
+        matInput
+        name="postalCode"
+        [formControlName]="'postalCode'"
+        placeholder="Code postal">
+      </mat-form-field>
+    </div>
+    <!--Ville-->
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Ville</mat-label>
+        <input
+        matInput
+        name="city"
+        [formControlName]="'city'"
+        placeholder="Ville">
+      </mat-form-field>
+    </div>
+    <!--Département/région-->
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Département/région</mat-label>
+        <input
+        matInput
+        name="region"
+        [formControlName]="'region'"
+        placeholder="Département/région">
+      </mat-form-field>
+    </div>
+    <!--Pays-->
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Pays</mat-label>
+        <input
+        matInput
+        name="country"
+        [formControlName]="'country'"
+        placeholder="Pays">
+      </mat-form-field>
+    </div>
     <div fxFlex="100" class="mt-16">
         <button mat-raised-button color="primary" >{{"Enregistrer" | translate }}</button>
         <span fxFlex></span>

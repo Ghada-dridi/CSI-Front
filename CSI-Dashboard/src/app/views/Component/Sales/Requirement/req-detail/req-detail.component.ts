@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { contact } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
 import { ReqService } from '../req.service';
+import { Partner } from 'app/shared/models/Partner';
+import { CrudPartnerService } from '../../partner/crudPartner.service';
 
 @Component({
   selector: 'app-req-detail',
@@ -11,9 +13,11 @@ import { ReqService } from '../req.service';
 export class ReqDetailComponent implements OnInit {
   id: number
   req: req
-
-  constructor(private route: ActivatedRoute,
-    private reqService: ReqService
+  partner: Partner
+  constructor(
+    private route: ActivatedRoute,
+    private reqService: ReqService,
+    private partnerService: CrudPartnerService
     ) { }
 
   ngOnInit(): void {
@@ -25,26 +29,44 @@ export class ReqDetailComponent implements OnInit {
   getReq(){
     this.reqService.getItem(this.id).subscribe((data: any) => {
       this.req = data;
-      console.log(data)
+      console.log(this.req);
+      console.log(this.req.partnerId)
+      this.partnerReq();
+      this.getPartner()
     })
+  }
+
+  getPartner() {
+    if (this.req && this.req.partnerId) {
+      this.partnerService.getItem(this.req.partnerId).subscribe((data: any) => {
+        this.partner = data;
+        console.log(this.partner);
+        console.log(this.partner.name)
+      });
+    }
+  }
+
+  partnerReq():boolean{
+    if(this.req.company!=null)
+    return true
+    else return false
   }
 
   workFieldMap = {
     [WorkField.IT]:'IT',
     [WorkField.INDUSTRY]:'Industrie',
-   [WorkField.SALES]:'Ventes',
-   [WorkField.AGRICULTURE] :'Agriculture',
-   [WorkField.BANKING] :'Banking',
-   [WorkField.E_COM] :'E-Commerce',
-   [WorkField.ASSURANCE] :'Assurance',
-   [WorkField.FINANCE] :'Finance'
+    [WorkField.SALES]:'Ventes',
+    [WorkField.AGRICULTURE] :'Agriculture',
+    [WorkField.BANKING] :'Banking',
+    [WorkField.E_COM] :'E-Commerce',
+    [WorkField.ASSURANCE] :'Assurance',
+    [WorkField.FINANCE] :'Finance'
   };
 
   reqTypeMap = {
     [RequirementType.MANAGEMENT]:'Management',
     [RequirementType.RECRUITMENT]:'Recrutement',
-    [RequirementType.INTERN_PROJECT] :'Projet interne',
-    [RequirementType.PRODUCT]: 'Produit'
+    [RequirementType.INTERN_PROJECT] :'Projet interne'
   };
 
   reqStatusMap = {

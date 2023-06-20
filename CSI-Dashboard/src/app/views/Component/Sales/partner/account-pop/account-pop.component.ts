@@ -28,11 +28,15 @@ export class AccountPopComponent implements OnInit {
     this.itemForm = this.fb.group({
       bankName : [item.bankName || '', Validators.required],
       rib : [item.rib || '', Validators.required],
+      iban : [item.iban || '', Validators.required],
+      bic : [item.bic || '', Validators.required],
+      bankAddress : [item.iban || '', Validators.required],
       partnerNum: [this.data.partnerId, Validators.required]
     });
   }
 
   submit(){
+    console.log(this.itemForm.value)
     this.dialogRef.close(this.itemForm.value)
   }
 

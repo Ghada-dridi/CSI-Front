@@ -39,7 +39,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
    
    
    getDisplayedColumns() {
-    return ['firstName','lastName','societe','function','actions'];
+    return ['civility','firstName','lastName','appointmentMaking','actions'];
   }
 
 
@@ -82,7 +82,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
           .subscribe((data:any)=> {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Besoin supprimé !', 'OK', { duration: 2000 });
+            this.snack.open('Contact supprimé !', 'OK', { duration: 2000 });
             this.getItems();
           })
       }
@@ -93,6 +93,7 @@ export class ContactListComponent implements OnInit,OnDestroy {
 openPopUp(data: any = {}, isNew?) {
   let title = isNew ? 'Nouveau contact' : 'Mettre à jour contact';
   let dialogRef: MatDialogRef<any> = this.dialog.open(ContactPopComponent, {
+    height: '620px',
     width: '720px',
     disableClose: true,
     data: { title: title, payload: data }
@@ -137,11 +138,16 @@ applyFilterr(event: Event, key: string) {
     return data[key].trim().toLowerCase().indexOf(filter) !== -1;
   };
 }
-CivilityMap = {
-  [Civility.MR]:'Monsieur',
-  [Civility.MRS]:'Madame',
-  [Civility.MS] : 'Mademoiselle'
- 
+
+civilityMap = {
+  [Civility.MR]:'Mr',
+  [Civility.MRS]:'Mme',
+  [Civility.MS] : 'Mlle'
+}
+
+appointmentMakingMap = {
+  true: 'oui',
+  false: 'non'
 };
 }
 

@@ -47,7 +47,7 @@ export class ContactPopComponent implements OnInit {
       privilege : [item.privilege || '', Validators.required],
       civility : [item.civility || '', Validators.required],
       service : [item.service || '', Validators.required],
-      societe : [item.societe || '', Validators.required],
+      company : [item.company || '', Validators.required],
       partnerNum: [this.data.partnerId || null, Validators.required]
     });
 }

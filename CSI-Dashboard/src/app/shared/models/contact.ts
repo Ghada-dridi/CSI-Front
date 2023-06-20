@@ -7,13 +7,14 @@ export interface contact {
     fullName: string;
     function: string;
     localisation: string
-    emailOne:string;
+    email:string;
     emailTwo:string;
     comment:string;
-    phoneNumberOne:number ;
-    phoneNumberTwo:number ;
+    phoneNumber:number ;
+    mobilePhoneNumber:number ;
+    company ?: string;
     partner ?: Partner 
-    partnerNum ?:number
+    partnerId ?:number
     privilege ?: Privilege
     civility: Civility
     service: string

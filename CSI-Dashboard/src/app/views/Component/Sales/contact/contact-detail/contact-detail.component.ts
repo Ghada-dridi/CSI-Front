@@ -12,6 +12,8 @@ import { RendezVousPopComponent } from '../rendez-vous-pop/rendez-vous-pop.compo
 import { ContactNote } from 'app/shared/models/ContactNote';
 import { RendezVous } from 'app/shared/models/rendez-vous';
 import { RendezVousService } from '../../rendez-vous/rendez-vous.service';
+import { CrudPartnerService } from '../../partner/crudPartner.service';
+import { Partner } from 'app/shared/models/Partner';
 
 @Component({
   selector: 'app-contact-detail',
@@ -20,6 +22,7 @@ import { RendezVousService } from '../../rendez-vous/rendez-vous.service';
 export class ContactDetailComponent implements OnInit {
   id: number
   contact: contact
+  partner: Partner
   public dataSource: MatTableDataSource<RendezVous>;
   public dataSource1: MatTableDataSource<ContactNote>;
 
@@ -33,7 +36,8 @@ export class ContactDetailComponent implements OnInit {
     private snack: MatSnackBar,
     private dialog: MatDialog,
     private loader: AppLoaderService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private partnerService: CrudPartnerService
   ) {
     this.dataSource = new MatTableDataSource<RendezVous>([])
     this.dataSource1 = new MatTableDataSource<ContactNote>([])
@@ -44,26 +48,33 @@ export class ContactDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id']
-    this.getContact()
-    this.getContactNotes()
-    console.log(this.notes)
-    this.getAppointments()
+    this.id = this.route.snapshot.params['id'];
     this.displayedColumns = this.getDisplayedColumns()
+    this.getContact();
   }
-
+  
   getContact() {
     this.contactService.getItem(this.id).subscribe((data: any) => {
       this.contact = data;
+      console.log(this.contact);
+      console.log(this.contact.partnerId)
+      this.getContactNotes();
+      this.getAppointments();
+      this.partnerContact();
 
     });
   }
-
-  /*getPartner(){
-    this.partnerService.getItem(this.contact.partnerNum).subscribe((data:any) =>{
-      this.partner = data
-    })
-  }*/
+  
+  getPartner() {
+    if (this.contact && this.contact.partnerId) {
+      this.partnerService.getItem(this.contact.partnerId).subscribe((data: any) => {
+        this.partner = data;
+        console.log(this.partner);
+        console.log(this.partner.name)
+      });
+    }
+  }
+  
 
   getAppointments() {
     
@@ -80,6 +91,8 @@ export class ContactDetailComponent implements OnInit {
       {
         this.notes = data;
       }
+      
+    console.log(this.notes)
     })
   }
 
@@ -185,6 +198,12 @@ export class ContactDetailComponent implements OnInit {
             })
         } 
       })
+  }
+
+  partnerContact():boolean{
+    if(this.contact.company!=null)
+    return true
+    else return false
   }
   CivilityMap = {
     [Civility.MR]:'Mr',

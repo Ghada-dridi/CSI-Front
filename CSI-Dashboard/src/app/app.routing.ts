@@ -226,9 +226,19 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Partner', breadcrumb: 'Partenaires'}
       },
       {
+        path: 'contract',
+        loadChildren: () => import('./views/Component/Sales/contractProjet/contractClient.module').then(m => m.ContractClientModule),
+        data: { title: 'Contracts', breadcrumb: 'Contrats clients'}
+      },
+      {
+        path: 'endorsement',
+        loadChildren: () => import('./views/Component/Sales/endorsementClient/endorsement.module').then(m => m.EndorsementModule),
+        data: { title: 'Endorsements', breadcrumb: 'Avenants'}
+      },
+      {
         path: 'requirement',
         loadChildren: () => import('./views/Component/Sales/Requirement/req.module').then(m => m.ReqModule),
-        data: { title: 'Requirement', breadcrumb: 'Besoins'}
+        data: { title: 'Requirement', breadcrumb: 'Opportunités'}
       },
 
       {

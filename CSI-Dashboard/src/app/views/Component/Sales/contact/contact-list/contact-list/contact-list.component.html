@@ -9,16 +9,30 @@
 <mat-card  style="border: 5px; "  [@animate]="{value:'*',params:{y:'10px',delay:'500ms'}}">
   <mat-card-content class="p-0">
     <mat-table [dataSource]="dataSource" matSort >
+      
+      
+      <ng-container matColumnDef="civility">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+            <span>Civilité</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'civility')" placeholder="Filtrer">
+           </mat-form-field>
+           </div> 
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="société"> {{civilityMap[row.civility]}} </mat-cell>
+      </ng-container>
   
   
   
       <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1.5cm;" >
-             <input matInput (input)="applyFilterr($event, 'firstName')" placeholder="Filtrer par prénom">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+            <span>Prénom</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'firstName')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="firstName"> {{row.firstName}} </mat-cell>
       </ng-container>
@@ -26,35 +40,28 @@
   
   
       <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nom 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1.5cm;" >
-             <input matInput (input)="applyFilterr($event, 'lastName')" placeholder="Filtrer par nom">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+            <span>Nom</span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'lastName')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="lastName"> {{row.lastName}} </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="societe">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Société/Groupe
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1.5cm;" >
-             <input matInput (input)="applyFilterr($event, 'societe')" placeholder="Filtrer par société">
-           </mat-form-field>
-          </div>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="société"> {{row.societe}} </mat-cell>
-      </ng-container>
+      
         
-      <ng-container matColumnDef="function">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Fonction 
-          <div style="padding-left: 20px;">
-            <mat-form-field style="width:1.5cm;" >
-             <input matInput (input)="applyFilterr($event, 'function')" placeholder="Filtrer par fonction">
+      <ng-container matColumnDef="appointmentMaking">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > 
+          <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+            <span>Prise de rendez-vous </span>
+            <mat-form-field style="width:3cm; text-align: center;" >
+              <input matInput (input)="applyFilterr($event, 'appointmentMaking')" placeholder="Filtrer">
            </mat-form-field>
-          </div>
+           </div> 
         </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="function"> {{row.function}} </mat-cell>
+        <mat-cell *matCellDef="let row" data-label="appointmentMaking"> {{ appointmentMakingMap[row.appointmentMaking] }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="actions">

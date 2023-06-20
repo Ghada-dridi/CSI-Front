@@ -77,21 +77,21 @@ export class BenefitListComponent implements OnInit {
           return;
         }
         if (isNew) {
-          this.loader.open('Ajout besoin en cours');
+          this.loader.open('Ajout opportunité en cours');
           this.benefitService.addItem(res)
             .subscribe((data :any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Besoin ajouté avec succès !', 'OK', { duration: 2000 });
+              this.snack.open('Opportunité ajoutée avec succès !', 'OK', { duration: 2000 });
               this.getItems();
             })
         } else {
-          this.loader.open('Mise à jour besoin');
+          this.loader.open('Mise à jour opportunité');
           this.benefitService.updateItem(data.id, res)
             .subscribe((data:any) => {
               this.dataSource = data ;
               this.loader.close();
-              this.snack.open('Besoin mis à jour !', 'OK', { duration: 2000 });
+              this.snack.open('Opportunité mise à jour !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -102,12 +102,12 @@ export class BenefitListComponent implements OnInit {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
-          this.loader.open('Suppression besoin en cours');
+          this.loader.open('Suppression opportunité en cours');
           this.benefitService.deleteItem(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Besoin supprimé !', 'OK', { duration: 2000 });
+              this.snack.open('Opportunité supprimée !', 'OK', { duration: 2000 });
               this.getItems();
             })
         }

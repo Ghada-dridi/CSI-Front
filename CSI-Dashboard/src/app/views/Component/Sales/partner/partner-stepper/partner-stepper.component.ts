@@ -79,7 +79,7 @@ export class PartnerStepperComponent implements OnInit {
   bankAccountId:number;
   contactId: number;
 
-  companyStatus = Object.values(CompanyStatus)
+  companyStatus = Object.values(CompanyStatus).filter(status => status !== CompanyStatus.ARCHIVED);
   legalStatus = Object.values(LegalStatus)
   paymentMode = Object.values(PaymentMode)
   paymentCondition = Object.values(PaymentCondition)
@@ -173,7 +173,11 @@ export class PartnerStepperComponent implements OnInit {
       appointmentMaking: new UntypedFormControl(false),
       service: new UntypedFormControl('', [Validators.required]),
       function: new UntypedFormControl('', [Validators.required]),
-      email: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(50)
+      ]),
       mobilePhoneNumber: new UntypedFormControl('', [Validators.required]),
       phoneNumber: new UntypedFormControl('', []),
       comment: new UntypedFormControl('', [])
@@ -217,7 +221,7 @@ export class PartnerStepperComponent implements OnInit {
       comment: new UntypedFormControl('', [Validators.required]),
       toleranceRate: new UntypedFormControl('', [
         Validators.required,
-        Validators.max(50)
+        Validators.max(5)
       ])
     });
   }

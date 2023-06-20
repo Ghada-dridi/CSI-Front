@@ -3,8 +3,8 @@
 <div class="m-4"  [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
 
 
-    <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">Nouveau
-     besoin</button>
+    <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">Nouvelle
+     Opportunité</button>
   
     <mat-form-field  >
       <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
@@ -19,12 +19,13 @@
     
   
         <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Titre 
-            <div style="padding-left: 20px;">
-              <mat-form-field style="width:1.5cm;" >
-               <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer par titre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;">
+              <span>Titre</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer">
              </mat-form-field>
-            </div>
+             </div> 
           </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="title"> {{row.title}} </mat-cell>
         </ng-container>
@@ -32,62 +33,67 @@
   
   
         <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Description 
-            <div style="padding-left: 20px;">
-              <mat-form-field style="width:1.5cm;" >
-               <input matInput (input)="applyFilterr($event, 'description')" placeholder="Filtrer par description">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Description</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'description')" placeholder="Filtrer">
              </mat-form-field>
-            </div>
+             </div> 
           </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="description"> {{row.description}} </mat-cell>
         </ng-container>
   
         
        <ng-container matColumnDef="criteria">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Critère 
-            <div style="padding-left: 20px;">
-              <mat-form-field style="width:1.5cm;" >
-               <input matInput (input)="applyFilterr($event, 'criteria')" placeholder="Filtrer par critère">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Critère</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'criteria')" placeholder="Filtrer">
              </mat-form-field>
-            </div>
+             </div> 
           </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="criteria"> {{row.criteria}} </mat-cell>
         </ng-container>
 
                     
           <ng-container matColumnDef="requirementType">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Type besoin 
-              <div style="padding-left: 20px;">
-                <mat-form-field style="width:1.5cm;" >
-                 <input matInput (input)="applyFilterr($event, 'requirementType')" placeholder="Filtrer par critère">
+            <mat-header-cell *matHeaderCellDef mat-sort-header > 
+              <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+                <span>Type opportunité</span>
+                <mat-form-field style="width:3cm; text-align: center;" >
+                  <input matInput (input)="applyFilterr($event, 'requirementType')" placeholder="Filtrer">
                </mat-form-field>
-              </div>
+               </div> 
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="requirementType"> {{row.requirementType}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="requirementType"> {{reqTypeMap[row.requirementType]}} </mat-cell>
           </ng-container>
 
                     
           <ng-container matColumnDef="requirementStatus">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Etat besoin 
-              <div style="padding-left: 20px;">
-                <mat-form-field style="width:1.5cm;" >
-                 <input matInput (input)="applyFilterr($event, 'requirementStatus')" placeholder="Filtrer par état besoin">
+            <mat-header-cell *matHeaderCellDef mat-sort-header > 
+              <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+                <span>Etat opportunité</span>
+                <mat-form-field style="width:3cm; text-align: center;" >
+                  <input matInput (input)="applyFilterr($event, 'requirementStatus')" placeholder="Filtrer">
                </mat-form-field>
-              </div>
+               </div> 
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{row.requirementStatus}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{reqStatusMap[row.requirementStatus]}} </mat-cell>
           </ng-container>
 
                     
           <ng-container matColumnDef="workField">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Secteur d'activité 
-              <div style="padding-left: 20px;">
-                <mat-form-field style="width:1.5cm;" >
-                 <input matInput (input)="applyFilterr($event, 'workField')" placeholder="Filtrer par état besoin">
+            <mat-header-cell *matHeaderCellDef mat-sort-header > 
+              <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+                <span>Domaine d'activité</span>
+                <mat-form-field style="width:3cm; text-align: center;" >
+                  <input matInput (input)="applyFilterr($event, 'workField')" placeholder="Filtrer">
                </mat-form-field>
-              </div>
+               </div> 
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="workField"> {{row.workField}} </mat-cell>
+            <mat-cell *matCellDef="let row" data-label="workField"> {{workFieldMap[row.workField]}} </mat-cell>
           </ng-container>
   
   
@@ -110,7 +116,7 @@
   
   
   
-            <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+            <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row, false)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">

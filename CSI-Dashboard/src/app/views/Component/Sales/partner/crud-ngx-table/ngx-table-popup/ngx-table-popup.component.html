@@ -24,7 +24,7 @@
 
             <div fxFlex="50"  class="pr-16">
 
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Type partenariat</mat-label>
                 <mat-select  [formControlName]="'companyStatus'">
                   <mat-option *ngFor="let companyStatuss of CompanyStatus" [value]="companyStatuss">{{CompanyStatusMap[companyStatuss]}}</mat-option>
@@ -33,17 +33,18 @@
             </div>
             
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Nom (Désignation)</mat-label>
                 <input
                 matInput
                 name="name"
                 [formControlName]="'name'"
-                placeholder="Nom (désignation)">
+                placeholder="Nom (Désignation)">
               </mat-form-field>
             </div>
             
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Qualité</mat-label>
                 <mat-select  [formControlName]="'legalStatus'">
                   <mat-option *ngFor="let legalStatuss of LegalStatus" [value]="legalStatuss">{{ legalStatusMap[legalStatuss] }}</mat-option>
@@ -52,7 +53,8 @@
             </div>
 
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Référence externe</mat-label>
                 <input
                 matInput
                 name="externalReference"
@@ -62,7 +64,8 @@
             </div>
             
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Identifiant juridique entreprise</mat-label>
                 <input
                 matInput
                 name="legalIdentifier"
@@ -72,7 +75,8 @@
             </div>
 
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Identifiant TVA</mat-label>
                 <input
                 matInput
                 name="tvaIdentifier"
@@ -82,7 +86,8 @@
             </div>
             
             <div fxFlex="50"  class="pr-16">
-              <mat-form-field class="full-width">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Code NAF</mat-label>
                 <input
                 matInput
                 name="nafCode"
@@ -92,7 +97,7 @@
             </div>
    
     
-      <div  fxFlex="50"  class="pr-16">
+      <div  fxFlex="50"  class="pr-16" style="padding-top: 17px;">
         <label>Logo</label>
         <input style="padding-left: 5px;" type="file" (change)="onFileSelected($event)">
       </div>
@@ -111,8 +116,8 @@
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
    
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
-            <mat-label>Numéro téléphone fixe</mat-label>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>N° téléphone fixe</mat-label>
             <input matInput  [formControlName]="'phoneNumber'" placeholder="Numéro téléphone fixe">
             <mat-error *ngIf="itemForm.get('phoneNumber').invalid && itemForm.get('phoneNumber').touched">
               Ce champs est requis et doit comporter seulement des caractères numériques.
@@ -121,8 +126,8 @@
         </div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
-            <mat-label>Numéro téléphone mobile</mat-label>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>N° téléphone mobile</mat-label>
             <input matInput formControlName="mobilePhoneNumber" placeholder="Numéro téléphone mobile">
             <mat-error *ngIf="itemForm.get('mobilePhoneNumber').invalid && itemForm.get('mobilePhoneNumber').touched">
               Ce champs est requis et doit comporter seulement des caractères numériques.
@@ -131,7 +136,7 @@
         </div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" placeholder="Email">
             <mat-error *ngIf="itemForm.get('email').invalid && itemForm.get('email').touched">
@@ -141,7 +146,7 @@
         </div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Site web</mat-label>
             <input matInput formControlName="webSite" placeholder="Site web">
             <mat-error *ngIf="itemForm.get('webSite').invalid && itemForm.get('webSite').touched">
@@ -154,7 +159,7 @@
         <div style="padding-bottom: 3cm;"></div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Devise</mat-label>
             <mat-select formControlName="currency">
               <mat-option  *ngFor="let currency of sortedCurrencies " [value]="currency">{{ currencyMap[currency] }}</mat-option>
@@ -163,7 +168,7 @@
         </div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Mode de paiement</mat-label>
             <mat-select formControlName="paymentMode">
               <mat-option  *ngFor="let paymentMode of paymentModes " [value]="paymentMode">{{ paymentModeMap[paymentMode] }}</mat-option>
@@ -172,7 +177,7 @@
         </div>
 
         <div fxFlex="50"  class="pr-16">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Condition de paiement</mat-label>
             <mat-select formControlName="paymentCondition">
               <mat-option  *ngFor="let paymentCondition of paymentConditions " [value]="paymentCondition">{{ paymentConditionMap[paymentCondition] }}</mat-option>
@@ -196,7 +201,7 @@
 <mat-card-content class="mt-16">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
       <div fxFlex="50"  class="pr-16" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de début d'activité</mat-label>
         <input matInput [matDatepicker]="picker1" 
           formControlName="activityStartDate" 
@@ -207,7 +212,7 @@
     </div>
 
     <div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de fin d'activité</mat-label>
         <input matInput [matDatepicker]="picker2" 
           formControlName="activityEndDate" 
@@ -218,7 +223,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de création de l'entreprise</mat-label>
         <input matInput [matDatepicker]="picker3" 
         formControlName="foundedSince" 
@@ -230,7 +235,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Classification</mat-label>
         <mat-select formControlName="classification">
           <mat-option  *ngFor="let privilege of privileges" [value]="privilege">{{ privilegeMap[privilege] }}</mat-option>
@@ -239,14 +244,14 @@
     </div>
 
     <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Capital (en {{ selectedCurrency }})</mat-label>
         <input
           matInput
           required
           name="capital"
           formControlName="capital"
-          placeholder="Capital"
+          placeholder="Capital (en {{ selectedCurrency }})"
         />
         <mat-error *ngIf="itemForm.get('capital').invalid && itemForm.get('capital').touched">
           Ce champs est requis.
@@ -255,7 +260,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Police assurance</mat-label>
         <input
           matInput
@@ -271,7 +276,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Compagnie assurance</mat-label>
         <input
           matInput
@@ -287,14 +292,14 @@
     </div>
 
     <div fxFlex="50" class="pb-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>En cours autorisé (en {{ selectedCurrency }})</mat-label>
         <input
           matInput
           required
           name="inProgressAuthorized"
           formControlName="inProgressAuthorized"
-          placeholder="En cours autorisé"
+          placeholder="En cours autorisé (en {{ selectedCurrency }})"
         />
         <mat-error *ngIf="itemForm.get('inProgressAuthorized').invalid && itemForm.get('inProgressAuthorized').touched">
           Ce champs est requis.
@@ -303,7 +308,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Taux de tolérance(%)</mat-label>
         <input
           type="number"
@@ -320,7 +325,7 @@
     </div>
 
     <div fxFlex="50" class="pb-16">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Type de contrôle</mat-label>
         <mat-select formControlName="controlType">
           <mat-option  *ngFor="let controlType of controlTypes" [value]="controlType">{{ controlTypeMap[controlType] }}</mat-option>
@@ -339,7 +344,7 @@
 
     <!--Motif de blocage-->
     <div fxFlex="50" class="pb-16" *ngIf="isReasonFieldVisible()">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Motif de blocage</mat-label>
         <textarea
           matInput
@@ -352,15 +357,15 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="example-full-width" style="padding-right: 17px;">
-      <mat-form-field class="full-width">
+    <div class="mini-container" style="padding-top: 17px;">
+      <mat-form-field [style.width.cm]=24.4 class="example-full-width" appearance="outline">
         <mat-label>Commentaire</mat-label>
         <textarea
           matInput
           required
           name="comment"
           formControlName="comment"
-          placeholder="Commentaire"
+          placeholder="Saisissez un commentaire si nécessaire."
         >
         </textarea>
       </mat-form-field>

@@ -14,6 +14,7 @@ import { Civility } from 'app/shared/models/contact';
 import html2pdf from 'html2pdf.js';
 import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
 import { PrintSharedService } from 'app/shared/services/PrintShared.service';
+import { Offer } from 'app/shared/models/Offer';
 
 @Component({
   selector: 'app-details-candidat',
@@ -34,6 +35,7 @@ skills : Skills
 skillsCategory : SkillsCategory
 certification : Certification
 experience : Experience
+offer: Offer
 candidature : AssOfferCandidate
 private router: Router
 title :string[]= Object.values(Title);
@@ -59,6 +61,7 @@ cvData: string;
    this.getlanguage();
    this.getSkills();
    this.getCandidature();
+   this.getOffers();
    /*const cv = document.getElementById('CV');
     if (cv) {
       this.cvHtml = cv.innerHTML;
@@ -116,6 +119,12 @@ cvData: string;
     this.candidatService.getEducationById(this.id).subscribe((data: any) => {
       this.education = data;
       console.log(this.education);
+    });
+  }
+  getOffers() {
+    this.candidatService.getOffersById(this.id).subscribe((data: any) => {
+      this.offer = data;
+      console.log(this.offer);
     });
   }
   

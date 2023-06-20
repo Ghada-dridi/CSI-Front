@@ -198,9 +198,9 @@
                 <mat-divider></mat-divider>
               </mat-card-title>
               <mat-card-content>
-                <mat-list *ngFor="let Candidatures of candidature" >
-                  <mat-list-item style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Titre de l'offre : </strong>{{Candidatures.id}}</mat-list-item>
-                  <mat-list-item  style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Déscription de l'offre: </strong></mat-list-item>
+                <mat-list *ngFor="let offers of offer" >
+                  <mat-list-item style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Titre de l'offre : </strong>{{offers.title}}</mat-list-item>
+                  <mat-list-item  style="padding-bottom: 20px;"><strong style="padding-right: 10px;">Compétances demandees: </strong>{{offers.requiredSkills}}</mat-list-item>
                 </mat-list>
               </mat-card-content>
             </mat-card>

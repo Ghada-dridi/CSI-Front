@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 import { Offer } from './../../../../../shared/models/Offer';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -39,6 +40,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 export class cvcandidatComponent implements OnInit {
+  isButtonDisabled: boolean = false; // Initialize the variable  associatedOffers: any[] = [];
   formData = {}
   console = console;
   repeatForm: FormGroup;
@@ -631,6 +633,61 @@ handleRemoveRepeatForm(index: number) {
     const dialogRef = this.dialog.open(OfferPopupComponent, dialogConfig);
 
   }
+
+
+
+  openPopUpCandidature(offerId: number) {
+    const title = 'Nouvelle candidature';
+    const dialogRef: MatDialogRef<any> = this.dialog.open(OfferPopupComponent, {
+      width: '1000px',
+      disableClose: true,
+      data: { title: title, isNew: true, offerNum: offerId }
+    });
+  
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // If the user presses cancel or closes the dialog
+        console.log('Dialog closed without submitting.');
+        return;
+      }
+  
+      console.log('Dialog submitted:', res);
+  
+      const employeeNum = this.selectedEmplyee.id; // Assuming you have stored the employee number in the 'selectedEmployeeNum' variable
+      console.log('Employee Number:', employeeNum);
+      console.log('Offer Number:', offerId);
+  
+      // Create the request payload based on the form values
+      const payload = {
+        applicationDate: res.applicationDate,
+        experienceLevel: res.experienceLevel,
+        employeeNum: employeeNum,
+        offerNum: offerId
+        // Add other attributes as needed
+      };
+  
+      // Assuming you have a service called 'cvCandidatService' to handle the API requests
+      this.cvCandidatService.addOfferCandidate(payload).subscribe(
+        (data: any) => {
+          console.log('Add offer candidate success:', data);
+          this.dataSource = data;
+          this.loader.close();
+          this.snack.open('Candidature ajoutée avec succès!', 'OK', { duration: 2000 });
+          this.isButtonDisabled = true; // Disable the button
+        },
+        (error) => {
+          console.log('Add offer candidate error:', error);
+          this.loader.close();
+          this.snack.open('Erreur lors de l\'ajout de la candidature', 'OK', { duration: 2000 });
+        }
+      );
+    });
+  }
+  
+  
+  
+    
+  
   
   
 }

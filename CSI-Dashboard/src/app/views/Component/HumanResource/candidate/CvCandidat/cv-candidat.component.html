@@ -905,7 +905,8 @@
              <ng-container matColumnDef="actions">
                <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                <mat-cell *matCellDef="let row">
-                 <button mat-icon-button mat-sm-button color="primary" class="mr-16 "   (click)="openPopUpCandidature({},true)">
+                <button mat-icon-button mat-sm-button [disabled]="isButtonDisabled" color="primary" class="mr-16" (click)="openPopUpCandidature(row.id)">
+
                    <mat-icon>check</mat-icon>
                  </button>
                  

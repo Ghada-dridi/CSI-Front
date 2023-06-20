@@ -2,7 +2,7 @@ export interface AssOfferCandidate{
     id ?:number;
     employeeNum ?:number;
     offerNum ?:number;
-    applicationDate ?:number;
+    applicationDate ?:string;
     expeienceLevel ?: ExperienceLevel
     
 }

@@ -14,6 +14,7 @@ import { Certification } from 'app/shared/models/Certification';
 import { Language } from 'highlight.js';
 import { Skills } from 'app/shared/models/Skills';
 import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
+import { Offer } from 'app/shared/models/Offer';
 
 @Injectable()
 
@@ -88,7 +89,13 @@ export class CrudService {
     this.events = this.events.filter((e) => e._id !== eventID);
     return of(this.events);
   }
-
+//--------getOffers------------
+getOffersById(id: number): Observable<Offer> {
+  const url = `${this.apiAssOffreCandidat+ '/getByEmployee'}/${id}`;
+  return this.http.get<Offer>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 
 
 

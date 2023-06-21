@@ -671,8 +671,6 @@ handleRemoveRepeatForm(index: number) {
         (data: any) => {
           console.log('Add offer candidate success:', data);
           this.dataSource = data;
-          this.loader.close();
-          this.snack.open('Candidature ajoutée avec succès!', 'OK', { duration: 2000 });
           this.isButtonDisabled = true; // Disable the button
         },
         (error) => {

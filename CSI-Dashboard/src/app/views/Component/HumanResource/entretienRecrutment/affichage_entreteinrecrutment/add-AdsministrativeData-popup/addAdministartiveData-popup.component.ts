@@ -45,7 +45,7 @@ export class addAdminstrativeDataComponent implements OnInit {
   ngOnInit() {
     this.administrativeDataForm = new UntypedFormGroup({
       
-      ContractTitle: new UntypedFormControl('', [Validators.required]),
+      contractTitle: new UntypedFormControl('', [Validators.required]),
       currentSalary: new UntypedFormControl('', []),
       expectedSalary: new UntypedFormControl('', [Validators.required]),
       availability: new UntypedFormControl('', []),

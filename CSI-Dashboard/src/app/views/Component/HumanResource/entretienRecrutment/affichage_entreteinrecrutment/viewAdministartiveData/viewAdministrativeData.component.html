@@ -2,11 +2,11 @@
 
 <mat-dialog-content>
   <div>
-    <p><strong>Contract Title:</strong> {{ administrativeData.contractTitle }}</p>
-    <p><strong>Current Salary:</strong> {{ administrativeData.currentSalary }}</p>
-    <p><strong>Expected Salary:</strong> {{ administrativeData.expectedSalary }}</p>
-    <p><strong>Availability:</strong> {{ administrativeData.availability }}</p>
-    <p><strong>Availability Date:</strong> {{ administrativeData.availabilityDate }}</p>
+    <p><strong>Type de contrat:</strong> {{ContractTitleMap[administrativeData.contractTitle]}}</p>
+    <p><strong>Disponibilité:</strong> {{AvailabilityMap[administrativeData.availability]}}</p>
+    <p><strong>Date de disponibilité:</strong> {{ administrativeData.availabilityDate }}</p> 
+    <p><strong>Salaire actuel:</strong> {{ administrativeData.currentSalary }}</p>
+    <p><strong>Salaire souhaité:</strong> {{ administrativeData.expectedSalary }}</p>
   </div>
 </mat-dialog-content>
 

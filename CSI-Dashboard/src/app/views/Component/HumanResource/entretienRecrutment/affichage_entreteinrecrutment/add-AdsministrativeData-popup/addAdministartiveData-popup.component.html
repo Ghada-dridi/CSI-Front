@@ -14,7 +14,7 @@
   
                           <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Type de contrat</mat-label>
-                            <mat-select formControlName="ContractTitle">
+                            <mat-select formControlName="contractTitle">
                               <mat-option *ngFor="let contract of contractTitle" [value]="contract">{{ContractTitleMap[contract]}}</mat-option>
                             </mat-select>
                           </mat-form-field>

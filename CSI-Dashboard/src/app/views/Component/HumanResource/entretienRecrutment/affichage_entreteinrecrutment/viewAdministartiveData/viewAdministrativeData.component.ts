@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdministrativeData } from 'app/shared/models/AdministrativeData';
+import { AdministrativeData, AvailabilityEnum, ContractTitle } from 'app/shared/models/AdministrativeData';
 import { entretienRecrutmentService } from '../../entretienRecrutment.service';
 
 @Component({
@@ -33,6 +33,22 @@ export class ViewAdministrativeDataComponent {
           console.log(this.id); // Check the retrieved data
         });
       }
+      ContractTitleMap = {
+        [ContractTitle.PERMANENT_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée indéterminée',
+        [ContractTitle.FIXED_TERM_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée déterminée',
+        [ContractTitle.PROFESSIONALIZATION_CONTRACT]: 'Contrat de professionnalisation',
+        [ContractTitle.SEASONAL_WORK_CONTRACT]: 'Contrat de travail saisonnier',
+        [ContractTitle.PART_TIME_WORK_CONTRACT]: 'Contrat de travail à temps partiel',
+        [ContractTitle.STUDY_CONTRACT]: 'Contrat d\'alternance',
+        [ContractTitle.TEMPORARY_WORK_CONTRACT]: 'Contrat de travail intérimaire'
+      };
+    
+      AvailabilityMap = {
+      [AvailabilityEnum.ASAP]: 'ASAP',
+      [AvailabilityEnum.IMMEDIATELY]: 'immédiatement',
+      [AvailabilityEnum.MONTH_MAXIMUM]: 'un mois maximum',
+      [AvailabilityEnum.THREE_MONTHS_MAXIMUM]: '3 mois maximum',
+    }
 
   closeDialog(): void {
     this.dialogRef.close();

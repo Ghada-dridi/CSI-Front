@@ -349,7 +349,6 @@ export class entretienRecrutmentComponent implements OnInit {
   
       dialogRef.componentInstance.questionnaireAdded.subscribe((emittedInterviewId: number) => {
           dialogRef.close({ interviewId: interviewId });
-          this.refreshPage();
       });
   
       dialogRef.afterClosed().subscribe((result: any) => {

@@ -21,6 +21,9 @@
 .progress-circle {
   transform: rotate(-90deg);
 }
+.circle-grey {
+  stroke: grey;
+}
 
 .circle {
   fill: none;
@@ -31,19 +34,7 @@
 .progress {
   fill: none;
   stroke-width: 20;
-  stroke-dasharray: 440;
+  stroke-dasharray: 565.48;
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 0.3s ease;
-}
-
-.circle-red {
-  stroke: red;
-}
-
-.circle-orange {
-  stroke: orange;
-}
-
-.circle-green {
-  stroke: green;
 }

@@ -62,20 +62,25 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getItems() {    
-    this.getItemSub = this.crudService.getItems()
-      .subscribe((data:any)  => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-
+  getItems() {
+    this.getItemSub = this.crudService.getItems().subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  
+      // Iterate over the rows of the MatTableDataSource
+      for (const item of this.dataSource.data) {
+        this.clientSupplierPartner(item);
+        console.log(item.companyStatus);
+      }
+    });
   }
+  
 
   openPopUp(data:  any , isNew?) {
     let title = isNew ? 'Nouveau partenaire' : 'Modifier Partenaire';
     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-      width: '1200px',
+      width: '820px',
       height: '620px',
       disableClose: true,
       data: { title: title, payload: data }
@@ -159,13 +164,30 @@ add(){
   // Mapper function to map 'blocked' field values to labels
   mapBlockedStatus(blocked: boolean): string {
     return blocked ? 'Bloqué' : 'Actif';
-}
+  }
+
+  clientSupplierPartner(item){
+    const refs = item.refs
+    
+    for (let i=0 ; i < refs.length ; i++) {
+      if (refs[i].startsWith('CL')) {
+        for (let j=0 ; j < refs.length ; j++) {
+          if (refs[j].startsWith('FR')){
+            item.companyStatus = CompanyStatus.CLIENT_SUPPLIER
+            break
+          }
+        }
+        break
+      }
+    }
+  }
 
   CompanyStatusMap = {
     [CompanyStatus.PROSPECT]:'Prospect',
     [CompanyStatus.SUPPLIER]:'Fournisseur',
-   [CompanyStatus.CLIENT]:'Client',
-   [CompanyStatus.ARCHIVED] :'Archivé'
+    [CompanyStatus.CLIENT]:'Client',
+    [CompanyStatus.ARCHIVED] :'Archivé',
+    [CompanyStatus.CLIENT_SUPPLIER] :'Client / Fournisseur'
   };
 
   provenanceMap = {

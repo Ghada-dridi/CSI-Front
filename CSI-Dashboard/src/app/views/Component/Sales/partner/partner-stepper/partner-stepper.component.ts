@@ -14,6 +14,7 @@ import { Employee } from 'app/shared/models/Employee';
 import { AddAddressService } from '../../add-address/add-address.service';
 import { DatePipe } from '@angular/common';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { ValidatorService } from 'angular-iban';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -47,6 +48,7 @@ export class PartnerStepperComponent implements OnInit {
   financialInfoForm:FormGroup;
   complInfoForm:FormGroup;
   bankAccountForm: FormGroup
+  ibanReactive: FormControl
 
   step1:FormGroup;
   step2:FormGroup;
@@ -150,8 +152,9 @@ export class PartnerStepperComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[0-9]+$/)
       ]),
-      bic: new UntypedFormControl('', [Validators.required]),
-      iban: new UntypedFormControl('', [Validators.required]),
+      bic: new UntypedFormControl('', [Validators.required,
+        Validators.pattern(/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/)]),
+      iban: new UntypedFormControl('', [Validators.required, ValidatorService.validateIban]),
       bankAddress: new UntypedFormControl('', [Validators.required])
     }))
 
@@ -209,14 +212,16 @@ export class PartnerStepperComponent implements OnInit {
     });
 
     this.complInfoForm = this.fb.group({
+      partnerShipDate: new UntypedFormControl('', [Validators.required]),
       activityStartDate: new UntypedFormControl('', [Validators.required]),
       activityEndDate: new UntypedFormControl('', [Validators.required]),
+      foundedSince: new UntypedFormControl('', [Validators.required]),
       inProgressAuthorized: new UntypedFormControl('', [Validators.required]),
       classification: new UntypedFormControl('', [Validators.required]),
       controlType: new UntypedFormControl('', [Validators.required]),
       insurancePolicy: new UntypedFormControl('', [Validators.required]),
       insuranceCompany: new UntypedFormControl('', [Validators.required]),
-      foundedSince: new UntypedFormControl('', [Validators.required]),
+      
       capital: new UntypedFormControl('', [Validators.required]),
       comment: new UntypedFormControl('', [Validators.required]),
       toleranceRate: new UntypedFormControl('', [

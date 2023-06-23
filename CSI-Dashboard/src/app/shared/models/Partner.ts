@@ -7,6 +7,7 @@ export interface Partner {
     id ?:number;
     name?: string;
     ref?: number;
+    refs?: string[];
     legalIdentifier: number
     tvaIdentifier: number
     nafCode: number
@@ -25,12 +26,14 @@ export interface Partner {
     activityStartDate? : string;
     activityEndDate? : string;
     partnerShipDate ?: string;
+    creationDate ?: string;
     companyStatus ?:CompanyStatus,
     refPhoneNumber?: number,
     country? :string,
     //workField ?:WorkField,
     legalStatus?:LegalStatus,
     //provenance?:Provenance,
+    blocked?: boolean,
     insurancePolicy?: string,
     insuranceCompany?: string,
     comment?: string,
@@ -62,10 +65,11 @@ export interface Partner {
 
   export enum CompanyStatus {
 
-    PROSPECT ="PROSPECT"
-     , SUPPLIER = "SUPPLIER"
-      , CLIENT ="CLIENT"
-       , ARCHIVED = "ARCHIVED"
+    PROSPECT ="PROSPECT", 
+    SUPPLIER = "SUPPLIER", 
+    CLIENT ="CLIENT", 
+    CLIENT_SUPPLIER = "CLIENT_SUPPLIER",
+    ARCHIVED = "ARCHIVED"
   }
 
 
@@ -244,6 +248,13 @@ export interface Partner {
   export enum ControlType{
     OFFER_CONTROL = 'OFFER_CONTROL',
     ORDER_CONTROL = 'ORDER_CONTROL'  
+  }
+
+  export enum BlockingReason{
+    NON_PAYMENT = 'NON_PAYMENT',
+    DISPUTE = 'DISPUTE',
+    DEFINITIVE_CLOSURE = 'DEFINITIVE_CLOSURE',
+    OTHER = 'OTHER'
   }
   
   

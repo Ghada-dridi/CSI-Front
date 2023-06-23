@@ -200,7 +200,19 @@
      
 <mat-card-content class="mt-16">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
-      <div fxFlex="50"  class="pr-16" style="padding-right: 17px;">
+    <div fxFlex="50"  class="pr-16" style="padding-right: 17px;">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Date de partenariat</mat-label>
+      <input matInput [matDatepicker]="picker4" 
+        formControlName="partnerShipDate" 
+        placeholder="Date de partenariat" >
+      <mat-datepicker-toggle  matSuffix [for]="picker4"></mat-datepicker-toggle>
+      <mat-datepicker #picker4></mat-datepicker>
+    </mat-form-field>
+    </div>
+
+    
+    <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de début d'activité</mat-label>
         <input matInput [matDatepicker]="picker1" 
@@ -211,7 +223,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50"  class="pr-16">
+    <div fxFlex="50"  class="pr-16" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de fin d'activité</mat-label>
         <input matInput [matDatepicker]="picker2" 
@@ -222,7 +234,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
+    <div fxFlex="50" class="pb-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Date de création de l'entreprise</mat-label>
         <input matInput [matDatepicker]="picker3" 
@@ -234,7 +246,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16">
+    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Classification</mat-label>
         <mat-select formControlName="classification">
@@ -243,7 +255,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
+    <div fxFlex="50" class="pb-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Capital (en {{ selectedCurrency }})</mat-label>
         <input
@@ -259,7 +271,7 @@
     </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16">
+    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Police assurance</mat-label>
         <input
@@ -275,7 +287,7 @@
     </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
+    <div fxFlex="50" class="pb-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Compagnie assurance</mat-label>
         <input
@@ -291,7 +303,7 @@
     </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16">
+    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>En cours autorisé (en {{ selectedCurrency }})</mat-label>
         <input
@@ -307,7 +319,7 @@
     </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
+    <div fxFlex="50" class="pb-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Taux de tolérance(%)</mat-label>
         <input
@@ -324,7 +336,7 @@
     </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pb-16">
+    <div fxFlex="50" class="pb-16" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Type de contrôle</mat-label>
         <mat-select formControlName="controlType">
@@ -334,31 +346,40 @@
     </div>
 
     <!--Bloquer partenaire-->
-    <div fxFlex="50" class="pb-16">
+    <div fxFlex="50" class="pb-16" style="padding-top: 17px;">
       <mat-slide-toggle 
       color="warn"
       [checked]="itemForm.get('blocked').value" 
-      formControlName="blocked"
-      (change)="toggleReasonField()">Bloquer partenaire</mat-slide-toggle>
+      formControlName="blocked">Bloquer partenaire</mat-slide-toggle>
     </div>
 
     <!--Motif de blocage-->
-    <div fxFlex="50" class="pb-16" *ngIf="isReasonFieldVisible()">
+    <div fxFlex="50" class="pb-16" *ngIf="isBlockingReasonFieldVisible()" style="padding-right: 17px;">
       <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Motif de blocage</mat-label>
+        <mat-select formControlName="blockingReason">
+          <mat-option  *ngFor="let reason of reasons" [value]="reason">{{ blockingReasonMap[reason] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!--Autre motif de blocage-->
+    <div class="mini-container" *ngIf="isOtherReasonFieldVisible()">
+      <mat-form-field [style.width.cm]=18.2 class="example-full-width" appearance="outline">
         <mat-label>Motif de blocage</mat-label>
         <textarea
           matInput
           required
           name="reason"
           formControlName="reason"
-          placeholder="Motif de blocage"
+          placeholder="Veuillez préciser le motif de blocage"
         >
         </textarea>
       </mat-form-field>
     </div>
 
-    <div class="mini-container" style="padding-top: 17px;">
-      <mat-form-field [style.width.cm]=24.4 class="example-full-width" appearance="outline">
+    <div class="mini-container">
+      <mat-form-field [style.width.cm]=18.2 class="example-full-width" appearance="outline">
         <mat-label>Commentaire</mat-label>
         <textarea
           matInput

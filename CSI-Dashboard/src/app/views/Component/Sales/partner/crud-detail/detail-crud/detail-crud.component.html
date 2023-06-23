@@ -1,7 +1,17 @@
 <mat-card class="p-0">
-  <mat-card-title class="">
-     <div class="card-title-text"><mat-icon>info_outline </mat-icon>
-      Fiche partenaire <small>{{partner.ref}}  </small> <strong>{{partner.name}}</strong></div>
+  <mat-card-title class="card-title-container">
+    <div class="card-title-text">
+      <mat-icon >info_outline</mat-icon>
+      Fiche partenaire <small> {{ partner.ref }} </small> : <strong>{{ partner.name }}</strong>
+    </div>
+    <div class="card-title-text second-div" style="color:red" *ngIf="partner.blocked">
+      <mat-icon class="mr-16">highlight_off</mat-icon>
+      <strong >{{ mapBlockedStatus(partner.blocked) }}</strong>
+    </div>
+    <div class="card-title-text second-div" style="color: #35e578;" *ngIf="!partner.blocked">
+      <mat-icon >check_circle</mat-icon>
+      <strong >{{ mapBlockedStatus(partner.blocked) }}</strong>
+    </div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -16,10 +26,10 @@
           
             <div fxFlex="50%" class="partner-details">
               <div class="main-title">Type partenariat: {{ companyStatusMap[partner.companyStatus] }}</div>
-              <div class="subtitle"><strong>Qualité:</strong> {{ partner.legalStatus }}</div>
-              <div class="subtitle"><strong>Identifiant juridique entreprise:</strong> {{ partner.legalIdentifier }}</div>
-              <div class="subtitle"><strong>Identifiant TVA:</strong> {{ partner.tvaIdentifier }}</div>
-              <div class="subtitle"><strong>Code Naf:</strong> {{ partner.nafCode }}</div>
+              <div class="subtitle">Qualité : <strong>{{ partner.legalStatus }}</strong></div>
+              <div class="subtitle">Identifiant juridique entreprise : <strong>{{ partner.legalIdentifier }}</strong></div>
+              <div class="subtitle">Identifiant TVA : <strong>{{ partner.tvaIdentifier }}</strong></div>
+              <div class="subtitle">Code Naf: <strong>{{ partner.nafCode }}</strong></div>
           </div>
           
          <!-- <div fxFlex="35%" class="partner-details">
@@ -44,7 +54,7 @@
       </mat-card-title>
       <mat-card-content >
         <div class="coord-card1" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
-          <mat-list fxFlex="50%" fxFlex.xs="100%">
+          <mat-list fxFlex="30%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
               <mat-icon color="primary" class="mr-16">phone</mat-icon>
               <span style="font-weight: bold;color: rgb(134, 134, 139);">Fixe</span>
@@ -52,7 +62,7 @@
             <mat-list-item>{{ partner.phoneNumber }}</mat-list-item>
           </mat-list>
         
-          <mat-list fxFlex="50%" fxFlex.xs="100%">
+          <mat-list fxFlex="30%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
               <mat-icon color="primary" class="mr-16">smartphone</mat-icon>
               <span  style="font-weight: bold;color: rgb(134, 134, 139);">Mobile</span>
@@ -60,7 +70,7 @@
             <mat-list-item>{{ partner.mobilePhoneNumber }}</mat-list-item>
           </mat-list>
         
-          <mat-list fxFlex="50%" fxFlex.xs="100%">
+          <mat-list fxFlex="40%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
               <mat-icon color="primary" class="mr-16">add_location</mat-icon>
               <span  style="font-weight: bold;color: rgb(134, 134, 139);">Adresse</span>
@@ -68,7 +78,7 @@
             <mat-list-item>{{ partner.addresses[0].country }}, {{ partner.addresses[0].city }}</mat-list-item>
           </mat-list>
         
-          <mat-list fxFlex="50%" fxFlex.xs="100%">
+          <mat-list fxFlex="70%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
               <mat-icon color="primary" class="mr-16">email</mat-icon>
               <span  style="font-weight: bold;color: rgb(134, 134, 139);">Email</span>
@@ -76,12 +86,18 @@
             <mat-list-item>{{ partner.email }}</mat-list-item>
           </mat-list>
         
-          <mat-list fxFlex="50%" fxFlex.xs="100%">
+          <mat-list fxFlex="70%" fxFlex.xs="100%">
             <mat-list-item class="cc1-title">
               <mat-icon color="primary" class="mr-16">public</mat-icon>
               <span  style="font-weight: bold;color: rgb(134, 134, 139);">Site Web</span>
             </mat-list-item>
-            <mat-list-item>{{ partner.webSite }}</mat-list-item>
+            <mat-list-item>
+              {{ partner.webSite }}
+              <button *ngIf="partner.webSite" style="margin-left:5px ;" mat-icon-button mat-sm-button color="primary" (click)="redirectToLink(partner.webSite)">
+              <mat-icon class="mr-16">link</mat-icon>
+              </button>
+            </mat-list-item>
+            
           </mat-list>
         </div>
         
@@ -95,7 +111,7 @@
          
             <mat-list fxFlex="50%" fxFlex.xs="100%">
               <mat-list-item class="cc1-title">
-                <mat-icon color="primary" class="mr-16">assignment</mat-icon>
+                <!--mat-icon color="primary" class="mr-16">assignment</mat-icon-->
                 <span  style="font-weight: bold;color: rgb(134, 134, 139);">Police d'assurance : </span>
               </mat-list-item>
               <mat-list-item>{{ partner.insurancePolicy }}</mat-list-item>
@@ -103,7 +119,7 @@
 
             <mat-list fxFlex="50%" fxFlex.xs="100%">
               <mat-list-item class="cc1-title">
-                <mat-icon color="primary" class="mr-16">business</mat-icon>
+                <!--mat-icon color="primary" class="mr-16">business</mat-icon-->
                 <span  style="font-weight: bold;color: rgb(134, 134, 139);">Compagnie d'assurance :</span>
               </mat-list-item>
               <mat-list-item>{{ partner.insuranceCompany }}</mat-list-item>
@@ -141,21 +157,39 @@
         <div class="financial-nfo" >
           <div fxFlex="24"> 
             <mat-list>
-              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Devise :</strong> {{ currencyMap[partner.currency] }}</mat-list-item>
-              <mat-list-item><mat-icon color="primary"  style="padding-right:10px;">compare_arrows</mat-icon><strong style="padding-right: 13px;">Mode de paiement :</strong> {{paymentModeMap[partner.paymentMode]}}</mat-list-item>
+              <mat-list-item>
+                <!--mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon-->
+                Devise : <strong style="padding-right: 13px;">{{ currencyMap[partner.currency] }}</strong> 
+              </mat-list-item>
+              <mat-list-item>
+                <!--mat-icon color="primary"  style="padding-right:10px;">compare_arrows</mat-icon-->
+                Mode de paiement : <strong style="padding-right: 13px;">{{paymentModeMap[partner.paymentMode]}}</strong> 
+              </mat-list-item>
             </mat-list>
           </div>
           
         <div fxFlex="38">
             <mat-list>
-              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">payment</mat-icon><strong style="padding-right: 10px;">Condition de paiement :</strong> {{paymentConditionMap[partner.paymentCondition]}}</mat-list-item>
-              <mat-list-item><mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon><strong style="padding-right: 10px;">En cours autorisé :</strong> {{partner.inProgressAuthorized}} {{partner.currency}}</mat-list-item>
+              <mat-list-item>
+                <!--mat-icon color="primary" style="padding-right:10px;">payment</mat-icon-->
+                Condition de paiement : <strong style="padding-right: 10px;">{{paymentConditionMap[partner.paymentCondition]}}</strong> 
+              </mat-list-item>
+              <mat-list-item>
+                <!--mat-icon color="primary" style="padding-right:10px;">check_circle</mat-icon-->
+                En cours autorisé : <strong style="padding-right: 10px;">{{partner.inProgressAuthorized}} {{partner.currency}}</strong> 
+              </mat-list-item>
             </mat-list>
         </div>
         <div fxFlex="38">
           <mat-list>
-            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">settings</mat-icon><strong style="padding-right: 13px;">Type de contrôle :</strong> {{controlTypeMap[partner.controlType]}}</mat-list-item>
-            <mat-list-item><mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon><strong style="padding-right: 13px;">Capital :</strong>{{partner.capital}} {{partner.currency}}</mat-list-item>
+            <mat-list-item>
+              <!--mat-icon color="primary" style="padding-right:10px;">settings</mat-icon-->
+              Type de contrôle : <strong style="padding-right: 13px;">{{controlTypeMap[partner.controlType]}}</strong>
+            </mat-list-item>
+            <mat-list-item>
+              <!--mat-icon color="primary" style="padding-right:10px;">attach_money</mat-icon-->
+              Capital : <strong style="padding-right: 13px;">{{partner.capital}} {{partner.currency}}</strong>
+            </mat-list-item>
           </mat-list>
           </div>
         </div>
@@ -173,10 +207,13 @@
                   </mat-panel-title>
                  
                 </mat-expansion-panel-header>
-               
-                <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">
-                  <mat-icon>add</mat-icon>
-                </button>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="border-bottom pb-16 mb-16">
+                  <span fxFlex></span>
+                  <button mat-icon-button color="primary" type="button" (click)="openPopUp({},true)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                
                 <div *ngFor="let address of addresses" class="border-bottom pb-16 mb-16">
                     <div fxLyout="row wrap" class="text-blue font-weight-bold">
                        <span>{{address.type}}</span>
@@ -212,14 +249,22 @@
                     <h6 class="text-18 mb-4"> Comptes bancaires </h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <button mat-icon-button color="primary" type="button" (click)="openPopUp6({},true)">
-                  <mat-icon>add</mat-icon>
-                </button>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="border-bottom pb-16 mb-16">
+                  <span fxFlex></span>
+                  <button mat-icon-button color="primary" type="button" (click)="openPopUp6({},true)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                
                 <div *ngFor="let account of accounts" class="border-bottom pb-16 mb-16">
-                    <div fxLyout="row wrap" class="text-blue font-weight-bold">
+                    <div fxLyout="row wrap" >
                     
-                        <span>{{account.bankName}}</span>
+                        <span class="text-blue font-weight-bold">{{account.bankName}}</span>
                         <span fxFlex></span>
+
+                        <button mat-icon-button mat-sm-button class="mr-16" color="basic" (click)="openAccountDetails(account)">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
                         
                         <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp6(account)">
                           <mat-icon>edit</mat-icon>
@@ -315,9 +360,13 @@
                     <h6 class="text-18 mb-4"> Contacts </h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <button mat-icon-button color="primary" type="button" (click)="openPopUp2({},true)">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="border-bottom pb-16 mb-16">
+                  <span fxFlex></span>
+                  <button mat-icon-button color="primary" type="button" (click)="openPopUp2({},true)">
                   <mat-icon>add</mat-icon>
-                </button>
+                  </button>
+                </div>
+                
                 <mat-table [dataSource]="dataSource" matSort >
   
   
@@ -371,9 +420,13 @@
                     <h6 class="text-18 mb-4"> Opportunités </h6>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <button mat-icon-button color="primary" type="button" (click)="openPopUp3({},true)">
-                  <mat-icon>add</mat-icon>
-                </button>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="border-bottom pb-16 mb-16">
+                  <span fxFlex></span>
+                  <button mat-icon-button color="primary" type="button" (click)="openPopUp3({},true)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                
                 <mat-table [dataSource]="dataSource2" matSort >
   
   

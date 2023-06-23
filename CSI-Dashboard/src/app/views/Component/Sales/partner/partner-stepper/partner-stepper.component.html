@@ -494,13 +494,13 @@
                                   <!--Numéro-->
                                       <div class="form-group mb-1 col-sm-12 col-md-3">
                                           <mat-form-field appearance="outline" [style.width.cm]="10">
-                                              <mat-label>RIB</mat-label>
+                                              <mat-label>Numéro compte(RIB)</mat-label>
                                               <input
                                                 matInput
                                                 required
                                                 name="rib"
                                                 formControlName="rib"
-                                                placeholder="RIB"
+                                                placeholder="Numéro compte(RIB)"
                                               />
                                               <mat-error *ngIf="bankAccountForm.get('value').at(i).get('rib').invalid && bankAccountForm.get('value').at(i).get('rib').touched">
                                                 Ce champs est requis et doit comporter seulement des caractères numériques.
@@ -537,7 +537,12 @@
                                                 placeholder="IBAN"
                                               />
                                               <mat-error *ngIf="bankAccountForm.get('value').at(i).get('iban').invalid && bankAccountForm.get('value').at(i).get('iban').touched">
-                                                Le nom est requis.
+                                                <ng-container *ngIf="bankAccountForm.get('value').at(i).get('iban').errors.required">
+                                                  IBAN is required.
+                                                </ng-container>
+                                                <ng-container *ngIf="bankAccountForm.get('value').at(i).get('iban').errors.iban">
+                                                  IBAN is invalid.
+                                                </ng-container>
                                               </mat-error>
                                           </mat-form-field>
                                       </div>
@@ -838,6 +843,19 @@
                   <mat-card-content class="container" style="padding-top: 1.5cm;">
                       <div>
                           <mat-grid-list cols="2" rowHeight="100px">
+                            <!--Date de partenariat-->
+                            <mat-grid-tile>
+                              <div class="pb-16">
+                                  <mat-form-field appearance="outline" [style.width.cm]=10>
+                                    <mat-label>Date de partenariat</mat-label>
+                                    <input matInput [matDatepicker]="picker" 
+                                    formControlName="partnerShipDate" 
+                                    placeholder="Date de partenariat" >
+                                    <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                  </mat-form-field>
+                              </div>
+                          </mat-grid-tile>
                             <!--Date de début d'activité-->
                               <mat-grid-tile>
                                   <div class="pb-16">

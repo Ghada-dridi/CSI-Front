@@ -28,6 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule} from '@angular/core';
+import { AngularIbanModule } from 'angular-iban';
+
 import { CrudNgxTableComponent } from './crud-ngx-table/crud-ngx-table.component';
 import { CrudPartnerService } from './crudPartner.service';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -46,6 +48,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatesPopupComponent } from './crud-detail/detail-crud/dates-popup/dates-popup.component';
 import { CommentPopupComponent } from './crud-detail/detail-crud/comment-popup/comment-popup.component';
+import { AccountDetailsComponent } from './crud-detail/detail-crud/account-details/account-details.component';
 
 
 
@@ -83,11 +86,11 @@ import { CommentPopupComponent } from './crud-detail/detail-crud/comment-popup/c
     MatTabsModule,
     MatGridListModule,
     MatNativeDateModule,
-
+    AngularIbanModule,
 
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent, PartnerStepperComponent,DatesPopupComponent,CommentPopupComponent],
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent, DetailCrudComponent , RequirementDetailsComponent, ContactsDetailsComponent , addAddressComponent, PartnerContactPopComponent, SocialMediaPopComponent, OfferedPopComponent, AccountPopComponent, PartnerStepperComponent,DatesPopupComponent,CommentPopupComponent, AccountDetailsComponent],
   providers: [ContactService, CrudPartnerService, DatePipe] 
 })
 export class PartnerModule { }

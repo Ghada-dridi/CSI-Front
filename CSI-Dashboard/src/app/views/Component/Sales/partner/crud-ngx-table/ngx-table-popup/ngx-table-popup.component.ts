@@ -2,7 +2,7 @@ import { CrudPartnerService } from './../../crudPartner.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {  Validators,  FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { Partner,CompanyStatus,WorkField,LegalStatus,Provenance ,Country, Currency, PaymentCondition, PaymentMode, ControlType} from 'app/shared/models/Partner';
+import { Partner,CompanyStatus,WorkField,LegalStatus,Provenance ,Country, Currency, PaymentCondition, PaymentMode, ControlType, BlockingReason} from 'app/shared/models/Partner';
 import { Civility, Privilege } from 'app/shared/models/contact';
 import { Availability, RequirementStatus, RequirementType } from 'app/shared/models/req';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -22,6 +22,7 @@ export class NgxTablePopupComponent implements OnInit {
   paymentConditions = Object.values(PaymentCondition)
   controlTypes = Object.values(ControlType)
   privileges = Object.values(Privilege)
+  reasons = Object.values(BlockingReason)
 
   selectedCurrency: string;
 
@@ -60,7 +61,10 @@ export class NgxTablePopupComponent implements OnInit {
   buildItemForm(item){
     //this.notProspectPartner()
     const companyStatus = Object.values(CompanyStatus).filter(status => {
-      return !(item.companyStatus && item.companyStatus !== CompanyStatus.PROSPECT && status === CompanyStatus.PROSPECT);
+      return !(item.companyStatus 
+        && item.companyStatus !== CompanyStatus.PROSPECT 
+        && (status === CompanyStatus.PROSPECT || status === CompanyStatus.CLIENT_SUPPLIER)
+        );
     });
     this.itemForm = this.fb.group({
       name : [item.name || '', Validators.required],
@@ -77,10 +81,10 @@ export class NgxTablePopupComponent implements OnInit {
       paymentCondition : [item.paymentCondition || '', Validators.required],
       paymentMode : [item.paymentMode || '', Validators.required],
       logo : [item.logo || null, Validators.required],
+      partnerShipDate : [item.partnerShipDate || '', Validators.required],
       activityStartDate : [item.activityStartDate || '', Validators.required],
       activityEndDate : [item.activityEndDate || '', Validators.required],
       foundedSince : [item.foundedSince || '', Validators.required],
-      partnerShipDate : [item.partnerShipDate || '', Validators.required],
       companyStatus : [item.companyStatus || '', Validators.required],
       legalStatus : [item.legalStatus || '', Validators.required],
       capital : [item.capital || '', Validators.required],
@@ -92,7 +96,8 @@ export class NgxTablePopupComponent implements OnInit {
       comment : [item.comment || '', Validators.required],
       classification : [item.classification || '', Validators.required],
       blocked: [item.blocked || false],
-      reason: [item.reason || '', Validators.required]
+      reason: [item.reason || '', Validators.required],
+      blockingReason : [item.blockingReason || '']
       //ceoName : [item.ceoName || '', Validators.required],
       //postCode : [item.postCode || '', Validators.required],
       //city : [item.city || '', Validators.required],
@@ -176,7 +181,7 @@ export class NgxTablePopupComponent implements OnInit {
     }
   }
 
-  toggleReasonField() {
+  /*toggleOtherReasonField() {
     const blocked = this.itemForm.get('blocked');
     const reason = this.itemForm.get('reason');
 
@@ -187,11 +192,17 @@ export class NgxTablePopupComponent implements OnInit {
     }
 
     reason.updateValueAndValidity();
+  }*/
+
+  isOtherReasonFieldVisible(){
+    const blockingReason = this.itemForm.get('blockingReason').value
+    return this.itemForm.get('blocked').value && blockingReason == BlockingReason.OTHER
   }
 
-  isReasonFieldVisible() {
+  isBlockingReasonFieldVisible() {
     return this.itemForm.get('blocked').value;
   }
+
 
   currencyMap: {[key: string]: string} = {
     'AFN': 'AFN - Afghani afghan',
@@ -321,8 +332,8 @@ export class NgxTablePopupComponent implements OnInit {
   CompanyStatusMap = {
     [CompanyStatus.PROSPECT]:'Prospect',
     [CompanyStatus.SUPPLIER]:'Fournisseur',
-   [CompanyStatus.CLIENT]:'Client',
-   [CompanyStatus.ARCHIVED] :'Archivé'
+    [CompanyStatus.CLIENT]:'Client',
+    [CompanyStatus.ARCHIVED] :'Archivé',
   };
 
   provenanceMap = {
@@ -380,4 +391,11 @@ export class NgxTablePopupComponent implements OnInit {
     [ControlType.OFFER_CONTROL]:'Contrôle devis',
     [ControlType.ORDER_CONTROL]:'Contrôle commande'
   }
+
+  blockingReasonMap = {
+    [BlockingReason.NON_PAYMENT]:'Défaut de paiement',
+    [BlockingReason.DISPUTE]:'Litige',
+    [BlockingReason.DEFINITIVE_CLOSURE]:'Fermeture définitive',
+    [BlockingReason.OTHER] :'Autre'
+  };
 }

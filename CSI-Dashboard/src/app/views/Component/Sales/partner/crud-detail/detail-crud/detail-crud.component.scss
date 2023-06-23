@@ -73,3 +73,22 @@
   margin-bottom: 15px;
   padding: 10px;
   }
+
+  .card-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .first-div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .second-div {
+    margin-left: auto;
+  }
+  
+  /*.title-text {
+    padding-top: 10px;
+  }*/

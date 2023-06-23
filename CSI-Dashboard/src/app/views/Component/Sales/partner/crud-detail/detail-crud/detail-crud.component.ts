@@ -25,6 +25,7 @@ import { BankAccount } from 'app/shared/models/BankAccount';
 import { DatePipe } from '@angular/common';
 import { DatesPopupComponent } from './dates-popup/dates-popup.component';
 import { CommentPopupComponent } from './comment-popup/comment-popup.component';
+import { AccountDetailsComponent } from './account-details/account-details.component';
 
 @Component({
   selector: 'app-detail-crud',
@@ -101,8 +102,13 @@ public accounts: BankAccount[]
       this.partner = data;
       //this.getContactsByPartner();
       this.getContacts();
+      console.log(this.partner.refs)
+      this.clientSupplierPartner()
+      console.log(this.partner.companyStatus)
     });
   }
+
+
   getSocialMedias() {
     this.partnerService.getItemSocialMedias(this.id).subscribe((data: any) => {
       this.socialMedias = data;
@@ -470,7 +476,8 @@ public accounts: BankAccount[]
           companyStatusMap = {
             [CompanyStatus.PROSPECT]:'Prospect',
             [CompanyStatus.SUPPLIER]:'Fournisseur',
-           [CompanyStatus.CLIENT]:'Client'
+            [CompanyStatus.CLIENT]:'Client',
+            [CompanyStatus.CLIENT_SUPPLIER]:'Client / Fournisseur'
           };
         
           provenanceMap = {
@@ -663,11 +670,41 @@ public accounts: BankAccount[]
           }
           openDates() {
             this.dialog.open(DatesPopupComponent, {
-              data: { startDate: this.partner.activityStartDate ,partnershipDate: this.partner.partnerShipDate,
-                endDate : this.partner.activityEndDate, foundingDate: this.partner.foundedSince,
-                
+              data: { startDate: this.partner.activityStartDate , 
+                partnerShipDate: this.partner.partnerShipDate,
+                endDate : this.partner.activityEndDate, 
+                foundingDate: this.partner.foundedSince,
+                creationDate : this.partner.creationDate
               },
             });
           }
-}
 
+          openAccountDetails(account) {
+            this.dialog.open(AccountDetailsComponent, {
+              data: { iban: account.iban , bic: account.bic,
+                bankAddress : account.bankAddress , bankName: account.bankName, rib : account.rib
+              },
+            });
+          }
+
+  // Mapper function to map 'blocked' field values to labels
+  mapBlockedStatus(blocked: boolean): string {
+    return blocked ? 'Bloqué' : 'Actif';
+  }
+
+  clientSupplierPartner(){
+    const refs = this.partner.refs
+    
+    for (let i=0 ; i < refs.length ; i++) {
+      if (refs[i].startsWith('CL')) {
+        for (let j=0 ; j < refs.length ; j++) {
+          if (refs[j].startsWith('FR')){
+            this.partner.companyStatus = CompanyStatus.CLIENT_SUPPLIER
+            break
+          }
+        }
+        break
+      }
+    }
+  }
+}

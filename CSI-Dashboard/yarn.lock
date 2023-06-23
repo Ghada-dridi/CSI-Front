@@ -165,7 +165,7 @@
     uuid "8.3.2"
     yargs "17.5.1"
 
-"@angular/common@*", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.2.0", "@angular/common@^15.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=9.0.0", "@angular/common@14.3.0":
+"@angular/common@*", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.2.0", "@angular/common@^14.x", "@angular/common@^15.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=9.0.0", "@angular/common@14.3.0":
   version "14.3.0"
   resolved "https://registry.npmjs.org/@angular/common/-/common-14.3.0.tgz"
   integrity sha512-pV9oyG3JhGWeQ+TFB0Qub6a1VZWMNZ6/7zEopvYivdqa5yDLLDSBRWb6P80RuONXyGnM1pa7l5nYopX+r/23GQ==
@@ -195,7 +195,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@*", "@angular/core@^14.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.2.0", "@angular/core@^15.0.0", "@angular/core@^8.0.3", "@angular/core@>=10.0.0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=6.0.0", "@angular/core@>=9.0.0", "@angular/core@14.3.0":
+"@angular/core@*", "@angular/core@^14.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.2.0", "@angular/core@^14.x", "@angular/core@^15.0.0", "@angular/core@^8.0.3", "@angular/core@>=10.0.0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=6.0.0", "@angular/core@>=9.0.0", "@angular/core@14.3.0":
   version "14.3.0"
   resolved "https://registry.npmjs.org/@angular/core/-/core-14.3.0.tgz"
   integrity sha512-wYiwItc0Uyn4FWZ/OAx/Ubp2/WrD3EgUJ476y1XI7yATGPF8n9Ld5iCXT08HOvc4eBcYlDfh90kTXR6/MfhzdQ==
@@ -2041,6 +2041,13 @@ angular-draggable-droppable@^7.0.0:
     "@mattlewis92/dom-autoscroller" "^2.4.2"
     tslib "^2.4.0"
 
+angular-iban@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.npmjs.org/angular-iban/-/angular-iban-14.0.0.tgz"
+  integrity sha512-VF7A9qpcm9rUz4kaIa/HfkRdzKWHTFNgj8NOw5xeA7T+hms4WA2q9MzhKhDpBOw0lRQHjuYYEqOB58Th97AMxg==
+  dependencies:
+    tslib "^2.3.0"
+
 angular-in-memory-web-api@^0.14.0:
   version "0.14.0"
   resolved "https://registry.npmjs.org/angular-in-memory-web-api/-/angular-in-memory-web-api-0.14.0.tgz"
@@ -2246,6 +2253,11 @@ batch@0.6.1:
   version "0.6.1"
   resolved "https://registry.npmjs.org/batch/-/batch-0.6.1.tgz"
   integrity sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==
+
+bic@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/bic/-/bic-1.1.1.tgz"
+  integrity sha512-hBJI+rp8JZ2dnPwXzWMZbJsnlnUgEMwd0Lrs2f8mcTAhdWXrJUSLf6vkvEhIwvfk7Ar9eSgLYH7TKQsJpsPy6w==
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -3852,6 +3864,11 @@ humanize-ms@^1.2.1:
   integrity sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==
   dependencies:
     ms "^2.0.0"
+
+iban@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.npmjs.org/iban/-/iban-0.0.14.tgz"
+  integrity sha512-+rocNKk+Ga9m8Lr9fTMWd+87JnsBrucm0ZsIx5ROOarZlaDLmd+FKdbtvb0XyoBw9GAFOYG2GuLqoNB16d+p3w==
 
 iconv-lite@^0.4.24, iconv-lite@0.4.24:
   version "0.4.24"

@@ -1,10 +1,8 @@
-//import { html2pdf } from 'html2pdf.js';
-
-
+import * as html2pdf from 'html2pdf.js';
 import { benefit, exceptionalFee } from './../../../../../../shared/models/avantagesContrat';
 import { ActivatedRoute } from '@angular/router';
 import { ContractEmployeeService } from '../contract-employee.service';
-import { contract } from './../../../../../../shared/models/contract';
+import { ContractTitle, contract } from './../../../../../../shared/models/contract';
 import { Component, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Inject } from '@angular/core';
@@ -12,6 +10,8 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Endorsement } from 'app/shared/models/Endorsement';
+import { EndorsementService } from '../../../endorsement/endorsement.service';
 
 
 
@@ -26,8 +26,9 @@ export class ViewContractComponent implements OnInit {
 
     
   public displayedColumnsE: any;
-    
+  public displayedColumnsEn: any;
   public displayedColumnsB: any;
+ public dataSourceEn: MatTableDataSource<Endorsement>;
   public dataSourceB: MatTableDataSource<benefit>;
   public dataSourceE: MatTableDataSource<exceptionalFee>;
   public exceptionalFees : exceptionalFee[]
@@ -37,21 +38,27 @@ export class ViewContractComponent implements OnInit {
  
     constructor(private route: ActivatedRoute,
       private crudService: ContractEmployeeService,
+      private endorsementService : EndorsementService,
       private dialog: MatDialog,
       private snack: MatSnackBar,
       private loader: AppLoaderService,
       @Inject(DOCUMENT) private document: Document) {
+
+      this.dataSourceEn = new MatTableDataSource<Endorsement>([]);
 
         this.dataSourceB = new MatTableDataSource<benefit>([]);
         
         this.dataSourceE = new MatTableDataSource<exceptionalFee>([]);
        }
 
+       getDisplayedColumnsEn() {
+        return ['number','reference','object' ];
+      }
       getDisplayedColumnsB() {
-        return ['number','name' ,'description'];
+        return ['number' ,'description'];
       }
       getDisplayedColumnsE() {
-        return ['number','name' ,'description'];
+        return ['number','description'];
       }
   
     ngOnInit(): void {
@@ -60,6 +67,7 @@ export class ViewContractComponent implements OnInit {
       this.getExceptionalFee();
       this.getBenefit();
 
+     this.displayedColumnsEn=this.getDisplayedColumnsEn();
       this.displayedColumnsE=this.getDisplayedColumnsE();
       this.displayedColumnsB=this.getDisplayedColumnsB();
       console.log(this.id)
@@ -77,6 +85,13 @@ export class ViewContractComponent implements OnInit {
   
       });
     }
+
+    
+    getSortedArticles(): any[] {
+      return this.contract.articles.sort((a, b) => a.articleNumber - b.articleNumber);
+    }
+    
+    
   /************************************ get exceptionnal fee by contractId *********************************************************/
     getExceptionalFee() {
       this.crudService.getItemFee(this.id).subscribe((data: any) => {
@@ -84,6 +99,7 @@ export class ViewContractComponent implements OnInit {
         
       });
     }
+    
     /********************************* get benefit by idContract *******************************/
     getBenefit() {
       this.crudService.getItemBenefit(this.id).subscribe((data: any) => {
@@ -92,17 +108,24 @@ export class ViewContractComponent implements OnInit {
       });
     }
 
+       /********************************* get benefit by idContract *******************************/
+       getEndorsement() {
+        this.endorsementService.getItem(this.id).subscribe((data: any) => {
+          this.dataSourceEn = data;
+          
+        });
+      }
+
     /******************************************  téléchargement du PDF   ****************************************/
-    /*downloadContract() {
-      const element = document.getElementById("formImprime");
-      html2pdf()
-        .from(element)
-        .save('MonContrat.pdf');
+    downloadContract() {
+      const element = document.getElementById('formImprime');
+      html2pdf().from(element).save('MonContrat.pdf');
     }
-    */
+    
+  
   
     /********************************************  imprimer contrat     ******************************************/
- 
+ /*
 
     print(){
       const printableArea = document.getElementById('formImprime');
@@ -112,10 +135,10 @@ export class ViewContractComponent implements OnInit {
       window.print();
       document.body.innerHTML = originalContents;
     }
-
+*/
 
     //////print remove unwated thing ///////
-    /*print() {
+    print() {
       const printableArea = document.getElementById('formImprime');
       var originalContents = document.body.innerHTML;
       var printContents = document.getElementById('formImprime').innerHTML;
@@ -135,8 +158,17 @@ export class ViewContractComponent implements OnInit {
     
       window.print();
       document.body.innerHTML = originalContents;
-    }*/
+    }
 
+    ContractTitleMap = {
+      [ContractTitle.PERMANENT_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée indéterminée',
+      [ContractTitle.FIXED_TERM_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée déterminée',
+      [ContractTitle.PROFESSIONALIZATION_CONTRACT]: 'Contrat de professionnalisation',
+      [ContractTitle.SEASONAL_WORK_CONTRACT]: 'Contrat de travail saisonnier',
+      [ContractTitle.PART_TIME_WORK_CONTRACT]: 'Contrat de travail à temps partiel',
+      [ContractTitle.STUDY_CONTRACT]: 'Contrat d\'alternance',
+      [ContractTitle.TEMPORARY_WORK_CONTRACT]: 'Contrat de travail intérimaire'
+    };
 }
 
 

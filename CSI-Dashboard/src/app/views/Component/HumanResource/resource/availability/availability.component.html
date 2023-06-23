@@ -1,0 +1,76 @@
+<div class="popup-container">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">Ajouter une indisponibilité</span>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+      <div fxFlex="100" class="pr-16" style="text-align: center; margin-top:20px;">
+        <mat-form-field appearance="outline" [style.width.cm]="17">
+          <mat-label>Date de début</mat-label>
+          <input
+            matInput
+            type="date"
+            name="startDate"
+            [formControl]="itemForm.controls['startDate']"
+            placeholder="Date de début"
+            (change)="calculatePeriod()"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="pr-16" style="text-align: center;">
+        <mat-form-field appearance="outline" [style.width.cm]="17">
+          <mat-label>Date de fin</mat-label>
+          <input
+            matInput
+            type="date"
+            name="endDate"
+            [formControl]="itemForm.controls['endDate']"
+            placeholder="Date de fin"
+            (change)="calculatePeriod()"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="pr-16" style="text-align: center;">
+        <mat-form-field appearance="outline" [style.width.cm]="17">
+          <mat-label>Période</mat-label>
+          <input
+            matInput
+            name="period"
+            [formControl]="itemForm.controls['period']"
+            placeholder="Période"
+            [disabled]="true"
+          >
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="pr-16" style="text-align: center;">
+        <mat-form-field appearance="outline" [style.width.cm]="17">
+          <mat-label>Commentaire</mat-label>
+          <textarea
+            matInput
+            formControlName="comment" 
+            placeholder="Commentaire"
+            rows="4"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="mt-16">
+        <div style="display: flex; justify-content: space-between;">
+          <button mat-raised-button color="primary" style="order: 1;">{{"Ajouter" | translate }}</button>
+          <button mat-button color="gray" type="button" (click)="dialogRef.close(false)" style="order: 2;">Annuler</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

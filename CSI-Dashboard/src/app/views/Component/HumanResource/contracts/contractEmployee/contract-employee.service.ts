@@ -1,6 +1,8 @@
 import { benefit, exceptionalFee } from './../../../../../shared/models/avantagesContrat';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Employee } from 'app/shared/models/Employee';
+import { article } from 'app/shared/models/article';
 import { contract } from 'app/shared/models/contract';
 import { catchError, throwError } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -14,6 +16,8 @@ export class ContractEmployeeService {
   private apiUrl = 'http://localhost:8084/rh/contract';
   private apiUrlFee = 'http://localhost:8084/rh/exceptionalFees';
   private apiUrlBenefit ='http://localhost:8084/rh/Benefit' 
+  private apiUrlEmployee ='http://localhost:8084/rh/employee' 
+  
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +49,13 @@ export class ContractEmployeeService {
  getItem(id: number): Observable<contract> {
   const url = `${this.apiUrl}/getContract/${id}`;
   return this.http.get<contract>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+updateContract(id: number , data:any): Observable<any> {
+  const url = `${this.apiUrl}/updateContract/${id}`;
+  return this.http.put<any>(url, data).pipe(
     catchError(this.handleError)
   );
 }
@@ -108,27 +119,7 @@ addBenefit(benefit: any): Observable<any> {
   }
   
 /********************************************  Api of status Contract  *****************************************/
-/*
-  // PUT an existing item
-  updateToSentById(id: number, contract: contract): Observable<contract> {
-    const url = `${this.apiUrl}/updateToSentById/${id}`;
-    return this.http.put<contract>(url, contract).pipe(
-      catchError(this.handleError)
-    );
-  }
 
-  updateToAcceptedById(id: number, contract: contract): Observable<contract> {
-    const url = `${this.apiUrl}/updateToAcceptedById/${id}`;
-    return this.http.put<contract>(url, contract).pipe(
-      catchError(this.handleError)
-    );
-  }
-  updateToRefusedById(id: number, contract: contract): Observable<contract> {
-    const url = `${this.apiUrl}/updateToRefusedById/${id}`;
-    return this.http.put<contract>(url, contract).pipe(
-      catchError(this.handleError)
-    );
-  }*/ 
   updateToSentById(id: number): Observable<any> {
     const url = `${this.apiUrl}/updateToSentById/${id}`;
     return this.http.put<any>(url, {}).pipe(
@@ -152,15 +143,34 @@ addBenefit(benefit: any): Observable<any> {
   
 
  
+/**************************************** Récupérer tous les candidats *****************************************/
+
+getCandidats(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrlEmployee + '/getAllNotConverted').pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+
+/**************************************** Récupérer tous les ressources ************************************************************************/
+
+getResources(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrlEmployee + '/getAllEmployees').pipe(
+    catchError(this.handleError)
+  );
+}
 
 
 
 
-
-
-
-
-
+getContractArticle(id: number): Observable<article> {
+  const url = `${this.apiUrl}/getArticleContractById/${id}`;
+  return this.http.get<article>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+/********************************************  Traitement des erreurs *******************************************************************/
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

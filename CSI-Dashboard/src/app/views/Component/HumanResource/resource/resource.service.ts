@@ -1,6 +1,8 @@
+import { availability } from './../../../../shared/models/availability';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'app/shared/models/Employee';
+import { contract } from 'app/shared/models/contract';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -9,6 +11,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class ResourceService {
  
   private apiUrl = 'http://localhost:8084/rh/employee';
+  private apiUrlAv = 'http://localhost:8084/rh/Availability';
 
   constructor(private http: HttpClient) { 
 
@@ -16,7 +19,7 @@ export class ResourceService {
 /******* API InternalResource ********/
  // Get All InetrnalResource
 getItems(): Observable<Employee[]> {
-  return this.http.get<Employee[]>(this.apiUrl + '/getAllResourcesInterne').pipe(
+  return this.http.get<Employee[]>(this.apiUrl + '/getAllInternes').pipe(
     catchError(this.handleError)
   );
 }
@@ -42,16 +45,38 @@ getItemsExternal(): Observable<Employee[]> {
     catchError(this.handleError)
   );
 }
-
-/******* API BackOfficeResource ********/
- // Get All BackOfficeResource
-getItemsBackOffice(): Observable<Employee[]> {
-  return this.http.get<Employee[]>(this.apiUrl + '/getAllResourcesBackOffice').pipe(
+/****************************  update ********************************************/
+// PUT an existing item
+updateItem(id: number, employee: Employee): Observable<Employee> {
+  const url = `${this.apiUrl+ '/update'}/${id}`;
+  return this.http.put<Employee>(url, employee).pipe(
     catchError(this.handleError)
   );
 }
 
+getItemContract(id: number): Observable<contract[]> {
+  const url = `${this.apiUrl}/${id}/getContractsEmployee`;
+  return this.http.get<contract[]>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 
+/**********************************Api Availability ****************************/
+addAvailability(availability: any): Observable<any> {
+  const url = `${this.apiUrlAv}/add`;
+  return this.http.post<any>(url, availability).pipe(
+    catchError(this.handleError)
+  );
+}
+
+getItemAvailability(id: number): Observable<availability[]> {
+  const url = `${this.apiUrl}/${id}/getAvailabilityEmployee`;
+  return this.http.get<availability[]>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+/**********************************  Error *************************************************************/
 private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
     // A client-side or network error occurred. Handle it accordingly.

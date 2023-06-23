@@ -41,6 +41,7 @@ import { QuillModule } from "ngx-quill";
 import { BrowserModule } from "@angular/platform-browser";
 import { AddContractEmployeeComponent } from "./add-contract-employee/add-contract-employee.component";
 import { ViewContractComponent } from './view-contract/view-contract.component';
+import { UpdateContractComponent } from './update-contract/update-contract.component';
 
 
 
@@ -53,7 +54,8 @@ import { ViewContractComponent } from './view-contract/view-contract.component';
    
     ListeContractComponent,
     AddContractEmployeeComponent,
-    ViewContractComponent
+    ViewContractComponent,
+    UpdateContractComponent
    
   ],
   imports: [

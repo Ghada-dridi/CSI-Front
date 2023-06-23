@@ -1,0 +1,162 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<!--{{"ADD" | translate }} {{"MEMBER" | translate }}-->
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Numéro Série</mat-label>
+        <input
+        matInput
+        name="serialNumber"
+        [formControl]="itemForm.controls['serialNumber']"
+        placeholder="Numéro Série">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Type</mat-label>
+        <input
+        matInput
+        name="type"
+        [formControl]="itemForm.controls['type']"
+        placeholder="Type">
+      </mat-form-field>
+    </div>
+    
+    <div fxFlex="100"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=17>
+        <mat-label>Désignation</mat-label>
+        <input
+        matInput
+        name="designation"
+        [formControl]="itemForm.controls['designation']"
+        placeholder="designation">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Date d'acquisition </mat-label>
+        <input
+        matInput
+        type="date"
+        name="acquisitionDate"
+        [formControl]="itemForm.controls['acquisitionDate']"
+        placeholder="Date d'acquisition">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Date Fin</mat-label>
+        <input
+        matInput
+        type="date"
+        name="endDate"
+        [formControl]="itemForm.controls['endDate']"
+        placeholder="Date Fin">
+      </mat-form-field>
+    </div>
+
+
+
+
+
+    <div fxFlex="100"  class="pr-16">
+    <mat-form-field appearance="outline"  [style.width.cm]=17>
+    <mat-label>Fournisseur</mat-label>
+        <input
+        matInput
+        name="supplier"
+        [formControl]="itemForm.controls['supplier']"
+        placeholder="Fournisseur">
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Prix d'achat</mat-label>
+        <input
+        matInput
+        type="number"
+        name="purchasePrise"
+        [formControl]="itemForm.controls['purchasePrise']"
+        placeholder="Prix d'achat">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Devise</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option *ngFor="let currency of Currency" [value]="currency">{{currencyMap[currency] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=17>
+        <mat-label>Modalité d'achat</mat-label>
+        <mat-select formControlName="purchaseMethod">
+          <mat-option *ngFor="let purchaseMethod of PurchaseMethod" [value]="purchaseMethod">{{PurchaseMethodMap[purchaseMethod] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pt-16 pr-16">
+      <mat-slide-toggle [formControl]="itemForm.controls['amortizable']">Amortissable</mat-slide-toggle>
+    </div>
+    
+<div fxFlex="50"  class="pr-16" *ngIf="itemForm.controls['amortizable'].value === true">
+  <mat-form-field appearance="outline"  [style.width.cm]=8>
+    <mat-label>Type d'amortissement</mat-label>
+    <mat-select formControlName="amortizationType">
+      <mat-option *ngFor="let amortizationType of AmortizationType" [value]="amortizationType">{{AmortizationTypeMap[amortizationType]}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+</div>
+<div fxFlex="50"  class="pt-16 pr-16">
+  <mat-slide-toggle [formControl]="itemForm.controls['affectable']">Affectable</mat-slide-toggle>
+</div>
+<div fxFlex="50"  class="pr-16">
+  <mat-form-field appearance="outline"  [style.width.cm]=8>
+    <mat-label>Disponibilité</mat-label>
+    <mat-select formControlName="status">
+      <mat-option *ngFor="let status of StatusDisponibility" [value]="status">{{StatusMap[status]}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+</div>
+
+<div fxFlex="100" class="pr-16" *ngIf="itemForm.controls['status'].value === 'UNAVAILABLE'">
+  <mat-form-field appearance="outline" [style.width.cm]="17">
+    <mat-label>Motif d'indisponibilité</mat-label>
+    <textarea
+      matInput
+      formControlName="motifUnavailability" 
+      placeholder="Motif d'indisponibilité"
+      rows="4"
+    ></textarea>
+  </mat-form-field>
+</div>
+
+    <div fxFlex="100" class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=17>
+        <mat-label>Commentaire</mat-label>
+        <textarea
+          matInput
+          name="comment"
+          [formControl]="itemForm.controls['comment']"
+          placeholder="Commentaire"
+          rows="4"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" >{{"Enregistrer" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="gray" type="button" (click)="dialogRef.close(false)">Annuler</button>
+    </div>
+  </div>
+  </form>

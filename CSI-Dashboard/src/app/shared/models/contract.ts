@@ -1,5 +1,6 @@
 import { Resource } from "./Resource";
 import { article } from "./article";
+import { articleClient } from "./articleClient";
 
 export class contract {
     id?: number;
@@ -10,10 +11,12 @@ export class contract {
     endDate?: Date;
     entrepriseSignature?: string;
     resource?: Resource;
-    articles?: article[];
-    resourceId?: number;
+    articles?: articleClient[];
+    reference?:string;
+    employeeNum?: number;
     contractStatus?:ContractStatus;
-    contractIntroduction?:string;
+    contractEmployee?:string;
+    contractEmployer?:string;
 }
 
 
@@ -24,6 +27,7 @@ export enum ContractStatus{
   ACCEPTED="ACCEPTED"
 
 }
+
 export enum ContractTitle {
   PERMANENT_EMPLOYMENT_CONTRACT="PERMANENT_EMPLOYMENT_CONTRACT",
   FIXED_TERM_EMPLOYMENT_CONTRACT="FIXED_TERM_EMPLOYMENT_CONTRACT",

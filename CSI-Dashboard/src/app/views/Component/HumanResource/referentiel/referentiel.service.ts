@@ -1,3 +1,4 @@
+import { article } from './../../../../shared/models/article';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
@@ -8,12 +9,15 @@ import { CalendarEventDB } from 'app/shared/inmemory-db/calendarEvents';
 import { Offer } from 'app/shared/models/Offer';
 import { QuestionCategory } from 'app/shared/models/QuestionCategory';
 
+
 @Injectable()
 
 
 export class referentielService {
   private apiUrl = 'http://localhost:8084/rh/questionCategory';
-  private questUrl= 'http://localhost:8084/rh/Question'
+  private questUrl= 'http://localhost:8084/rh/Question';
+
+
   private countryData = countrycitystatejson;
   public events: EgretCalendarEvent[];
   constructor(private http: HttpClient) {}
@@ -71,11 +75,6 @@ export class referentielService {
     this.events = this.events.filter((e) => e._id !== eventID);
     return of(this.events);
   }
-
-
-
-
-
 
 
   /////////////////////////Back Connection//////////////////////////

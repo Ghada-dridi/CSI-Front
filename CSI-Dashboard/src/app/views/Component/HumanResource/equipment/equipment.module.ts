@@ -22,8 +22,12 @@ import { SharedModule } from "app/shared/shared.module";
 import { EquipmentRoutes } from "./equipment.routing";
 import { EquipmentService } from "./equipment.service";
 import { EquipmentComponent } from "./equipment/equipment.component";
-import { EquipmentTablePopupComponent } from "./equipment/equipment-table-popup/equipment-table-popup.component";
 import { ViewEquipmentComponent } from './equipment/view-equipment/view-equipment.component';
+import { MotifUnavailabilityComponent } from './equipment/motif-unavailability/motif-unavailability.component';
+import { MatSelect, MatSelectModule } from "@angular/material/select";
+import { AffectationComponent } from './equipment/affectation/affectation.component';
+
+
 
 @NgModule({
   imports: [
@@ -45,9 +49,10 @@ import { ViewEquipmentComponent } from './equipment/view-equipment/view-equipmen
     MatSlideToggleModule,
     TranslateModule,
     SharedModule,
+    MatSelectModule,
     RouterModule.forChild(EquipmentRoutes)
   ],
-  declarations: [EquipmentComponent, EquipmentTablePopupComponent, ViewEquipmentComponent],
+  declarations: [EquipmentComponent, ViewEquipmentComponent, MotifUnavailabilityComponent, AffectationComponent],
   providers: [EquipmentService]
 })
 export class EquipmentModule { }

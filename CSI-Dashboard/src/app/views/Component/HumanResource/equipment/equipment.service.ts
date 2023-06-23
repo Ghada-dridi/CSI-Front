@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Employee } from 'app/shared/models/Employee';
 import { Equipment } from 'app/shared/models/equipment';
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -9,11 +10,15 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class EquipmentService {
   private apiUrl = 'http://localhost:8084/rh/equipment';
 
+   private apiUrlEmployee = 'http://localhost:8084/rh/employee';
+   
+   private apiUrlAssEqEm = 'http://localhost:8084/rh/assEquipmentEmployee';
+
   constructor(private http : HttpClient) { 
   }
 
     getEquipments(): Observable<Equipment[]> {
-      return this.http.get<Equipment[]>(this.apiUrl + '/getAll').pipe(
+      return this.http.get<Equipment[]>(this.apiUrl + '/getAllAffectable').pipe(
         catchError(this.handleError)
       );
     }
@@ -47,10 +52,67 @@ export class EquipmentService {
         catchError(this.handleError)
       );
     }
+   
+    /*************************************  Api de modification de status de disponibilité ***********************************/
+    updateToAvailableById(id: number): Observable<any> {
+      const url = `${this.apiUrl}/updateToAvailableById/${id}`;
+      return this.http.put<any>(url, {}).pipe(
+        catchError(this.handleError)
+      );
+    }
+    updateToUnavailableById(id: number): Observable<any> {
+      const url = `${this.apiUrl}/updateToUnavailableById/${id}`;
+      return this.http.put<any>(url, {}).pipe(
+        catchError(this.handleError)
+      );
+    }
+    /*************************************  Api d'affectation ***********************************/
+    updateAffectedById(id: number): Observable<any> {
+      const url = `${this.apiUrl}/updateAffectedById/${id}`;
+      return this.http.put<any>(url, {}).pipe(
+        catchError(this.handleError)
+      );
+    }
+    updateUnaffectedById(id: number): Observable<any> {
+      const url = `${this.apiUrl}/updateUnaffectedById/${id}`;
+      return this.http.put<any>(url, {}).pipe(
+        catchError(this.handleError)
+      );
+    }
+
+   
+    assignEquipmentToEmployee(employeeId: number, equipmentId: number): Observable<any> {
+      const url = `${this.apiUrl}/employees/${employeeId}/equipment/${equipmentId}`;
+      return this.http.put(url, null);
+    }
+  /********************************************   Api update motif en cas d'indisponibilité *************************************************/  
+
+  updateMotifById(id: number, motifUnavailability: string, disponibilityDate: Date): Observable<any> {
+    const url = `${this.apiUrl}/updateMotifById/${id}`;
+    return this.http.put<any>(url, { motifUnavailability, disponibilityDate }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  /**************************************** Récupérer tous les ressources ************************************************************************/
+
+getResources(): Observable<Employee[]> {
+  return this.http.get<Employee[]>(this.apiUrlEmployee + '/getAllEmployees').pipe(
+    catchError(this.handleError)
+  );
+}
+/************************************* affectation equipement à un employé **************************************************************************/
+    // POST a new item
+    addAffectation(assEqEm: any): Observable<any> {
+      const url = `${this.apiUrlAssEqEm}/add`;
+      return this.http.post<any>(url, assEqEm).pipe(
+        catchError(this.handleError)
+      );
+    }
     
- 
-    
-private handleError(error: HttpErrorResponse) {
+
+/***********************************************  les erreurs   *********************************************************/
+  private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
     // A client-side or network error occurred. Handle it accordingly.
     console.error('An error occurred:', error.error.message);

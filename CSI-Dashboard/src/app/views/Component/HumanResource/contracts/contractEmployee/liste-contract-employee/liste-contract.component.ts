@@ -8,9 +8,11 @@ import { ContractEmployeeService } from '../contract-employee.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { contract } from 'app/shared/models/contract';
+import { ContractTitle, contract } from 'app/shared/models/contract';
 import { ContractStatus } from 'app/shared/models/contract';
 import { Observable } from 'rxjs-compat';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -31,7 +33,7 @@ export class ListeContractComponent implements OnInit {
 
   
   constructor(
-    
+    private router: Router,
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private contractEmployeeService: ContractEmployeeService ,
@@ -58,7 +60,7 @@ export class ListeContractComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['contractTitle', 'contractPlace','contractDate', 'contractStatus','actions'];
+    return ['reference','contractTitle', 'contractPlace','contractDate', 'contractStatus','actions'];
   }
   
   getItems() {    
@@ -76,12 +78,15 @@ export class ListeContractComponent implements OnInit {
 
     const STATUS_DATA = {
       ACCEPTED: { color: 'purple', displayText: 'Accepté' },
-      SENT : { color:'primary', displayText: 'Envoyé' },
+      SENT : {color: 'primary', displayText: 'Envoyé' },
       REFUSED: { color: 'red', displayText: 'Refusé' },
       STILL_PENDING: { color: 'grey', displayText: 'en cours' }
     };
     
-    return STATUS_DATA[contractStatus];
+    
+    
+    
+    return contractStatus ? STATUS_DATA[contractStatus] :  { color: 'yellow', displayText: 'null ' };
 
 
   }
@@ -117,45 +122,15 @@ export class ListeContractComponent implements OnInit {
       );
     }
   }
+  /******************************************* le redirection à l'interface de la modification *****************************************************/
   
-
+  redirectToUpdateEmployeeContract(data:any) {
+    this.router.navigate(["/updateContract/update-employee-contract"], { state: { row: data } });
+  }
+  
   
  
 
-  /*
-  openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Ajouter une absence' : 'Modifier absence';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupCreateTimeOffComponent, {
-      width: '1000px',
-      disableClose: true,
-
-      data: { title: title, payload: data }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if(!res) {
-          // If user press cancel
-          return;
-        }
-        if (isNew) {
-          this.loader.open('Ajouter Absence');
-          this.contractEmployeeService.addItem(res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Absence Ajoutée!', 'OK', { duration: 4000 })
-            })
-        } else {
-          this.loader.open('Modifier Absence');
-          this.contractEmployeeService.updateItem(data._id, res)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Absence Modifiée!', 'OK', { duration: 4000 })
-            })
-        }
-      })
-  }*/
 
   /************************************************ delete contract    ***********************************************************/
   deleteItem(row) {
@@ -187,4 +162,22 @@ export class ListeContractComponent implements OnInit {
     };
   }
   
+
+
+  applyFilter(event :Event){
+    const FilterValue = (event.target as HTMLInputElement).value ;
+     this.dataSource.filter = FilterValue.trim().toLowerCase();
+ 
+ }
+
+
+  ContractTitleMap = {
+    [ContractTitle.PERMANENT_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée indéterminée',
+    [ContractTitle.FIXED_TERM_EMPLOYMENT_CONTRACT]: 'Contrat de travail à durée déterminée',
+    [ContractTitle.PROFESSIONALIZATION_CONTRACT]: 'Contrat de professionnalisation',
+    [ContractTitle.SEASONAL_WORK_CONTRACT]: 'Contrat de travail saisonnier',
+    [ContractTitle.PART_TIME_WORK_CONTRACT]: 'Contrat de travail à temps partiel',
+    [ContractTitle.STUDY_CONTRACT]: 'Contrat d\'alternance',
+    [ContractTitle.TEMPORARY_WORK_CONTRACT]: 'Contrat de travail intérimaire'
+  };
 }

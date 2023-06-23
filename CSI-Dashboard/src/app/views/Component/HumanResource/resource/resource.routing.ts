@@ -1,26 +1,33 @@
 import { ViewResourceComponent } from './view-resource/view-resource.component';
-import { BackOfficeComponent } from './resourceManagement/back-office/back-office.component';
 import { ExternalComponent } from './resourceManagement/external/external.component';
 import { ResourceComponent } from './resourceManagement/resource/resource.component';
 import { Routes } from '@angular/router';
+import { UpdateResourceComponent } from './update-resource/update-resource.component';
+import { AvailabilityComponent } from './availability/availability.component';
 
 
 export const ResourceRoutes: Routes = [
   { 
     path: 'resource-crud', 
     component: ResourceComponent, 
-    data: { title: 'Resources', breadcrumb: 'Resource' } 
+    data: { title: 'Resources', breadcrumb: 'Ressources Internes' } 
   },
   { 
     path: 'externalResource-crud', 
     component: ExternalComponent, 
-    data: { title: 'External Resources', breadcrumb: 'External Resource' } 
+    data: { title: 'Resources', breadcrumb: 'Ressources Externes' } 
   },
   { 
-    path: 'backOfficeResource-crud', 
-    component: BackOfficeComponent, 
-    data: { title: 'BackOffice Resources', breadcrumb: 'BackOffice Resource' } 
-  },{
+    path: 'update-Resource', 
+    component: UpdateResourceComponent, 
+    data: { title: 'Modifier Resources', breadcrumb: 'Modifier Ressource' } 
+  },
+  { 
+    path: 'availability', 
+    component: AvailabilityComponent, 
+   
+  },
+ {
     path: ":id",
     component: ViewResourceComponent ,
     pathMatch: "full"

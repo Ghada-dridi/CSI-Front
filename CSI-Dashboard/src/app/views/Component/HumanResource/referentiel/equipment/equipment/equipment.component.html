@@ -1,0 +1,174 @@
+<div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+    <div class="info-card primary" >
+       <div class="description">Here you can put your alerts!!!</div>
+    </div>
+   
+ 
+    
+   
+       <button mat-raised-button class="mb-8" style="float: right;" color="primary"  (click)="openPopUp({}, true)">{{"Nouvel " | translate }}
+        Equipement</button>
+       <div style="clear: both;"></div>
+   
+   
+   <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+     <mat-card-content class="p-0">
+       <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="reference">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Référence</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'reference')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell> 
+          <mat-cell *matCellDef="let row" data-label="reference"> {{row.reference}} </mat-cell>
+        </ng-container>
+
+
+         <ng-container matColumnDef="serialNumber">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Numéro Série</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'serialNumber')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Type</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'type')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="type"> {{row.type}} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="acquisitionDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Date d'acquisition</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'acquisitionDate')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="acquisitionDate"> {{row.acquisitionDate| date:'dd-MM-yyyy'}} </mat-cell>
+         </ng-container>
+   
+         <ng-container matColumnDef="purchasePrise">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Prix d'achat</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'purchasePrise')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell>
+           <mat-cell *matCellDef="let row" data-label="purchasePrise"> {{row.purchasePrise}}&nbsp;{{row.currency}} </mat-cell>
+
+         </ng-container>
+
+
+         <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div style="display: flex; flex-direction: column; margin-top: 12px;">
+              <span>Statut</span>
+              <mat-form-field style="width:3cm; text-align: center;">
+                <input matInput (input)="applyFilterr($event, 'status')" placeholder="Filtrer">
+              </mat-form-field>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="status">
+            <span [ngClass]="getStatusClass(row.status)">{{ getStatusTranslation(row.status) }}</span>
+          </mat-cell>
+        </ng-container>
+        
+         <ng-container matColumnDef="affectable">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;">
+              <span>Affectable</span>
+              <mat-form-field style="width: 3cm; text-align: center;">
+                <input matInput (input)="applyFilterr($event, 'affectable')" placeholder="Filtrer">
+              </mat-form-field>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="affectable" class="center-cell">
+            <div class="circle-container">
+              <div class="circle" [ngClass]="{ 'green': row.affectable, 'red': !row.affectable }">
+                <div class="icon-container">
+                  <mat-icon class="icon" *ngIf="row.affectable">check</mat-icon>
+                  <mat-icon class="icon" *ngIf="!row.affectable">clear</mat-icon>
+                </div>
+              </div>
+            </div>
+          </mat-cell>
+          
+          
+        </ng-container>
+        
+        
+        
+       
+        
+<!--
+               
+        <ng-container matColumnDef="affectation">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Affectation</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'affectation')" placeholder="Filtrer">
+             </mat-form-field>
+             </div>
+           </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-button class="mat-button-as-chip"  [matMenuTriggerFor]="menu" [color]="getAffectationColor(row.affectation).color" >{{getAffectationColor(row.affectation).displayText }}</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="changeAffectation('affectation.AFFECTED', row)">
+                <mat-icon>check</mat-icon>
+                <span>Affecté</span>
+              </button>
+              <button mat-menu-item (click)="changeAffectation('affectation.UNAFFECTED', row)">
+                <mat-icon>clear</mat-icon>
+                <span>Non affecté</span>
+              </button>
+            </mat-menu>
+          </mat-cell>
+        </ng-container>
+      -->
+     
+    
+        
+         
+         <ng-container matColumnDef="actions">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+           <mat-cell *matCellDef="let row">
+             <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+               <mat-icon>edit</mat-icon>
+             </button>
+             <button mat-icon-button mat-sm-button  class="mr-16" (click)=" openPopUpView(row)">
+               <mat-icon>remove_red_eye </mat-icon>
+             </button>
+             <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+               <mat-icon>delete</mat-icon>
+             </button>
+           </mat-cell>
+         </ng-container>
+   
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
+       <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+   
+     </mat-card-content>
+   </mat-card>
+   </div>

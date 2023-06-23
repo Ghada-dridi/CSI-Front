@@ -20,6 +20,7 @@ export class ArticleService {
       catchError(this.handleError)
     );
   }
+  
   getArticleDescription(articleTitle :string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/description`);
   }

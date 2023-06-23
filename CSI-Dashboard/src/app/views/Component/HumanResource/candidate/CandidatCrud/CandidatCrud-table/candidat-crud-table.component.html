@@ -1,6 +1,6 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-
-    <div class="info-card accent" >
+<!--  les statistiques-->
+ <!--   <div class="info-card accent" >
        <div class="description">Les Alertes  !!!</div>
     </div>
 
@@ -56,7 +56,7 @@
          </div>
        </div>
      </div>
-   </mat-card>
+   </mat-card>-->
 
    <mat-form-field style="padding-left: 19px;">
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche">
@@ -81,7 +81,7 @@
           <mat-header-cell *matHeaderCellDef> Prénom 
             <div>
               <button style="size:10px ;" mat-icon-button (click)="toggleInput1()">
-                <mat-icon style="size:10px ;">search</mat-icon>
+         
               </button>
               
               <mat-form-field *ngIf="showInput1" style="width:1.3cm;" >

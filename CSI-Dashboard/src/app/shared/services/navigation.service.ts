@@ -68,13 +68,15 @@ export class NavigationService {
         { name: 'Candidats', state: 'candidat/CandidatCrud-table' },
         { name: 'Offers', state: 'tableOffer/offerTable' },
 	      { name: 'Entretiens & Recrutement', state: 'entretienTable/tableEntretien' },
-        { name: 'Ressources', state: 'resource/resource-crud' },    
+        { name: 'InternalRessources', state: 'resource/resource-crud' },    
         { name: 'Equipements', state: 'equipment/equipment-crud' },
-        { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
-        { name: 'BackOfficeRessources', state: 'backOfficeResource/backOfficeResource-crud' },
-        { name: 'ExternalRessources', state: 'externalResource/externalResource-crud' },
+       // { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
+        { name: 'Avenants', state: 'endorsement/endorsement-crud'},
+        //{ name: 'updateContract' , state: 'updateContract/update-employee-contract'},
+        { name: 'ExternalRessources', state: 'resource/externalResource-crud' },
         { name: 'Contrat Employee', state: 'contractEmployee/liste-employee-contracts' },
-        { name: 'Contrat Projet', state: 'contractEmployee/liste-employee-contracts' },
+        { name: 'Contrat Client', state: 'contractClient/liste-client-contracts' },
+        { name: 'AvenantsClients', state: 'endorsementClient/endorsement-crud'},
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
         { name: 'Congés Empoyées', state: 'time-off-employee/timeOffEmployee-crud' },
@@ -149,7 +151,10 @@ export class NavigationService {
       icon: 'description',
       sub: [
         { name: 'Devise', state: 'dashboard/analytics' },
-        { name: 'Civilité', state: 'dashboard/learning-management' }     
+        { name: 'Civilité', state: 'dashboard/learning-management' }, 
+        { name: 'Article', state: 'article-referentiel/article' }, 
+        { name: 'Equipement', state: 'equipmentReferentiel/equipmentRef' },  
+       
       ]
     },
     {

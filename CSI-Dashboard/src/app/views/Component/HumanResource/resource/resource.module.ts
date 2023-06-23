@@ -26,26 +26,30 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { Ng2TelInputModule } from 'ng2-tel-input';
-import { BackOfficeComponent } from './resourceManagement/back-office/back-office.component';
 import { ExternalComponent } from './resourceManagement/external/external.component';
 import { ViewResourceComponent } from './view-resource/view-resource.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { UpdateResourceComponent } from './update-resource/update-resource.component';
+import { MatTab, MatTabsModule } from '@angular/material/tabs';
+import { ResourceService } from './resource.service';
+import { ConvertToResourceComponent } from '../convertToResource/convertToResource.component';
+import { AvailabilityComponent } from './availability/availability.component';
 
 
 
 @NgModule({
   declarations: [
     ResourceComponent,
-    BackOfficeComponent,
     ExternalComponent,
-    ViewResourceComponent
-   
+    ViewResourceComponent,
+    UpdateResourceComponent,
+    AvailabilityComponent,
+    
    
   ],
+  providers : [ResourceService],
   imports: [
     CommonModule,
-  
     ReactiveFormsModule,
     FlexLayoutModule,
     MatInputModule,
@@ -55,6 +59,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatChipsModule,
     MatListModule,
+    MatTabsModule,
     MatGridListModule,
     MatPaginatorModule,
     MatTooltipModule,

@@ -40,7 +40,8 @@ export const CandidatRoutes: Routes = [
   { 
     path: 'evaluationCandidat', 
 component: entretienRecrutmentComponent, 
-data: { title: 'EntretienRecrutment' } },
+data: { title: 'Entretien', breadcrumb: 'Entretien' } 
+ },
 
 { 
   path: ":id", 

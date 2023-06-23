@@ -569,9 +569,9 @@ handleRemoveRepeatForm(index: number) {
   }
 
   maritalSituationMap = {
-    [MaritalSituation.SINGLE]:'Célibatire',
+    [MaritalSituation.SINGLE]:'Célibataire',
     [MaritalSituation.MARRIED]:'Marrié',
-   [MaritalSituation.DIVORCED]:'Divorvé',
+   [MaritalSituation.DIVORCED]:'Divorcé',
    [MaritalSituation.WIDOWED] :'Veuf/Veuve',
    [MaritalSituation.COMPLICATED] :'Compliqué'
   };

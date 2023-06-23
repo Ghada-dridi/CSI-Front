@@ -63,8 +63,12 @@
      </div>
    </div>
  </mat-card>
-  
  
+ <mat-form-field style="padding-left: 19px;">
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
+</mat-form-field>
+
     
  
  
@@ -79,13 +83,6 @@
           </div>
         </mat-cell>
       </ng-container>
-<!-- 
-     <ng-container matColumnDef="photo" rowHeight="1:1" class="app-gallery">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="photo">
-          <img mat-list-avatar class="mr-16" [src]="row.photo" alt="Photo">
-        </mat-cell>
-      </ng-container>-->
        <ng-container matColumnDef="serialNumber">
          <mat-header-cell *matHeaderCellDef mat-sort-header > Matricule </mat-header-cell>
          <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
@@ -102,22 +99,22 @@
        </ng-container>
  
        <ng-container matColumnDef="title">
-         <mat-header-cell *matHeaderCellDef mat-sort-header> Poste </mat-header-cell>
-         <mat-cell *matCellDef="let row" data-label="title"> {{row.title}} </mat-cell>
+         <mat-header-cell *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
+         <mat-cell *matCellDef="let row" data-label="title"> {{employeeTitleMap[row.title]}} </mat-cell>
        </ng-container>
 
-       <ng-container matColumnDef="departement">
+     <!-- <ng-container matColumnDef="departement">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Département</mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="departement">{{row.departement}}</mat-cell>
-      </ng-container>
+      </ng-container>--> 
   
- 
+    
        <ng-container matColumnDef="actions">
          <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
          <mat-cell *matCellDef="let row">
-           <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row)">
+          <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-16" routerLink="/updateResource/update-Resource">
              <mat-icon>edit</mat-icon>
-           </button>
+           </button>-->
            <button
              mat-icon-button
              routerLink="/ficheResource/{{ row.id }}"
@@ -129,6 +126,9 @@
            <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
              <mat-icon>delete</mat-icon>
            </button>
+           <button mat-icon-button mat-sm-button color="basic" (click)="onAvailability(row)">
+            <mat-icon>av_timer</mat-icon>
+          </button>
          </mat-cell>
        </ng-container>
  

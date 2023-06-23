@@ -8,6 +8,8 @@ import { referentielFormComponent } from './referentielForm/referentielForm.comp
 
 
 
+
+
 export const referentielRoutes: Routes = [
     { 
         path: 'referentielTable', 
@@ -19,4 +21,5 @@ export const referentielRoutes: Routes = [
         component: referentielFormComponent , 
         data: { title: 'refForm', breadcrumb: 'TablForm' } 
       }
+
 ]

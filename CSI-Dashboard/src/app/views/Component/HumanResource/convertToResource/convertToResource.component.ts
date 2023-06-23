@@ -2,7 +2,7 @@ import { update } from './../candidate/updateCandidat/updateCandidat.routing';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Civility, Country, Departement, Employee, EmployeeStatus, MaritalSituation, Provenance, Title, WorkLocation } from 'app/shared/models/Employee';
+import { Civility, Country, Departement, Employee, EmployeeStatus, MaritalSituation, Provenance, ResourceType, Title, WorkLocation } from 'app/shared/models/Employee';
 import { FormArray, FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LanguageLevel } from 'app/shared/models/Language';
 import { FileUploader } from 'ng2-file-upload';
@@ -13,6 +13,7 @@ import { AddResourceService } from '../resource/createResource/add-resource.serv
 import { MatTabGroup } from '@angular/material/tabs';
 import { updateCandidatService } from '../candidate/updateCandidat/updateCandidat.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ResourceService } from '../resource/resource.service';
 
 
 @Component({
@@ -24,6 +25,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export class ConvertToResourceComponent implements OnInit {
   showLocationName = false;
+  showBackofficeFields = false;
+  showExternalFields = false;
+  showInternalFields = false;
   employeeId : number
   updateEmployee: FormGroup;
   id:number;
@@ -38,6 +42,7 @@ export class ConvertToResourceComponent implements OnInit {
   title :string[]= Object.values(Title);
   LanguageLevel : string[] = Object.values(LanguageLevel);
   EmployeeStatus :string[] = Object.values(EmployeeStatus);
+  resourceTypes : string[] = Object.values(ResourceType); 
   submitted = false;
   selectedFile: File;
   constructor(
@@ -46,6 +51,7 @@ export class ConvertToResourceComponent implements OnInit {
     public dialogRef: MatDialogRef<ConvertToResourceComponent>,
     private fb: FormBuilder,
     private update: updateCandidatService,  
+    private updateRessource: ResourceService,  
     private http: HttpClient,
     private route:ActivatedRoute 
   ) { this.countries = this.update.getCountries();}
@@ -53,9 +59,19 @@ export class ConvertToResourceComponent implements OnInit {
 
 
 
-
   onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result)
+        this.updateEmployee.patchValue({
+          photo: reader.result
+        });
+        console.log(this.updateEmployee.value)
+      };
+    }
   }
 
   ngOnInit() {
@@ -80,6 +96,7 @@ export class ConvertToResourceComponent implements OnInit {
       phoneNumberOne: new UntypedFormControl(this.data.payload.phoneNumberOne, ),
       civility: new UntypedFormControl(this.data.payload.civility, []),
       employeeStatus: new UntypedFormControl(this.data.payload.EmployeeStatus, []),
+      resourceType: new UntypedFormControl(this.data.payload.resourceType, []),
       maritalSituation: new UntypedFormControl(this.data.payload.maritalSituation, []),
       country: new UntypedFormControl(this.data.payload.country, []),
       city: new UntypedFormControl(this.data.payload.city, []),
@@ -89,7 +106,10 @@ export class ConvertToResourceComponent implements OnInit {
       id: new UntypedFormControl(this.data.technichalFile, []),
       workLocation: new UntypedFormControl(this.data.payload.workLocation, ),
       departement: new UntypedFormControl(this.data.payload.departement, ),
-      socialSecurityNumber: new UntypedFormControl(this.data.payload.socialSecurityNumber, )
+      photo: new UntypedFormControl(this.data.payload.photo, ),
+      recruitmentDate: new  UntypedFormControl('', ),
+      nationalIdentity: new  UntypedFormControl('', ),
+      socialSecurityNumber: new UntypedFormControl('', )
 
 
 
@@ -113,23 +133,33 @@ export class ConvertToResourceComponent implements OnInit {
 
     });
   }
+  onCountryChange(countryShotName: string) {
+    this.states = this.update.getStatesByCountry(countryShotName);
+  }
 
-onCountryChange(countryShotName: string) {
-  this.states = this.update.getStatesByCountry(countryShotName);
-}
-
-  maritalSituationMap = {
-    [MaritalSituation.SINGLE]:'Célibatire',
-    [MaritalSituation.MARRIED]:'Marrié',
-   [MaritalSituation.DIVORCED]:'Divorvé',
-   [MaritalSituation.WIDOWED] :'Veuf/Veuve',
-   [MaritalSituation.COMPLICATED] :'Compliqué'
-  };
+maritalSituationMap = {
+  [MaritalSituation.SINGLE]:'Célibataire',
+  [MaritalSituation.MARRIED]:'Marrié',
+ [MaritalSituation.DIVORCED]:'Divorcé',
+ [MaritalSituation.WIDOWED] :'Veuf/Veuve',
+ [MaritalSituation.COMPLICATED] :'Compliqué'
+};
+resourceTypeMap = {
+  [ResourceType.BACKOFFICE_RESOURCE]:'Ressource_BackOffice',
+  [ResourceType.EXTERNAL_RESOURCE]:'Ressource_Externe',
+ [ResourceType.INTERNAL_RESOURCE]:'Ressource_Interne'
+};
 
   civilityMap = {
-    [Civility.MRS]:'Mme',
     [Civility.MS]:'Mlle',
-   [Civility.MR]:'Mr'
+    [Civility.MRS]:'Mme',
+    [Civility.MR]:'Mr'
+  };
+
+
+  workLocationMap= {
+    [WorkLocation.MAIN]:'Principale',
+    [WorkLocation.OTHER_LOCATION]:'Autre_Location'
   };
 
   employeeTitleMap = {
@@ -140,7 +170,7 @@ onCountryChange(countryShotName: string) {
     [Title.HUMAN_RESOURCE_MANAGER]: 'Responsable des Ressources Humaines',
     [Title.HUMAN_RESOURCE]: 'Ressources Humaines',
     [Title.PROJECT_MANAGER]: 'Chef de Projet',
-    [Title.TECH_LEAD]: 'Chef de Projet',
+    [Title.TECH_LEAD]: 'Responsable Technique',
     [Title.UI_UX_DESIGNER]: 'Concepteur UI/UX',
     [Title.QA_ENGINEER]: 'Ingénieur QA',
     [Title.DEVOPS_ENGINEER]: 'Ingénieur DevOps',
@@ -153,32 +183,60 @@ onCountryChange(countryShotName: string) {
     
   };
 
-  LanguageLevelMap = {
-    [LanguageLevel.BEGINNER_A1]: 'Niveau Débutant A1',
-    [LanguageLevel.BEGINNER]: 'Niveau Débutant',
-    [LanguageLevel.ELEMENTARY_A2]: 'Niveau Elémentaire A2',
-    [LanguageLevel.BASIC]: 'Niveau de Base',
-    [LanguageLevel.INTERMEDIATE_B1]: 'Niveau Intermédiaire B1',
-    [LanguageLevel.INTERMEDIATE]: 'Niveau Intermédiaire',
-    [LanguageLevel.UPPER_INTERMEDIATE_B2]: 'Niveau Intermédiaire Supérieur B2',
-    [LanguageLevel.PROFESSIONAL]: 'Niveau Professionnel',
-    [LanguageLevel.ADVANCED_C1]: 'Niveau Avancé C1',
-    [LanguageLevel.FLUENT]: 'Courant',
-    [LanguageLevel.PROFICIENT_C2]: 'Niveau Expert C2',
-    [LanguageLevel.NATIVE_LANGUAGE]: 'Langue Maternelle',
-    [LanguageLevel.BILINGUAL]: 'Bilingue'
+ departementMap = {
+    [Departement.ARCHITECTURE]: 'Architecture',
+    [Departement.COMPTABILITE]: 'Comptabilité',
+    [Departement.DESIGN]: 'Design',
+    [Departement.DEVELOPPEMENT]: 'Développement',
+    [Departement.FINANCES]: 'Finance',
+    [Departement.JURIDIQUE]: 'Juridique',
+    [Departement.MARKETING]: 'Marketing',
+    [Departement.QUALITE]: 'Qualité',
+    [Departement.RESSOURCES_HUMAINES]: 'Ressources_Humaines',
+    [Departement.SUPPORT]: 'Support',
+    [Departement.TESTS]: 'Tests',
+    [Departement.VENTE]: 'Vente'
   };
   nextTab(tabGroup: MatTabGroup) {
     const nextIndex = (tabGroup.selectedIndex + 1) % tabGroup._tabs.length;
     tabGroup.selectedIndex = nextIndex;
-  }
+  };
   previousTab(tabGroup: MatTabGroup) {
     const previousIndex = (tabGroup.selectedIndex + tabGroup._tabs.length - 1) % tabGroup._tabs.length;
     tabGroup.selectedIndex = previousIndex;
-  }
+  };
   onFraisTypeSelectionChange(event: any) {
     const selectedFraisType = event.value;
     this.showLocationName = selectedFraisType === 'OTHER_LOCATION';
+  };
+
+  onTypeChanges(event: any) {
+    const selectedResourceType = event.value;
+
+  
+    // Reset the visibility of all specific resource type fields
+    this.showBackofficeFields = false;
+    this.showExternalFields = false;
+    this.showInternalFields = false;
+  
+    // Set the visibility of specific resource type fields based on the selected type
+    if (selectedResourceType === 'BACKOFFICE_RESOURCE') {
+      this.showBackofficeFields = true;
+    } 
+    else if (selectedResourceType === 'EXTERNAL_RESOURCE') {
+      this.showExternalFields = true;
+
+
+    } 
+    else if (selectedResourceType === 'INTERNAL_RESOURCE') {
+      this.showInternalFields = true;
+
+    }
   }
+  
+ 
+  /****************** popUp de modification de ressource ************************/
+ 
+
 
 }

@@ -1,5 +1,5 @@
 import { CrudService } from './../candidat-crud.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,7 +28,7 @@ import { updateCandidatService } from '../../updateCandidat/updateCandidat.servi
 })
 
 
-export class CandidatCrudTableComponent implements OnInit {
+export class CandidatCrudTableComponent implements OnInit,OnDestroy {
   popup: MatDialogRef<any>;
   formData = {}
   console = console;
@@ -242,24 +242,31 @@ changeEmployeeStatus(employeeStatus: string, employeeId: number, row: Employee):
   switch (employeeStatus) {
     case 'employeeStatus.IN_PROCESS':
       updateObservable = this.crudService.updateToInProcessById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.IN_PROGRESS':
       updateObservable = this.crudService.updateToInProgressById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.PRE_QUALIFIED':
       updateObservable = this.crudService.updateToPreQualifiedById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.TOP_PROFILES':
       updateObservable = this.crudService.updateToTopProfilesById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.DO_NOT_CONTACT':
       updateObservable = this.crudService.updateToDoNotContactById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.CONVERTED_TO_RESOURCE':
       updateObservable = this.crudService.updateToConvertedToResourceById(employeeId);
+      this.getEmployees();
       break;
     case 'employeeStatus.ARCHIVE':
       updateObservable = this.crudService.updateToArchiveById(employeeId);
+      this.getEmployees();
       break;
     default:
       // Cas de statut de contrat non géré
@@ -335,7 +342,7 @@ getEmployees() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-
+    
 }
 getItems() {    
   this.getItemSub = this.update.getItems()
@@ -391,6 +398,7 @@ openPopUpEmployee(data: any = {}) {
   const title = 'Modifier Employee';
   const dialogRef: MatDialogRef<any> = this.dialog.open(ConvertToResourceComponent, {
     width: '1000px',
+    height: '600px',
     disableClose: true,
     data: { title: title, payload: data }
   });

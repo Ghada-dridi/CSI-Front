@@ -17,7 +17,7 @@ export class Employee {
     employeeFirstName ?:string;
     employeeLastName ?:string;
     employeeSerialNumber ?:string;
-     civility?: Civility;
+    civility?: Civility;
     title?: Title;
     employeeStatus?:EmployeeStatus;
     country?:Country;
@@ -31,6 +31,8 @@ export class Employee {
     workLocation?:WorkLocation;
     locationName?:string;
     resourceType?:ResourceType;
+    recruitmentDate?:string;
+    nationalIdentity?:string;
     departement?:Departement
 }
 
@@ -49,9 +51,9 @@ export enum Departement{
     SUPPORT = 'SUPPORT'
 } 
 export enum ResourceType{
-    EXTERNAL_RESOURCE,
-    BACKOFFICE_RESOURCE,
-    INTERNAL_RESOURCE}
+    EXTERNAL_RESOURCE = 'EXTERNAL_RESOURCE',
+    BACKOFFICE_RESOURCE = 'BACKOFFICE_RESOURCE',
+    INTERNAL_RESOURCE = ' INTERNAL_RESOURCE'}
 
 export enum WorkLocation{
     MAIN ='MAIN' ,

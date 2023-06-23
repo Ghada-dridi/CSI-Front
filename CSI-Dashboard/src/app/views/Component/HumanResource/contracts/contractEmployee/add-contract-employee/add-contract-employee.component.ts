@@ -16,6 +16,7 @@ import { AppLoaderComponent } from 'app/shared/services/app-loader/app-loader.co
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContractTitle } from 'app/shared/models/contract';
+import { Employee } from 'app/shared/models/Employee';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AddContractEmployeeComponent implements OnInit {
 
   @ViewChild(MatStepper) stepper: MatStepper;
 
+  currentArticleNumber: number = 1;
   errorMessage: string;
   myForm : FormGroup;
   repeatForm: FormGroup;
@@ -36,9 +38,11 @@ export class AddContractEmployeeComponent implements OnInit {
   selectedArticle : any;
   isFieldVisible: boolean = false;
   showEndDate: boolean = true;
-
+  selectedContractType: string;
   selectedContract = {contractTitle :'',startDate:'', id:null};
-
+  candidats: Employee[] = [];
+  employees: Employee[] = [];
+  
   public dataSource: MatTableDataSource<articleUpdated>;
   formArticle = new FormGroup({
   articleTitle: new FormControl(''),
@@ -66,16 +70,7 @@ benefitId : number;
     return isNaN(Number(element));
   });
 
-  /*FeeTypes = Object.values( FeeType).filter((element) => {
-  return isNaN(Number(element));
-  });
-  Currency = Object.values( Currency).filter((element) => {
-  return isNaN(Number(element));
-  });
-  ContractBenifitTypes = Object.values(ContractBenifitType ).filter((element) => {
-    return isNaN(Number(element));
-    });*/
-    
+ 
   
 /********************** Constructeur*************************/
   constructor(
@@ -99,10 +94,17 @@ benefitId : number;
 
     /***********************************  ngOninit  ************************************ */
   ngOnInit() : void{
+    
     this.myForm = new FormGroup({
       articles: new FormArray([])
     });
-
+    this.myFormContract = this.fb.group({
+      // ...
+      articles: this.fb.array([]) // Initialisez le FormArray des articles sans aucun article pour le moment
+    });
+    this.addArticleFormGroup();
+    this.loadCandidats();
+    this.loadEmployes();
     this.articleService.getItems().subscribe((articles: any[]) => {
       this.Articles = articles;
     });
@@ -123,30 +125,37 @@ benefitId : number;
 
 /********************************************** FormBuilder contract ***********************************************/
   this.myFormContract = this.fb.group({
-   // resourceId:new FormControl({value:'' , disabled:true}),
+    employeeNum:new FormControl(''),
     contractTitle : new FormControl('', Validators.required), 
     startDate : new FormControl('', Validators.required), 
-    endDate : new FormControl ('', Validators.required),
+    endDate : new FormControl ('', [Validators.required, this.endDateValidator]),
     editorContent : new FormControl('<p>test</p>', Validators.required),
-    contractIntroduction: new FormControl(`Le présent contrat est conclu entre les parties signataires ci-après :La Société CSI DIGITAL, SARL, au Capital de 10 000 dinars tunisiens dont le Siège Social est sis au Parc d'Activité Economique de Bizerte, inscrite au Registre National des Entreprise sous le numéro 1764694X représentée par son Gérant M'hamed Khamassi.
-    En sa qualité d'employeur d'une part 
-    1. ET,
-     Mr ……….. de nationalité Tunisienne, né(e) le …………………... à ………………., demeurant   au ……………………………, titulaire de CIN n° ……………….,  émise à ……………………. le ……………………………… 
+
+    contractEmployer:new FormControl(`La Société CSI DIGITAL, SARL, au Capital de 10 000 dinars tunisiens dont le Siège Social est sis au Parc d'Activité Economique de Bizerte, inscrite au Registre National des Entreprise sous le numéro 1764694X représentée par son Gérant M'hamed Khamassi.`,Validators.required ),
+
+    contractEmployee: new FormControl(`   Mr ……….. de nationalité Tunisienne, né(e) le …………………... à ………………., demeurant   au ……………………………, titulaire de CIN n° ……………….,  émise à ……………………. le ……………………………… 
      En cas de son changement M. ……………….. s'engage à informer son employeur par lettre recommandée avec accusé de réception, faute de quoi l'adresse ci-dessus reste valable.
-     En sa qualité d'employé d'autre part,` ,Validators.required ),
+    ` ,Validators.required ),
+
     contractPlace: new FormControl('', Validators.required), 
    contractDate: new FormControl('', Validators.required), 
    description : new FormControl('', Validators.required), 
+   contractType : new FormControl('', Validators.required),
+   reference : new FormControl('', Validators.required),
+   selectedCandidat:new FormControl('',Validators.required),
+   employeeId : new FormControl ('', Validators.required), 
    articles: new FormArray([], Validators.required)
     
   });
 
   (this.myFormContract.get('articles') as FormArray).push(this.fb.group({
     id : new FormControl('',Validators.required),
-    articleNumber: new FormControl('', [Validators.required, Validators.min(1)]),
+    articleNumber: new FormControl(1, [Validators.required, Validators.min(1)]),
     articleTitle: new FormControl('', Validators.required), 
     description : new FormControl('', Validators.required)
   }));
+
+
 
 
   /**********************************  Form Exceptional Fee ******************************************************/
@@ -175,7 +184,7 @@ benefitId : number;
 
 
 }
-
+/******************************************* end ngInit**************************************************************/
 get myArrayControls() {
   return (this.myFormContract.get('articles') as FormArray).controls;
 }
@@ -187,46 +196,22 @@ get getMyValueBenefit() {
   return (this.myFormBenefit.get('myValue') as FormArray).controls;
 }
 
+/************************************** fonction de validation de la date de fin du contrat  *********************************************************************/
+ endDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  const startDateValue = control.root.get('startDate')?.value;
+  const endDateValue = control.value;
 
+  if (startDateValue && endDateValue && startDateValue > endDateValue) {
+    return { invalidEndDate: true };
+  }
+
+  return null;
+}
+
+/************************************************  formGroupe Article ****************************************************/
+  
 /*
-  addArticleFormGroup () {
-    (this.myFormContract.get('articles') as FormArray).push(this.fb.group({
-      id : new FormControl('',Validators.required),
-      articleNumber: new FormControl('', Validators.required), 
-      articleTitle: new FormControl('', Validators.required), 
-      description : new FormControl('', Validators.required)
-    }));
-  }*/
-/*
-  addArticleFormGroup(): void {
-    const articlesFormArray = this.myFormContract.get('articles') as FormArray;
-  
-    // Custom validator to check uniqueness of articleNumber within the form array
-    const uniqueArticleNumberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-      const currentArticleNumber = control.value;
-      const otherArticleNumbers = articlesFormArray.controls
-        .map((control: AbstractControl) => control.get('articleNumber').value)
-        .filter((value: any) => value !== currentArticleNumber);
-  
-      if (otherArticleNumbers.includes(currentArticleNumber)) {
-        return { duplicateArticleNumber: true };
-      }
-  
-      return null;
-    };
-    
-  
-    // Create the form group with appropriate validators
-    const articleFormGroup = this.fb.group({
-      id: ['', Validators.required],
-      articleNumber: ['', [Validators.required, Validators.min(1)], uniqueArticleNumberValidator],
-      articleTitle: ['', Validators.required],
-      description: ['', Validators.required]
-    });
-  
-    articlesFormArray.push(articleFormGroup);
-  }*/
-  addArticleFormGroup(): void {
+addArticleFormGroup(): void {
     const articlesFormArray = this.myFormContract.get('articles') as FormArray;
     const existingArticleNumbers = articlesFormArray.controls.map(control => control.get('articleNumber').value);
   
@@ -239,8 +224,28 @@ get getMyValueBenefit() {
   
     articlesFormArray.push(articleFormGroup);
   }
-  
+  */
+  addArticleFormGroup(): void {
+    const articlesFormArray = this.myFormContract.get('articles') as FormArray;
+    const existingArticleNumbers = articlesFormArray.controls.map(control =>
+      control.get('articleNumber').value
+    );
 
+    const articleFormGroup = this.fb.group({
+      id: ['', Validators.required],
+      articleNumber: [this.currentArticleNumber, [Validators.required, Validators.min(1)]],
+      articleTitle: ['', Validators.required],
+      description: ['', Validators.required]
+    });
+
+    articlesFormArray.push(articleFormGroup);
+
+    // Incrémente le numéro pour le prochain article
+    this.currentArticleNumber++;
+  }
+
+  
+/**********************************  Fonction qui permet de ne pas utiliser le numéro de l'article une deuxième fois*************************************************/
   uniqueArticleNumberValidator(existingArticleNumbers: number[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const articleNumber = control.value;
@@ -252,7 +257,7 @@ get getMyValueBenefit() {
       return null;
     };
   }
-  
+ /********************************************************************************/ 
   onArticleTitleChange(value: any, i: number): void {
     const articlesFormArray = this.myFormContract.get('articles') as FormArray;
     const articleGroup = articlesFormArray.at(i);
@@ -414,41 +419,64 @@ deleteExceptionalFee(id : any) : void {
 
 
 /************************************************** Ajouter contrat  ****************************************************/
-    
-    addContract() : void {
-      this.confirmService.confirm({ message: 'Le contrat est ajouté avec succès ! Voulez-vous ajouter des avantages à ce contrat?' })
-  .subscribe((result: boolean) => {
-    if (result) {
-      console.log('Submitting form...');
-      console.log('Form is valid, submitting...');
-      let selectedArticles = this.myFormContract.get('articles').value;
-      console.log(selectedArticles);
-      console.log(this.myFormContract.value);
-      this.contractEmployeeService.addItem(this.myFormContract.value).subscribe({
-        next: (res) => {
-          console.log('Item added successfully', res);
-          this.selectedContract = res;
-          console.log('Selected contract ID:', this.selectedContract.id);
-          console.log('Form value', this.myFormContract.value);
-          this.submitted = true;
-          // Redirection vers le step suivant
-          this.stepper.next();
-        },
-        error: (e) => {
-          console.error('Error adding item', e);
-          // Afficher le message d'erreur
-          this.errorMessage = 'Erreur lors de l\'ajout du contrat. Veuillez vérifier les champs.';
-          // Redirection vers la liste des contrats
-          this.router.navigate(['/contractEmployee/liste-employee-contracts']);
-        }
-      });
-    } else {
-      // Redirection vers la liste des contrats
-      this.router.navigate(['/contractEmployee/liste-employee-contracts']);
-    }
-  });
+addContract(): void {
+  this.confirmService.confirm({ message: 'Le contrat est ajouté avec succès ! Voulez-vous ajouter des avantages à ce contrat?' })
+    .subscribe((result: boolean) => {
+      if (result) {
+        // Code pour ajouter des avantages au contrat
+        console.log('Submitting form...');
+        console.log('Form is valid, submitting...');
+        let selectedArticles = this.myFormContract.get('articles').value;
+        console.log(selectedArticles);
+        console.log(this.myFormContract.value);
+        this.contractEmployeeService.addItem(this.myFormContract.value).subscribe({
+          next: (res) => {
+            console.log('Item added successfully', res);
+            this.selectedContract = res;
+            console.log('Selected contract ID:', this.selectedContract.id);
+            console.log('Form value', this.myFormContract.value);
+            this.submitted = true;
+            // Redirection vers le step suivant
+            this.stepper.next();
+          },
+          error: (e) => {
+            console.error('Error adding item', e);
+            // Afficher le message d'erreur
+            this.errorMessage = 'Erreur lors de l\'ajout du contrat. Veuillez vérifier les champs.';
+            // Redirection vers la liste des contrats
+            this.router.navigate(['/contractEmployee/liste-employee-contracts']);
+          }
+        });
+      } else {
+        // Code pour enregistrer le contrat
+        console.log('Submitting form...');
+        console.log('Form is valid, submitting...');
+        let selectedArticles = this.myFormContract.get('articles').value;
+        console.log(selectedArticles);
+        console.log(this.myFormContract.value);
+        this.contractEmployeeService.addItem(this.myFormContract.value).subscribe({
+          next: (res) => {
+            console.log('Item added successfully', res);
+            this.selectedContract = res;
+            console.log('Selected contract ID:', this.selectedContract.id);
+            console.log('Form value', this.myFormContract.value);
+            this.submitted = true;
+            // Redirection vers la table de données
+            this.router.navigate(['/contractEmployee/liste-employee-contracts']); 
+          },
+          error: (e) => {
+            console.error('Error adding item', e);
+            // Afficher le message d'erreur
+            this.errorMessage = 'Erreur lors de l\'ajout du contrat. Veuillez vérifier les champs.';
+            // Redirection vers la liste des contrats
+            this.router.navigate(['/contractEmployee/liste-employee-contracts']);
+          }
+        });
+      }
+    });
+}
 
-    }
+
   /********************************************************** la fonction qui retourne le titre de l'article  ******************************************************/
   
   getArticleTitle(){
@@ -462,17 +490,26 @@ deleteExceptionalFee(id : any) : void {
     this.showEndDate = selectedContractTitle !== ContractTitle.PERMANENT_EMPLOYMENT_CONTRACT;
   }
   
-/*
-  onContractTitleSelectionChange(event: any) {
-    const selectedContractTitle = event.value;
-    if (selectedContractTitle === ContractTitle.PERMANENT_EMPLOYMENT_CONTRACT) {
-      this.myFormContract.get('endDate').disable();
-    } else {
-      this.myFormContract.get('endDate').enable();
-    }
-  }*/
-  
- 
+
+ /******************************************** Affectation des ressources ****************************************/
+
+loadCandidats() {
+  this.contractEmployeeService.getCandidats().subscribe((data: Employee[]) => {
+    this.candidats = data;
+    console.log("Candidats data", data);
+  });
+}
+
+loadEmployes() {
+  this.contractEmployeeService.getResources().subscribe((data: Employee[]) => {
+    this.employees = data;
+    console.log("Employees data", data);
+  });
+}
+onContractTypeChange(event: any) {
+  this.selectedContractType = event.value;
+}
+
 
 
     

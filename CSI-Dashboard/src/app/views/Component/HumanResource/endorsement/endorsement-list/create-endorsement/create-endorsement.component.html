@@ -1,4 +1,13 @@
-<h1 matDialogTitle>{{data.title}}</h1>
+
+<div class="dialog-header">
+  <h1 matDialogTitle>{{data.title}}</h1>
+  <!-- Bouton de fermeture -->
+  <button mat-icon-button class="close-button" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+ 
 
 <!--{{"ADD" | translate }} {{"MEMBER" | translate }}-->
   <form [formGroup]="itemForm" (ngSubmit)="submit()">

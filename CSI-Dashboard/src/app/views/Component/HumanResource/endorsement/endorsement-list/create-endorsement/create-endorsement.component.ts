@@ -51,6 +51,9 @@ loadContracts(){
   });
 }
 
+closeDialog(): void {
+  this.dialogRef.close();
+}
   
   submit() {
     this.dialogRef.close(this.itemForm.value)

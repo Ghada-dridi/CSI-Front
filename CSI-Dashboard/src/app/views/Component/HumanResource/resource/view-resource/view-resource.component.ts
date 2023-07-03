@@ -7,6 +7,12 @@ import { Civility, Departement, MaritalSituation, ResourceType, Title, WorkLocat
 import { availability } from 'app/shared/models/availability';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContractTitle, contract } from 'app/shared/models/contract';
+import { AvailabilityComponent } from '../availability/availability.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateAvailabilityComponent } from '../update-availability/update-availability.component';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { ViewAvailabilityComponent } from '../view-availability/view-availability.component';
 
 
 @Component({
@@ -29,6 +35,9 @@ public availabilities : availability[];
 
   constructor(private resourceService : ResourceService,
     private route : ActivatedRoute,
+    private dialog: MatDialog,
+    private snack: MatSnackBar,
+    private loader: AppLoaderService,
     @Inject(DOCUMENT) private document: Document) {
         
       this.dataSourceC = new MatTableDataSource<contract>([]);
@@ -39,7 +48,7 @@ public availabilities : availability[];
       return ['number','reference','contractTitle','actions' ];
     }
     getDisplayedColumnsD() {
-      return ['number','startDate','endDate', 'period' ];
+      return ['number','startDate','endDate', 'period','actions'];
     }
 
 
@@ -72,7 +81,49 @@ getAvailability() {
   });
 }
 
+onAvailability(data: any): void {
 
+    const dialogRef: MatDialogRef<any> = this.dialog.open(UpdateAvailabilityComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { payload: data }
+    });
+  
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.loader.open('Modifier motif');
+        this.resourceService.updateAvailability(data.id, res).subscribe((updatedData: any) => {
+     
+          this.snack.open('Indisponibilité modifiée!', 'OK', { duration: 4000 });
+          this.loader.close();
+          this.getAvailability();
+        });
+      } else {
+        // If user presses cancel
+        return;
+      }
+    });
+  }
+
+
+  openPopUpView(row: any): void {
+    const dialogRef = this.dialog.open(ViewAvailabilityComponent, {
+      width: '720px',
+      data:  { equipment : row},
+    });
+  
+    dialogRef.afterOpened().subscribe(() => {
+      console.log('Dialog opened successfully.');
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed with result:', result);
+      // Code executed after the dialog is closed
+    }, error => {
+      console.error('An error occurred while opening the dialog:', error);
+      // Handle the error appropriately (e.g., display an error message)
+    });
+  }
 
 /*************************************** La traduction des enums**********************************/
 departementMap = {

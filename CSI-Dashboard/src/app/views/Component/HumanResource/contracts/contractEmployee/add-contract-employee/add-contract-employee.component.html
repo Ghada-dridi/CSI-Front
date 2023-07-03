@@ -34,8 +34,8 @@
               <div class="form-group mb-1 col-sm-12 col-md-3">
                 <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                   <mat-label>Date  début</mat-label>
-                  <input matInput name="startDate" formControlName="startDate" placeholder="Date début" [matDatepicker]="appDatepicker1" />
-                  <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+                  <input matInput type ="date" name="startDate" formControlName="startDate" placeholder="Date début" [matDatepicker]="appDatepicker1" />
+                 
                 </mat-form-field>
                 <mat-datepicker #appDatepicker1></mat-datepicker>
                 <mat-error *ngIf="myFormContract.controls['startDate'].invalid && myFormContract.controls['startDate'].touched">
@@ -45,8 +45,7 @@
               <div class="form-group mb-1 col-sm-12 col-md-3">
                 <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                   <mat-label>Date du contrat </mat-label>
-                  <input matInput name="contactDate" formControlName="contractDate" placeholder="Date de contart" [matDatepicker]="appDatepicker" />
-                  <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+                  <input matInput type="date" name="contactDate" formControlName="contractDate" placeholder="Date de contart" [matDatepicker]="appDatepicker" />
                 </mat-form-field>
                 <mat-datepicker #appDatepicker></mat-datepicker>
                 <mat-error *ngIf="myFormContract.controls['contractDate'].invalid && myFormContract.controls['contractDate'].touched">
@@ -67,8 +66,8 @@
                 <div class="form-group mb-1 col-sm-12 col-md-3" *ngIf="showEndDate">
                   <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                     <mat-label>Date fin </mat-label>
-                    <input matInput name="endDate" formControlName="endDate" placeholder="Date fin" [matDatepicker]="appDatepicker2" />
-                    <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+                    <input matInput type="date" name="endDate" formControlName="endDate" placeholder="Date fin" [matDatepicker]="appDatepicker2" />
+                    
                   </mat-form-field>
                   <mat-datepicker #appDatepicker2></mat-datepicker>
                   <mat-error *ngIf="myFormContract.controls['endDate'].invalid && myFormContract.controls['endDate'].touched">

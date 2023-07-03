@@ -75,6 +75,13 @@ getItemAvailability(id: number): Observable<availability[]> {
     catchError(this.handleError)
   );
 }
+// PUT an existing item
+updateAvailability(id: number, availability: availability): Observable<availability> {
+  const url = `${this.apiUrlAv +'/update'}/${id}`;
+  return this.http.put<availability>(url, availability).pipe(
+    catchError(this.handleError)
+  );
+}
 
 /**********************************  Error *************************************************************/
 private handleError(error: HttpErrorResponse) {

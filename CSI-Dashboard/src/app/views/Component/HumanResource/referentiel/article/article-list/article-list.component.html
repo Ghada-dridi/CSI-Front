@@ -2,6 +2,11 @@
   <button mat-raised-button class="mb-8" style="float: right;" color="primary" (click)="openPopUp({}, true)">
     {{ "Ajouter " | translate }} Article
   </button>
+
+  <mat-form-field style="padding-left: 19px;">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
+  </mat-form-field>
   <div style="clear: both;"></div>
 
   <div class="table-container">

@@ -1,72 +1,11 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
 
-    <div class="info-card primary" >
-       <div class="description">Here you can put your alerts!!!</div>
-    </div>
-   <mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
-     <div fxLayout="row wrap">
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-green">show_chart</mat-icon>
-           <h4 class="m-0 ">5040</h4>
-           <small class="m-0 ">Page views</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-blue">cloud_download</mat-icon>
-           <h4 class="m-0 ">1200</h4>
-           <small class="m-0 ">Downloads</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-green">comment</mat-icon>
-           <h4 class="m-0 ">16420</h4>
-           <small class="m-0 ">Comments</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-blue">person</mat-icon>
-           <h4 class="m-0 ">3010</h4>
-           <small class="m-0 ">Profile views</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-       
-         <div class="text-center pt-16 pb-16">
-           <mat-icon class="text-red">favorite</mat-icon>
-           <h4 class="m-0 ">4070</h4>
-           <small class="m-0 ">Likes</small>
-         </div>
-       </div>
-     </div>
-   </mat-card>
+
     
-   <mat-form-field style="padding-left: 19px;">
+  <mat-form-field style="padding-left: 19px;">
+    <mat-icon matPrefix>search</mat-icon>
     <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
-    </mat-form-field>
+  </mat-form-field>
     
        <button mat-raised-button class="mb-8" style="float: right;" color="primary"  (click)="openPopUp({}, true)">{{"Ajouter " | translate }}
         Avenant</button>

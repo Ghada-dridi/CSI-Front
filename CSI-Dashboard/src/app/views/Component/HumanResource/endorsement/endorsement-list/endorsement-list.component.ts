@@ -34,7 +34,9 @@ export class EndorsementListComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()
+    this.getItems();
+
+
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -54,11 +56,13 @@ export class EndorsementListComponent implements OnInit {
     this.getItemSub = this.endorsementService.getEndorsements()
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
   }
 
   openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Ajouter un nouvel avenant' : 'Update Candidat';
+    let title = isNew ? 'Ajouter un nouvel avenant' : 'Modifier avenant';
     let dialogRef: MatDialogRef<any> = this.dialog.open(CreateEndorsementComponent, {
       width: '720px',
       height:'600px',

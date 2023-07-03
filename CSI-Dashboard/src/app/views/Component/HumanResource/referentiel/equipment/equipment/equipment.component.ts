@@ -224,4 +224,11 @@ getStatusTranslation(status: string): string {
   return '';
 }
 
+/*************************** Apply filter global  **************************/
+applyFilter(event :Event){
+  const FilterValue = (event.target as HTMLInputElement).value ;
+   this.dataSource.filter = FilterValue.trim().toLowerCase();
+
+}
+
 }

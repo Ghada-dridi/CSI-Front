@@ -34,6 +34,8 @@ import { MatTab, MatTabsModule } from '@angular/material/tabs';
 import { ResourceService } from './resource.service';
 import { ConvertToResourceComponent } from '../convertToResource/convertToResource.component';
 import { AvailabilityComponent } from './availability/availability.component';
+import { UpdateAvailabilityComponent } from './update-availability/update-availability.component';
+import { ViewAvailabilityComponent } from './view-availability/view-availability.component';
 
 
 
@@ -44,6 +46,8 @@ import { AvailabilityComponent } from './availability/availability.component';
     ViewResourceComponent,
     UpdateResourceComponent,
     AvailabilityComponent,
+    UpdateAvailabilityComponent,
+    ViewAvailabilityComponent,
     
    
   ],

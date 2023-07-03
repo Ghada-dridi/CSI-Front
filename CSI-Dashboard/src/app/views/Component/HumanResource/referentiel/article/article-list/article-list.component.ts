@@ -135,5 +135,10 @@ export class ArticleListComponent implements OnInit, OnDestroy , AfterViewInit{
         return data[key].trim().toLowerCase().indexOf(filter) !== -1;
       };
     }
- 
+/*************************** Apply filter global  **************************/
+applyFilter(event :Event){
+  const FilterValue = (event.target as HTMLInputElement).value ;
+   this.dataSource.filter = FilterValue.trim().toLowerCase();
+
+}
 }

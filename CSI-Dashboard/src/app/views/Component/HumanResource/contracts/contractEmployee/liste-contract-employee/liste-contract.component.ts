@@ -27,6 +27,11 @@ export class ListeContractComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   
 
+  acceptedCount: number;
+  refusedCount: number;
+  pendingCount: number;
+  sentCount: number;
+
   public dataSource:MatTableDataSource<contract>;
   public displayedColumns: any;
   public getItemSub: Subscription;
@@ -44,6 +49,11 @@ export class ListeContractComponent implements OnInit {
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
     this.getItems();
+    this.getAllSentCount();
+    this.getAllAccepetedCount();
+    this.getAllRefusedCount();
+    this.getAllPendingCount();
+
    
     
    
@@ -149,7 +159,51 @@ export class ListeContractComponent implements OnInit {
         }
       })
   }
+/************************************** statistiques **************************************/
+getAllSentCount(): void {
+  this.contractEmployeeService.getAllSent().subscribe(
+    (response: any) => {
+      this.sentCount = response;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération du nombre de commentaires :', error);
+    }
+  );
+}
 
+
+getAllAccepetedCount(): void {
+  this.contractEmployeeService.getAllAccepted().subscribe(
+    (response: any) => {
+      this.acceptedCount = response;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération du nombre de commentaires :', error);
+    }
+  );
+}
+
+getAllRefusedCount(): void {
+  this.contractEmployeeService.getAllRefused().subscribe(
+    (response: any) => {
+      this.refusedCount = response;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération du nombre de commentaires :', error);
+    }
+  );
+}
+
+getAllPendingCount(): void {
+  this.contractEmployeeService.getAllPending().subscribe(
+    (response: any) => {
+      this.pendingCount = response;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération du nombre de commentaires :', error);
+    }
+  );
+}
   /***************************************************   Apply filter   *******************************************************/
   applyFilterr(event: Event, key: string) {
     const filterValue = (event.target as HTMLInputElement).value;

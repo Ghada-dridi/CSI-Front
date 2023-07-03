@@ -170,6 +170,30 @@ getContractArticle(id: number): Observable<article> {
     catchError(this.handleError)
   );
 }
+
+/******************************************** Statistiques contrat  ***********************************************************/
+getAllRefused(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllRefused').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllAccepted(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllAccepted').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllPending(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllPending').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllSent(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllSent').pipe(
+    catchError(this.handleError)
+  );
+}
+
+
 /********************************************  Traitement des erreurs *******************************************************************/
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

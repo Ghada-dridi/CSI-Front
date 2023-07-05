@@ -3,7 +3,12 @@
 <div class="m-4"  [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
 
 
-    <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">Nouvelle
+    <button 
+    mat-raised-button 
+    class="mb-2" 
+    style="float: right ;"  
+    color="primary" 
+    (click)="openPopUp({},true)">Nouvelle
      Opportunité</button>
   
     <mat-form-field  >
@@ -31,33 +36,7 @@
         </ng-container>
   
   
-  
-        <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef mat-sort-header > 
-            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Description</span>
-              <mat-form-field style="width:3cm; text-align: center;" >
-                <input matInput (input)="applyFilterr($event, 'description')" placeholder="Filtrer">
-             </mat-form-field>
-             </div> 
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="description"> {{row.description}} </mat-cell>
-        </ng-container>
-  
-        
-       <ng-container matColumnDef="criteria">
-          <mat-header-cell *matHeaderCellDef mat-sort-header > 
-            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Critère</span>
-              <mat-form-field style="width:3cm; text-align: center;" >
-                <input matInput (input)="applyFilterr($event, 'criteria')" placeholder="Filtrer">
-             </mat-form-field>
-             </div> 
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="criteria"> {{row.criteria}} </mat-cell>
-        </ng-container>
-
-                    
+      
           <ng-container matColumnDef="requirementType">
             <mat-header-cell *matHeaderCellDef mat-sort-header > 
               <div style="display: flex; flex-direction: column; margin-top: 12px;" >
@@ -82,19 +61,18 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{reqStatusMap[row.requirementStatus]}} </mat-cell>
           </ng-container>
-
-                    
-          <ng-container matColumnDef="workField">
-            <mat-header-cell *matHeaderCellDef mat-sort-header > 
-              <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-                <span>Domaine d'activité</span>
-                <mat-form-field style="width:3cm; text-align: center;" >
-                  <input matInput (input)="applyFilterr($event, 'workField')" placeholder="Filtrer">
-               </mat-form-field>
-               </div> 
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row" data-label="workField"> {{workFieldMap[row.workField]}} </mat-cell>
-          </ng-container>
+          
+          <ng-container matColumnDef="candidateNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > 
+            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+              <span>Nombre de candidats</span>
+              <mat-form-field style="width:3cm; text-align: center;" >
+                <input matInput (input)="applyFilterr($event, 'candidateNumber')" placeholder="Filtrer">
+             </mat-form-field>
+             </div> 
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="candidateNumber"> {{row.candidateNumber}} </mat-cell>
+        </ng-container>
   
   
         
@@ -104,15 +82,18 @@
           <mat-cell *matCellDef="let row">
             
            
-  
-                <button
+            <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp2(row.id)">
+              <mat-icon>note_add</mat-icon>
+            </button>
+
+            <button
                   mat-icon-button
-                  routerLink="/requirement/{{ row.id }}"
+                  routerLink="/requirement/detail/{{ row.id }}"
                   routerLinkActive="router-link-active"
                   color="basic"
                 >
                   <mat-icon>visibility</mat-icon>
-                </button>
+            </button>
   
   
   

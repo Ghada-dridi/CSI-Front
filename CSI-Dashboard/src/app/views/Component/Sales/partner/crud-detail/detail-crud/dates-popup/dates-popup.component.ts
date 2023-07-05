@@ -14,8 +14,8 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
     private datePipe: DatePipe) {}
 
     formatDate(date: string): string {
-            return this.datePipe.transform(date, 'dd-MM-yyyy');
-          }
+      return this.datePipe.transform(date, 'dd-MM-yyyy');
+    }
 
 }
   

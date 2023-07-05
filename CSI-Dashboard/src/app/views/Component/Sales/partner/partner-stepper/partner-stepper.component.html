@@ -379,15 +379,15 @@
                                       </button>
                                     </div-->
                                     <div class="button-container">
-                                      <div >
-                                        <button class="left-button" mat-raised-button   (click)="saveAddress(i)">
-                                         <mat-icon>check</mat-icon> Enregistrer adresse
+                                      <div>
+                                        <button class="left-button" mat-fab  (click)="saveAddress(i)">
+                                         <mat-icon>check</mat-icon> 
                                         </button>
-                                        </div>
+                                      </div>
           
                                         <div>
-                                          <button class="right-button" mat-raised-button (click)="saveAddAddress(i)">
-                                           <mat-icon>add</mat-icon> Enregistrer et ajouter une autre adresse 
+                                          <button class="right-button" mat-fab (click)="saveAddAddress(i)">
+                                           <mat-icon>add</mat-icon> 
                                           </button>
                                         </div>
                                     </div>
@@ -503,7 +503,7 @@
                                                 placeholder="Numéro compte(RIB)"
                                               />
                                               <mat-error *ngIf="bankAccountForm.get('value').at(i).get('rib').invalid && bankAccountForm.get('value').at(i).get('rib').touched">
-                                                Ce champs est requis et doit comporter seulement des caractères numériques.
+                                                Ce champs est requis et doit être valide.
                                               </mat-error>
                                           </mat-form-field>
                                       </div>
@@ -521,7 +521,7 @@
                                                 placeholder="BIC"
                                               />
                                               <mat-error *ngIf="bankAccountForm.get('value').at(i).get('bic').invalid && bankAccountForm.get('value').at(i).get('bic').touched">
-                                                Le nom est requis.
+                                                Le BIC est requis et doit être valide.
                                               </mat-error>
                                           </mat-form-field>
                                       </div>
@@ -538,10 +538,10 @@
                                               />
                                               <mat-error *ngIf="bankAccountForm.get('value').at(i).get('iban').invalid && bankAccountForm.get('value').at(i).get('iban').touched">
                                                 <ng-container *ngIf="bankAccountForm.get('value').at(i).get('iban').errors.required">
-                                                  IBAN is required.
+                                                  Le champs IBAN est requis.
                                                 </ng-container>
                                                 <ng-container *ngIf="bankAccountForm.get('value').at(i).get('iban').errors.iban">
-                                                  IBAN is invalid.
+                                                  IBAN est invalide.
                                                 </ng-container>
                                               </mat-error>
                                           </mat-form-field>
@@ -573,14 +573,14 @@
                                 </div-->
                                 <div class="button-container">
                                   <div >
-                                    <button class="left-button" mat-raised-button   (click)="saveBankAccount(i)">
-                                     <mat-icon>check</mat-icon> Enregistrer compte
+                                    <button class="left-button" mat-fab   (click)="saveBankAccount(i)">
+                                     <mat-icon>check</mat-icon>
                                     </button>
                                     </div>
       
                                     <div>
-                                      <button class="right-button" mat-raised-button (click)="saveAddBankAccount(i)">
-                                       <mat-icon>add</mat-icon> Enregistrer et ajouter un autre compte
+                                      <button class="right-button" mat-fab (click)="saveAddBankAccount(i)">
+                                       <mat-icon>add</mat-icon>
                                       </button>
                                     </div>
                                 </div>
@@ -797,14 +797,14 @@
                                 </div>
                             <div class="button-container">
                               <div >
-                                <button class="left-button" mat-raised-button   (click)="saveContact(i)">
-                                 <mat-icon>check</mat-icon> Enregistrer contact
+                                <button class="left-button" mat-fab   (click)="saveContact(i)">
+                                 <mat-icon>check</mat-icon>
                                 </button>
                                 </div>
   
                                 <div>
-                                  <button class="right-button" mat-raised-button (click)="saveAddContact(i)">
-                                   <mat-icon>add</mat-icon> Enregistrer et ajouter un autre contact 
+                                  <button class="right-button" mat-fab (click)="saveAddContact(i)">
+                                   <mat-icon>add</mat-icon> 
                                   </button>
                                 </div>
                             </div>

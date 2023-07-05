@@ -25,8 +25,8 @@ export const MY_DATE_FORMATS = {
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+  }
+}
 @Component({
   selector: 'app-partner-stepper',
   templateUrl: './partner-stepper.component.html',
@@ -80,6 +80,10 @@ export class PartnerStepperComponent implements OnInit {
   addressId:number;
   bankAccountId:number;
   contactId: number;
+
+  i: number;
+  j: number;
+  k: number;
 
   companyStatus = Object.values(CompanyStatus).filter(status => status !== CompanyStatus.ARCHIVED);
   legalStatus = Object.values(LegalStatus)
@@ -150,10 +154,10 @@ export class PartnerStepperComponent implements OnInit {
       bankName :new UntypedFormControl('',[Validators.required]),
       rib: new UntypedFormControl('', [
         Validators.required,
-        Validators.pattern(/^[0-9]+$/)
+        Validators.pattern(/^(0[1-9]|[1-8]\d|9[0-7])$/)
       ]),
       bic: new UntypedFormControl('', [Validators.required,
-        Validators.pattern(/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/)]),
+        Validators.pattern(/^[A-Z]{4}[-]{0,1}[A-Z]{2}[-]{0,1}[A-Z0-9]{2}[-]{0,1}[0-9]{3}$/)]),
       iban: new UntypedFormControl('', [Validators.required, ValidatorService.validateIban]),
       bankAddress: new UntypedFormControl('', [Validators.required])
     }))
@@ -374,7 +378,7 @@ export class PartnerStepperComponent implements OnInit {
 
   // Enregistrer dernière adresse du partenaire
   saveAddress(i:any): void {
-     
+     console.log(this.partnerAddressForm.get('value.'+i).value) 
     this.addressService.addAddress({...this.partnerAddressForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);

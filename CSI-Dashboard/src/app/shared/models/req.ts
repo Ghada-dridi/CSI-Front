@@ -1,43 +1,44 @@
-import { Partner } from "./Partner";
+import { Currency, Partner } from "./Partner";
 
 export interface req {
 
     id ?:number;
-    title?: string;
+    //
+    
     description? : number;
     criteria?: string;
-    requirementType :RequirementType;
+    plannedBudget?: number
+    plannedIncome?: number
+    workField ?:WorkField
+    totalCandidateNumber : number
+    company : string
+    //
+    title?: string;
+    budgetPerDay?: number
+    currency?: Currency
+    candidateNumber?: number
+    requirementType? :RequirementType;
     requirementStatus ?:RequirementStatus,
-    workField ?:WorkField,
-    availability:Availability
-    plannedBudget?: number,
-    plannedIncome?: number,
-    startDate? :string ,
-    expectedEndDate? :string ,
-    responseDate? :string ,
-    totalCandidateNumber : number,
-    company : string,
-    partnerNum :number ,
-    partnerId :number,
-    comment: string,
-    partner : Partner
-  
+    expectedEndDate ?:string
+    closureDate ?:string
+    availability ?:Availability
+    startDate? :string 
+    responseDate? :string
+    creationDate? :string
+    partnerId :number
+    comment: string
 }
 
 export enum Availability {
 
     FROM="FROM",
      IMMEDIATELY="IMMEDIATELY",
-      ASAP="ASAP",
-       MONTH_MAXIMUM="MONTH_MAXIMUM",
-        THREE_MONTHS_MINIMUM="THREE_MONTHS_MINIMUM"
+      ASAP="ASAP"
 }
 
 export enum RequirementType {
-
-    MANAGEMENT ="MANAGEMENT",
-     RECRUITMENT ="RECRUITMENT",
-      INTERN_PROJECT="INTERN_PROJECT"
+    FOR_SETTLEMENT = "FOR_SETTLEMENT",
+    IN_PACKAGE = "IN_PACKAGE"
 }
 
 export enum RequirementStatus {

@@ -12,6 +12,7 @@ import { ReqService } from '../../req.service';
 import { Availability, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ReqpopComponent } from '../../req-pop/reqpop/reqpop.component';
+import { ProfilePopComponent } from '../../profile-pop/profile-pop.component';
 
 @Component({
   selector: 'app-reqlist',
@@ -47,7 +48,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
   getDisplayedColumns() {
     return [
-      'title','criteria','requirementStatus','workField','actions',
+      'title','requirementType','requirementStatus','candidateNumber','actions',
     ];
   }
 
@@ -128,6 +129,33 @@ export class ReqlistComponent implements OnInit , OnDestroy {
       }
     })
 }
+
+openPopUp2(requirementId: number) {
+  let title = 'Ajouter profil demandé'
+  let dialogRef: MatDialogRef<any> = this.dialog.open(ProfilePopComponent, {
+    height: '620px',
+    width: '720px',
+    disableClose: true,
+    data: { title: title, payload: {} , requirementNum: requirementId}
+  })
+  dialogRef.afterClosed()
+    .subscribe(res => {
+      if(!res) {
+        // If user press cancel
+        return;
+      }
+        this.loader.open('Ajout profil demandé en cours');
+        console.log(res)
+        this.ReqService.addProfile(res)
+          .subscribe((data :any)=> {
+            this.dataSource = data;
+            this.loader.close();
+            this.snack.open('Profil demandé ajoutée avec succès !', 'OK', { duration: 2000 });
+            this.getItems();
+          })
+      })
+    }
+    
   ////////////filtrer  par colonne //////////////
   applyFilterr(event: Event, key: string) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -152,10 +180,9 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   };
 
   reqTypeMap = {
-    [RequirementType.MANAGEMENT]:'Management',
-    [RequirementType.RECRUITMENT]:'Recrutement',
-    [RequirementType.INTERN_PROJECT] :'Projet interne'
-  };
+    [RequirementType.FOR_SETTLEMENT]:'En régie',
+    [RequirementType.IN_PACKAGE]:'En forfait'
+  }
 
   reqStatusMap = {
     [RequirementStatus.POSITIONED]:'Positionné',
@@ -166,10 +193,8 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   };
 
   availabilityMap = {
-    [Availability.ASAP]: "Le plus tôt possible",
+    [Availability.ASAP]: "ASAP",
     [Availability.FROM]: "A partir de",
-    [Availability.IMMEDIATELY]: "Immédiatement",
-    [Availability.MONTH_MAXIMUM]: "Un mois au maximum",
-    [Availability.THREE_MONTHS_MINIMUM]: "Trois mois au minimum"
+    [Availability.IMMEDIATELY]: "Immédiatement"
   }
 }

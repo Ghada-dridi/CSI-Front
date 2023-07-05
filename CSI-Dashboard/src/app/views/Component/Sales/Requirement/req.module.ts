@@ -30,6 +30,7 @@ import { ReqRoutes } from './req.routing';
 
 import { CrudPartnerService } from '../partner/crudPartner.service';
 import { ReqDetailComponent } from './req-detail/req-detail.component';
+import { ProfilePopComponent } from './profile-pop/profile-pop.component';
 
 
 
@@ -37,7 +38,8 @@ import { ReqDetailComponent } from './req-detail/req-detail.component';
   declarations: [
     ReqpopComponent,
     ReqlistComponent,
-    ReqDetailComponent
+    ReqDetailComponent,
+    ProfilePopComponent
   ],
   providers: [ReqService,CrudPartnerService],
   imports: [

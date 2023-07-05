@@ -2,14 +2,7 @@
   <form [formGroup]="itemForm" (ngSubmit)="submit()" >
     <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
-    <div fxFlex="50"  class="pr-16" style="padding-top: 17px;">
-      <label>
-          Opportunité d'un partenaire existant
-        <input type="checkbox" [checked]="showDiv" (change)="toggleDiv()">
-      </label>
-    </div>
-
-    <div fxFlex="50"  class="pr-16" *ngIf = showDiv >
+    <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Partenaire</mat-label>
         <mat-select  [formControlName]="'partnerNum'">
@@ -18,86 +11,73 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50"  class="pr-16" *ngIf="!showDiv">
+    <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Société/Groupe</mat-label>
-        <input
-        matInput
-        name="company"
-        type="text"
-        [formControlName]="'company'"
-        placeholder="Société/Groupe">
+        <mat-label>Titre</mat-label>
+          <input
+            matInput
+            name="title"
+            type="text"
+            [formControlName]="'title'"
+            placeholder="Titre">
       </mat-form-field>
     </div>
     
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Titre</mat-label>
-        <input
-        matInput
-        name="title"
-        type="text"
-        [formControlName]="'title'"
-        placeholder="Titre">
+        <mat-label>Budget par jour</mat-label>
+          <input
+            matInput
+            name="budgetPerDay"
+            type="number"
+            [formControlName]="'budgetPerDay'"
+            placeholder="Budget par jour">
       </mat-form-field>
     </div>
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Description</mat-label>
-        <input
-        matInput
-        name="description"
-        type="text"
-        [formControlName]="'description'"
-        placeholder="Description">
+        <mat-label>Devise</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option  *ngFor="let currency of sortedCurrencies " [value]="currency">{{ currencyMap[currency] }}</mat-option>
+          </mat-select>
       </mat-form-field>
     </div>
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Critère</mat-label>
-        <input
-        matInput
-        name="criteria"
-        type="text"
-        [formControlName]="'criteria'"
-        placeholder="Critère">
+        <mat-label>Nombre de candidats</mat-label>
+          <input
+            matInput
+            type="number"
+            name="candidateNumber"
+            [formControlName]="'candidateNumber'"
+            placeholder="Nombre de candidats"
+          >
       </mat-form-field>
     </div>
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Budget envisagé</mat-label>
-        <input
-        matInput
-        name="plannedBudget"
-        type="number"
-        [formControlName]="'plannedBudget'"
-        placeholder="Budget envisagé">
+        <mat-label>Type opportunité</mat-label>
+        <mat-select  [formControlName]="'requirementType'">
+            <mat-option *ngFor="let requirementType of RequirementType" [value]="requirementType" >
+                {{reqTypeMap[requirementType]}}
+            </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
-
-    <!--div fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width">
-        <input
-        matInput
-        type="number"
-        name="plannedIncome"
-        [formControlName]="'plannedIncome'"
-        placeholder="Chiffre d'affaire envisagé">
-      </mat-form-field>
-    </div-->
 
     <div fxFlex="50"  class="pr-16">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Nombre total de candidats</mat-label>
-          <input
-          matInput
-          type="number"
-          name="totalCandidateNumber"
-          [formControlName]="'totalCandidateNumber'"
-          placeholder="Nombre total de candidats">
+          <mat-label>Date de réponse</mat-label>
+            <input  
+              matInput [matDatepicker]="picker" 
+              formControlName="responseDate" 
+              placeholder="Date de réponse" 
+            >
+            <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
 
@@ -106,134 +86,51 @@
           <div fxFlex="50"  class="pr-16">
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Secteur d'activité</mat-label>
-              <mat-select  [formControlName]="'workField'">
-                <mat-option *ngFor="let x of WorkField" [value]="x">{{ workFieldMap[x] }}</mat-option>
-              </mat-select>
+              <mat-label>Date prévue de clôture</mat-label>
+                <input  
+                  matInput [matDatepicker]="picker1" 
+                  formControlName="closureDate" 
+                  placeholder="Date prévue de clôture" 
+                >
+                  <mat-datepicker-toggle  matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
         </div>
+        <div fxFlex="50"  class="pr-16">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Démarrage dans</mat-label>
+            <mat-select  [formControlName]="'availability'">
+              <mat-option *ngFor="let availability of Availability" [value]="availability">{{ availabilityMap[availability] }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div fxFlex="50" class="pr-16" *ngIf="isStartDayVisible()">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Date prévue de démarrage</mat-label>
+            <input  
+              matInput [matDatepicker]="picker2" 
+              formControlName="startDate" 
+              placeholder="Date prévue de démarrage" 
+            >
+            <mat-datepicker-toggle  matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
 
+        <div class="mini-container" >
+          <mat-form-field [style.width.cm]=17 class="example-full-width" appearance="outline">
+            <mat-label>Commentaire</mat-label>
+            <textarea matInput placeholder="Saisissez un commentaire si nécessaire."
+            [formControl]="itemForm.controls['comment']"></textarea>
+          </mat-form-field>
+        </div>
 
-
-      <div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Type opportunité</mat-label>
-          <mat-select  [formControlName]="'requirementType'">
-            <mat-option *ngFor="let requirementType of RequirementType" [value]="requirementType" >
-              {{reqTypeMap[requirementType]}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div fxFlex="100" class="mt-16">
+          <button mat-raised-button color="primary" >Enregistrer</button>
+          <span fxFlex></span>
+          <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Annuler</button>
+        </div>
       </div>
-
-      <!--div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width">
-          <mat-label>Etat Opportunité</mat-label>
-          <mat-select  [formControlName]="'requirementStatus'">
-            <mat-option *ngFor="let requirementStatus of RequirementStatus" [value]="requirementStatus" 
-            [ngIf]="!isNew || (requirementStatus !== 'LOST' && requirementStatus !== 'ABANDONED')">
-              {{ reqStatusMap[requirementStatus] }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div-->
-
-      <div fxFlex="50" class="pr-16">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Etat Opportunité</mat-label>
-          <mat-select [formControlName]="'requirementStatus'">
-            <mat-option [value]="inverseReqStatusMap[reqStatusMap.POSITIONED]">
-              {{ reqStatusMap.POSITIONED }}
-            </mat-option>
-            <mat-option [value]="inverseReqStatusMap[reqStatusMap.WON]">
-              {{ reqStatusMap.WON }}
-            </mat-option>
-            <mat-option [value]="inverseReqStatusMap[reqStatusMap.LOST]" *ngIf="!isNew">
-              {{ reqStatusMap.LOST }}
-            </mat-option>
-            <mat-option [value]="inverseReqStatusMap[reqStatusMap.ABANDONED]" *ngIf="!isNew">
-              {{ reqStatusMap.ABANDONED }}
-            </mat-option>
-            <mat-option [value]="inverseReqStatusMap[reqStatusMap.IN_PROGRESS]">
-              {{ reqStatusMap.IN_PROGRESS }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      
-
-      <div fxFlex="50"  class="pr-16">
-
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Démarrage dans</mat-label>
-          <mat-select  [formControlName]="'availability'">
-            <mat-option *ngFor="let availability of Availability" [value]="availability">{{ availabilityMap[availability] }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-    </div>
-
-    
-
-    <div  fxFlex="50"  class="pr-16">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Date de réponse</mat-label>
-        <input
-          formControlName="responseDate"
-          matInput
-          [matDatepicker]="picker3"
-          placeholder="Date de réponse"
-          required
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-      <div  fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Date de démarrage</mat-label>
-          <input
-            formControlName="startDate"
-            matInput
-            [matDatepicker]="picker2"
-            placeholder="Date de démarrage"
-            required
-          />
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div  fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Date prévue de clôture</mat-label>
-          <input
-            formControlName="expectedEndDate"
-            matInput
-            [matDatepicker]="picker"
-            placeholder="Date prévue de clôture"
-            required
-          />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      
-      <div class="mini-container" >
-        <mat-form-field [style.width.cm]=17 class="example-full-width" appearance="outline">
-         <mat-label>Commentaire</mat-label>
-         <textarea matInput placeholder="Saisissez un commentaire si nécessaire."
-         [formControl]="itemForm.controls['comment']"></textarea>
-       </mat-form-field>
-     </div>
-
-    <div fxFlex="100" class="mt-16">
-      <button mat-raised-button color="primary" >Enregistrer</button>
-      <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Annuler</button>
-    </div>
-  </div>
   </form>
 

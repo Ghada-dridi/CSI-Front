@@ -478,7 +478,7 @@ public accounts: BankAccount[]
             [CompanyStatus.SUPPLIER]:'Fournisseur',
             [CompanyStatus.CLIENT]:'Client',
             [CompanyStatus.CLIENT_SUPPLIER]:'Client / Fournisseur'
-          };
+          }
         
           provenanceMap = {
             [Provenance.JOBS_FORUM]:'Salon des entreprises',

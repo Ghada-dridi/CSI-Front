@@ -132,22 +132,12 @@ export class PartnerStepperComponent implements OnInit {
         Validators.pattern(/^[a-zA-Z0-9]{10}$/)] ),
       partnershipDate: new UntypedFormControl('',[Validators.required])
     })
-
     
-    this.partnerAddressForm = this.fb.group({
-      value : new FormArray([])
-     });
-     (this.partnerAddressForm.get('value') as FormArray).push(this.fb.group({
-      type :new UntypedFormControl('',[Validators.required]),
-      num: new UntypedFormControl('', [Validators.required]),
-      street: new UntypedFormControl('', [Validators.required]),
-      postalCode: new UntypedFormControl('', [Validators.required]),
-      city : new UntypedFormControl('', [Validators.required]),
-      region: new UntypedFormControl('', [Validators.required]),
-      country: new UntypedFormControl('', [Validators.required])
-    }))
+    this.initializeAddressForm()
+    this.initializeAccountForm()
+    this.initializeContactForm()
 
-    this.bankAccountForm = this.fb.group({
+    /*this.bankAccountForm = this.fb.group({
       value : new FormArray([])
      });
      (this.bankAccountForm.get('value') as FormArray).push(this.fb.group({
@@ -160,9 +150,9 @@ export class PartnerStepperComponent implements OnInit {
         Validators.pattern(/^[A-Z]{4}[-]{0,1}[A-Z]{2}[-]{0,1}[A-Z0-9]{2}[-]{0,1}[0-9]{3}$/)]),
       iban: new UntypedFormControl('', [Validators.required, ValidatorService.validateIban]),
       bankAddress: new UntypedFormControl('', [Validators.required])
-    }))
+    }))*/
 
-    this.contactForm = this.fb.group({
+    /*this.contactForm = this.fb.group({
       value : new FormArray([])
      });
      (this.contactForm.get('value') as FormArray).push(this.fb.group({
@@ -187,8 +177,8 @@ export class PartnerStepperComponent implements OnInit {
       ]),
       mobilePhoneNumber: new UntypedFormControl('', [Validators.required]),
       phoneNumber: new UntypedFormControl('', []),
-      comment: new UntypedFormControl('', [])
-    }))
+      comment: new UntypedFormControl('', []),
+    }))*/
 
     this.coordonneesForm = this.fb.group({
       phoneNumber: new UntypedFormControl('', [
@@ -235,7 +225,77 @@ export class PartnerStepperComponent implements OnInit {
     });
   }
 
+  initializeAddressForm(): void {
+    this.partnerAddressForm = this.fb.group({
+      value: this.fb.array([]),
+    });
   
+    const initialFormGroup = this.fb.group({
+      type: new UntypedFormControl('', [Validators.required]),
+      num: new UntypedFormControl('', [Validators.required]),
+      street: new UntypedFormControl('', [Validators.required]),
+      postalCode: new UntypedFormControl('', [Validators.required]),
+      city: new UntypedFormControl('', [Validators.required]),
+      region: new UntypedFormControl('', [Validators.required]),
+      country: new UntypedFormControl('', [Validators.required]),
+      isSubmitted: new FormControl(false), // Add the isSubmitted property to the initial FormGroup
+    });
+  
+    (this.partnerAddressForm.get('value') as FormArray).push(initialFormGroup);
+  }
+  
+  initializeAccountForm(): void {
+    this.bankAccountForm = this.fb.group({
+      value: this.fb.array([]),
+    });
+
+    const initialFormGroup = this.fb.group({
+      bankName :new UntypedFormControl('',[Validators.required]),
+      rib: new UntypedFormControl('', [
+        Validators.required,
+        Validators.pattern(/^(0[1-9]|[1-8]\d|9[0-7])$/)
+      ]),
+      bic: new UntypedFormControl('', [Validators.required,
+        Validators.pattern(/^[A-Z]{4}[-]{0,1}[A-Z]{2}[-]{0,1}[A-Z0-9]{2}[-]{0,1}[0-9]{3}$/)]),
+      iban: new UntypedFormControl('', [Validators.required, ValidatorService.validateIban]),
+      bankAddress: new UntypedFormControl('', [Validators.required]),
+      isSubmitted: new FormControl(false), // Add the isSubmitted property to the initial FormGroup
+    });
+    (this.bankAccountForm.get('value') as FormArray).push(initialFormGroup);
+  }
+
+  initializeContactForm(): void {
+    this.contactForm = this.fb.group({
+      value: this.fb.array([]),
+    })
+
+    const initialFormGroup = this.fb.group({
+      civility :new UntypedFormControl('',[Validators.required]),
+      firstName: new UntypedFormControl('', [
+        Validators.required,
+        this.capitalLetterValidator
+      ]),
+      lastName: new UntypedFormControl('', [
+        Validators.required,
+        this.capitalLetterValidator
+      ]),
+      privilege: new UntypedFormControl('', [Validators.required]),
+      privilegedContact: new UntypedFormControl(false),
+      appointmentMaking: new UntypedFormControl(false),
+      service: new UntypedFormControl('', [Validators.required]),
+      function: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(50)
+      ]),
+      mobilePhoneNumber: new UntypedFormControl('', [Validators.required]),
+      phoneNumber: new UntypedFormControl('', []),
+      comment: new UntypedFormControl('', []),
+      isSubmitted: new FormControl(false), // Add the isSubmitted property to the initial FormGroup
+    });
+    (this.contactForm.get('value') as FormArray).push(initialFormGroup);
+  }
 
   /////Make first letter capital//////
   capitalLetterValidator(control: FormControl): { [key: string]: boolean } | null {
@@ -350,36 +410,54 @@ export class PartnerStepperComponent implements OnInit {
     }
 
   // Save previous address and open a new address form
-  saveAddAddress(i:any): void {
-     
-    this.addressService.addAddress({...this.partnerAddressForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
-     next: (res) => {
-      console.log('Item added successfully', res);
-      console.log('Form value', this.partnerAddressForm.value.value[i]);
-       this.submitted = true;
-       (this.partnerAddressForm.get('value') as FormArray).push(this.fb.group({
-        type :new UntypedFormControl('',[]),
-      num: new UntypedFormControl('', []),
-      street: new UntypedFormControl('', []),
-      postalCode: new UntypedFormControl('', []),
-      city : new UntypedFormControl('', []),
-      region: new UntypedFormControl('', []),
-      country: new UntypedFormControl('', [])
-       }));
-       this.addressId=res.id
-     },
-     error: (e) => {
-       console.error('Error adding item', e);
-       console.log('partner details is invalid');
-       console.log(this.partnerAddressForm.errors);
-     }
-   })
+  saveAddAddress(i: number): void {
+    const addressArray = this.partnerAddressForm.get('value') as FormArray;
+    const addressFormGroup = addressArray.at(i) as FormGroup;
+  
+    addressFormGroup.get('isSubmitted')?.setValue(true);
+
+    this.addressService.addAddress({...addressFormGroup.value, partnerNum: this.selectedPartner.id}).subscribe({
+      next: (res) => {
+       console.log('Item added successfully', res);
+       console.log('Form value', this.partnerAddressForm.value.value[i]);
+        this.submitted = true;
+        this.addressId=res.id
+      },
+      error: (e) => {
+        console.error('Error adding item', e);
+        console.log('partner details is invalid');
+        console.log(this.partnerAddressForm.errors);
+      }
+    })
+  
+    // Add a new form group to the FormArray and reset the fields
+    const newFormGroup = this.fb.group({
+      type: new UntypedFormControl('', [Validators.required]),
+      num: new UntypedFormControl('', [Validators.required]),
+      street: new UntypedFormControl('', [Validators.required]),
+      postalCode: new UntypedFormControl('', [Validators.required]),
+      city: new UntypedFormControl('', [Validators.required]),
+      region: new UntypedFormControl('', [Validators.required]),
+      country: new UntypedFormControl('', [Validators.required]),
+      isSubmitted: new FormControl(false), // Add the isSubmitted property to the new FormGroup
+    });
+  
+    addressArray.push(newFormGroup);
   }
+  
+  
+  
+  
+  
 
   // Enregistrer dernière adresse du partenaire
-  saveAddress(i:any): void {
-     console.log(this.partnerAddressForm.get('value.'+i).value) 
-    this.addressService.addAddress({...this.partnerAddressForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+  saveAddress(i: number): void {
+    const addressArray = this.partnerAddressForm.get('value') as FormArray;
+    const addressFormGroup = addressArray.at(i) as FormGroup;
+  
+    addressFormGroup.get('isSubmitted')?.setValue(true);
+  
+    this.addressService.addAddress({...addressFormGroup.value, partnerNum: this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
       console.log('Form value', this.partnerAddressForm.value.value[i]);
@@ -395,20 +473,17 @@ export class PartnerStepperComponent implements OnInit {
   }
 
   // Save previous bank account and open a new bank account form
-  saveAddBankAccount(i:any): void {
-     
-    this.partnerService.addBankAccount({...this.bankAccountForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+  saveAddBankAccount(i: number): void {
+    const accountArray = this.bankAccountForm.get('value') as FormArray;
+    const accountFormGroup = accountArray.at(i) as FormGroup;
+  
+    accountFormGroup.get('isSubmitted')?.setValue(true);
+
+    this.partnerService.addBankAccount({...accountFormGroup.value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
       console.log('Form value', this.bankAccountForm.value.value[i]);
        this.submitted = true;
-       (this.bankAccountForm.get('value') as FormArray).push(this.fb.group({
-        bankName :new UntypedFormControl('',[]),
-        rib: new UntypedFormControl('', []),
-        bic: new UntypedFormControl('', []),
-        iban: new UntypedFormControl('', []),
-        bankAddress: new UntypedFormControl('', [])
-       }));
        this.bankAccountId=res.id
      },
      error: (e) => {
@@ -417,12 +492,32 @@ export class PartnerStepperComponent implements OnInit {
        console.log(this.bankAccountForm.errors);
      }
    })
+
+   // Add a new form group to the FormArray and reset the fields
+   const newFormGroup = this.fb.group({
+    bankName :new UntypedFormControl('',[Validators.required]),
+      rib: new UntypedFormControl('', [
+        Validators.required,
+        Validators.pattern(/^(0[1-9]|[1-8]\d|9[0-7])$/)
+      ]),
+      bic: new UntypedFormControl('', [Validators.required,
+        Validators.pattern(/^[A-Z]{4}[-]{0,1}[A-Z]{2}[-]{0,1}[A-Z0-9]{2}[-]{0,1}[0-9]{3}$/)]),
+      iban: new UntypedFormControl('', [Validators.required, ValidatorService.validateIban]),
+      bankAddress: new UntypedFormControl('', [Validators.required]),
+    isSubmitted: new FormControl(false), // Add the isSubmitted property to the new FormGroup
+  });
+
+    accountArray.push(newFormGroup);
   }
 
   // Enregistrer dernier compte bancaire au partenaire 
   saveBankAccount(i:any): void {
+    const accountArray = this.bankAccountForm.get('value') as FormArray;
+    const accountFormGroup = accountArray.at(i) as FormGroup;
+  
+    accountFormGroup.get('isSubmitted')?.setValue(true);
      
-    this.partnerService.addBankAccount({...this.bankAccountForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+    this.partnerService.addBankAccount({...accountFormGroup.value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
       console.log('Form value', this.bankAccountForm.value.value[i]);
@@ -439,25 +534,15 @@ export class PartnerStepperComponent implements OnInit {
 
   // Save previous contact and open a new contact form
   saveAddContact(i:any): void {
-    this.partnerService.addContact({...this.contactForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+    const contactArray = this.contactForm.get('value') as FormArray;
+    const contactFormGroup = contactArray.at(i) as FormGroup;
+  
+    contactFormGroup.get('isSubmitted')?.setValue(true);
+    this.partnerService.addContact({...this.contactForm.value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
       console.log('Form value', this.contactForm.value.value[i]);
        this.submitted = true;
-       (this.contactForm.get('value') as FormArray).push(this.fb.group({
-        civility :new UntypedFormControl('',[]),
-        firstName: new UntypedFormControl('', []),
-        lastName: new UntypedFormControl('', []),
-        privilege: new UntypedFormControl('', []),
-        privilegedContact: new UntypedFormControl(false),
-        appointmentMaking: new UntypedFormControl(false),
-        service: new UntypedFormControl('', []),
-        function: new UntypedFormControl('', []),
-        email: new UntypedFormControl('', []),
-        mobilePhoneNumber: new UntypedFormControl('', []),
-        phoneNumber: new UntypedFormControl('', []),
-        comment: new UntypedFormControl('', [])
-       }));
        this.contactId=res.id
      },
      error: (e) => {
@@ -466,19 +551,50 @@ export class PartnerStepperComponent implements OnInit {
        console.log(this.partnerAddressForm.errors);
      }
    })
+   // Add a new form group to the FormArray and reset the fields
+   const newFormGroup = this.fb.group({
+    civility :new UntypedFormControl('',[Validators.required]),
+      firstName: new UntypedFormControl('', [
+        Validators.required,
+        this.capitalLetterValidator
+      ]),
+      lastName: new UntypedFormControl('', [
+        Validators.required,
+        this.capitalLetterValidator
+      ]),
+      privilege: new UntypedFormControl('', [Validators.required]),
+      privilegedContact: new UntypedFormControl(false),
+      appointmentMaking: new UntypedFormControl(false),
+      service: new UntypedFormControl('', [Validators.required]),
+      function: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(50)
+      ]),
+      mobilePhoneNumber: new UntypedFormControl('', [Validators.required]),
+      phoneNumber: new UntypedFormControl('', []),
+      comment: new UntypedFormControl('', []),
+    isSubmitted: new FormControl(false), // Add the isSubmitted property to the new FormGroup
+  });
+
+  contactArray.push(newFormGroup);
   }
 
 
   // Enregistrer dernier contact au partenaire
   saveContact(i:any): void {
+    const contactArray = this.contactForm.get('value') as FormArray;
+    const contactFormGroup = contactArray.at(i) as FormGroup;
+  
+    contactFormGroup.get('isSubmitted')?.setValue(true);
      
-    this.partnerService.addContact({...this.contactForm.get('value.'+i).value, partnerNum:this.selectedPartner.id}).subscribe({
+    this.partnerService.addContact({...contactFormGroup.value, partnerNum:this.selectedPartner.id}).subscribe({
      next: (res) => {
       console.log('Item added successfully', res);
       console.log('Form value', this.contactForm.value.value[i]);
        this.submitted = true;
        this.contactId=res.id
-       (this.contactForm.get('value.' + i) as FormGroup).reset();
      },
      error: (e) => {
        console.error('Error adding item', e);

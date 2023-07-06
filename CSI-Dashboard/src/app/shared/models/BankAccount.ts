@@ -4,8 +4,8 @@ export interface BankAccount{
     id?: number
     bankName?: string
     rib?: number,
-    bic?: number,
-    iban?: number,
+    bic?: string
+    iban?: string
     bankAddress?: string
     partnerNum?: number,
     partner ?: Partner

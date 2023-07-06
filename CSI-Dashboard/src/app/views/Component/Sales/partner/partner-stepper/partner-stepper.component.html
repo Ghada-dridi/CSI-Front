@@ -378,19 +378,27 @@
                                         <mat-icon>check</mat-icon>
                                       </button>
                                     </div-->
-                                    <div class="button-container">
-                                      <div>
-                                        <button class="left-button" mat-fab  (click)="saveAddress(i)">
-                                         <mat-icon>check</mat-icon> 
-                                        </button>
-                                      </div>
-          
+                                    <!-- Inside the *ngFor loop -->
+                                      <div class="button-container">
                                         <div>
-                                          <button class="right-button" mat-fab (click)="saveAddAddress(i)">
-                                           <mat-icon>add</mat-icon> 
+                                          <button class="left-button" mat-fab 
+                                          [disabled]="val.get('isSubmitted').value" 
+                                          (click)="saveAddress(i)">
+                                            <mat-icon>check</mat-icon> 
                                           </button>
                                         </div>
-                                    </div>
+
+                                        <div>
+                                          <button class="right-button" mat-fab 
+                                          [disabled]="val.get('isSubmitted').value" (click)="saveAddAddress(i)">
+                                            <mat-icon>add</mat-icon>
+                                          </button>
+                                        </div>
+                                      </div>
+
+                                    
+                                    
+                                    
                                     </div>
                                   </div>
                                 </div>
@@ -573,13 +581,17 @@
                                 </div-->
                                 <div class="button-container">
                                   <div >
-                                    <button class="left-button" mat-fab   (click)="saveBankAccount(i)">
+                                    <button class="left-button" mat-fab 
+                                    [disabled]="val.get('isSubmitted').value"
+                                    (click)="saveBankAccount(i)">
                                      <mat-icon>check</mat-icon>
                                     </button>
                                     </div>
       
                                     <div>
-                                      <button class="right-button" mat-fab (click)="saveAddBankAccount(i)">
+                                      <button class="right-button" mat-fab 
+                                      [disabled]="val.get('isSubmitted').value"
+                                      (click)="saveAddBankAccount(i)">
                                        <mat-icon>add</mat-icon>
                                       </button>
                                     </div>
@@ -797,13 +809,17 @@
                                 </div>
                             <div class="button-container">
                               <div >
-                                <button class="left-button" mat-fab   (click)="saveContact(i)">
+                                <button class="left-button" mat-fab 
+                                [disabled]="val.get('isSubmitted').value" 
+                                 (click)="saveContact(i)">
                                  <mat-icon>check</mat-icon>
                                 </button>
                                 </div>
   
                                 <div>
-                                  <button class="right-button" mat-fab (click)="saveAddContact(i)">
+                                  <button class="right-button" mat-fab 
+                                  [disabled]="val.get('isSubmitted').value" 
+                                  (click)="saveAddContact(i)">
                                    <mat-icon>add</mat-icon> 
                                   </button>
                                 </div>

@@ -1,19 +1,14 @@
-<h1 matDialogTitle>{{data.title}}</h1>
-
+<mat-toolbar matDialogTitle class="mat-primary m-0">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">{{data.title}}</span>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
 <!--{{"ADD" | translate }} {{"MEMBER" | translate }}-->
   <form [formGroup]="itemForm" (ngSubmit)="submit()">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
-    <div fxFlex="50"  class="pr-16">
-      <mat-form-field appearance="outline"  [style.width.cm]=8>
-        <mat-label>Numéro Série</mat-label>
-        <input
-        matInput
-        name="serialNumber"
-        [formControl]="itemForm.controls['serialNumber']"
-        placeholder="Numéro Série">
-      </mat-form-field>
-    </div>
-
     <div fxFlex="50"  class="pr-16">
       <mat-form-field appearance="outline"  [style.width.cm]=8>
         <mat-label>Type</mat-label>
@@ -25,6 +20,16 @@
       </mat-form-field>
     </div>
     
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+        <mat-label>Numéro Série</mat-label>
+        <input
+        matInput
+        name="serialNumber"
+        [formControl]="itemForm.controls['serialNumber']"
+        placeholder="Numéro Série">
+      </mat-form-field>
+    </div>
     <div fxFlex="100"  class="pr-16">
       <mat-form-field appearance="outline"  [style.width.cm]=17>
         <mat-label>Désignation</mat-label>
@@ -50,7 +55,7 @@
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field appearance="outline"  [style.width.cm]=8>
-        <mat-label>Date Fin</mat-label>
+        <mat-label>Date fin garantie</mat-label>
         <input
         matInput
         type="date"
@@ -64,8 +69,8 @@
 
 
 
-    <div fxFlex="100"  class="pr-16">
-    <mat-form-field appearance="outline"  [style.width.cm]=17>
+    <div fxFlex="50"  class="pr-16">
+    <mat-form-field appearance="outline"  [style.width.cm]=8>
     <mat-label>Fournisseur</mat-label>
         <input
         matInput
@@ -74,6 +79,17 @@
         placeholder="Fournisseur">
     </mat-form-field>
     </div>
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field appearance="outline"  [style.width.cm]=8>
+      <mat-label>Numéro de commande fournisseur</mat-label>
+          <input
+          matInput
+          name="supplierOrderNumber"
+          [formControl]="itemForm.controls['supplierOrderNumber']"
+          placeholder="Fournisseur">
+      </mat-form-field>
+      </div>
+  
 
     <div fxFlex="50"  class="pr-16">
       <mat-form-field appearance="outline"  [style.width.cm]=8>

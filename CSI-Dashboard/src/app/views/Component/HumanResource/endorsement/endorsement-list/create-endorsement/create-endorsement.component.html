@@ -1,12 +1,11 @@
-
-<div class="dialog-header">
-  <h1 matDialogTitle>{{data.title}}</h1>
-  <!-- Bouton de fermeture -->
-  <button mat-icon-button class="close-button" (click)="closeDialog()">
-    <mat-icon>close</mat-icon>
-  </button>
-</div>
-
+<mat-toolbar matDialogTitle class="mat-primary m-0">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">{{data.title}}</span>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
  
 
 <!--{{"ADD" | translate }} {{"MEMBER" | translate }}-->
@@ -34,11 +33,11 @@
         matInput
         name="endorsementDate"
         [formControl]="itemForm.controls['endorsementDate']"
-        placeholder="Date ">
+        placeholder="Date avenanat ">
       </mat-form-field>
     </div>
-    <div fxFlex="100"  class="pr-16">
-        <mat-form-field appearance="outline" [style.width.cm]=16.75>
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field appearance="outline" [style.width.cm]=8>
           <mat-label>Sélectionner un contrat</mat-label>
           <mat-select formControlName="contractNum">
             <mat-option *ngFor="let contract of contracts" [value]="contract.id">
@@ -47,10 +46,20 @@
           </mat-select>
         </mat-form-field>   
       </div>
-   
+      <div fxFlex="50"  class="pr-16">
+        <mat-form-field appearance="outline" [style.width.cm]=8>
+          <mat-label>Date de validité</mat-label>
+          <input
+          type="date"
+          matInput
+          name="validityDate"
+          [formControl]="itemForm.controls['validityDate']"
+          placeholder="Date validité ">
+        </mat-form-field>
+      </div>
 
     <div fxFlex="100"  class="pr-16">
-      <mat-form-field appearance="outline" [style.width.cm]=16.75>
+      <mat-form-field appearance="outline" [style.width.cm]=16.5>
         <mat-label>Objet</mat-label>
         <input
         matInput

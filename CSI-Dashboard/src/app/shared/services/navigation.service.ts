@@ -75,8 +75,6 @@ export class NavigationService {
         //{ name: 'updateContract' , state: 'updateContract/update-employee-contract'},
         { name: 'ExternalRessources', state: 'resource/externalResource-crud' },
         { name: 'Contrat Employee', state: 'contractEmployee/liste-employee-contracts' },
-        { name: 'Contrat Client', state: 'contractClient/liste-client-contracts' },
-        { name: 'AvenantsClients', state: 'endorsementClient/endorsement-crud'},
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
         { name: 'Congés Empoyées', state: 'time-off-employee/timeOffEmployee-crud' },

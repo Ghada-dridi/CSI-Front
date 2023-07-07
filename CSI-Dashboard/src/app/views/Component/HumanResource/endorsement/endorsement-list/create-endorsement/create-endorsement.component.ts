@@ -25,8 +25,7 @@ export class CreateEndorsementComponent implements OnInit {
 
 
   
-  ngOnInit() {
-    
+  ngOnInit() { 
     this.buildItemForm(this.data.payload);
     this.loadContracts();
   }
@@ -39,13 +38,14 @@ export class CreateEndorsementComponent implements OnInit {
       endorsementDate: [item.endorsementDate ||'',Validators.required],
       object: [item.object || '',Validators.required],
       reference: [item.reference || '',Validators.required],
-      note: [item.note || '',Validators.required]
+      note: [item.note || '',Validators.required],
+      validityDate : [item.validityDate || '',Validators.required]
     })
   }
 
  
 loadContracts(){
-  this.contractService.getItems().subscribe((data: contract[]) => {
+  this.contractService.getAllItemsAccepted().subscribe((data: contract[]) => {
     this.contracts = data;
     console.log("Contracts data", data);
   });

@@ -87,18 +87,6 @@
           <mat-cell *matCellDef="let row" data-label="reference"> {{row.reference}} </mat-cell>
         </ng-container>
 
-
-         <ng-container matColumnDef="serialNumber">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> 
-            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Numéro Série</span>
-              <mat-form-field style="width:3cm; text-align: center;" >
-                <input matInput (input)="applyFilterr($event, 'serialNumber')" placeholder="Filtrer">
-             </mat-form-field>
-             </div>
-           </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="serialNumber"> {{row.serialNumber}} </mat-cell>
-         </ng-container>
    
          <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef mat-sort-header> 

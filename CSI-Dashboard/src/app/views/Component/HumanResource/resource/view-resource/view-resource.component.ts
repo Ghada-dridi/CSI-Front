@@ -108,8 +108,8 @@ onAvailability(data: any): void {
 
   openPopUpView(row: any): void {
     const dialogRef = this.dialog.open(ViewAvailabilityComponent, {
-      width: '720px',
-      data:  { equipment : row},
+      width: '600px',
+      data:  { availability : row},
     });
   
     dialogRef.afterOpened().subscribe(() => {

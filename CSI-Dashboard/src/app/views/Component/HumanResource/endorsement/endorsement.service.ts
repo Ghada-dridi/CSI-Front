@@ -51,6 +51,66 @@ export class EndorsementService {
     );
   }
 
+  /********************************************  Api of status endorsement  *****************************************/
+
+  updateToSentById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/updateToSentById/${id}`;
+    return this.http.put<any>(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  updateToAcceptedById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/updateToAcceptedById/${id}`;
+    return this.http.put<any>(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  updateToRefusedById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/updateToRefusedById/${id}`;
+    return this.http.put<any>(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  
+  updateToExpiredById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/updateToExpiredById/${id}`;
+    return this.http.put<any>(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  /******************************************** Statistiques endorsement  ***********************************************************/
+getAllRefused(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllRefused').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllAccepted(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllAccepted').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllPending(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllPending').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllSent(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllSent').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllExpired(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllExpired').pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+
 ////////////////////////////////////////////////////////
 private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {

@@ -76,7 +76,6 @@
                   <mat-error *ngIf="myFormContract.get('endDate').hasError('invalidEndDate')">
                     La date de fin doit être supérieure à la date de début.
                   </mat-error>
-                  
                 </div>
                 <div class="form-group mb-1 col-sm-12 col-md-3">
                     <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
@@ -90,6 +89,16 @@
                     </mat-form-field>
                     <mat-error *ngIf="myFormContract.controls['contractPlace'].invalid && myFormContract.controls['contractPlace'].touched">
                       Le lieu du contrat est requis.
+                    </mat-error>
+                  </div>
+                  <div class="form-group mb-1 col-sm-12 col-md-3">
+                    <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
+                      <mat-label>Date de validité </mat-label>
+                      <input matInput type="date" name="validityDate" formControlName="validityDate" placeholder="Date de contart" [matDatepicker]="appDatepicker" />
+                    </mat-form-field>
+                    <mat-datepicker #appDatepicker></mat-datepicker>
+                    <mat-error *ngIf="myFormContract.controls['validityDate'].invalid && myFormContract.controls['validityDate'].touched">
+                      La date de validité est requise.
                     </mat-error>
                   </div>
                   <div *ngIf="selectedContractType === 'contractCandidat'">
@@ -236,10 +245,10 @@
 
          
 
-     <mat-step label="Frais Exceptionnels">
+     <mat-step label="Avantages en nature">
             <mat-card-title class="light-gray mb-16">
               <div class="card-title-text">
-                <div class="">Frais Exceptionnels</div>
+                <div class="">Avantages en nature</div>
               </div>
               <mat-divider></mat-divider>
             </mat-card-title>
@@ -267,15 +276,14 @@
                           </mat-form-field>
                         </div>
                         
-                        <div class="d-flex justify-content-center">
+                    
                           <div class="form-group mb-1 col-sm-12 col-md-3">
                             <mat-form-field appearance="outline" [style.width.cm]="12">
                               <mat-label>Nom du frais</mat-label>
                               <input matInput name="name" formControlName="name" placeholder="" value="" required>
                             </mat-form-field>
                           </div>
-                        </div>
-                        
+                
                        
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <mat-form-field appearance="outline" [style.width.cm]="25">
@@ -312,10 +320,10 @@
         
            </mat-card-content>
             </mat-step>
-            <mat-step label="Bénéfices">
+            <mat-step label="Avantages financiers">
            <mat-card-title class="light-gray mb-16">
             <div class="card-title-text">
-              <div class="">Bénéfices</div>
+              <div class="">Avantages financiers</div>
             </div>
             <mat-divider></mat-divider>
           </mat-card-title>
@@ -342,14 +350,14 @@
                           </mat-form-field>
                         </div>
                         
-                        <div class="d-flex justify-content-center">
+                      
                           <div class="form-group mb-1 col-sm-12 col-md-3">
                             <mat-form-field appearance="outline" [style.width.cm]=12 style="padding-right: 1cm;">
                               <mat-label>Titre</mat-label>
                               <input matInput name="shortDescription" formControlName="shortDescription" placeholder="" value="" required>
                             </mat-form-field>
                           </div>
-                          </div>
+                      
 
 
                           <div class="form-group mb-1 col-sm-12 col-md-3">

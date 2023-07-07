@@ -65,6 +65,7 @@ export class EquipmentTablePopupComponent implements OnInit {
       amortizationType: [item.amortizationType|| null],
       status: [item.status|| '',Validators.required],
       currency: [item.currency|| '',Validators.required],
+      supplierOrderNumber: [item.supplierOrderNumber||'',Validators.required],
       motifUnavailability :[item.status||''],
       affectable: [ false ||item.affectable ],
       amortizable: [false||item.amortizable ],
@@ -89,8 +90,8 @@ export class EquipmentTablePopupComponent implements OnInit {
  
 
   PurchaseMethodMap= {
-    [PurchaseMethod.CASH]: 'Espèce',
-    [PurchaseMethod.PORTION]: 'Par tranche'
+    [PurchaseMethod.PURCHASE]: 'Achat',
+    [PurchaseMethod.RENT]: 'Location'
   };
 
   AmortizationTypeMap= {

@@ -53,8 +53,8 @@ export class ViewEquipmentComponent implements OnInit {
  }
  
  PurchaseMethodMap= {
-  [PurchaseMethod.CASH]: 'Espèce',
-  [PurchaseMethod.PORTION]: 'Par tranche'
+  [PurchaseMethod.PURCHASE]: 'Achat',
+  [PurchaseMethod.RENT]: 'Location'
 };
 
 AmortizationTypeMap= {

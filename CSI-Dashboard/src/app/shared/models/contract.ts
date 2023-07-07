@@ -9,6 +9,7 @@ export class contract {
     contractDate?: Date;
     startDate?: Date;
     endDate?: Date;
+    validityDate?: Date;
     entrepriseSignature?: string;
     resource?: Resource;
     articles?: articleClient[];
@@ -17,6 +18,7 @@ export class contract {
     contractStatus?:ContractStatus;
     contractEmployee?:string;
     contractEmployer?:string;
+ 
 }
 
 
@@ -24,7 +26,8 @@ export enum ContractStatus{
   STILL_PENDING="STILL_PENDING",
   SENT="SENT",
   REFUSED="REFUSED",
-  ACCEPTED="ACCEPTED"
+  ACCEPTED="ACCEPTED",
+  EXPIRED="EXPIRED"
 
 }
 

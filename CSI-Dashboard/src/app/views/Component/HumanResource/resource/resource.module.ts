@@ -1,3 +1,4 @@
+
 import { ResourceRoutes } from './resource.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,6 +37,9 @@ import { ConvertToResourceComponent } from '../convertToResource/convertToResour
 import { AvailabilityComponent } from './availability/availability.component';
 import { UpdateAvailabilityComponent } from './update-availability/update-availability.component';
 import { ViewAvailabilityComponent } from './view-availability/view-availability.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 
@@ -51,6 +55,7 @@ import { ViewAvailabilityComponent } from './view-availability/view-availability
     
    
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers : [ResourceService],
   imports: [
     CommonModule,
@@ -80,6 +85,10 @@ import { ViewAvailabilityComponent } from './view-availability/view-availability
     MatSelectModule,
     MatDatepickerModule,
     MatExpansionModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     RouterModule.forChild(ResourceRoutes)
   ]
 })

@@ -1,35 +1,42 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-  <div class="info-card primary">
+<!--  <div class="info-card primary">
     <div class="description">Here you can put your alerts!!!</div>
-  </div>
+  </div>-->
   <mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
     <div fxLayout="row wrap">
-      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" >
         <div class="text-center pt-16 pb-16 border-right-light">
           <mat-icon class="text-black">pending</mat-icon>
           <h4 class="m-0">{{pendingCount}}</h4>
           <small class="m-0">Contrats en cours </small>
         </div>
       </div>
-      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" >
         <div class="text-center pt-16 pb-16 border-right-light">
           <mat-icon class="text-blue">send</mat-icon>
           <h4 class="m-0">{{sentCount}}</h4>
           <small class="m-0">Contrats Envoyés</small>
         </div>
       </div>
-      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" >
         <div class="text-center pt-16 pb-16 border-right-light">
           <mat-icon class="text-red">highlight_off</mat-icon>
           <h4 class="m-0">{{refusedCount}}</h4>
           <small class="m-0">Contrats Refusés</small>
         </div>
       </div>
-      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" >
         <div class="text-center pt-16 pb-16 border-right-light">
           <mat-icon class="text-green">done_all</mat-icon>
           <h4 class="m-0">{{ acceptedCount }}</h4>
           <small class="m-0">Contrats Acceptés</small>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" >
+        <div class="text-center pt-16 pb-16 border-right-light">
+          <mat-icon class="text-purple">schedule</mat-icon>
+          <h4 class="m-0">{{ expiredCount }}</h4>
+          <small class="m-0">Contrats Expirés</small>
         </div>
       </div>
     </div>
@@ -74,21 +81,10 @@
            <mat-cell *matCellDef="let row" data-label="contractTitle"> {{ContractTitleMap[row.contractTitle]}} </mat-cell>
          </ng-container>
    
-         <ng-container matColumnDef="contractPlace">
-           <mat-header-cell *matHeaderCellDef mat-sort-header > 
-            <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Lieu</span>
-              <mat-form-field style="width:3cm; text-align: center;" >
-                <input matInput (input)="applyFilterr($event, 'contractPlace')" placeholder="Filtrer">
-             </mat-form-field>
-             </div> </mat-header-cell>
-           <mat-cell *matCellDef="let row" data-label="contractPlace"> {{row.contractPlace}} </mat-cell>
-         </ng-container>
-   
          <ng-container matColumnDef="contractDate">
            <mat-header-cell *matHeaderCellDef mat-sort-header> 
             <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Date</span>
+              <span>Date du contrat</span>
               <mat-form-field style="width:3cm; text-align: center;" >
                 <input matInput (input)="applyFilterr($event, 'contractDate')" placeholder="Filtrer">
              </mat-form-field>
@@ -97,7 +93,17 @@
            <mat-cell *matCellDef="let row" data-label="contractDate"> {{row.contractDate| date:'dd-MM-yyyy'}}</mat-cell>
          </ng-container>
    
-         
+         <ng-container matColumnDef="validityDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > 
+           <div style="display: flex; flex-direction: column; margin-top: 12px;" >
+             <span>Date de validité</span>
+             <mat-form-field style="width:3cm; text-align: center;" >
+               <input matInput (input)="applyFilterr($event, 'validityDate')" placeholder="Filtrer">
+            </mat-form-field>
+            </div> </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="validityDate"> {{row.validityDate| date:'dd-MM-yyyy'}} </mat-cell>
+        </ng-container>
+
          <ng-container matColumnDef="contractStatus">
           <mat-header-cell *matHeaderCellDef mat-sort-header> 
             <div style="display: flex; flex-direction: column; margin-top: 12px;" >
@@ -118,14 +124,14 @@
            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
            <mat-cell *matCellDef="let row">
              <ng-content select="selector"></ng-content>
-             <button  mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="redirectToUpdateEmployeeContract(row)" *ngIf="row.contractStatus === 'STILL_PENDING' || row.contractStatus === 'SENT'"   >
+             <button  mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="redirectToUpdateEmployeeContract(row)" *ngIf="row.contractStatus === 'STILL_PENDING' || row.contractStatus === 'SENT' || row.contractStatus==='EXPIRED'"   >
                <mat-icon>edit</mat-icon>
              </button>
              <button
              mat-icon-button
              routerLink="/contractEmployee/{{ row.id }}"
              routerLinkActive="router-link-active"
-             color="accent" 
+             color="basic" 
            >
              <mat-icon>visibility</mat-icon>
            </button>
@@ -138,7 +144,7 @@
              <button 
              class="card-control"
              mat-icon-button
-             *ngIf="row.contractStatus === 'STILL_PENDING'|| row.contractStatus === 'SENT'"
+             *ngIf="row.contractStatus === 'STILL_PENDING'|| row.contractStatus === 'SENT' || row.contractStatus === 'EXPIRED'"
              [matMenuTriggerFor]="menu2">
                   <mat-icon class="text-muted text-18">more_vert</mat-icon>
                 </button>
@@ -155,7 +161,10 @@
                     <mat-icon>cancel</mat-icon>
                     <span>Refusé</span>
                   </button>
-                 
+                  <button mat-menu-item (click)="changeContractStatus('ContractStatus.EXPIRED', row.id)">
+                    <mat-icon>schedule</mat-icon>
+                    <span>Expiré</span>
+                  </button>
                 </mat-menu>
            
               <mat-divider></mat-divider>

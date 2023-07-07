@@ -9,7 +9,6 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
-import { MatMenuModule } from "@angular/material/menu";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -27,7 +26,7 @@ import { QuillModule } from "ngx-quill";
 import { ViewEndorsementComponent } from './view-endorsement/view-endorsement.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
-
+import { MatMenuModule } from "@angular/material/menu";
 
 
 
@@ -41,6 +40,7 @@ import { MatSelectModule } from "@angular/material/select";
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatMenuModule,
     FlexLayoutModule,
     MatInputModule,
     MatIconModule,

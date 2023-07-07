@@ -17,10 +17,13 @@ export class Equipment{
     motifUnavailability?:string;
     affectation?:Affectation;
     amortizable?:Boolean;
+    supplierOrderNumber : string;
     affectable?:Boolean;
     purchaseMethod?:PurchaseMethod;
     amortizationType?:AmortizationType;
     currency?:Currency;
+    restituationDate?:Date;
+    restituationStatus?:string;
     
 }
 export enum StatusDisponibility{
@@ -32,8 +35,8 @@ export enum Affectation {
     UNAFFECTED='UNAFFECTED'
 }
 export enum PurchaseMethod{
-    CASH ='CASH',
-    PORTION=' PORTION'
+    PURCHASE ='PURCHASE',
+    RENT='RENT'
 }
 export enum AmortizationType{
     LINEAR='LINEAR',

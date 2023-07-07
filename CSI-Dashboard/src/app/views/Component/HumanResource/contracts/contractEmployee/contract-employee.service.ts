@@ -59,6 +59,13 @@ updateContract(id: number , data:any): Observable<any> {
     catchError(this.handleError)
   );
 }
+
+/** getAllContracts where status est accepted **/
+getAllItemsAccepted(): Observable<contract[]> {
+  return this.http.get<contract[]>(this.apiUrl + '/getAllAccepted').pipe(
+    catchError(this.handleError)
+  );
+}
 /******************************************  Api Exceptional Fee  *************************************************/
 
 /** Add Exceptional Fee **/
@@ -141,7 +148,14 @@ addBenefit(benefit: any): Observable<any> {
     );
   }
   
-
+  
+  updateToExpiredById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/updateToExpiredById/${id}`;
+    return this.http.put<any>(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
  
 /**************************************** Récupérer tous les candidats *****************************************/
 
@@ -192,6 +206,12 @@ getAllSent(): Observable<any> {
     catchError(this.handleError)
   );
 }
+getAllExpired(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllExpired').pipe(
+    catchError(this.handleError)
+  );
+}
+
 
 
 /********************************************  Traitement des erreurs *******************************************************************/

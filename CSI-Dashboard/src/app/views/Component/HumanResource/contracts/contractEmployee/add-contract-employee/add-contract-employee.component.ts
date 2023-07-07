@@ -142,6 +142,7 @@ benefitId : number;
    description : new FormControl('', Validators.required), 
    contractType : new FormControl('', Validators.required),
    reference : new FormControl('', Validators.required),
+   validityDate :new FormControl('',Validators.required),
    selectedCandidat:new FormControl('',Validators.required),
    employeeId : new FormControl ('', Validators.required), 
    articles: new FormArray([], Validators.required)

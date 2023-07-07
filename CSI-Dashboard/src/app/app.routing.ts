@@ -208,11 +208,6 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Contrats Employées', breadcrumb: 'Contrats Employées'}
       },
       {
-        path: 'contractClient',
-        loadChildren: () => import('./views/Component/HumanResource/contracts/contractProjet/contractClient.module').then(m => m.ContractClientModule),
-        data: { title: 'Contrats Prospets', breadcrumb: 'Contrats Prospets'}
-      },
-      {
         path: 'updateContract',
         loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
         data: { title: 'Contrats Employées', breadcrumb: 'Contrats Employées'}
@@ -247,11 +242,7 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/Component/HumanResource/endorsement/endorsement.module').then(m => m.EndorsementModule),
         data: { title: '', breadcrumb: ''}
       },
-      {
-        path: 'endorsementClient',
-        loadChildren: () => import('./views/Component/HumanResource/endorsementClient/endorsement.module').then(m => m.EndorsementModule),
-        data: { title: 'Avenants', breadcrumb: 'Avenants'}
-      },
+     
       
       
       {
@@ -294,11 +285,7 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/Component/HumanResource/contracts/contractEmployee/contractEmployee.module').then(m => m.ContractEmployeeModule),
         data: { title: 'Contrats Employées', breadcrumb: 'Contrats Employées'}
       },
-      {
-        path: 'Add-contract-client',
-        loadChildren: () => import('./views/Component/HumanResource/contracts/contractProjet/contractClient.module').then(m => m.ContractClientModule),
-        data: { title: 'Contrats Prospets', breadcrumb: 'Contrats Prospets'}
-      },
+   
       {
         path: 'article-referentiel',
         loadChildren: () => import('./views/Component/HumanResource/referentiel/article/article.module').then(m => m.ArticleModule),

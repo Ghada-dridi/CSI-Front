@@ -31,7 +31,7 @@ export class ListeContractComponent implements OnInit {
   refusedCount: number;
   pendingCount: number;
   sentCount: number;
-
+  expiredCount: number;
   public dataSource:MatTableDataSource<contract>;
   public displayedColumns: any;
   public getItemSub: Subscription;
@@ -53,6 +53,7 @@ export class ListeContractComponent implements OnInit {
     this.getAllAccepetedCount();
     this.getAllRefusedCount();
     this.getAllPendingCount();
+    this.getAllExpiredCount();
 
    
     
@@ -70,7 +71,7 @@ export class ListeContractComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['reference','contractTitle', 'contractPlace','contractDate', 'contractStatus','actions'];
+    return ['reference','contractTitle','contractDate', 'validityDate', 'contractStatus','actions'];
   }
   
   getItems() {    
@@ -88,9 +89,10 @@ export class ListeContractComponent implements OnInit {
 
     const STATUS_DATA = {
       ACCEPTED: { color: 'purple', displayText: 'Accepté' },
-      SENT : {color: 'primary', displayText: 'Envoyé' },
+      SENT: { color: 'primary', displayText: 'Envoyé' },
       REFUSED: { color: 'red', displayText: 'Refusé' },
-      STILL_PENDING: { color: 'grey', displayText: 'en cours' }
+      STILL_PENDING: { color: 'grey', displayText: 'en cours' },
+      EXPIRED: { color: 'green', displayText: 'Expiré' }
     };
     
     
@@ -114,6 +116,9 @@ export class ListeContractComponent implements OnInit {
       case 'ContractStatus.REFUSED':
         updateObservable = this.contractEmployeeService.updateToRefusedById(contractId);
         break;
+        case 'ContractStatus.EXPIRED':
+          updateObservable = this.contractEmployeeService.updateToExpiredById(contractId);
+          break;
       default:
         // Cas de statut de contrat non géré
         console.error('Statut de contrat non géré');
@@ -198,6 +203,17 @@ getAllPendingCount(): void {
   this.contractEmployeeService.getAllPending().subscribe(
     (response: any) => {
       this.pendingCount = response;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération du nombre de commentaires :', error);
+    }
+  );
+}
+
+getAllExpiredCount(): void {
+  this.contractEmployeeService.getAllExpired().subscribe(
+    (response: any) => {
+      this.expiredCount = response;
     },
     (error: any) => {
       console.error('Erreur lors de la récupération du nombre de commentaires :', error);

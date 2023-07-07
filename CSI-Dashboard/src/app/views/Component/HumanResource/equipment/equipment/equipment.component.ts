@@ -62,7 +62,7 @@ export class EquipmentComponent implements OnInit , OnDestroy{
     }
   
     getDisplayedColumns() {
-      return ['reference','serialNumber', 'type','status', 'affectation','actions'];
+      return ['reference', 'type','status', 'affectation','actions'];
     }
   
     getItems() {    

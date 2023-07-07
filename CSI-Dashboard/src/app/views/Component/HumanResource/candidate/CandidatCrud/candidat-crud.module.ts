@@ -1,4 +1,4 @@
-import { ConvertToResourceComponent } from './../../convertToResource/convertToResource.component';
+
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -21,7 +21,6 @@ import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from "app/shared/shared.module";
 import { CandidatRoutes } from "./candidat-crud.routing";
 import { CrudService } from "./candidat-crud.service";
-import { CandidatCrudTableComponent } from "./CandidatCrud-table/candidat-crud-table.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -31,8 +30,11 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { Ng2TelInputModule } from "ng2-tel-input";
 import { CandidatDetailComponent } from "./Candidat-details/candidat-details.component";
 import { NgxPaginationModule } from "ngx-pagination";
+import { ConvertToResourceComponent } from "./convert-candidate/convertToResource.component";
+import { ViewAllInterviewsDetailsComponent } from "./Candidat-details/viewAll-Interviews/viewAll-Interviews.Detailscomponent";
+import { entretienRecrutmentService } from "../../entretienRecrutment/entretienRecrutment.service";
+import { CandidatCrudTableComponent } from "./CandidatCrud-table/candidat-crud-table.component";
 import { updateCandidatService } from "../updateCandidat/updateCandidat.service";
-
 
 
 @NgModule({
@@ -67,7 +69,7 @@ import { updateCandidatService } from "../updateCandidat/updateCandidat.service"
     MatTabsModule,
     RouterModule.forChild(CandidatRoutes)
   ],
-  declarations: [CandidatCrudTableComponent,  CandidatDetailComponent,ConvertToResourceComponent],
-  providers: [CrudService,updateCandidatService]
+  declarations: [CandidatCrudTableComponent, CandidatDetailComponent,ConvertToResourceComponent,ViewAllInterviewsDetailsComponent],
+  providers: [CrudService,updateCandidatService,entretienRecrutmentService]
 })
 export class CandidatCrudModule { }

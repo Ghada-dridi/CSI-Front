@@ -1,4 +1,3 @@
-import { affichageOfferComponent } from './affichage_offer.component';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -30,6 +29,7 @@ import { Ng2TelInputModule } from "ng2-tel-input";
 
 import { OfferRoutes } from "../offer.routing";
 import { OfferService } from "../offer.service";
+import { OfferDetailPopupComponent } from "./affichage_offer.component";
 
 
 
@@ -64,7 +64,7 @@ import { OfferService } from "../offer.service";
     MatTabsModule,
     RouterModule.forChild(OfferRoutes)
   ],
-  declarations: [ affichageOfferComponent],
+  declarations: [OfferDetailPopupComponent ],
   providers: [
     OfferService,]
 })

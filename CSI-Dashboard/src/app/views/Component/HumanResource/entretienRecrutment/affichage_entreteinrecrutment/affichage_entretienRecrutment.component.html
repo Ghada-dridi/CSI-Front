@@ -1,248 +1,104 @@
- <div class="">
-<mat-card class="p-24">
+<div class="">
+  <mat-card class="p-24">
+    <!-- Employee details -->
     <div fxLayout="row wrap">
       <div fxFlex="70">
-        <mat-card-title>information candidat</mat-card-title>
-        <p class="text-small">
-          nom,prenom,offre/ / / /la note globale est:<span class="font-weight-bold">52</span>
-        </p>
+
+        <div  class="name-card" >
+            <mat-card-title>{{employee.firstName}} {{employee.lastName}}</mat-card-title>
+        </div>
+        
+        <div>
+          <div class="infor-card" >
+          <p class="text-small"><strong class="infor-card-text">L'email numéro 1:</strong>{{employee.emailOne}}</p>
+        <p class="text-small"><strong class="infor-card-text">Numéro de téléphone 1:</strong>{{employee.phoneNumberOne}}</p>
+        <p class="text-small"><strong class="infor-card-text">La note globale est:</strong>{{evaluation.globalAppreciation}}</p>
       </div>
+        </div>
+          
+        
+      </div>
+
+      
       <div fxFlex="30">
-        <apx-chart
-          [series]="welcomeProgressChart.series"
-          [chart]="welcomeProgressChart.chartOptions.chart"
-          [grid]="welcomeProgressChart.chartOptions.grid"
-          [plotOptions]="welcomeProgressChart.chartOptions.plotOptions"
-          [colors]="studyChart.chartOptions.colors"
-          [labels]="welcomeProgressChart.chartOptions.labels"
-          [dataLabels]="studyChart.chartOptions.dataLabels"
-          [xaxis]="studyChart.chartOptions.xaxis"
-          [yaxis]="studyChart.chartOptions.yaxis"
-        ></apx-chart>
+        <app-half-circle-dashboard [globalAppreciation]="evaluation.globalAppreciation"></app-half-circle-dashboard>
+
       </div>
     </div>
+
+    <!-- Buttons to add interview and administrative data -->
+    <div>
+      <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary" (click)="openPopUpEntretien({}, true)">Ajouter un entretien</button>
+      <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary" (click)="openPopupAdministrativeData(employee.id, {}, !hasAdministrativeData)">
+        {{ hasAdministrativeData ? 'Voir les informations administratives' : 'Ajouter des informations administratives' }}
+      </button>
+      
+      <button mat-raised-button class="mb-8 mr-16" style="float: right;" color="primary"  (click)="calculateGlobalAppreciation()">Calculate Global Appreciation</button>
+
+    </div>
   </mat-card>
-  <div style="padding-left: 15px;padding-right: 15px;">
-  <mat-accordion>
-  <!-------------entretien RH----------------->
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>delete_forever</mat-icon> &nbsp; &nbsp;Entretien RH
-        </mat-panel-title>
-        <mat-panel-description>
-          <h3 style="padding-left: 16cm;padding-top: 12px;">20%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-   <!-------------entretien technique----------------->
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>laptop_chromebook</mat-icon> &nbsp; &nbsp;Entretien technique 
-        </mat-panel-title>
-        <mat-panel-description>
-          <h3 style="padding-left: 16cm;padding-top: 12px;">40%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-      <!-------------entretien comportemental----------------->
-      <mat-expansion-panel >
+
+  <!-- Accordion to display interviews and updated questions -->
+  <div style="padding-left: 15px; padding-right: 15px;">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let interviews of interview">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>description</mat-icon> &nbsp; &nbsp; Entretien comportemental
-          </mat-panel-title>
-          <mat-panel-description>
-            <h3 style="padding-left: 16cm;padding-top: 12px;">47%</h3>
-          </mat-panel-description>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <!--<mat-icon color="primary" style="padding-right: 10px;">description</mat-icon>-->
+              <span class="interview-details" style="font-weight: bold;">{{InterviewTypeMap[interviews.interviewType]}}</span>
+              <span class="interview-details" color="primary">{{interviews.interviewDate}}</span>
+              <span class="interview-details">{{interviews.interviewTime}}</span>
+            </div>
+            <div>
+              <button mat-icon-button (click)="openInterviewDetailsPopup(interviews.id)">
+                <mat-icon class="info-iconn">info</mat-icon>
+              </button>
+              <button mat-icon-button (click)="openPopupQuestionnaire(interviews.id)"><mat-icon color="primary">add</mat-icon></button>
+            </div>
+          </div>
         </mat-expansion-panel-header>
-        <h3>note</h3>
-        <div
-                class="d-flex justify-content-between align-items-baseline"
-                *ngFor="let r of results"
-              >
-                <div class="mr-2">
-                  <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-                </div>
-                <div class="lm-title flex-grow-1">
-                  <p class="font-weight-semi mb-0">{{r.name}}</p>
-                  <p class="text-small text-muted">{{r.date}}</p>
-                </div>
-                <div class="ul-progressbar flex-grow-1">
-                  <div class="progress-percentage d-flex">
-                    <span class="flex-grow-1"></span>
-                    <span class="text-muted">{{r.completed}}%</span>
+
+        <!-- Display updated questions -->
+        <mat-panel-content>
+          <div class="question-list">
+            <div *ngFor="let updatedQuestion of interviews.updatedQuestions; let i = index" class="question-item">
+              <div class="question-text">{{ updatedQuestion.questionText }}</div>
+              <div class="form-fields">
+                <div class="form-group">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Note</mat-label>
+                      <input matInput type="number" [(ngModel)]="updatedQuestion.mark" id="mark{{ i }}" min="0" max="5" class="input-field" [disabled]="isCheckDisabled">
+                    </mat-form-field>
                   </div>
-                  <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
+                
+                  <div class="slider-field">
+                    <mat-slider [(ngModel)]="updatedQuestion.mark" min="0" max="5" [disabled]="isCheckDisabled"></mat-slider>
+                  </div>
                 </div>
-              </div>
+                <div class="form-group">
+                  <mat-form-field appearance="outline" [style.width.cm]=11 [style.padding-left.cm]=0.5>
+                    <mat-label>Commenter</mat-label>
+                    <textarea matInput [(ngModel)]="updatedQuestion.comment" id="comment{{ i }}"  [disabled]="isCheckDisabled"></textarea>
+                  </mat-form-field>
+                  
+                </div>
+                <div class="button-group">
+                  <button mat-icon-button color="primary" [disabled]="isCheckDisabled" (click)="updateUpdatedQuestion(updatedQuestion.id, updatedQuestion)" class="small-button">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" [disabled]="!isCheckDisabled" (click)="enableEdit()" class="small-button">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                
+                </div>
+            </div>
+          </div>
+        </mat-panel-content>
+
       </mat-expansion-panel>
-    <!-------------Case study Interview----------------->
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>school</mat-icon> &nbsp; &nbsp; Case study Interview
-        </mat-panel-title>
-        <mat-panel-description>
-          <h3 style="padding-left: 16cm;padding-top: 12px;">80%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-    <!-------------entretien Entretien en ligne----------------->
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>videocam</mat-icon> &nbsp; &nbsp;Entretien en ligne
-        </mat-panel-title>
-        <mat-panel-description>
-        <h3 style="padding-left: 16cm;padding-top: 12px;">73%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-    <!-------------entretien Entretien téléphonique----------------->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>phone</mat-icon> &nbsp; &nbsp;Entretien téléphonique
-        </mat-panel-title>
-        <mat-panel-description>
-          <h3 style="padding-left: 16cm;padding-top: 12px;">15%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-    <!-------------entretien presentiel----------------->
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>pin_drop</mat-icon> &nbsp; &nbsp;Entretien presentiel
-        </mat-panel-title>
-        <mat-panel-description>
-         <h3 style="padding-left: 16cm;padding-top: 12px;">33%</h3>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h3>note</h3>
-      <div
-              class="d-flex justify-content-between align-items-baseline"
-              *ngFor="let r of results"
-            >
-              <div class="mr-2">
-                <i class="material-icons text-10 text-{{r.color}} mr-16">lens</i>
-              </div>
-              <div class="lm-title flex-grow-1">
-                <p class="font-weight-semi mb-0">{{r.name}}</p>
-                <p class="text-small text-muted">{{r.date}}</p>
-              </div>
-              <div class="ul-progressbar flex-grow-1">
-                <div class="progress-percentage d-flex">
-                  <span class="flex-grow-1"></span>
-                  <span class="text-muted">{{r.completed}}%</span>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="r.completed" [color]="r.color"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-expansion-panel>
-  
-  </mat-accordion>
+    </mat-accordion>
+  </div>
 </div>
-</div>
-  

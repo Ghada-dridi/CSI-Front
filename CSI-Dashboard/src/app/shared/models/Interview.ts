@@ -1,8 +1,9 @@
 import { AssQuestionInterview } from "./AssQuestionInterview";
+import { UpdatedQuestion } from "./UpdatedQuestion";
 
 export interface Interview{
     id ?:number;
-    globalMark ?:string;
+    globalMark ?:number;
     interviewDate ?:string;
     interviewTime?:string;
     duration ?:string;
@@ -15,6 +16,7 @@ export interface Interview{
     interviewType ?:InterviewType;
     interviewMode ?:InterviewMode;
     assQuestionInterview?: AssQuestionInterview[];
+    updatedQuestions?: UpdatedQuestion[];
 }
 
 export enum InterviewMode{
@@ -32,4 +34,10 @@ export enum InterviewType {
 export enum interviewLocation{
     INTERNAL="INTERNAL" ,
      EXTERNAL="EXTERNAL"
+}
+
+export enum interviewStatus{
+    PLANNED="PLANNED" ,
+    ENDED="ENDED",
+    CANCELLED="CANCELLED"
 }

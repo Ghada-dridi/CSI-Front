@@ -28,12 +28,15 @@ export class employeePopupComponent implements OnInit {
   submitted = false;
   selectedFile: File;
   constructor(
+    
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<employeePopupComponent>,
     private fb: FormBuilder,
     private update: updateCandidatService,  
     private http: HttpClient,
+    private router: Router,
+
     private route:ActivatedRoute 
   ) { this.countries = this.update.getCountries();}
 
@@ -46,6 +49,7 @@ export class employeePopupComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     const educationData = this.data.payload;
    // this.getemployee();
    
@@ -79,10 +83,13 @@ export class employeePopupComponent implements OnInit {
 
   submit() {
     this.dialogRef.close(this.updateEmployee.value)
-   
-  }
 
- 
+  }
+refresh()
+{
+  location.reload();
+}
+
   ///// Form Submit///// 
   onSubmit() {
     // Get the values of each form
@@ -105,6 +112,7 @@ export class employeePopupComponent implements OnInit {
   getemployee() {
     this.update.getItemById(this.id).subscribe((data: any) => {
       this.employee = data;
+      console.log(this.employee);
 
     });
   }

@@ -198,12 +198,11 @@
             </mat-grid-tile>
         </mat-grid-list>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-between center" >
-            <div class="pt-16">
-              <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Ignorer</button>
-              <button mat-raised-button color="primary" >Enregistrer</button>
-            </div>
-          </div>
+          <div fxFlex="100" class="mt-16">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Ignorer</button>
+            <span fxFlex></span>
+            <button mat-raised-button color="primary">Enregistrer</button>
+          </div>          
           
        </mat-tab>
       </mat-tab-group>

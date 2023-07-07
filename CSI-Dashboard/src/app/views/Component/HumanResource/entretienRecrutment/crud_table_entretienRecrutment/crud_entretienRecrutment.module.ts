@@ -19,19 +19,25 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { crudEntretien } from '../crud_entretienRecrutment.routing';
 import { crudEntretienRecrutmentComponent } from './crud_entretienRecrutment.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { entretienRecrutmentService } from '../entretienRecrutment.service';
+import { evaluationPopupComponent } from '../evaluationnPopup/evaluation-popup.component';
+import { ViewAllInterviewsComponent } from './viewAll-Interviews/viewAll-Interviews.component';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 @NgModule({
   imports: [
     CommonModule,
+    MatTooltipModule,
+    MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatProgressBarModule,
@@ -39,6 +45,7 @@ import { entretienRecrutmentService } from '../entretienRecrutment.service';
     MatTableModule,
     MatIconModule,
     MatDialogModule,
+    MatMenuModule,
     MatButtonModule,
     MatExpansionModule,
     MatRadioModule,
@@ -60,7 +67,7 @@ import { entretienRecrutmentService } from '../entretienRecrutment.service';
   providers: [entretienRecrutmentService],
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
-    crudEntretienRecrutmentComponent
-  ],
+    crudEntretienRecrutmentComponent,evaluationPopupComponent,ViewAllInterviewsComponent],
 })
+
 export class CrudEntretienRecrutmentModule { }

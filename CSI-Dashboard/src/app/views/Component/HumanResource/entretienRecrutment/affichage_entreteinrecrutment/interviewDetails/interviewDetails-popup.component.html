@@ -1,0 +1,16 @@
+<h2>Détails de l'Interview</h2>
+<div class="interview-details"> 
+   <p><strong>Type d'Interview:</strong> {{ interview?.interviewType }}</p>
+  <p><strong>Mode d'Interview:</strong> {{ interview?.interviewMode }}</p>
+  <p><strong>Date:</strong> {{ interview?.interviewDate }}</p>
+  <p><strong>Heure:</strong> {{ interview?.interviewTime }}</p>
+  <p><strong>Durée:</strong> {{ interview?.duration }}</p>
+  <p><strong>Location:</strong> {{ interview?.interviewlocation }}</p>
+  <p><strong>Place:</strong> {{ interview?.interviewPlace }}</p>
+  <p><strong>Nom d'Interviewer:</strong> {{ interview?.interviewerName }}</p>
+  <p><strong>Email d'Interviewer :</strong> {{ interview?.interviewerEmail }}</p>
+  <p><strong>numéro de téléphone d'Interviewer :</strong> {{ interview?.interviewerPhoneNumber }}</p>
+  <p><strong>Commentaire:</strong> {{ interview?.comment }}</p>
+</div>  
+
+<button mat-button color="warn" (click)="onCloseClick()">Fermer</button>

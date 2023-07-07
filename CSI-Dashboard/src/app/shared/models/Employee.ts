@@ -1,3 +1,5 @@
+
+import { TechnicalFile } from "./TechnicalFile";
 export class Employee {
     
     id?: number;
@@ -9,19 +11,23 @@ export class Employee {
      phoneNumberOne ?: number;
      phoneNumberTwo ?: number;
     address?:string;
-     postCode ?: number;
-     city ?: number;
-    recommendationType ?: number;
     experience ?: number;
-    experienceDetails ?:string;
+     postCode ?: number;
+     city ?: string;
+     recommendationMark ?: number;
+     resourceType ?: ResourceType;
+     departement?: Departement;
+     experienceDetails ?:string;
+     civility?: Civility;
+     title?: Title;
+     employeeStatus?:EmployeeStatus;
+     country?:string;
+     maritalSituation ?:MaritalSituation;
+     technicalfile ?:TechnicalFile ;
+    recommendationType ?: number;
     employeeFirstName ?:string;
     employeeLastName ?:string;
     employeeSerialNumber ?:string;
-    civility?: Civility;
-    title?: Title;
-    employeeStatus?:EmployeeStatus;
-    country?:Country;
-    maritalSituation ?:MaritalSituation;
     provenance ?: Provenance;
     serialNumber?:string;
     socialSecurityNumber?:string;
@@ -30,10 +36,8 @@ export class Employee {
     photo?:string;
     workLocation?:WorkLocation;
     locationName?:string;
-    resourceType?:ResourceType;
     recruitmentDate?:string;
     nationalIdentity?:string;
-    departement?:Departement
 }
 
 export enum Departement{
@@ -50,32 +54,9 @@ export enum Departement{
     JURIDIQUE ='JURIDIQUE' ,
     SUPPORT = 'SUPPORT'
 } 
-export enum ResourceType{
-    EXTERNAL_RESOURCE = 'EXTERNAL_RESOURCE',
-    BACKOFFICE_RESOURCE = 'BACKOFFICE_RESOURCE',
-    INTERNAL_RESOURCE = ' INTERNAL_RESOURCE'}
-
-export enum WorkLocation{
-    MAIN ='MAIN' ,
-    OTHER_LOCATION = 'OTHER_LOCATION'
-}
 
 
 
-
-
-
-
-export enum Provenance {
-    LINKEDIN ='LinkedIn',
-    SPONTANEOUS_APPLICATION ='Candidature spontanée',
-    JOBS_FORUM ='Forum emploi',
-    RECOMMENDATION ='Recommandation',
-    JOBBOARD ='Site des offres ',
-    OTHER ='Autre'
-}
- ///----------employeeSarra&hala7lila
-  
 
 
 export interface Country {
@@ -127,4 +108,23 @@ export enum MaritalSituation {
     DIVORCED="DIVORCED",
     WIDOWED="WIDOWED",
     COMPLICATED="COMPLICATED"
+}
+export enum Provenance {
+    LINKEDIN="LINKEDIN",
+    SPONTANEOUS_APPLICATION="SPONTANEOUS_APPLICATION",
+    JOBS_FORUM="JOBS_FORUM",
+    RECOMMENDATION="RECOMMENDATION",
+    JOBBOARD="JOBBOARD",
+    OTHER="OTHER"
+}
+
+export enum WorkLocation{
+    MAIN="MAIN",
+     OTHER_LOCATION="OTHER_LOCATION"
+}
+
+export enum ResourceType{
+    EXTERNAL_RESOURCE="EXTERNAL_RESOURCE", 
+    BACKOFFICE_RESOURCE="BACKOFFICE_RESOURCE", 
+    INTERNAL_RESOURCE="INTERNAL_RESOURCE"
 }

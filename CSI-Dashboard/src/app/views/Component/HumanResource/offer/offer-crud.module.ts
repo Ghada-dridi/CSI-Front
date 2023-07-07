@@ -18,7 +18,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from "app/shared/shared.module";
-
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -31,7 +30,6 @@ import { OfferService } from "./offer.service";
 import { OfferCrudTableComponent } from "./offer_data_table/offer-crud-table.component";
 import { DetailCrudComponent } from "./offer-detail-crud/detail-crud.component";
 import { OfferPopupComponent } from "./offer-popup/offer-popup.component";
-import { affichageOfferComponent } from "./affichage_offer/affichage_offer.component";
 import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
 
 

@@ -67,14 +67,8 @@ export class NavigationService {
       sub: [
         { name: 'Candidats', state: 'candidat/CandidatCrud-table' },
         { name: 'Offers', state: 'tableOffer/offerTable' },
-	      { name: 'Entretiens & Recrutement', state: 'entretienTable/tableEntretien' },
-        { name: 'InternalRessources', state: 'resource/resource-crud' },    
-        { name: 'Equipements', state: 'equipment/equipment-crud' },
-       // { name: 'AddRessources', state: 'add-resource/add-resource-crud' },
-        { name: 'Avenants', state: 'endorsement/endorsement-crud'},
-        //{ name: 'updateContract' , state: 'updateContract/update-employee-contract'},
-        { name: 'ExternalRessources', state: 'resource/externalResource-crud' },
-        { name: 'Contrat Employee', state: 'contractEmployee/liste-employee-contracts' },
+        { name: 'Entretiens & Recrutement', state: 'entretienTable/tableEntretien' },
+        { name: 'Ressources', state: 'shop/products/5a9ae2106f155194e5c95d67' },
         { name: 'Feuille de Temps', state: 'shop/cart' },
         { name: 'Congés', state: 'time-off/time-off-crud' },
         { name: 'Congés Empoyées', state: 'time-off-employee/timeOffEmployee-crud' },
@@ -885,7 +879,6 @@ export class NavigationService {
     }
   }
 }
-
 
 
  

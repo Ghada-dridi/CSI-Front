@@ -15,6 +15,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
   selector: 'app-ngx-table-popup',
   templateUrl: './education-popup.component.html'
 })
+
 export class educationPopupComponent implements OnInit {
   employeeId : number
   updateEducation: FormGroup;
@@ -41,10 +42,8 @@ export class educationPopupComponent implements OnInit {
 
 
 
-
   onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-  }
+    this.selectedFile = <File>event.target.files[0];}
 
   ngOnInit() {
     const educationData = this.data.payload;
@@ -65,9 +64,7 @@ export class educationPopupComponent implements OnInit {
   }
 
   submit() {
-    this.dialogRef.close(this.updateEducation.value)
-   
-  }
+    this.dialogRef.close(this.updateEducation.value) }
 
  
   ///// Form Submit///// 
@@ -97,13 +94,11 @@ export class educationPopupComponent implements OnInit {
   }
 
 onCountryChange(countryShotName: string) {
-  this.states = this.update.getStatesByCountry(countryShotName);
-}
+  this.states = this.update.getStatesByCountry(countryShotName);}
 
 
 
-}
-
-function buildItemForm(item: any) {
+buildItemForm(item: any) {
   throw new Error('Function not implemented.');
+}
 }

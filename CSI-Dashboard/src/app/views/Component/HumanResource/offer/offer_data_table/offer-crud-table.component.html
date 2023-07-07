@@ -1,10 +1,10 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
 
 
-  <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({},true)"> Nouvelle offre </button>
+  <button mat-raised-button class="mb-2" style="float: right ;margin-right: 19px;margin-top: 12px;"  color="primary" (click)="openPopUp({},true)"> Nouvelle offre </button>
 
-  <mat-form-field  >
-    <input style="padding-left: 19px;" matInput (keyup)="applyFilter($event)" placeholder="Filtre">
+  <mat-form-field style="padding-left: 19px;" >
+    <input  matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
     </mat-form-field> 
  
 
@@ -13,22 +13,32 @@
     <mat-table [dataSource]="dataSource" matSort  >
   
   <ng-container matColumnDef="reference">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Référance
-      <div style="padding-left: 20px;">
-        <mat-form-field style="width:1.5cm;" >
-         <input matInput (input)="applyFilterReference($event)" placeholder="Filtrer">
-       </mat-form-field>
-       </div> </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Référance 
+      <div>
+        <button [class.transparent-button]="!showInput1" mat-icon-button (click)="toggleInput1()">
+          <mat-icon>search</mat-icon>
+        </button>
+        
+        <mat-form-field *ngIf="showInput1" style="width:1.3cm;">
+          <input matInput (input)="applyFilterr($event, 'reference')" placeholder="Filtrer">
+        </mat-form-field>
+      </div>
+      
+    </mat-header-cell>
     <mat-cell *matCellDef="let row"  [style.color]="row.color"> {{row.reference}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Title
-      <div style="padding-left: 20px;">
-        <mat-form-field style="width:1.5cm;" >
-         <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
-       </mat-form-field>
-       </div>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Titre
+      <div>
+        <button [class.transparent-button]="!showInput2" mat-icon-button (click)="toggleInput2()">
+          <mat-icon>search</mat-icon>
+        </button>
+        
+        <mat-form-field *ngIf="showInput2" style="width:1.3cm;">
+          <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer">
+        </mat-form-field>
+      </div>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" data-label="title" [style.color]="row.color"> {{row.title}} </mat-cell>
   </ng-container>
@@ -36,41 +46,87 @@
 
   <ng-container matColumnDef="startDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Date de début
-      <div style="padding-left: 20px;">
-        <mat-form-field style="width:1.5cm;" >
-         <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
-       </mat-form-field>
-       </div>
+      <div>
+        <button [class.transparent-button]="!showInput3" mat-icon-button (click)="toggleInput3()">
+          <mat-icon>search</mat-icon>
+        </button>
+        
+        <mat-form-field *ngIf="showInput3" style="width:1.3cm;">
+          <input matInput (input)="applyFilterr($event, 'startDate')" placeholder="Filtrer">
+        </mat-form-field>
+
+      </div>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" data-label="Date de début" [style.color]="row.color"> {{row.startDate}} </mat-cell>
   </ng-container>
 
 
 
-  <ng-container matColumnDef="endDate">
+  <ng-container style="padding-left:25px" matColumnDef="endDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Date de fin
-      <div style="padding-left: 20px;">
-        <mat-form-field style="width:1.5cm;" >
-         <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
-       </mat-form-field>
-       </div>
+      <div>
+        <button [class.transparent-button]="!showInput4" mat-icon-button (click)="toggleInput4()">
+          <mat-icon>search</mat-icon>
+        </button>
+        
+        <mat-form-field *ngIf="showInput4" style="width:1.3cm;">
+          <input matInput (input)="applyFilterr($event, 'endDate')" placeholder="Filtrer">
+        </mat-form-field>
+      </div>
+      
     </mat-header-cell>
     <mat-cell *matCellDef="let row" data-label="Date de fin" [style.color]="row.color"> {{row.endDate}} </mat-cell>
+  </ng-container>
+
+ <!----> <ng-container matColumnDef="statut" >
+    <mat-header-cell *matHeaderCellDef style="padding-left: 2cm;"> Statut   
+      <div>
+        <button [class.transparent-button]="!showInput5" mat-icon-button (click)="toggleInput5()">
+          <mat-icon>search</mat-icon>
+        </button>
+        
+        <mat-form-field *ngIf="showInput5" style="width:1.3cm;">
+          <input matInput (input)="applyStatusFilter($event, 'statut')" placeholder="Filtrer">
+        </mat-form-field>
+      </div>
+        </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button class="mat-button-as-chip"  [matMenuTriggerFor]="menu" [color]="getStatusColor(row.offerStatus).color" >{{ getStatusColor(row.offerStatus).displayText }}</button>
+        <mat-menu #menu="matMenu">
+          
+          <button mat-menu-item (click)="changeOffereStatus('offerStatus.OPEN', row.id)">
+            <mat-icon>cancel</mat-icon>
+            <span>Ouverte</span>
+          </button>
+          <button mat-menu-item (click)="changeOffereStatus('offerStatus.ENDED', row.id)">
+            <mat-icon>cancel</mat-icon>
+            <span>Cloturé</span>
+          </button>
+
+        </mat-menu>
+    </mat-cell>
   </ng-container>
 
    <ng-container matColumnDef="actions">
      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
      <mat-cell *matCellDef="let row">
-       <button mat-icon-button mat-sm-button color="primary" class="mr-16 "  (click)="openPopUp(row)">
-         <mat-icon>edit</mat-icon>
-       </button>
-       <button mat-icon-button mat-sm-button color="accent" class=" mr-16 "  (click)="Affiche(row.id)">
+       <button  matTooltip="Voir les détails de l'offre" mat-icon-button mat-sm-button  class=" mr-16 " (click)="openPopupDetails(row, false)">
          <mat-icon>remove_red_eye </mat-icon>
        </button>
-       <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
-         <mat-icon>delete</mat-icon>
-       </button>
        
+       <button  class="mr-16 " mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="mr-16 " (click)="deleteItem(row.id)">
+          <mat-icon>delete</mat-icon>
+          <span>Supprimer l'Offre</span>
+        </button>
+        <button mat-menu-item class="mr-16 "  (click)="openPopUp(row.id)">
+          <mat-icon>mode_edit</mat-icon>
+          <span>Modifier l'Offre</span>
+        </button>
+      </mat-menu>
      </mat-cell>
    </ng-container>
 

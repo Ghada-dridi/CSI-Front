@@ -26,17 +26,19 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatChipList, MatChipsModule } from '@angular/material/chips';
-import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
+import {  MatChipsModule } from '@angular/material/chips';
+import {  MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { OfferPopupComponent } from './cv-popups/offerPopup.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { updateCandidatService } from '../updateCandidat/updateCandidat.service';
 
 
 @NgModule({
   imports: [
     MatDialogModule,
+    MatSnackBarModule,
     CommonModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -76,7 +78,7 @@ import { updateCandidatService } from '../updateCandidat/updateCandidat.service'
   declarations: [
     cvcandidatComponent, 
     CalendarFormDialogComponent,
-    OfferPopupComponent
+    OfferPopupComponent,
   ]
 })
 export class CvCandidatModule { }

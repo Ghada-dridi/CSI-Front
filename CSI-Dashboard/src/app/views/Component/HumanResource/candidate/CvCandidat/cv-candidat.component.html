@@ -1,19 +1,20 @@
-<mat-card class="p-0">
-  <mat-horizontal-stepper  #stepper>
+<mat-card class="p-0 card-stepper" >
+  <mat-horizontal-stepper #stepper>
     
-    <!---------------------------COORDONNES-------------------------->
+    <!--------------------------------------------COORDONNES--------------------------------------->
   <mat-step [stepControl]="step1" errorMessage="Veuillez remplir les champs obligatoires.">
     <form [formGroup]="myForm" >
     <div>
       <ng-template matStepLabel>Coordonnées</ng-template>
-      <mat-card-title class="">
-        <mat-divider></mat-divider>
-        <div class="card-title-text">Indiquez les renseignements personnels</div>
-        <mat-divider></mat-divider>
-        </mat-card-title>
+      <mat-divider></mat-divider>
+      
 
-          <mat-card-content class="container" style="padding-top: 1.5cm;">
-            <div >
+          <mat-card-content class="container" style="padding-top: 1cm;">
+            <mat-card-title style="padding-bottom: 1cm;" class="">
+            <div class="card-title-text">Indiquez les renseignements personnels</div>
+            <mat-divider></mat-divider>
+           </mat-card-title>
+            <div  >
               <mat-grid-list cols="2" rowHeight="100px">
 
 
@@ -42,7 +43,7 @@
                       name="lastName"
                       formControlName="lastName"
                       placeholder="Ex.Macron">
-                      <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                      <mat-error *ngIf="myForm.get('lastName').invalid && myForm.get('lastName').touched">
                         Le nom est requis et doit commencer par une majuscule.</mat-error>
                   </mat-form-field>
                 </div>
@@ -72,27 +73,27 @@
                         <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="Date de naissance">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                        <mat-error *ngIf="myForm.get('birthDate').invalid && myForm.get('birthDate').touched">
                           Le date de naissance est requise.</mat-error>
                       </mat-form-field>
                       </div>
                   </mat-grid-tile>
               
-                 
-              
-                 <mat-grid-tile>
-                  <!--Maritial Situation -->
-                  <div class="pb-16">
-                    <mat-form-field appearance="outline" [style.width.cm]=10>
-                    <mat-label>Situation Maritale</mat-label>
-                    <mat-select formControlName="maritalSituation" >
-                      <mat-option *ngFor="let MaritalSituations of MaritalSituation " [value]="MaritalSituations">{{maritalSituationMap[MaritalSituations]}}</mat-option>
-                      
-                    </mat-select>
-                    </mat-form-field>
-                  </div>
-                </mat-grid-tile>
-              
+                  <mat-grid-tile>
+                    <!--Maritial Situation -->
+                    <div class="pb-16">
+                      <mat-form-field appearance="outline" [style.width.cm]=10>
+                        <mat-label>Nombre d'années d'expérience</mat-label>
+                        <input matInput
+                          name="experience"
+                          formControlName="experience"
+                           required>
+                        <mat-error *ngIf="myForm.get('experience').invalid && myForm.get('experience').touched">
+                          Le nombre d'experience est requis et doit commencer par une majuscule.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </mat-grid-tile>
                  
                   <mat-grid-tile>
                     <!--intitulé du poste / title-->
@@ -102,24 +103,26 @@
                        <mat-select required formControlName="title" >
                          <mat-option  *ngFor="let titles of title " [value]="titles">{{employeeTitleMap[titles]}}</mat-option>
                        </mat-select>
-                       <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                       <mat-error *ngIf="myForm.get('title').invalid && myForm.get('title').touched">
                          L'Intitulè du poste est requis.</mat-error>
                      </mat-form-field>
                      </div>
                  </mat-grid-tile>
+
                 </mat-grid-list>
 
       
+                
                 <mat-card-title>
                   <div class="card-title-text">Indiquez les Coordonnées</div>
                 </mat-card-title>
-
                 <mat-divider></mat-divider>
-                <div style="padding-bottom: 1.8cm;"></div>
+                <div style="padding-bottom: 1.2cm;"></div>
       
 
-                <mat-grid-list cols="2" rowHeight="100px" >
 
+
+                <mat-grid-list cols="2" rowHeight="100px" >
                   <mat-grid-tile>
                     <!--Adress-->
                     <div class="pb-16">
@@ -159,7 +162,7 @@
                       <mat-select required formControlName="country" placeholder="Ex.France" >
                         <mat-option *ngFor="let country of countries" [value]="country.shortName">{{country.name}}</mat-option>
                       </mat-select>
-                      <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                      <mat-error *ngIf="myForm.get('country').invalid && myForm.get('country').touched">
                         Le pays est requis.</mat-error>
                       </mat-form-field>
                     </div>
@@ -173,7 +176,7 @@
                       <mat-select required formControlName="city" placeholder="Ex.Lyon" >
                         <mat-option *ngFor="let state of states"  [value]="state">{{state}}</mat-option>
                       </mat-select>
-                      <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                      <mat-error *ngIf="myForm.get('city').invalid && myForm.get('city').touched">
                         La ville est requise.</mat-error>
                       </mat-form-field>
                     </div>
@@ -193,7 +196,7 @@
                           name="email"
                           formControlName="emailOne"
                           placeholder="Ex. csi.digital1@exemple.fr">
-                          <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                          <mat-error *ngIf="myForm.get('emailOne').invalid && myForm.get('emailOne').touched">
                             L'email 1 est requis.</mat-error>
                       </mat-form-field>
                     </div>
@@ -212,12 +215,7 @@
                           placeholder="Ex. csi.digital2@exemple.fr"
                           value="">
                       </mat-form-field>
-                      <!--<small 
-                      *ngIf="basicForm.controls['email'].hasError('required') && basicForm.controls['email'].touched" 
-                      class="form-error-msg"> Email is required </small>
-                      <small 
-                      *ngIf="basicForm.controls['email'].hasError('email') && basicForm.controls['email'].touched" 
-                      class="form-error-msg"> Invaild email address </small>-->
+                     
                     </div>
                   </mat-grid-tile>
               
@@ -233,7 +231,7 @@
                        matInput
                        formControlName="phoneNumberOne"
                        placeholder="Ex. +33 801 123 456"  >
-                       <mat-error *ngIf="myForm.get('firstName').invalid && myForm.get('firstName').touched">
+                       <mat-error *ngIf="myForm.get('phoneNumberOne').invalid && myForm.get('phoneNumberOne').touched">
                         Le numéro du téléphone 1 est requis.</mat-error>
                       </mat-form-field>
                      </div>
@@ -265,7 +263,7 @@
       mat-raised-button 
       color="primary"  
       (click)="saveCandidate()"
-      matStepperNext>Création du Cv
+      matStepperNext>Suivant : Informations complémentaires
       </button>
       </div>
       
@@ -273,87 +271,79 @@
   </div>
     </form>
   </mat-step>
-  
 
-  <!-----------------------Info techniques----------------------------->
+
+  <!-------------------------------------------Info techniques--------------------------------------------------->
   
   <mat-step [stepControl]="stepTechFile"errorMessage="Veuillez remplir les champs obligatoires.">
     <form [formGroup]="techFileForm" >
     <div>
-      <ng-template matStepLabel>Informations Générales </ng-template>
-      <mat-card-title class="">
+      <ng-template matStepLabel>Informations complémentaires </ng-template>
+      <mat-card-title class=""> 
         <mat-divider></mat-divider>
-        <div class="card-title-text">Remplissez les informations générales du dossier technique </div>
+        <div class="card-title-text">Remplissez les informations complémentaires du dossier technique</div>
+        <mat-divider></mat-divider>
+        <div class="mat-heading-label" [style.padding-left.px]=24>
+          Présentez les objectifs professionnels du candidat de manière claire et concise.
+        </div>
         <mat-divider></mat-divider>
         </mat-card-title>
-        <mat-card-content style="padding-top: 1.5cm;">
-          <!--<div class="form-group mb-1 col-sm-12 col-md-3">
-            <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
-              <mat-label>Candidat</mat-label>
-              <input
-                matInput
-                value="{{selectedEmplyee.id}}"
-                placeholder="Candidat"
-                formControlName="employeeId"
-                disabled="true" />
-            </mat-form-field>
-          </div>-->
-          <div class="container">
-            <mat-grid-list cols="3" rowHeight="100px">
-            <mat-grid-tile>
-              <mat-form-field appearance="outline" class="example-field" [style.width.cm]=7.25>
-                <mat-label>Référence</mat-label>
-                <input 
-                required
-                type="text"
-                matInput
-                formControlName="reference"
-                placeholder="Ex."  >
-                <mat-error *ngIf="techFileForm.get('reference').invalid && techFileForm.get('reference').touched">
-                  Ce champ est obligatoire.</mat-error>
-              </mat-form-field>
-              </mat-grid-tile>
 
-              <mat-grid-tile>
-                <mat-form-field appearance="outline" class="example-field" [style.width.cm]=7 >
-                <mat-label>Permit de conduire</mat-label>
-                <input 
-                type="text"
-                matInput
-                formControlName="driverLicense"  >
-              </mat-form-field>
-              </mat-grid-tile>
+        
+        <div class="d-flex justify-content-center">
+          <mat-card-content style="padding-top: 1cm;">
+            <div class="container-tfile d-flex justify-content-between flex-column">
 
-              <mat-grid-tile>
-                <mat-form-field appearance="outline" class="example-field" [style.width.cm]=7 >
-                  <mat-label>Nombre d'années d'expérience</mat-label>
-                  <input 
-                  type="text"
-                  matInput
-                  formControlName="experienceAmount"  >
-                </mat-form-field>
-              </mat-grid-tile>
-              </mat-grid-list>
-                
-              <mat-grid-list cols="2" rowHeight="100px">
-                <mat-grid-tile>
-                   <mat-form-field appearance="outline"  [style.width.cm]=11 [style.padding-right.cm]=1 class="example-full-width">
-                <mat-label>Déscription</mat-label>
-                <textarea matInput formControlName="description" placeholder="Décrivez içi le parcours du candidat."></textarea>
-              </mat-form-field>
-               </mat-grid-tile>
-
-                <mat-grid-tile>
-                  <mat-form-field appearance="outline"  [style.width.cm]=11  class="example-full-width">
-                <mat-label>Objectifs</mat-label>
-                <textarea matInput formControlName="objective" placeholder="Décrivez içi les Objectifs du candidat."></textarea>
-                </mat-form-field>
-                </mat-grid-tile>
-
-                </mat-grid-list>
-          </div>
-          
-        </mat-card-content>
+              <div class="row-tfile d-flex">
+                <div class="col-tfile">
+                  <mat-form-field appearance="outline" class="ref-field" style="width: 7.5cm;">
+                    <mat-label>Référence</mat-label>
+                    <input 
+                      required
+                      type="text"
+                      matInput
+                      formControlName="reference"
+                      placeholder="Ex.">
+                    <mat-error *ngIf="techFileForm.get('reference').invalid && techFileForm.get('reference').touched">
+                      Ce champ est obligatoire.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-tfile">
+                  <mat-form-field appearance="outline" class="ref-field" style="width: 7.5cm;">
+                    <mat-label>Permit de conduire</mat-label>
+                    <input 
+                      type="text"
+                      matInput
+                      formControlName="driverLicense">
+                  </mat-form-field>
+                </div>
+              </div>
+              
+              <div class="row-tfile d-flex">
+                <div class="col-tfile">
+                  <mat-form-field appearance="outline" class="objective-field" style="width: 16cm;">
+                    <mat-label>Commentaire</mat-label>
+                    <textarea matInput formControlName="description" placeholder="Ajoutez un commentaire."></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+        
+              <div class="row-tfile d-flex">
+                <div class="col-tfile">
+                  <mat-form-field appearance="outline" class="objective-field" style="width: 16cm;">
+                    <mat-label>Objectifs</mat-label>
+                    <textarea matInput formControlName="objective" placeholder="Décrivez ici les Objectifs du candidat."></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+        
+            </div>
+          </mat-card-content>
+        </div>
+        
+        
+        
         
         <div  fxLayout="row" dir="rtl" fxLayoutAlign="space-between center">
           <!--Button 2-->
@@ -380,7 +370,7 @@
   </form> 
  </mat-step>
 
-  <!--------------------------------FORMATION------------------------------->
+  <!----------------------------------------FORMATION--------------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-++-9------------------------------>
 
   <mat-step [stepControl]="step2" errorMessage="Veuillez ajouter la formation.">
     
@@ -388,9 +378,6 @@
       <ng-template matStepLabel>Formation</ng-template>
 
       <mat-card-title class=""> 
-        <div [style.padding-left.px]=24>
-        <mat-label>{{ lastEmployee?.firstName }} {{ lastEmployee?.lastName }}</mat-label>
-        </div>
         <mat-divider></mat-divider>
         <div class="card-title-text">Décrivez la formation du candidat</div>
         <mat-divider></mat-divider>
@@ -400,28 +387,16 @@
         <mat-divider></mat-divider>
         </mat-card-title>
 
-        <mat-card-content style="padding-top: 2cm;">
-          <!--<div class="form-group mb-1 col-sm-12 col-md-3">
-            <mat-form-field appearance="outline" [style.width.cm]=5 style="padding-right: 1cm;">
-              <mat-label>Technical File</mat-label>
-              <input
-                matInput
-                value="{{selectedTechFile.id}}"
-                placeholder="Technical File"
-                formControlName="technicalFileId"
-                disabled="true">
-            </mat-form-field>
-          </div>-->
+        <mat-card-content style="padding-top: 1cm;">
 
           <form [formGroup]="formEducation">
             <div class="card-body" formArrayName="value"  >
               <div class="row" >
                 <div class="repeater-default">
-                  <div fxLayout="row"  fxLayoutAlign="space-evenly center" *ngFor="let val of getExperience; let i = index"  [formGroupName]="i"  >
+                  <div fxLayout="row"  fxLayoutAlign="space-evenly center" *ngFor="let val of getEducation; let i = index"  [formGroupName]="i"  >
                   <div>
-
                       <div class="form-group mb-1 col-sm-12 col-md-3">
-                        <mat-form-field appearance="outline" [style.width.cm]=15>
+                        <mat-form-field appearance="outline" [style.width.cm]=17>
                           <mat-label>Nom de l'établissement</mat-label>
                             <input
                             required
@@ -434,7 +409,7 @@
 
                       <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                          <mat-form-field appearance="outline" [style.width.cm]=7 style="padding-right: 1cm;">
+                          <mat-form-field appearance="outline" [style.width.cm]=8 style="padding-right: 1cm;">
                             <mat-label>Diplôme</mat-label>
                               <input
                               required
@@ -446,7 +421,7 @@
                         </div>
                        <div class="form-group mb-1 col-sm-12 col-md-3">
                             <!--score-->
-                            <mat-form-field appearance="outline"  [style.width.cm]=7>
+                            <mat-form-field appearance="outline"  [style.width.cm]=8>
                               <mat-label>Mention</mat-label>
                               <input
                               matInput
@@ -459,7 +434,7 @@
 
                       <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                        <mat-form-field appearance="outline" [style.width.cm]=7 style="padding-right: 1cm;">
+                        <mat-form-field appearance="outline" [style.width.cm]=8 style="padding-right: 1cm;">
                           <mat-label>Date de dèbut</mat-label>
                           <input matInput [matDatepicker]="picker1" formControlName="startYear" placeholder="Date de dèbut" >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -469,32 +444,34 @@
 
 
                       <div class="form-group mb-1 col-sm-12 col-md-3">
-                        <mat-form-field appearance="outline" [style.width.cm]=7>
+                        <mat-form-field appearance="outline" [style.width.cm]=8>
                           <mat-label>Date d'obtention</mat-label>
                           <input matInput [matDatepicker]="picker2" formControlName="obtainedDate" placeholder="Date d'obtention" >
                           <mat-datepicker-toggle  matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
+                          <mat-error *ngIf="formEducation.hasError('rangeError', ['obtainedDate'])">
+                            La date d'obtention ne peut pas être supérieure à la date de début.
+                          </mat-error>
                         </mat-form-field>
                       </div>
                       </div>
 
                       <div class="pb-16">
-                        <mat-checkbox formControlName="actual">En cours</mat-checkbox>
+                        <mat-checkbox color="primary" formControlName="actual">En cours</mat-checkbox>
                       </div>
 
-                      <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                        <button mat-icon-button color="primary" type="button" (click)="saveEducation(i)">
-                          <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
+                      <div class="form-group col-sm-12 col-md-3 d-flex " style="padding-bottom: 1cm;">
+                        <button mat-raised-button   class="left-button" type="button"  (click)="deleteEducation(i)">
+                          <mat-icon>delete</mat-icon>Supprimer</button>
+                        
+                        <button mat-raised-button class="right-button" type="button" (click)="saveEducation(i)">
+                          <mat-icon>check</mat-icon>Ajouter</button>
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
+          </div>
           </form>
       </mat-card-content>
 
@@ -514,7 +491,8 @@
           <button 
         mat-raised-button 
         color="primary" 
-        matStepperNext>Suivant : Expérience
+        matStepperNext
+        (click)="saveAllEducations()">Suivant : Expérience
         </button>
         </div>
       
@@ -532,15 +510,15 @@
 
       <mat-card-title class="">
         <mat-divider></mat-divider>
-        <div class="card-title-text">Parcours professionnel</div>
+        <div class="card-title-text">Decrivez le parcours professionnel</div>
         <mat-divider></mat-divider>
         <div class="mat-heading-label" [style.padding-left.px]=24>
-          Indiquez les postes par ordre chronologique, en commençant par le plus récent.
+          Présentez les postes occupés de manière chronologique, en commençant par les plus récents.
         </div>
         <mat-divider></mat-divider>
         </mat-card-title>
 
-        <mat-card-content style="padding-top: 2cm;">
+        <mat-card-content style="padding-top: 1cm;">
           <form  [formGroup]="formExperience">
             <div class="card-body" formArrayName="value"  >
               <div class="row" >
@@ -550,7 +528,7 @@
                      <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <!--Institution-->
-                          <mat-form-field appearance="outline" [style.width.cm]=7 style="padding-right: 1cm;">
+                          <mat-form-field appearance="outline" [style.width.cm]=8 style="padding-right: 1cm;">
                             <mat-label>Employeur / Société</mat-label>
                               <input
                               matInput
@@ -563,7 +541,7 @@
                         </div>
                        <div class="form-group mb-1 col-sm-12 col-md-3">
                             <!--Contract type -->
-                            <mat-form-field appearance="outline" [style.width.cm]=7>
+                            <mat-form-field appearance="outline" [style.width.cm]=8>
                               <mat-label>Type de contrat</mat-label>
                                 <input
                                 matInput
@@ -578,7 +556,7 @@
                       <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <!--Post Title-->
-                          <mat-form-field appearance="outline" [style.width.cm]=7 style="padding-right: 1cm;">
+                          <mat-form-field appearance="outline" [style.width.cm]=8 style="padding-right: 1cm;">
                             <mat-label>Intitulé du poste</mat-label>
                               <input
                               matInput
@@ -590,7 +568,7 @@
                         </div>
                       <div class="form-group mb-1 col-sm-12 col-md-3">
                         <!--Role-->
-                        <mat-form-field appearance="outline" [style.width.cm]=7>
+                        <mat-form-field appearance="outline" [style.width.cm]=8>
                           <mat-label>Role / Tâches</mat-label>
                             <input
                             matInput
@@ -603,7 +581,7 @@
                       </div>
                       <div class="form-group mb-1 col-sm-12 col-md-3">
                         <!--Technologies-->
-                        <mat-form-field appearance="outline"  [style.width.cm]=15 class="example-full-width">
+                        <mat-form-field appearance="outline"  [style.width.cm]=17 class="example-full-width">
                           <mat-label>Technologies</mat-label>
                           <textarea matInput formControlName="technology" placeholder="Listez ici les technologies utilisées."></textarea>
                         </mat-form-field>
@@ -611,7 +589,7 @@
                       <div class="d-flex ">
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                           <!--Dates-->
-                          <mat-form-field [style.width.cm]=5 appearance="outline" style="padding-right: 0.5cm;">
+                          <mat-form-field [style.width.cm]=8 appearance="outline" style="padding-right: 1cm;">
                             <mat-hint>Date Début</mat-hint>
                             <input matInput [matDatepicker]="picker11" formControlName="experienceStartDate" placeholder="Année Début ">
                             <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
@@ -619,25 +597,29 @@
                           </mat-form-field>
                           </div>
                           <div class="form-group mb-1 col-sm-12 col-md-3">
-                            <mat-form-field [style.width.cm]=5 appearance="outline" style="padding-right: 0.5cm;">
+                            <mat-form-field [style.width.cm]=8 appearance="outline" >
                               <mat-hint>Date Fin</mat-hint>
                               <input matInput [matDatepicker]="picker10" formControlName="experienceEndDate" placeholder="Année Fin ">
                               <mat-datepicker-toggle matSuffix [for]="picker10"></mat-datepicker-toggle>
                               <mat-datepicker #picker10></mat-datepicker>
+                              <mat-error *ngIf="formExperience.hasError('rangeError', ['experienceEndDate'])">
+                                La date d'obtention ne peut pas être supérieure à la date de début.
+                              </mat-error>
                             </mat-form-field>
                           </div>
                           </div>
-
-                      <div class="pb-16">
+                          
+                      <div class="pb-16" style="padding-top: 20px;">
                         <mat-checkbox formControlName="actualEmployment">En cours</mat-checkbox>
                       </div>
-                      <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                        <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" type="button" (click)="saveExperience(i)">
-                          <mat-icon>add</mat-icon>
-                        </button>
+
+                      <div class="form-group col-sm-12 col-md-3 d-flex " style="padding-bottom: 1cm;">
+                        <button mat-raised-button   class="left-button" type="button"  (click)="deleteExperience(i)">
+                          <mat-icon>delete</mat-icon>Supprimer</button>
+                        
+                        <button mat-raised-button class="right-button" type="button" (click)="saveExperience(i)">
+                          <mat-icon>check</mat-icon>Ajouter</button>
+                        
                       </div>
                     </div>
                   </div>
@@ -656,30 +638,32 @@
         </button>
         </div>-->
 
-        <!--Button 1-->
+        <!--Butgitn 1-->
         <div>
           <button 
         mat-raised-button 
         color="primary" 
-         matStepperNext>Suivant : Compétances
+         matStepperNext
+         (click)=" saveAllExperiences()"
+         >Suivant : Compétances
         </button>
         </div>
       </div>
     </div>
   </mat-step>
 
-  <!--------------------------------COMPETANCES------------------------------->
+  <!--------------------------------Compétences------------------------------->
 
   <mat-step [stepControl]="step4" errorMessage="Veuillez ajouter les compétences." >
     <div >
-      <ng-template matStepLabel>Compétances</ng-template>
+      <ng-template matStepLabel>Compétences</ng-template>
       <mat-card-title class="">
         <mat-divider></mat-divider>
         <div class="card-title-text">Indiquez les compétences</div>
         <mat-divider></mat-divider>
         </mat-card-title>
 
-        <mat-card-content style="padding-top: 2cm;">
+        <mat-card-content style="padding-top: 1cm;">
           <mat-accordion>
             <!------------------Certification------------------->
             <mat-expansion-panel >
@@ -712,14 +696,14 @@
                             <mat-datepicker #pickerCertif></mat-datepicker>
                           </mat-form-field>
                         </div>
-                    <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                      <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" type="button" (click)="saveCertification(i)">
-                        <mat-icon>add</mat-icon>
-                      </button>
-                    </div>
+                        <div class="form-group col-sm-12 col-md-3 d-flex " style="padding-bottom: 1cm;">
+                          <button mat-raised-button   class="left-button" type="button"  (click)="deleteCertification(i)">
+                            <mat-icon>delete</mat-icon>Supprimer</button>
+                          
+                          <button mat-raised-button class="right-button" type="button" (click)="saveCertification(i)">
+                            <mat-icon>check</mat-icon>Ajouter</button>
+                          
+                        </div>
                   </div>
                 </div>
               </div>
@@ -735,6 +719,7 @@
                  Langues
                 </mat-panel-title>
               </mat-expansion-panel-header>
+
               <form  [formGroup]="formLanguage">
                 <div class="card-body" formArrayName="value"  >
                   <div class="row" >
@@ -759,24 +744,24 @@
                             </mat-select>
                             </mat-form-field>
                         </div>
-                        <!--Langauage Info-->
-                        <div class="form-group mb-1 col-sm-12 col-md-3">
-                          <mat-form-field appearance="outline"  [style.width.cm]=8 class="example-full-width">
-                            <mat-label>Informations supplémentaires</mat-label>
-                            <textarea matInput placeholder="Listez ici les technologies utilisées." formControlName="additionalInformation"></textarea>
-                          </mat-form-field>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                          <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                          <button mat-icon-button color="primary" type="button" (click)="saveLanguage(i)">
-                            <mat-icon>add</mat-icon>
-                          </button>
+                        
+                        <div class="form-group col-sm-12 col-md-3 d-flex " style="padding-bottom: 1cm;">
+                          <button mat-raised-button   class="left-button" type="button"  (click)="deleteLanguage(i)">
+                            <mat-icon>delete</mat-icon>Supprimer</button>
+                          
+                          <button mat-raised-button class="right-button" type="button" (click)="saveLanguage(i)">
+                            <mat-icon>check</mat-icon>Ajouter</button>
+                          
                         </div>
                       </div>
                     </div>
                   </div>
+                   <div class="form-group mb-1 col-sm-12 col-md-3" fxLayout="row"  fxLayoutAlign="space-evenly center">
+                      <mat-form-field appearance="outline"  [style.width.cm]=12 class="example-full-width">
+                        <mat-label>Informations supplémentaires</mat-label>
+                        <textarea matInput placeholder="Listez ici les technologies utilisées." formControlName="additionalInformation"></textarea>
+                      </mat-form-field>
+                    </div>
                 </div>
               </div>
 
@@ -807,36 +792,16 @@
                               placeholder="Ex. Soft Skills / Hard Skills">
                           </mat-form-field>
                         </div>
-                        <div class="form-group col-sm-12 col-md-3 d-flex justify-content-center align-items-center">
-                          <button mat-icon-button color="warn" type="button"  (click)="deleteCertif(i)">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                          <button mat-icon-button color="primary" type="button" (click)="saveSkills(i)">
-                            <mat-icon>add</mat-icon>
-                          </button>
+                        <div class="form-group col-sm-12 col-md-3 d-flex " style="padding-bottom: 1cm;">
+                          <button mat-raised-button   class="left-button" type="button"  (click)="deleteSkills(i)">
+                            <mat-icon>delete</mat-icon>Supprimer</button>
+                          
+                          <button mat-raised-button class="right-button" type="button" (click)="saveSkills(i)">
+                            <mat-icon>check</mat-icon>Ajouter</button>
+                          
                         </div>
                         
-                        <!--Skills Chips -->
-                       <!--<div class="form-group mb-1 col-sm-12 col-md-3">
-                          <div class=" pb-16">
-                            <mat-form-field  class="example-chip-list" style="width:10cm; margin-left: 1.5cm;">
-                              <mat-label>Compétances</mat-label>
-                              <mat-chip-list #chipList formControlName="skillTitle" >
-                                <mat-chip *ngFor="let skill of skills" [selectable]="selectable"
-                                         [removable]="removable" (removed)="remove(skill)">
-                                  {{skill.skillTitle}}
-                                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                </mat-chip>
-                                <input placeholder="Ex. Communication / Java"
-                                       [matChipInputFor]="chipList"
-                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                       [matChipInputAddOnBlur]="addOnBlur"
-                                       (matChipInputTokenEnd)="add($event)">
-                              </mat-chip-list>
-                            </mat-form-field>
-                          </div>
-                        </div>--> 
-
+                       
                       </div>
                     </div>
                   </div>
@@ -859,22 +824,14 @@
       </mat-card-content>
 
       <div  fxLayout="row" dir="rtl" fxLayoutAlign="space-between center">
-        <!--Button 2-->
-       <!--<div>
-          <button 
-        mat-raised-button 
-        color="primary" 
-        matStepperPrevious>
-        Précédent : Expérience
-        </button>
-        </div>-->
-
         <!--Button 1-->
         <div>
           <button  mat-raised-button 
           color="primary"
            type="submit"
-          >Créer le Cv</button>
+           (click)="saveAllData()"
+           matStepperNext
+          >Suivant : Candidature</button>
         </div>
       </div>
     </div>
@@ -895,21 +852,30 @@
             
             <ng-container matColumnDef="reference">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Référance
-                <div style="padding-left: 20px;">
-                  <mat-form-field style="width:1.5cm;" >
-                   <input matInput (input)="applyFilterReference($event)" placeholder="Filtrer">
-                 </mat-form-field>
-                 </div> </mat-header-cell>
+                <div>
+                  <button [class.transparent-button]="!showInput1" mat-icon-button (click)="toggleInput1()">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                  
+                  <mat-form-field *ngIf="showInput1" style="width:1.3cm;">
+                    <input matInput (input)="applyFilterr($event, 'reference')" placeholder="Filtrer">
+                  </mat-form-field>
+                </div>
+               </mat-header-cell>
               <mat-cell *matCellDef="let row"  [style.color]="row.color"> {{row.reference}} </mat-cell>
             </ng-container>
           
             <ng-container matColumnDef="title">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Title
-                <div style="padding-left: 20px;">
-                  <mat-form-field style="width:1.5cm;" >
-                   <input matInput (input)="applyFilterTitle($event)" placeholder="Filtrer">
-                 </mat-form-field>
-                 </div>
+                <div>
+                  <button [class.transparent-button]="!showInput2" mat-icon-button (click)="toggleInput2()">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                  
+                  <mat-form-field *ngIf="showInput2" style="width:1.3cm;">
+                    <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer">
+                  </mat-form-field>
+                </div>
               </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="title" [style.color]="row.color"> {{row.title}} </mat-cell>
             </ng-container>
@@ -918,13 +884,10 @@
              <ng-container matColumnDef="actions">
                <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                <mat-cell *matCellDef="let row">
-                 <button mat-icon-button mat-sm-button color="primary" class="mr-16 "   (click)="openPopUpCandidature({},true)">
+                <button mat-icon-button mat-sm-button [disabled]="isButtonDisabled" color="primary" class="mr-16" (click)="openPopUpCandidature(row.id)">
                    <mat-icon>check</mat-icon>
                  </button>
                  
-                 <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
-                   <mat-icon>close</mat-icon>
-                 </button>
                  
                </mat-cell>
              </ng-container>
@@ -936,14 +899,17 @@
           
           </mat-card-content>
           </mat-card>
-        </div>      
-        <div>
+        </div> 
+        <div  fxLayout="row" dir="rtl"  fxLayoutAlign="space-between center">
+           <div>
             <button 
           mat-raised-button 
           color="primary" 
-          matStepperNext>Finalisation
+          (click)="Finalisation()">Finalisation
           </button>
           </div>
+        </div>     
+       
       </form>
         </mat-step>
 

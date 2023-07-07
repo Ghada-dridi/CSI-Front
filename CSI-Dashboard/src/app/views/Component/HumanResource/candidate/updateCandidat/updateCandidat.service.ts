@@ -104,6 +104,7 @@ export class updateCandidatService {
       })
     );
   }
+  
   updateEducation(id: number, education: Education): Observable<Education> {
     const url = `${this.apiEducation+ '/update'}/${id}`;
     return this.http.put<Education>(url, education).pipe(

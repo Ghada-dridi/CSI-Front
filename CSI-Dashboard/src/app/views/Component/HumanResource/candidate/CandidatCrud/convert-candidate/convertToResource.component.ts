@@ -1,19 +1,14 @@
-import { update } from './../candidate/updateCandidat/updateCandidat.routing';
+
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Civility, Country, Departement, Employee, EmployeeStatus, MaritalSituation, Provenance, ResourceType, Title, WorkLocation } from 'app/shared/models/Employee';
-import { FormArray, FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LanguageLevel } from 'app/shared/models/Language';
-import { FileUploader } from 'ng2-file-upload';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
-import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { AddResourceService } from '../resource/createResource/add-resource.service';
 import { MatTabGroup } from '@angular/material/tabs';
-import { updateCandidatService } from '../candidate/updateCandidat/updateCandidat.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ResourceService } from '../resource/resource.service';
+import { ConvertToResourceService } from './convertToResource.service';
+import { updateCandidatService } from '../../updateCandidat/updateCandidat.service';
 
 
 @Component({
@@ -36,7 +31,7 @@ export class ConvertToResourceComponent implements OnInit {
   countries: Country[];
   states: string[];
   MaritalSituation :string []= Object.values(MaritalSituation);
-  Provenance:string []= Object.values(Provenance);
+  provenance:string []= Object.values(Provenance);
   workLocation :string []= Object.values(WorkLocation);
   departement:string []= Object.values(Departement);
   title :string[]= Object.values(Title);
@@ -51,12 +46,10 @@ export class ConvertToResourceComponent implements OnInit {
     public dialogRef: MatDialogRef<ConvertToResourceComponent>,
     private fb: FormBuilder,
     private update: updateCandidatService,  
-    private updateRessource: ResourceService,  
+    private updateRessource: ConvertToResourceService,  
     private http: HttpClient,
     private route:ActivatedRoute 
   ) { this.countries = this.update.getCountries();}
-
-
 
 
   onFileSelected(event) {
@@ -111,8 +104,6 @@ export class ConvertToResourceComponent implements OnInit {
       nationalIdentity: new  UntypedFormControl('', ),
       socialSecurityNumber: new UntypedFormControl('', )
 
-
-
     })
 
   }
@@ -123,9 +114,6 @@ export class ConvertToResourceComponent implements OnInit {
    
   }
  
- 
-  ///// Form Submit///// 
- 
 
   getemployee() {
     this.update.getItemById(this.id).subscribe((data: any) => {
@@ -133,6 +121,7 @@ export class ConvertToResourceComponent implements OnInit {
 
     });
   }
+
   onCountryChange(countryShotName: string) {
     this.states = this.update.getStatesByCountry(countryShotName);
   }
@@ -234,9 +223,6 @@ resourceTypeMap = {
     }
   }
   
- 
-  /****************** popUp de modification de ressource ************************/
- 
 
 
 }

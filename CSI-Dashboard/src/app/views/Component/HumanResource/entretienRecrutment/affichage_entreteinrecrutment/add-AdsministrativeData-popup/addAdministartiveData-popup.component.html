@@ -1,0 +1,74 @@
+
+<div class="modal-body px-0">
+        
+        <form [formGroup]="administrativeDataForm"  >
+          <mat-card class="p-0" >
+               <!-- <ng-template mat-tab-label>
+                  <mat-icon style="color: #0077C2;padding-right: 16px;">assignment</mat-icon>
+                  <span class="tab-label" style="color: #0077C2;">{{ data.firstName }} {{ data.lastName }}</span>
+                </ng-template>-->
+                  <mat-card-content class="mt-16">
+                    <div class="container" style="display: flex; flex-direction: column;">
+                      <div class="form-container">
+                      <div class="mini-container" >
+  
+                          <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Type de contrat</mat-label>
+                            <mat-select formControlName="contractTitle">
+                              <mat-option *ngFor="let contract of contractTitle" [value]="contract">{{ContractTitleMap[contract]}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        
+                          <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>disponibilité</mat-label>
+                            <mat-select formControlName="availability">
+                              <mat-option *ngFor="let availabilities of availability" [value]="availabilities">{{AvailabilityMap[availabilities]}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                      </div>
+
+
+                      <div class="mini-container" >
+                       
+                       <div >
+                          <mat-form-field class="full-width" appearance="outline"  >
+                            <mat-label>Date de disponibilité</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="availabilityDate" >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      
+                        
+                       <div >
+                          <mat-form-field  class="full-width" appearance="outline" >
+                            <mat-label>salaire actuel</mat-label>
+                            <input matInput formControlName="currentSalary" placeholder="Ex.Macron">
+                          </mat-form-field>
+                        </div>
+                      </div>
+        
+                       <div class="mini-container" >
+                        
+                        <mat-form-field class="full-width" appearance="outline" [style.width.cm]=10>
+                          <mat-label>Salaire souhaité</mat-label>
+                            <input
+                            matInput
+                            required
+                            formControlName="expectedSalary" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                       
+                  
+                <div fxFlex="100" class="mt-16">
+                  <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Ignorer</button>
+                  <span fxFlex></span>
+                  <button mat-raised-button color="primary" (click)="submit()" >save</button>
+                </div>
+              </div>
+              </mat-card-content>
+            
+        </mat-card>
+        </form>
+  </div>

@@ -1,9 +1,8 @@
 import { NgApexchartsModule } from 'ng-apexcharts';
-
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,22 +25,36 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { crudEntretien } from '../crud_entretienRecrutment.routing';
 import { entretienRecrutmentService } from '../entretienRecrutment.service';
-
-
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { questionnairePopupComponent } from './questionnaire-popup/questionnaire-popup.component';
+import { ajoutEntretienPopupComponent } from './add-entretien-pop/addEntretien-popup.component';
+import { InterviewDetailsDialogComponent } from './interviewDetails/interviewDetails-popup.component';
+import { addAdminstrativeDataComponent } from './add-AdsministrativeData-popup/addAdministartiveData-popup.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { HalfCircleDashboardComponent } from './GlobalAppDash/globalAppDash.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ViewAdministrativeDataComponent } from './viewAdministartiveData/viewAdministrativeData.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
+    MatSliderModule,
+    MatTabsModule,
     MatProgressBarModule,
     MatPaginatorModule,
+    MatTableModule,
     MatIconModule,
     MatDialogModule,
     MatButtonModule,
-    MatTableModule,
     MatExpansionModule,
     MatRadioModule,
     MatCardModule,
@@ -52,17 +65,20 @@ import { entretienRecrutmentService } from '../entretienRecrutment.service';
     MatInputModule,
     FlexLayoutModule,
     ColorPickerModule,
+    MatTabsModule,
     NgApexchartsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+
     RouterModule.forChild(crudEntretien)
   ],
+
   providers: [entretienRecrutmentService],
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
-    entretienRecrutmentComponent
-  ],
+    entretienRecrutmentComponent,questionnairePopupComponent,ajoutEntretienPopupComponent,InterviewDetailsDialogComponent,
+    addAdminstrativeDataComponent,ViewAdministrativeDataComponent,HalfCircleDashboardComponent]
 })
 export class EntretienRecrutmentModule { }

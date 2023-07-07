@@ -3,7 +3,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {  Employee, MaritalSituation } from '../../../../../shared/models/Employee';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormArray } from '@angular/forms'; 
 import {FormControl} from '@angular/forms';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -35,6 +35,8 @@ import { languagePopupComponent } from './updateLanguage/language-popup.componen
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { techFilePopupComponent } from './updateTechFile/techFile-popup.component';
 import { skillsPopupComponent } from './updateSkills/skills-popup.component';
+import { Location } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -44,7 +46,7 @@ import { skillsPopupComponent } from './updateSkills/skills-popup.component';
   
 })
  
-export class updatecandidatComponent implements OnInit {
+export class updatecandidatComponent implements OnInit,AfterViewChecked {
   
   popup: MatDialogRef<any>;
   formData = {}
@@ -113,10 +115,14 @@ snack: any;
   private router: Router
   itemForm: any;
   states: any;
+  updateOccurred = false; // Declare the updateOccurred flag
 
 
 
- constructor(private _formBuilder: FormBuilder,
+ constructor(
+  private changeDetectorRef: ChangeDetectorRef,
+  private location: Location,
+  private _formBuilder: FormBuilder,
   private route:ActivatedRoute,
   private updateCandidatService: updateCandidatService,
   private formBuilder: FormBuilder,
@@ -193,6 +199,41 @@ snack: any;
     });
   }
 
+
+
+
+
+
+
+  ngAfterViewChecked(): void {
+    this.refreshPageIfNeeded();
+  }
+
+  refreshPageIfNeeded(): void {
+    // Check if a flag or condition is set indicating that an update occurred
+    if (this.updateOccurred) {
+      // Reset the flag or condition
+      this.updateOccurred = false;
+
+      // Refresh the page by navigating to the current URL
+      this.router.navigateByUrl(this.router.url);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /////Make first letter capital//////
   capitalLetterValidator(control: FormControl): { [key: string]: boolean } | null {
     const firstLetter = control.value.charAt(0);
@@ -234,9 +275,11 @@ snack: any;
           
           console.log('Form value', this.myForm.value);
           this.submitted = true;
+
         },
         error: (e) => console.error('Error adding item', e)
       });
+
     }
 
   //Section Supplimentaire button
@@ -295,7 +338,7 @@ handleRemoveRepeatForm(index: number) {
   getemployee() {
     this.updateCandidatService.getItemById(this.EmployeeId).subscribe((data: any) => {
       this.employee = data;
-
+      console.log(this.employee)
     });
   }
   getTechnicalFile() {
@@ -423,6 +466,7 @@ handleRemoveRepeatForm(index: number) {
               }
             );
             }
+            
 //-------------------------
   employeeTitleMap = {
     [Title.FRONT_END_DEVELOPER]: 'Développeur Front-End',
@@ -473,7 +517,10 @@ handleRemoveRepeatForm(index: number) {
     [LanguageLevel.NATIVE_LANGUAGE]: 'Langue Maternelle',
     [LanguageLevel.BILINGUAL]: 'Bilingue'
   };
+
 ///////////-------updatePopup------------///////////////
+
+
 getItems() {    
   this.getItemSub = this.updateCandidatService.getItems()
     .subscribe((data:any)  => {
@@ -483,34 +530,11 @@ getItems() {
     })
 
 }
+refreshPage(): void {
+  location.reload();
+}
 
 
-/*openPopUp6(data: any = {} , isNew?) {
-  let title = isNew ? 'Ajouter compte bancaire' : 'Modifier compte bancaire';
-  let dialogRef: MatDialogRef<any> = this.dialog.open(employeePopupComponent, {
-    width: '1000px',
-    disableClose: true,
-    data: { title: title, payload: data , employeeId: this.employee.id}
-  })
-  dialogRef.afterClosed()
-    .subscribe(res => {
-      if(!res) {
-        // If user press cancel
-        return;
-      }
-     
-        this.loader.open('modification en cours');
-        console.log(data.id)
-        this.updateCandidatService.updateItem( this.id, res)
-          .subscribe((data:any) => {
-            this.emplyeeDataSource = data ;
-            this.loader.close();
-            this.snack.open('Compte bancaire modifié avec succés!', 'OK', { duration: 2000 });
-            this.getItems();
-          })
-       
-    })
-}*/
 openPopUpEmployee(data: any = {}) {
   const title = 'Modifier Employee';
   const dialogRef: MatDialogRef<any> = this.dialog.open(employeePopupComponent, {
@@ -524,63 +548,23 @@ openPopUpEmployee(data: any = {}) {
       const updatedData = { ...data, ...res };
       this.updateCandidatService.updateEmployee(data.id, res).subscribe(
         (response) => {
-          console.log('Item updated successfully', response);
-          this.snack.open('Compte bancaire modifié avec succès!', 'OK', { duration: 2000 });
-          this.getItems();
+          console.log('candidat updated successfully', response);
+          this.refreshPage();
+
+
         },
         (error) => {
           console.error('Error updating item', error);
-          this.snack.open('Une erreur est survenue lors de la modification du compte bancaire.', 'OK', { duration: 2000 });
+          this.snack.open('Une erreur est survenue lors de la modification du candidat.', 'OK', { duration: 2000 });
         }
       );
     }
   });
 }
 
-/*openPopUpEducation(data:  any , isNew?) {
-  const title = 'Modifier compte bancaire';
-  const dialogRef: MatDialogRef<any> = this.dialog.open(educationPopupComponent, {
-    width: '1000px',
-    disableClose: true,
-    data: { title: title, payload: data  }
-  });
 
-  dialogRef.afterClosed()
-  .subscribe(res => {
-    if(!res) {
-      // If user press cancel
-      return;
-    }
-    if (isNew) {
-      this.loader.open('Ajout en cours');
-      this.updateCandidatService.addEducation(res)
-        .subscribe((data :any)=> {
-          this.dataSource = data;
-          this.loader.close();
-          this.snack.open('Education ajoutée avec succès!', 'OK', { duration: 2000 });
-          this.getItems();
-        })
-    } else 
-    {
-      const updatedData = { ...data, ...res };
-      this.updateCandidatService.updateEducation(data.id, res).subscribe(
-        (response) => {
-          console.log('Item updated successfully', response);
-          this.snack.open('Compte bancaire modifié avec succès!', 'OK', { duration: 2000 });
-          this.getItems();
-        },
-        (error) => {
-          console.error('Error updating item', error);
-          this.snack.open('Une erreur est survenue lors de la modification du compte bancaire.', 'OK', { duration: 2000 });
-        }
-      );
-    }
-  });
-}
-
-}
-}*/
 openPopUpEducation(data: any, isNew?: boolean) {
+
   const title = isNew ? 'Nouvelle education' : 'Modifier education';
   const dialogRef: MatDialogRef<any> = this.dialog.open(educationPopupComponent, {
     width: '1000px',
@@ -608,8 +592,8 @@ openPopUpEducation(data: any, isNew?: boolean) {
         this.updateCandidatService.updateEducation(data.id, updatedData).subscribe(
           (response) => {
             console.log('Education updated successfully', response);
-            this.snack.open('Education modifié avec succès!', 'OK', { duration: 2000 });
-            this.getItems();
+            this.refreshPage();
+
           },
           (error) => {
             console.error('Error updating Education', error);
@@ -641,15 +625,13 @@ openPopUpExperience(data: any, isNew?: boolean) {
           .subscribe((data: any) => {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Education ajoutée avec succès!', 'OK', { duration: 2000 });
-            this.getExperience();
           })
       } else {
         const updatedData = { ...data, ...res };
         this.updateCandidatService.updateExperience(data.id, updatedData).subscribe(
           (response) => {
             console.log('Experience updated successfully', response);
-            this.snack.open('Experience modifié avec succès!', 'OK', { duration: 2000 });
+            this.refreshPage();
             this.getItems();
           },
           (error) => {
@@ -660,6 +642,7 @@ openPopUpExperience(data: any, isNew?: boolean) {
       }
     });
 }
+
 
 openPopUpCertification(data: any, isNew?: boolean) {
   const title = isNew ? 'Nouvelle certification' : 'Modifier certification';
@@ -689,7 +672,7 @@ openPopUpCertification(data: any, isNew?: boolean) {
         this.updateCandidatService.updateCertification(data.id, updatedData).subscribe(
           (response) => {
             console.log('certification updated successfully', response);
-            this.snack.open('certification modifié avec succès!', 'OK', { duration: 2000 });
+            this.refreshPage();
             this.getItems();
           },
           (error) => {
@@ -700,6 +683,7 @@ openPopUpCertification(data: any, isNew?: boolean) {
       }
     });
 }
+
 openPopUpLanguage(data: any, isNew?: boolean) {
   const title = isNew ? 'Nouvelle certification' : 'Modifier certification';
   const dialogRef: MatDialogRef<any> = this.dialog.open(languagePopupComponent, {
@@ -720,7 +704,6 @@ openPopUpLanguage(data: any, isNew?: boolean) {
           .subscribe((data: any) => {
             this.dataSource = data;
             this.loader.close();
-            this.snack.open('Education ajoutée avec succès!', 'OK', { duration: 2000 });
             this.getExperience();
           })
       } else {
@@ -728,7 +711,7 @@ openPopUpLanguage(data: any, isNew?: boolean) {
         this.updateCandidatService.updateLanguage(data.id, updatedData).subscribe(
           (response) => {
             console.log('language updated successfully', response);
-            this.snack.open('certification modifié avec succès!', 'OK', { duration: 2000 });
+            this.refreshPage();
             this.getItems();
           },
           (error) => {
@@ -767,7 +750,7 @@ openPopUpSkills(data: any, isNew?: boolean) {
         this.updateCandidatService.updateSkills(data.id, updatedData).subscribe(
           (response) => {
             console.log('certification updated successfully', response);
-            this.snack.open('certification modifié avec succès!', 'OK', { duration: 2000 });
+            this.refreshPage();
             this.getItems();
           },
           (error) => {

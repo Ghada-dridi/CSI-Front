@@ -21,16 +21,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-
 import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { crudEntretien } from '../crud_entretienRecrutment.routing';
 import { entretienRecrutmentService } from '../entretienRecrutment.service';
 import { crudEvaluationComponent } from './add_crud_evaluation.component';
-import { ajoutEntretienPopupComponent } from './addEntretien-popup/addEntretien-popup.component';
+import { ajoutEntretienPopupComponent } from '../affichage_entreteinrecrutment/add-entretien-pop/addEntretien-popup.component';
 
 
 
@@ -70,7 +68,7 @@ import { ajoutEntretienPopupComponent } from './addEntretien-popup/addEntretien-
   providers: [entretienRecrutmentService],
   // entryComponents: [CalendarFormDialogComponent],
   declarations: [
-    crudEvaluationComponent,ajoutEntretienPopupComponent
+    crudEvaluationComponent
   ],
 })
 export class CrudEvaluationModule { }

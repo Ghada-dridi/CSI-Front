@@ -17,7 +17,7 @@ import { Component, Inject } from '@angular/core';
     type="button"
     color="accent"
     mat-raised-button
-    (click)="dialogRef.close(false)">Cancel</button>
+    (click)="dialogRef.close(false)">Annuler</button>
     </div>`,
 })
 export class AppComfirmComponent {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 import * as countrycitystatejson from 'countrycitystatejson';
 import { EgretCalendarEvent } from 'app/shared/models/event.model';
@@ -14,6 +14,7 @@ import { Certification } from 'app/shared/models/Certification';
 import { Language } from 'highlight.js';
 import { Skills } from 'app/shared/models/Skills';
 import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
+import { Offer } from 'app/shared/models/Offer';
 
 @Injectable()
 
@@ -109,6 +110,12 @@ getItems(): Observable<Employee[]> {
  getItemById(id: number): Observable<Employee> {
   const url = `${this.apiUrl+ '/get'}/${id}`;
   return this.http.get<Employee>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+getOffersById(id: number): Observable<Offer> {
+  const url = `${this.apiAssOffreCandidat+ '/getByEmployee'}/${id}`;
+  return this.http.get<Offer>(url).pipe(
     catchError(this.handleError)
   );
 }
@@ -272,4 +279,58 @@ updateToArchiveById(id: number): Observable<any> {
   );
 }
 
+// Cv print from Mat table
+
+private cvDataSubject = new BehaviorSubject<string>(''); 
+getCvData$() {
+  return this.cvDataSubject.asObservable();
+}
+
+setCvData(cvData: string) { 
+  this.cvDataSubject.next(cvData);
+}
+
+
+
+
+// les statistiques 
+getAllConvertedToRessource(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllConvertedToResource').pipe(
+    catchError(this.handleError)
+  );
+}
+
+getAllArchived(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllArchived').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllDoNotContact(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllDoNotContact').pipe(
+    catchError(this.handleError)
+  );
+}
+
+getAllInProcess(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllInProcess').pipe(
+    catchError(this.handleError)
+  );
+}
+
+getAllPreQualified(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllPreQualified').pipe(
+    catchError(this.handleError)
+  );
+}
+
+getAllTopProfiles(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllTopProfiles').pipe(
+    catchError(this.handleError)
+  );
+}
+getAllInProgress(): Observable<any> {
+  return this.http.get<any>(this.apiUrl + '/countAllInProgress').pipe(
+    catchError(this.handleError)
+  );
+}
 }

@@ -1,15 +1,12 @@
-import { id } from 'date-fns/locale';
 import { Offer } from './../../../../../shared/models/Offer';
-import { Experience } from 'app/shared/models/Experience';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Employee, MaritalSituation } from '../../../../../shared/models/Employee';
-import { Inject, Component, OnInit, ViewChild } from '@angular/core';
+import { Employee} from '../../../../../shared/models/Employee';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormArray, AbstractControl, UntypedFormArray } from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { CompanyStatus, LegalStatus, Provenance, Country } from 'app/shared/models/Partner';
 import {  Civility, Service } from 'app/shared/models/contact';
@@ -24,6 +21,7 @@ import { MatSort } from '@angular/material/sort';
 import { Skills } from 'app/shared/models/Skills';
 import { OfferPopupComponent } from './cv-popups/offerPopup.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -38,6 +36,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     },
   ],
 })
+
+
 
 export class cvcandidatComponent implements OnInit {
   formData = {}
@@ -97,7 +97,6 @@ export class cvcandidatComponent implements OnInit {
   selectedFile: File;
   title :string[]= Object.values(Title);
   Civility :string []= Object.values(Civility);
-  MaritalSituation :string []= Object.values(MaritalSituation);
   Service :string []= Object.values(Service);
   Availability : string [] = Object.values(Availability);
   RequirementStatus  :string []= Object.values(RequirementStatus);
@@ -108,13 +107,15 @@ export class cvcandidatComponent implements OnInit {
   employee: Employee;
   offers: Offer[];
   isLinear = false;
-
+  isButtonDisabled=false;
  
   step1 = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+   // firstCtrl: ['', Validators.required],
   });
 
- constructor(private _formBuilder: FormBuilder,
+ constructor(
+  private snackBar: MatSnackBar,
+  private _formBuilder: FormBuilder,
   private cvCandidatService: CvCandidatService,
   private formBuilder: FormBuilder,
   private fb: FormBuilder,
@@ -128,18 +129,18 @@ export class cvcandidatComponent implements OnInit {
 
     
     this.step2 = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+     // secondCtrl: ['', Validators.required],
     });
 
     this.step3 = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+     // firstCtrl: ['', Validators.required],
     });
     this.step4 = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+     // secondCtrl: ['', Validators.required],
     });
 
     this.stepTechFile= this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+     // secondCtrl: ['', Validators.required],
     });
 
     this.formCertif = this.fb.group({
@@ -163,7 +164,7 @@ export class cvcandidatComponent implements OnInit {
       experienceStartDate: new UntypedFormControl('', []),
       experienceEndDate: new UntypedFormControl('', []),
       technology: new UntypedFormControl('', []),
-    }));
+    },{ validator: this.dateRangeValidatorExperience }));
 
 
     this.formLanguage = this.fb.group({
@@ -194,8 +195,10 @@ export class cvcandidatComponent implements OnInit {
       score: new UntypedFormControl('', []),
       startYear: new UntypedFormControl('', []),
       obtainedDate: new UntypedFormControl('', []),
-      actual: new UntypedFormControl(false),
-    }));
+      actual: new UntypedFormControl(false)
+    },{ validator: this.dateRangeValidator })
+    );
+
 
    
     this.cvCandidatService.getOfferItems().subscribe(
@@ -234,13 +237,12 @@ export class cvcandidatComponent implements OnInit {
       emailOne: new UntypedFormControl('',[Validators.required,Validators.email] ),
       phoneNumberOne: new UntypedFormControl('', [Validators.required,Validators.pattern(/^[\d\s\-+]*$/)]),
       civility: new UntypedFormControl('', []),
-      maritalSituation: new UntypedFormControl('', []),
       country: new UntypedFormControl('', [Validators.required]),
       city: new UntypedFormControl('', []),
       postCode: new UntypedFormControl('', [ Validators.pattern(/^[0-9]*$/)]),
       emailTwo: new UntypedFormControl('', [Validators.email]),
-      phoneNumberTwo: new UntypedFormControl('', [Validators.pattern(/^[\d\s\-+]*$/)])
-
+      phoneNumberTwo: new UntypedFormControl('', [Validators.pattern(/^[\d\s\-+]*$/)]),
+      experience:new UntypedFormControl('', [Validators.required])
     })
 
     
@@ -249,7 +251,6 @@ export class cvcandidatComponent implements OnInit {
       description: new UntypedFormControl('', []),
       objective: new UntypedFormControl('', []),
       driverLicense: new UntypedFormControl('', []),
-      experienceAmount:new UntypedFormControl('', [Validators.required])
     })
 
 
@@ -271,6 +272,10 @@ export class cvcandidatComponent implements OnInit {
   }
 
 
+
+
+
+
   get getCert() {
     return (this.formCertif.get('value') as FormArray).controls;
   }
@@ -287,9 +292,12 @@ export class cvcandidatComponent implements OnInit {
     return (this.formSkills.get('value') as FormArray).controls;
   }
 
+  
   get getEducation() {
     return (this.formEducation.get('value') as FormArray).controls;
   }
+
+  
 
 
 
@@ -303,53 +311,92 @@ export class cvcandidatComponent implements OnInit {
   }
 
 
-  saveCandidate(): void {
-    console.log('Submitting form...');
-  //  if (this.myForm.valid) {
-      console.log('Form is valid, submitting...');
-      this.cvCandidatService.addItem(this.myForm.value).subscribe({
-        next: (res) => {
-          console.log('Item added successfully', res);
-          this.selectedEmplyee = res;
-          console.log('Selected candidat ID:', this.selectedEmplyee.id);
-          console.log('Form value', this.myForm.value);
-          this.submitted = true;
-         // this.openPopUp();
-        },
-        error: (e) => console.error('Error adding item', e)
-      });
-      //this.dialog.open(cvDialog1Component);
-    }
+//////////Date Control////////////////
+dateRangeValidator(formGroup: FormGroup) {
+  const startYear = formGroup.get('startYear').value;
+  const obtainedDate = formGroup.get('obtainedDate').value;
 
-   /* openPopUp(): void {
-      const dialogRef = this.dialog.open(cvDialog1Component, {
-        width: '600px',
-        data: { /* any data you want to pass  }
-      });*/
-    
-      /*dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log('Result:', result);
-      });}*/
+  console.log('Start Year:', startYear);
+  console.log('Obtained Date:', obtainedDate);
+
+  if (startYear && obtainedDate && startYear > obtainedDate) {
+    formGroup.get('obtainedDate').setErrors({ rangeError: true });
+    console.log('Validation Error: Invalid date range');
+  } else {
+    formGroup.get('obtainedDate').setErrors(null);
+    console.log('Validation Passed: Date range is valid');
+  }
+}
+
+dateRangeValidatorExperience(formGroup: FormGroup) {
+  const experienceStartDate = formGroup.get('experienceStartDate').value;
+  const experienceEndDate = formGroup.get('experienceEndDate').value;
+
+  console.log('Experience Start Date:', experienceStartDate);
+  console.log('Experience End Date:', experienceEndDate);
+
+  if (experienceStartDate && experienceEndDate && experienceStartDate > experienceEndDate) {
+    formGroup.get('experienceEndDate').setErrors({ rangeError: true });
+    console.log('Validation Error: Invalid date range');
+  } else {
+    formGroup.get('experienceEndDate').setErrors(null);
+    console.log('Validation Passed: Date range is valid');
+  }
+}
+
+
+
+saveCandidate(): void {
+  console.log('Submitting form...');
+  if (this.myForm.valid) {
+    console.log('Form is valid, submitting...');
+    this.cvCandidatService.addItem(this.myForm.value).subscribe({
+      next: (res) => {
+        console.log('Item added successfully', res);
+        this.selectedEmplyee = res;
+        console.log('Selected candidat ID:', this.selectedEmplyee.id);
+        console.log('Form value', this.myForm.value);
+        this.submitted = true;
+        this.openSnackBar('Candidat ajouté avec succés');
+      }
+    });
+  } else {
+    console.log('Form is invalid. Please check the fields.');
+    this.openSnackBar('Une erreur s\'est produite lors de l\'ajout du candidat')
+  }
+}
+
 
     
-    saveTechFile(): void {
-      console.log('Submitting form...');
-      this.cvCandidatService.addTechFile({...this.techFileForm.value, employeeNum:this.selectedEmplyee.id}).subscribe({
-        next: (res) => {
-          console.log('Item added successfully', res);
-          this.selectedTechFile = res;
-          console.log('Selected technical file ID:', this.selectedTechFile.id);
-         console.log('Form value', this.techFileForm.value);
-          this.submitted = true;
-        },
-        error: (e) => {
-          console.error('Error adding item', e);
-          console.log('Form is invalid');
-          console.log(this.techFileForm.errors);
-        }
-      });
-    }
+    
+    
+    
+saveTechFile(): void {
+  console.log('Submitting form...');
+  if (this.techFileForm.valid) {
+    console.log('Form is valid, submitting...');
+    this.cvCandidatService.addTechFile({...this.techFileForm.value, employeeNum: this.selectedEmplyee.id}).subscribe({
+      next: (res) => {
+        console.log('Item added successfully', res);
+        this.selectedTechFile = res;
+        console.log('Selected technical file ID:', this.selectedTechFile.id);
+        console.log('Form value', this.techFileForm.value);
+        this.submitted = true;
+        this.openSnackBar('Informations complémentaires ajoutées avec succès');
+      },
+      error: (e) => {
+        console.error('Error adding item', e);
+        console.log(this.techFileForm.errors);
+        
+      }
+    });
+  } else {
+    console.log('Form is invalid. Please check the fields.');
+    this.openSnackBar('Une erreur s\'est produite lors de l\'ajout des informations complémentaires');
+  }
+}
+
+    
 
     ///////////ajoutCandidature////////////////////////
     saveOfferCandidat(id :number): void {
@@ -372,107 +419,188 @@ export class cvcandidatComponent implements OnInit {
   
 
     // Save Expérience 
-    saveExperience(i:any): void {
-     
-     this.cvCandidatService.addExperience({...this.formExperience.get('value.'+i).value, technicalFileNum:this.selectedTechFile.id}).subscribe({
-      next: (res) => {
-        console.log('Item added successfully', res);
-       console.log('Form value', this.formExperience);
-        this.submitted = true;
-        (this.formExperience.get('value') as FormArray).push(this.fb.group({
-          actualEmployment :new UntypedFormControl(false),
-          experienceCompany: new UntypedFormControl('', []),
-          experiencePost: new UntypedFormControl('', []),
-          experienceTitle: new UntypedFormControl('', []),
-          experienceRole : new UntypedFormControl('', []),
-          experienceStartDate: new UntypedFormControl('', []),
-          experienceEndDate: new UntypedFormControl('', []),
-          technology: new UntypedFormControl('', []),
-        }));
-        this.experienceId=res.id
-      },
-      error: (e) => {
-        console.error('Error adding item', e);
-        console.log('cv Form is invalid');
-        console.log(this.formExperience.errors);
+    saveExperience(): void {
+      (this.formExperience.get('value') as FormArray).push(this.fb.group({
+        actualEmployment: new UntypedFormControl(false),
+        experienceCompany: new UntypedFormControl('', []),
+        experiencePost: new UntypedFormControl('', []),
+        experienceTitle: new UntypedFormControl('', []),
+        experienceRole: new UntypedFormControl('', []),
+        experienceStartDate: new UntypedFormControl('', []),
+        experienceEndDate: new UntypedFormControl('', []),
+        technology: new UntypedFormControl('', []),
+      },{ validator: this.dateRangeValidatorExperience }));
+    }
+  
+    saveAllExperiences(): void {
+      if (this.formExperience.invalid) {
+        console.log('Form has validation errors. Cannot submit.');
+        this.openSnackBar('Erreur lors de l\'ajout de l\'expérience');
+        return;
       }
-    });}
+    
+      const experiences = this.formExperience.get('value').value;
+      const experiencesWithTechFileNum = experiences.map((experience: any) => ({
+        ...experience,
+        technicalFileNum: this.selectedTechFile.id
+      }));
+    
+      this.cvCandidatService.addExperiences(experiencesWithTechFileNum).subscribe({
+        next: (res) => {
+          console.log('Experiences added successfully', res);
+          console.log('Form value', this.formExperience.value);
+          this.submitted = true;
+          this.openSnackBar('Expérience ajoutée avec succès');
+        },
+        error: (e) => {
+          console.error('Error adding experiences', e);
+          console.log(this.formExperience.errors);
+        }
+      });
+    }
+    
+    
 
+    // Delete experience
+  deleteExperience(index: number): void {
+    if (index > 0) {
+      const edArray = this.formExperience.get('value') as FormArray;
+      edArray.removeAt(index);
+    }
+  }
 
 
      // Save language
-    saveLanguage(i:any): void {
+  
 
-    this.cvCandidatService.addLanguage({...this.formLanguage.get('value.'+i).value, technicalFileNum:this.selectedTechFile.id}).subscribe({
+  saveLanguage(): void {
+    (this.formLanguage.get('value') as FormArray).push(this.fb.group({
+      language: new UntypedFormControl('', []),
+      languageLevel: new UntypedFormControl('', []),
+      additionalInformation: new UntypedFormControl('', []),
+    }));
+  }
+
+  /*saveAllLanguages(): void {
+    const langauges = this.formLanguage.get('value').value;
+    const languagesWithTechFileNum = langauges.map((language: any) => ({
+      ...language,
+      technicalFileNum: this.selectedTechFile.id
+    }));
+  
+    this.cvCandidatService.addLanguages(languagesWithTechFileNum).subscribe({
       next: (res) => {
-        console.log('Item added successfully', res);
-       console.log('Form value', this.formLanguage);
+        console.log('Languages added successfully', res);
+        console.log('Form value', this.formLanguage.value);
         this.submitted = true;
-        (this.formLanguage.get('value') as FormArray).push(this.fb.group({
-          language: new UntypedFormControl('', []),
-          languageLevel: new UntypedFormControl('', []),
-          additionalInformation: new UntypedFormControl('', []),
-        }));
-        this.languageId=res.id
+        this.openSnackBar('Langue ajouté avec succés');
       },
       error: (e) => {
-        console.error('Error adding item', e);
+        console.error('Error adding languages', e);
         console.log('cv Form is invalid');
         console.log(this.formLanguage.errors);
       }
     });
+  }*/
+  
+
+  // Delete language
+deleteLanguage(index: number): void {
+  if (index > 0) {
+    const edArray = this.formLanguage.get('value') as FormArray;
+    edArray.removeAt(index);
+  }
+}
+
+
+  saveSkills(): void {
+    (this.formSkills.get('value') as FormArray).push(this.fb.group({
+      skillsTitle : new UntypedFormControl('', [])
+    }));
   }
 
-
-
-  // Save skills
-  saveSkills(i:any): void {
-    this.cvCandidatService.addSkill({...this.formSkills.get('value.'+i).value, technicalFileNum:this.selectedTechFile.id}).subscribe({
+ /* saveAllSkills(): void {
+    const skills = this.formSkills.get('value').value;
+    const skillsWithTechFileNum = skills.map((skill: any) => ({
+      ...skill,
+      technicalFileNum: this.selectedTechFile.id
+    }));
+  
+    this.cvCandidatService.addSkills(skillsWithTechFileNum).subscribe({
       next: (res) => {
-        console.log('Item added successfully', res);
-       console.log('Form value', this.formSkills.value);
+        console.log('Skills added successfully', res);
+        console.log('Form value', this.formSkills.value);
         this.submitted = true;
-        (this.formSkills.get('value') as FormArray).push(this.fb.group({
-          skillsTitle : new UntypedFormControl('', [])
-        }));
-        this.skillsId=res.id
+        this.openSnackBar('Compétence ajouté avec succés');
       },
       error: (e) => {
-        console.error('Error adding item', e);
+        console.error('Error adding skills', e);
         console.log('cv Form is invalid');
         console.log(this.formSkills.errors);
       }
     });
+  }*/
+  
 
+  // Delete skills
+deleteSkills(index: number): void {
+  if (index > 0) {
+    const edArray = this.formSkills.get('value') as FormArray;
+    edArray.removeAt(index);
   }
-
-
-// Save certif
-saveCertification(i:any): void {
-this.cvCandidatService.addCertif({...this.formCertif.get('value.'+i).value, technicalFileNum:this.selectedTechFile.id}).subscribe({
-  next: (res) => {
-    console.log('Item added successfully', res);
-   console.log('Form value', this.formCertif.value);
-    this.submitted = true;
-    (this.formCertif.get('value') as FormArray).push(this.fb.group({
-      certificationTitle: new UntypedFormControl('', []),
-      certificationObtainedDate: new UntypedFormControl('', [])
-    }));
-    this.certificationId=res.id
-  },
-  error: (e) => {
-    console.error('Error adding item', e);
-    console.log('cv Form is invalid');
-    console.log(this.cvForm.errors);
-  }
-});
 }
 
 
+// Save certif
+saveCertification(): void {
+  (this.formCertif.get('value') as FormArray).push(this.fb.group({
+    certificationTitle: new UntypedFormControl('', []),
+      certificationObtainedDate: new UntypedFormControl('', [])
+  }));
+}
+
+/*saveAllCertifications(): void {
+  const certifications = this.formCertif.get('value').value;
+  const certificationsWithTechFileNum = certifications.map((certification: any) => ({
+    ...certification,
+    technicalFileNum: this.selectedTechFile.id
+  }));
+
+  this.cvCandidatService.addCertifs(certificationsWithTechFileNum).subscribe({
+    next: (res) => {
+      console.log('certifications added successfully', res);
+      console.log('Form value', this.formCertif.value);
+      this.submitted = true;
+    },
+    error: (e) => {
+      console.error('Error adding certifications', e);
+      console.log('cv Form is invalid');
+      console.log(this.formCertif.errors);
+    }
+  });
+}*/
+
+// Delete certif
+deleteCertification(index: number): void {
+if (index > 0) {
+  const edArray = this.formCertif.get('value') as FormArray;
+  edArray.removeAt(index);
+}
+}
+
+
+
+  ///////Snack Bar////
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'bottom' 
+    });
+  }
     
 
     // Save Education
-  saveEducation(i:any): void {
+  /*saveEducation(i:any): void {
     this.cvCandidatService.addEducation({...this.formEducation.get('value.'+i).value, technicalFileNum:this.selectedTechFile.id}).subscribe({
       next: (res) => {
         console.log('Item added successfully', res);
@@ -485,7 +613,8 @@ this.cvCandidatService.addCertif({...this.formCertif.get('value.'+i).value, tech
           score: new UntypedFormControl('', []),
           startYear: new UntypedFormControl('', []),
           obtainedDate: new UntypedFormControl('', []),
-          actual: new UntypedFormControl(false)}));
+          actual: new UntypedFormControl(false)},
+          { validator: this.dateRangeValidator }));
         
         this.educationId=res.id
       },
@@ -496,8 +625,123 @@ this.cvCandidatService.addCertif({...this.formCertif.get('value.'+i).value, tech
       }
     });
 
+  }*/
+
+  saveEducation(): void {
+    (this.formEducation.get('value') as FormArray).push(this.fb.group({
+      institution: new UntypedFormControl('', [Validators.required]),
+      diploma: new UntypedFormControl('', [Validators.required]),
+      score: new UntypedFormControl('', []),
+      startYear: new UntypedFormControl('', []),
+      obtainedDate: new UntypedFormControl('', []),
+      actual: new UntypedFormControl(false)
+    }, { validator: this.dateRangeValidator }));
   }
 
+  saveAllEducations(): void {
+    if (this.formEducation.invalid) {
+      console.log('Form has validation errors. Cannot submit.');
+      this.openSnackBar('Erreur lors de l\'ajout de l\'éducation');
+      return;
+    }
+  
+    const educations = this.formEducation.get('value').value;
+    const educationsWithTechFileNum = educations.map((education: any) => ({
+      ...education,
+     // technicalFileNum: this.selectedTechFile.id
+    }));
+    console.log(this.selectedTechFile.id);
+  
+    this.cvCandidatService.addEducations({...educationsWithTechFileNum,technicalFileNum:this.selectedTechFile.id}).subscribe({
+      next: (res) => {
+        console.log('Educations added successfully', res);
+        console.log('Form value', this.formEducation.value);
+        this.submitted = true;
+        this.openSnackBar('Education ajouté avec succés');
+      },
+      error: (e) => {
+       
+        console.error('Error adding educations', e);
+        console.log(this.formEducation.errors);
+        
+      }
+    });
+  }
+  
+  
+
+  // Delete education
+deleteEducation(index: number): void {
+  if (index > 0) {
+    const edArray = this.formEducation.get('value') as FormArray;
+    edArray.removeAt(index);
+  }
+}
+
+
+////SAve Skills , Languages , Certiffication 
+saveAllData(): void {
+  // Save Languages
+  const languages = this.formLanguage.get('value').value;
+  const languagesWithTechFileNum = languages.map((language: any) => ({
+    ...language,
+    technicalFileNum: this.selectedTechFile.id
+  }));
+
+  this.cvCandidatService.addLanguages(languagesWithTechFileNum).subscribe({
+    next: (res) => {
+      console.log('Languages added successfully', res);
+      console.log('Form value', this.formLanguage.value);
+      this.submitted = true;
+
+      // Save Skills
+      const skills = this.formSkills.get('value').value;
+      const skillsWithTechFileNum = skills.map((skill: any) => ({
+        ...skill,
+        technicalFileNum: this.selectedTechFile.id
+      }));
+
+      this.cvCandidatService.addSkills(skillsWithTechFileNum).subscribe({
+        next: (res) => {
+          console.log('Skills added successfully', res);
+          console.log('Form value', this.formSkills.value);
+          this.submitted = true;
+          this.openSnackBar('Informations ajoutées avec succès');
+
+          // Save Certifications
+          const certifications = this.formCertif.get('value').value;
+          const certificationsWithTechFileNum = certifications.map((certification: any) => ({
+            ...certification,
+            technicalFileNum: this.selectedTechFile.id
+          }));
+
+          this.cvCandidatService.addCertifs(certificationsWithTechFileNum).subscribe({
+            next: (res) => {
+              console.log('Certifications added successfully', res);
+              console.log('Form value', this.formCertif.value);
+              this.submitted = true;
+            },
+            error: (e) => {
+              console.error('Error adding certifications', e);
+              console.log('cv Form is invalid');
+              console.log(this.formCertif.errors);
+            }
+          });
+        },
+        error: (e) => {
+          console.error('Error adding skills', e);
+          console.log('cv Form is invalid');
+          console.log(this.formSkills.errors);
+        }
+      });
+    },
+    error: (e) => {
+      console.error('Error adding languages', e);
+      console.log('cv Form is invalid');
+      console.log(this.formLanguage.errors);
+    }
+  });
+}
 
 
   ///// Form Submit/////
@@ -568,13 +812,13 @@ handleRemoveRepeatForm(index: number) {
     return ['reference','title','actions' ];
   }
 
-  maritalSituationMap = {
-    [MaritalSituation.SINGLE]:'Célibataire',
+ /* maritalSituationMap = {
+    [MaritalSituation.SINGLE]:'Célibatire',
     [MaritalSituation.MARRIED]:'Marrié',
    [MaritalSituation.DIVORCED]:'Divorcé',
    [MaritalSituation.WIDOWED] :'Veuf/Veuve',
    [MaritalSituation.COMPLICATED] :'Compliqué'
-  };
+  };*/
 
   civilityMap = {
     [Civility.MRS]:'Mme',
@@ -629,5 +873,92 @@ handleRemoveRepeatForm(index: number) {
 
   }
   
+  openPopUpCandidature(offerId: number) {
+    const title = 'Nouvelle candidature';
+    const dialogRef: MatDialogRef<any> = this.dialog.open(OfferPopupComponent, {
+      width: '500px',
+      disableClose: true,
+      data: { title: title, isNew: true, offerNum: offerId }
+    });
   
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // If the user presses cancel or closes the dialog
+        console.log('Dialog closed without submitting.');
+        return;
+      }
+  
+      console.log('Dialog submitted:', res);
+      
+  
+      const employeeNum = this.selectedEmplyee.id; // Assuming you have stored the employee number in the 'selectedEmployeeNum' variable
+      console.log('Employee Number:', employeeNum);
+      console.log('Offer Number:', offerId);
+  
+      // Create the request payload based on the form values
+      const payload = {
+        applicationDate: res.applicationDate,
+        experienceLevel: res.experienceLevel,
+        employeeNum: employeeNum,
+        offerNum: offerId
+        // Add other attributes as needed
+
+      };
+  
+      // Assuming you have a service called 'cvCandidatService' to handle the API requests
+      this.cvCandidatService.addOfferCandidate(payload).subscribe(
+        (data: any) => {
+          console.log('Add offer candidate success:', data);
+          this.dataSource = data;
+          this.loader.close();
+          this.snack.open('Candidature ajoutée avec succès!', 'OK', { duration: 2000 });
+          this.isButtonDisabled = true; // Disable the button
+        },
+        (error) => {
+          console.log('Add offer candidate error:', error);
+          this.loader.close();
+          this.snack.open('Erreur lors de l\'ajout de la candidature', 'OK', { duration: 2000 });
+        }
+      );
+     
+    });
+  }
+
+  Finalisation() {
+    this.router.navigateByUrl('/candidat/CandidatCrud-table');
+  }
+
+  applyFilterr(event: Event, key: string) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    const filterWords = filterValue.split(' ');
+  
+    this.dataSource.filterPredicate = (data, filter) => {
+      // Split the data value into words and convert to lowercase
+      const dataWords = data[key].trim().toLowerCase().split(' ');
+  
+      // Check if all filter words are present in the data (case-insensitive)
+      return filterWords.every(word => {
+        return dataWords.some(dataWord => dataWord.indexOf(word.toLowerCase()) !== -1);
+      });
+    };
+  
+    this.dataSource.filter = filterValue;
+  
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  showInput1 = false;
+showInput2 = false;
+
+
+
+toggleInput1() {
+  this.showInput1 = !this.showInput1;
+}
+
+toggleInput2() {
+  this.showInput2 = !this.showInput2;
+}
 }

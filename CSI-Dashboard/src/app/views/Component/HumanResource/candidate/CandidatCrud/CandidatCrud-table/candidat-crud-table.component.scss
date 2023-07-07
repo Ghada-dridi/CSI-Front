@@ -35,3 +35,17 @@
     margin-right: 8px;
   }
   
+.mr-16{
+  color: #757575;
+}
+
+.transparent-button {
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.2s;
+  size:10px ;
+}
+
+.transparent-button:hover {
+  opacity: 1;
+}

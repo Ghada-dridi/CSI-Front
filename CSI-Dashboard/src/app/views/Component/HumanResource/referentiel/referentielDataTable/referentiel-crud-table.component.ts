@@ -1,7 +1,5 @@
-import { referentielRoutes } from './../referentiel.routing';
-
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -10,31 +8,33 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Civility, MaritalSituation, Provenance, Title } from 'app/shared/models/Employee';
+import {FormGroup} from '@angular/forms';
+import { Title } from 'app/shared/models/Employee';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { referentielService } from '../referentiel.service';
 import { QuestionCategory } from 'app/shared/models/QuestionCategory';
+import { ExperienceLevel } from 'app/shared/models/AssOfferCandidate';
+import { QuestionType } from 'app/shared/models/QuestionType';
 
 @Component({
   selector: 'referentiel-crud',
-  templateUrl: './referentielcrud-table.component.html'
+  templateUrl: './referentielcrud-table.component.html',
 })
 
 
 export class referentielCrudTableComponent implements OnInit {
+
+
   formData = {}
   console = console;
-  
+  ExperienceLevel :string []= Object.values(ExperienceLevel);
   public itemForm: FormGroup;;
  
   selectedFile: File;
   title :string[]= Object.values(Title);
-
+  showInput1 = false;
   formWidth = 200; //declare and initialize formWidth property
   formHeight = 700; //declare and initialize formHeight property
- 
-
   submitted = false;
   visible = true;
   selectable = true;
@@ -44,11 +44,12 @@ export class referentielCrudTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  
-  public dataSource: MatTableDataSource<QuestionCategory>;
+
+  public dataSource: MatTableDataSource<QuestionType>;
   public displayedColumns: any;
   public getItemSub: Subscription;
+  public getItemSub2: Subscription;
  
-
 
   constructor(
     private router : Router,
@@ -57,43 +58,25 @@ export class referentielCrudTableComponent implements OnInit {
     private crudService: referentielService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService
-  ) {     this.dataSource = new MatTableDataSource<QuestionCategory>([]);}
+  ) 
+  {this.dataSource = new MatTableDataSource<QuestionType>([]);}
 
   ngOnInit() {
    this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()  
+    this.getItems()  ;
   }
 
   getDisplayedColumns() {
-    return ['name','level','actions' ];
+    return ['questionTypeName','actions' ];
   }
 
-
-  applyFilterReference(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data.name.trim().toLowerCase().indexOf(filter) !== -1;
-    };
-  }
-  applyFilterTitle(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.dataSource.filterPredicate = (data, filter) => {
-      return data.level.trim().toLowerCase().indexOf(filter) !== -1;
-    };
-  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()
@@ -101,28 +84,26 @@ export class referentielCrudTableComponent implements OnInit {
   }
 
   getItems() {    
-    this.getItemSub = this.crudService.getItems()
-      .subscribe((data:any)  => {
+    this.getItemSub  = this.crudService.getAllQuestiontypes()
+      .subscribe((data: any) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      })
-
+        
+        });
   }
-
-
-
-
+    
+  
   deleteItem(row) {
     this.confirmService.confirm({message: `Delete ${row.name}?`})
       .subscribe(res => {
         if (res) {
           this.loader.open('Supprssion du questionnaire');
-          this.crudService.deleteItem(row)
+          this.crudService.deleteQuestionType(row)
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Questionnaire supprimée!', 'OK', { duration: 2000 });
+              this.snack.open('Catégorie supprimée!', 'OK', { duration: 2000 });
               this.getItems();
             })
         }
@@ -137,6 +118,37 @@ export class referentielCrudTableComponent implements OnInit {
  goToForm(){
   this.router.navigateByUrl('formReferentiel/referentielForm');
  }
+ 
 
 
+ ExperienceLevelMap={
+  [ExperienceLevel.JUNIOR]:'Junior',
+  [ExperienceLevel.MID_LEVEL]:'Confirmé',
+  [ExperienceLevel.SENIOR]:'Senior',
+  [ExperienceLevel.EXPERT]:'Expert', }
+
+  applyFilterr(event: Event, key: string) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    const filterWords = filterValue.split(' ');
+  
+    this.dataSource.filterPredicate = (data, filter) => {
+      // Split the data value into words and convert to lowercase
+      const dataWords = data[key].trim().toLowerCase().split(' ');
+  
+      // Check if all filter words are present in the data (case-insensitive)
+      return filterWords.every(word => {
+        return dataWords.some(dataWord => dataWord.indexOf(word.toLowerCase()) !== -1);
+      });
+    };
+  
+    this.dataSource.filter = filterValue;
+  
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  toggleInput1() {
+    this.showInput1 = !this.showInput1;
+  }
 }

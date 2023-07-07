@@ -3,14 +3,14 @@
   <div style="overflow-y: hidden; height: calc(100vh - 15rem);">
     <div class="px-2" style="overflow-y: auto; height: 100%;">
       
-      <form [formGroup]="offerForm" >
+      <form [formGroup]="offerForm"  >
     
         <mat-card class="p-0" >
           <mat-tab-group mat-stretch-tabs>
         <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon style="color: #0077C2;padding-right: 16px;">assignment</mat-icon>
-                <span class="tab-label" style="color: #0077C2;">Ajouter un entretien</span>
+                <span class="tab-label" style="color: #0077C2;">{{ data.firstName }} {{ data.lastName }}</span>
               </ng-template>
                 <mat-card-content class="mt-16">
                   <div class="container" style="display: flex; flex-direction: column;">
@@ -135,7 +135,7 @@
               <div fxFlex="100" class="mt-16">
                 <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Ignorer</button>
                 <span fxFlex></span>
-                <button mat-raised-button color="primary" (click)="saveInterview()">save</button>
+                <button mat-raised-button color="primary" (click)="submit()" >save</button>
               </div>
             </div>
             </mat-card-content>

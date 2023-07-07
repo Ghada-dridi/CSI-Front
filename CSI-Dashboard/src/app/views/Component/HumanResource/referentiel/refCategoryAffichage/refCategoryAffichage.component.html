@@ -1,0 +1,92 @@
+
+
+<mat-form-field style="padding-left: 19px;" >
+  <input  matInput (keyup)="applyFilter($event)" placeholder="Rechercher">
+  </mat-form-field>
+  
+ <mat-card>
+  <div class="container">
+  <ng-template matStepLabel></ng-template>
+  <mat-card-title class="">
+      <div style="padding-bottom: 20px;">
+          <div style="padding-right:4px ;" class="card-title-text">Catégorie :<strong> {{ questionType.questionTypeName}} </strong> </div>
+      </div>
+      </mat-card-title>
+
+      <mat-card-content>
+      <div class="container-container">
+        <mat-table [dataSource]="dataSource" matSort  >
+
+          <!--<ng-container matColumnDef="questionTypeName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Catégorie
+               </mat-header-cell>
+            <mat-cell *matCellDef="let row"  [style.color]="row.color"> {{row.questionTypeName}} </mat-cell>
+          </ng-container>-->
+          
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Domaine
+              <div>
+                <button [class.transparent-button]="!showInput1" mat-icon-button (click)="toggleInput1()">
+                  <mat-icon>search</mat-icon>
+                </button>
+                
+                <mat-form-field *ngIf="showInput1" style="width:1.3cm;">
+                  <input matInput (input)="applyFilterr($event, 'name')" placeholder="Filtrer">
+                </mat-form-field>
+              </div>
+               </mat-header-cell>
+            <mat-cell *matCellDef="let row"  [style.color]="row.color"> {{row.name}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="level">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Niveau d'expérience
+              <div>
+                <button [class.transparent-button]="!showInput2" mat-icon-button (click)="toggleInput2()">
+                  <mat-icon>search</mat-icon>
+                </button>
+                
+                <mat-form-field *ngIf="showInput2" style="width:1.3cm;">
+                  <input matInput (input)="applyFilterEnum($event, 'level')" placeholder="Filtrer">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{ExperienceLevelMap[row.level]}} </mat-cell>
+          </ng-container>
+        
+
+          <ng-container matColumnDef="questionnaireType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Destinataire
+              <div>
+                <button [class.transparent-button]="!showInput3" mat-icon-button (click)="toggleInput3()">
+                  <mat-icon>search</mat-icon>
+                </button>
+                
+                <mat-form-field *ngIf="showInput3" style="width:1.3cm;">
+                  <input matInput (input)="applyFilterEnum($event, 'questionnaireType')" placeholder="Filtrer">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{QuestionnaireTypeMap[row.questionnaireType]}} </mat-cell>
+          </ng-container>
+        
+           <ng-container matColumnDef="actions">
+             <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+             <mat-cell *matCellDef="let row">
+               <button  matTooltip="Voir la liste des questions" mat-icon-button mat-sm-button style="color: #757575;" class=" mr-16 "  routerLink="/refQuestionAffichage/quest/{{row.id}}" routerLinkActive="router-link-active" >
+                 <mat-icon>remove_red_eye </mat-icon>
+               </button>
+               <button  matTooltip="Supprimer le domaine" mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
+                 <mat-icon>delete</mat-icon>
+               </button>
+             </mat-cell>
+           </ng-container>
+        
+           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+         </mat-table>
+         <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </div>
+
+      </mat-card-content> 
+  </div>
+</mat-card>

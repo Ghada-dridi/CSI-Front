@@ -9,6 +9,7 @@ import { Employee } from 'app/shared/models/Employee';
 import { TechnicalFile } from 'app/shared/models/TechnicalFile';
 import { Offer } from 'app/shared/models/Offer';
 import { AssOfferCandidate } from 'app/shared/models/AssOfferCandidate';
+import { Skills } from 'app/shared/models/Skills';
 
 @Injectable()
 export class CvCandidatService {
@@ -128,7 +129,12 @@ getOfferItems(): Observable<Offer[]> {
     catchError(this.handleError)
   );
 }
-
+getOffersById(id: number): Observable<Offer> {
+  const url = `${this.apiAssOffreCandidat+ '/getByEmployee'}/${id}`;
+  return this.http.get<Offer>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 
  // GET an item by id
  getItem(id: number): Observable<Employee> {
@@ -168,21 +174,29 @@ deleteOfferCandidate(id: number): Observable<AssOfferCandidate> {
     catchError(this.handleError)
   );
 }
-
-
+ 
 
 //POST education
-addEducation(education: any): Observable<any>  {
-  const apiEducationWithAdd = this.apiEducation + '/add'; // Append /add to the apiUrl
-  return this.http.post<any>(apiEducationWithAdd, education).pipe(
+addEducations(educations: any[]): Observable<any[]> {
+  const apiEducationsWithAdd = this.apiEducation + '/add'; // Append /add to the apiUrl
+  return this.http.post<any[]>(apiEducationsWithAdd, educations).pipe(
     catchError(this.handleError)
   );
 }
+
 
 //POST experience
 addExperience(exp: any): Observable<any> {
   const apiExperienceWithAdd = this.apiExperience + '/add'; // Append /add to the apiUrl
   return this.http.post<any>(apiExperienceWithAdd, exp).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST experiences
+addExperiences(experiences: any[]): Observable<any[]> {
+  const apiExperiencesWithAdd = this.apiExperience + '/addExperiences'; // Append /add to the apiUrl
+  return this.http.post<any[]>(apiExperiencesWithAdd, experiences).pipe(
     catchError(this.handleError)
   );
 }
@@ -193,12 +207,29 @@ addCertif(certif: any): Observable<any> {
   return this.http.post<any>( apiCertificationWithAdd, certif).pipe(
     catchError(this.handleError)
   );
-}6
+}
 
-//POST langugae
+//POST Certifications
+addCertifs(certifs: any[]): Observable<any[]> {
+  const  apiCertificationsWithAdd = this.apiCertification + '/addCertifications'; // Append /add to the apiUrl
+  return this.http.post<any>( apiCertificationsWithAdd, certifs).pipe(
+    catchError(this.handleError)
+  );
+}
+
+//POST language
 addLanguage(lang: any): Observable<any> {
   const  apiLanguageWithAdd = this.apiLanguage + '/add'; // Append /add to the apiUrl
   return this.http.post<any>(apiLanguageWithAdd, lang).pipe(
+    catchError(this.handleError)
+  );
+}
+
+
+//POST languages
+addLanguages(languages: any[]): Observable<any[]> {
+  const apiLanguagesWithAdd = this.apiLanguage + '/addLanguages'; // Append /add to the apiUrl
+  return this.http.post<any[]>(apiLanguagesWithAdd, languages).pipe(
     catchError(this.handleError)
   );
 }
@@ -211,14 +242,13 @@ addSkill(skil: any): Observable<any> {
   );
 }
 
-//POST skill category
-addSkillCategory(skillCat: any): Observable<any> {
-  const apiSkillCategoryWithAdd = this.apiSkillCategory + '/addSkillsCategory'; // Append /add to the apiUrl
-  return this.http.post<any>(apiSkillCategoryWithAdd, skillCat).pipe(
+//POST skills
+addSkills(skills: any[]): Observable<any[]> {
+  const apiSkillsWithAdd = this.apiSkill + '/addSkills'; // Append /add to the apiUrl
+  return this.http.post<any[]>(apiSkillsWithAdd, skills).pipe(
     catchError(this.handleError)
   );
 }
-
 
 
 

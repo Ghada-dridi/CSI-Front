@@ -2,9 +2,10 @@ import { catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {  Validators,  FormGroup, FormBuilder, FormArray, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { Validators,  FormGroup, FormBuilder, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { entretienRecrutmentService } from '../../entretienRecrutment.service';
 import { Interview, InterviewMode, InterviewType, interviewLocation } from 'app/shared/models/Interview';
+import { Employee } from 'app/shared/models/Employee';
 
 
 @Component({
@@ -28,10 +29,11 @@ export class ajoutEntretienPopupComponent implements OnInit {
   interviewMode :string []= Object.values(InterviewMode);
   interviewlocation:string []= Object.values(interviewLocation);
   interview: Interview;
+  employee:Employee;
 
 
   selectedFile: File;
-  constructor(
+  constructor( 
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ajoutEntretienPopupComponent>,
@@ -55,9 +57,14 @@ export class ajoutEntretienPopupComponent implements OnInit {
       interviewTime: new UntypedFormControl('', []),
       interviewlocation: new UntypedFormControl('', []),
       interviewPlace: new UntypedFormControl('', []),
+      evaluationNum:new UntypedFormControl('',[])
     })
     
   }
+    submit() {
+    this.dialogRef.close(this.offerForm.value)
+  }
+
 
   saveInterview(): void {
     console.log('Submitting cv form...');
@@ -137,4 +144,8 @@ weekendFilter = (d: Date | null): boolean => {
   // Prevent Saturday and Sunday from being selected.
   return day !== 0 && day !== 6;
 };
+
+
+
+
 }

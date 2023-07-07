@@ -6,7 +6,7 @@ import { CandidatCrudTableComponent } from '../CandidatCrud/CandidatCrud-table/c
 export const CalendarRoutes: Routes = [{ 
     path: 'cvCandidat-crud', 
 component: cvcandidatComponent, 
-data: { title: 'CvCandidat' } },
+data: { title: 'Candidat', breadcrumb: 'Ajouter un candidat' } },
 
 { path: 'CandidatCrud-table', 
     component: CandidatCrudTableComponent, 

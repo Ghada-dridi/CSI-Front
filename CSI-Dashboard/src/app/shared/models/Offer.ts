@@ -10,5 +10,10 @@ export interface Offer{
     requiredExperienceAmount?:string;
     startDate?:string;
     endDate?:string;
-    candidature ?: AssOfferCandidate[]
+    candidature ?: AssOfferCandidate[];
+    offerStatus?: OfferStatus;
+}
+
+export enum OfferStatus{
+    OPEN="OPEN",ENDED="ENDED"
 }

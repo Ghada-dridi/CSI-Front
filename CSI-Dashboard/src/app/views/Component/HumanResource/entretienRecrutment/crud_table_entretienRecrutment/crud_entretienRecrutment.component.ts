@@ -1,11 +1,7 @@
 import { Evaluation } from 'app/shared/models/Evaluation';
 import { entretienRecrutmentService } from './../entretienRecrutment.service';
-import { crudEntretien } from '../crud_entretienRecrutment.routing';
-
-
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -13,15 +9,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { NgxTablePopupComponent } from 'app/views/cruds/crud-ngx-table/ngx-table-popup/ngx-table-popup.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CrudService } from '../../candidate/CandidatCrud/candidat-crud.service';
-import { ajoutEntretienPopupComponent } from '../add_evaluation/addEntretien-popup/addEntretien-popup.component';
+import { interviewStatus } from 'app/shared/models/Interview';
+import { evaluationPopupComponent } from '../evaluationnPopup/evaluation-popup.component';
+import { ViewAllInterviewsComponent } from './viewAll-Interviews/viewAll-Interviews.component';
+import { Title } from 'app/shared/models/Employee';
 
 
 @Component({
   selector: 'evaluation-form',
-  templateUrl: './crud_entretienRecrutment.component.html'
+  templateUrl: './crud_entretienRecrutment.component.html',
+  styleUrls: ['./crud_entretienRecrutment.component.scss'],
 })
 export class crudEntretienRecrutmentComponent implements OnInit {
 
@@ -32,7 +31,15 @@ export class crudEntretienRecrutmentComponent implements OnInit {
   public getItemSub: Subscription;
   classAdded = false;
   evaluation :Evaluation;
+  interviewId: number 
+  interviewStatus :any= Object.values(interviewStatus);
   selectedEvaluation= { id:null};
+  title :string[]= Object.values(Title);
+  showInput1 = false;
+  showInput2 = false;
+  showInput3 = false;
+
+
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -62,7 +69,7 @@ export class crudEntretienRecrutmentComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['name', 'last name', 'offre', 'note globale', 'status', 'actions'];
+    return ['name', 'last name','title', 'actions'];
   }
 
     
@@ -81,34 +88,20 @@ export class crudEntretienRecrutmentComponent implements OnInit {
  
  }
 
-
-  deleteItem(row) {
-    this.confirmService.confirm({message: `Delete ${row.name}?`})
-      .subscribe(res => {
-        if (res) {
-          this.loader.open('Deleting Candidat');
-          this.crudEntretien.deleteItem(row)
-            .subscribe(data => {
-              this.dataSource = data;
-              this.loader.close();
-              this.snack.open('Candidat deleted!', 'OK', { duration: 4000 })
-            })
-        }
-      })
-  }
   
   openEvaluationCandidat(){
     this.router.navigate(['CandidatEvaluation/evaluationCandidat'])
   }
+
   goToEvaluer(){
     this.router.navigate(['evaluationCrud/crudEvaluation'])
   }
 
   
-   openPopUp(): void {
-    const dialogRef = this.dialog.open(ajoutEntretienPopupComponent, {
+   openPopUp(row: any): void {
+    const dialogRef = this.dialog.open(evaluationPopupComponent, {
       width: '900px',
-      data: { /* any data you want to pass */ }
+      data: {id : row }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -116,6 +109,21 @@ export class crudEntretienRecrutmentComponent implements OnInit {
       console.log('Result:', result);
     });
   }
+
+  
+  viewAllEvaluations(row: any) {
+    this.crudEntretien.getEmployeeEvaluation(row.id).subscribe((evaluations: Evaluation) => {
+      const dialogRef = this.dialog.open(ViewAllInterviewsComponent, {
+        width: '550px',
+        data: { evaluations }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    });
+  }
+  
 
   /*onShowEvaluation() {
     if (this.classAdded) {
@@ -138,7 +146,6 @@ export class crudEntretienRecrutmentComponent implements OnInit {
 
 //fonction tekhdem-----------
 //---PS:ena f request mtei aandi employeeId ken aandek employeeNum badal Num
-// Cordialement w bien à vous 
 
 
   /*saveEvaluation(id: number): void {
@@ -158,23 +165,41 @@ export class crudEntretienRecrutmentComponent implements OnInit {
 
 
 private evaluationCreatedMap = new Map<number, boolean>();
-
-saveEvaluation(id: number): void {
-  // Check if an evaluation has already been created for this employee
-  if (this.evaluationCreatedMap.get(id)) {
+// Check if an evaluation has already been created for this employee
+  /*if (this.evaluationCreatedMap.get(id)) {
     console.log('Evaluation already created for this employee');
     return;
-  }
+  }*/
+/*saveEvaluation(id: number): void {
+  
 
-  this.crudEntretien.addEvaluation({employeeNum:id}).subscribe(
+  this.crudEntretien.addEvaluation({ employeeNum: id }).subscribe(
     response => {
       console.log('Evaluation added successfully');
-      // Set flag to indicate that evaluation has been created for this employee
-      this.evaluationCreatedMap.set(id, true);
     },
     error => console.error('Error adding evaluation:', error)
   );
-}
+}*//*
+
+openpopup(row:any): void {
+  const dialogRef = this.dialog.open(evaluationPopupComponent, {
+    width: '300px',
+    data: { row }
+    
+  }
+  
+  );
+console.log(row.id)
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Popup closed');
+    if (result === 'view') {
+      this.router.navigate(['/CandidatEvaluation', row.id]);
+    }
+    // Perform any additional actions after the popup is closed
+  });
+
+}*/
+
 
 /////////////////////////////////hedhy l fonction eli ma tensech////////////////////////////////
 
@@ -208,5 +233,132 @@ saveEvaluation(id: number): void {
   );
 }*/
 
+
+
+saveEvaluation(id: number): void {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString(); // Convert to string in desired format
+  
+  const evaluation: Evaluation = {
+    id: id,
+    evaluationDate: formattedDate,
+  };
+
+  this.crudEntretien.addEvaluation({ employeeNum: id }).subscribe(
+    response => {
+      console.log('Evaluation added successfully');
+      const newEvaluationId = response.id; // Assuming the response contains the new evaluation ID
+      this.openpopup({ id: newEvaluationId }); // Open the popup with the new evaluation ID
+    },
+    error => console.error('Error adding evaluation:', error)
+  );
+}
+
+
+openpopupp(row: any): void {
+  console.log('Open popup for employee:', row.id);
+  
+  this.crudEntretien.addEvaluation({ employeeNum: row.id }).subscribe(
+    response => {
+      console.log('Evaluation added successfully:', response);
+      const newEvaluationId = response.id;
+      
+      const dialogRef = this.dialog.open(evaluationPopupComponent, {
+        width: '300px',
+        data: { row }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Popup closed');
+        if (result === 'view') {
+          console.log('View evaluation clicked');
+          this.router.navigate(['/CandidatEvaluation', newEvaluationId]);
+        }
+        // Perform any additional actions after the popup is closed
+      });
+    },
+    error => console.error('Error adding evaluation:', error)
+  );
+}
+
+openpopup(row: any): void {
+  this.confirmService.confirm({ message: `Voulez-vous vraiment ajouter une évaluation à ${row.lastName} ${row.firstName}?` })
+    .subscribe(res => {
+      if (res) {
+        this.loader.open('Ajout de l\'évaluation');
+
+        this.crudEntretien.addEvaluation({ employeeNum: row.id })
+          .subscribe((data: any) => {
+
+            // Close the loader before showing the snack bar
+            this.loader.close();
+
+            this.snack.open('Evaluation ajoutée !', 'OK', { duration: 2000 });
+          });
+      }
+    });
+}
+
+
+
+
+//status 
+
+applyFilterr(event: Event, key: string) {
+  const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+  const filterWords = filterValue.split(' ');
+
+  this.dataSource.filterPredicate = (data, filter) => {
+    // Split the data value into words and convert to lowercase
+    const dataWords = data[key].trim().toLowerCase().split(' ');
+
+    // Check if all filter words are present in the data (case-insensitive)
+    return filterWords.every(word => {
+      return dataWords.some(dataWord => dataWord.indexOf(word.toLowerCase()) !== -1);
+    });
+  };
+
+  this.dataSource.filter = filterValue;
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+} 
+
+
+
+toggleInput1() {
+  this.showInput1 = !this.showInput1;
+}
+
+toggleInput2() {
+  this.showInput2 = !this.showInput2;
+}
+
+toggleInput3() {
+  this.showInput3 = !this.showInput3;
+}
+
+
+employeeTitleMap = {
+  [Title.FRONT_END_DEVELOPER]: 'Développeur Front-End',
+  [Title.BACK_END_DEVELOPER]: 'Développeur Back-End',
+  [Title.FULLSTACK_DEVELOPER]: 'Développeur Full-Stack',
+  [Title.CRM]: 'CRM',
+  [Title.HUMAN_RESOURCE_MANAGER]: 'Responsable des Ressources Humaines',
+  [Title.HUMAN_RESOURCE]: 'Ressources Humaines',
+  [Title.PROJECT_MANAGER]: 'Chef de Projet',
+  [Title.TECH_LEAD]: 'Chef de Projet',
+  [Title.UI_UX_DESIGNER]: 'Concepteur UI/UX',
+  [Title.QA_ENGINEER]: 'Ingénieur QA',
+  [Title.DEVOPS_ENGINEER]: 'Ingénieur DevOps',
+  [Title.WEB_DEVELOPER]: 'Développeur Web',
+  [Title.OFFICE_MANAGER]: 'Responsable d Agence',
+  [Title.ACCOUNTANT]: 'Comptable',
+  [Title.SALES_REPRESENTATIVE]: 'Représentant Commercial',
+  [Title.CUSTOMER_SUPPORT_SPECIALIST]: 'Spécialiste du Support Client',
+  [Title.MARKETING_COORDINATOR]: 'Coordinateur Marketing'
+  
+};
 }
 

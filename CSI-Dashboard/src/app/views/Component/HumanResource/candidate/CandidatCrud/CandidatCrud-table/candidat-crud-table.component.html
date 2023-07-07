@@ -1,62 +1,48 @@
-<div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-<!--  les statistiques-->
- <!--   <div class="info-card accent" >
-       <div class="description">Les Alertes  !!!</div>
+<mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }" style="margin-bottom: 35px;" >
+  <div fxLayout="row wrap" >
+    <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div class="text-center pt-16 pb-16 border-right-light">
+        <mat-icon color="primary">restore</mat-icon>
+        <h4 class="m-0">{{processCount}}</h4>
+        <small class="m-0">En processus</small>
+      </div>
     </div>
 
-    <div class="info-card primary" >
-      <div class="description">Les Notifications </div>
-   </div>
+<div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div class="text-center pt-16 pb-16 border-right-light">
+        <mat-icon color="accent">star</mat-icon>
+        <h4 class="m-0">{{ profileCount }}</h4>
+        <small class="m-0">Top Profiles</small>
+      </div>
+    </div>
 
+   
+    <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div class="text-center pt-16 pb-16 border-right-light">
+        <mat-icon class="text-green">done_all</mat-icon>
+        <h4 class="m-0">{{ convertedCount }}</h4>
+        <small class="m-0">Converti</small>
+      </div>
+    </div>
 
-   <mat-card class="p-0" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
-     <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-orange">stars</mat-icon>
-           <h4 class="m-0 ">...</h4>
-           <small class="m-0 ">{{ EmployeeStatus.TOP_PROFILES}}</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-blue">build</mat-icon>
-           <h4 class="m-0 ">...</h4>
-           <small class="m-0 ">{{ EmployeeStatus.IN_PROCESS}}</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-orange">cached</mat-icon>
-           <h4 class="m-0 ">...</h4>
-           <small class="m-0 ">{{ EmployeeStatus.PRE_QUALIFIED}}</small>
-         </div>
-       </div>
-       <div
-         fxFlex="50"
-         fxFlex.gt-sm="20"
-         fxFlex.sm="50"
-       >
-         <div class="text-center pt-16 pb-16 border-right-light">
-           <mat-icon class="text-blue">done_all</mat-icon>
-           <h4 class="m-0 ">...</h4>
-           <small class="m-0 ">converti en ressource</small>
-         </div>
-       </div>
-     </div>
-   </mat-card>-->
+<div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div class="text-center pt-16 pb-16 border-right-light">
+        <mat-icon style="color: #a7a1a1;">archive</mat-icon>
+        <h4 class="m-0">{{archivedCount}}</h4>
+        <small class="m-0">Archivé</small>
+      </div>
+    </div>
+
+    <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50" class="statistic-item">
+      <div class="text-center pt-16 pb-16 border-right-light">
+        <mat-icon class="text-red">highlight_off</mat-icon>
+        <h4 class="m-0">{{ qualifiedCount }}</h4>
+        <small class="m-0">Non qualifié</small>
+      </div>
+    </div>
+
+  </div>
+</mat-card>
 
    <mat-form-field style="padding-left: 19px;">
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche">
@@ -80,15 +66,14 @@
         <ng-container matColumnDef="firstName">
           <mat-header-cell *matHeaderCellDef> Prénom 
             <div>
-              <button style="size:10px ;" mat-icon-button (click)="toggleInput1()">
-         
+              <button [class.transparent-button]="!showInput1" mat-icon-button (click)="toggleInput1()">
+                <mat-icon>search</mat-icon>
               </button>
               
-              <mat-form-field *ngIf="showInput1" style="width:1.3cm;" >
+              <mat-form-field *ngIf="showInput1" style="width:1.3cm;">
                 <input matInput (input)="applyFilterr($event, 'firstName')" placeholder="Filtrer">
-             </mat-form-field>
-  
-               </div>
+              </mat-form-field>
+            </div>
             
           </mat-header-cell> 
           <mat-cell *matCellDef="let row" data-label="firstName" [style.color]="row.color"> {{row.firstName}} </mat-cell>
@@ -98,16 +83,15 @@
         <ng-container matColumnDef="lastName">
           <mat-header-cell *matHeaderCellDef > Nom 
 
-            <div >
-            <button mat-icon-button (click)="toggleInput2()">
-              <mat-icon>search</mat-icon>
-            </button>
-            
-            <mat-form-field *ngIf="showInput2" style="width:1.3cm;" >
-              <input matInput (input)="applyFilterr($event, 'lastName')" placeholder="Filtrer">
-           </mat-form-field>
-
-             </div>
+            <div>
+              <button [class.transparent-button]="!showInput2" mat-icon-button (click)="toggleInput2()">
+                <mat-icon>search</mat-icon>
+              </button>
+              
+              <mat-form-field *ngIf="showInput2" style="width:1.3cm;">
+                <input matInput (input)="applyFilterr($event, 'lastName')" placeholder="Filtrer">
+              </mat-form-field>
+            </div>
           </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="lastName" [style.color]="row.color"> {{row.lastName}} </mat-cell>
         </ng-container>
@@ -115,15 +99,14 @@
         <ng-container matColumnDef="title" >
           <mat-header-cell *matHeaderCellDef > Intitulé du poste
             <div>
-              <button mat-icon-button (click)="toggleInput3()">
+              <button [class.transparent-button]="!showInput3" mat-icon-button (click)="toggleInput3()">
                 <mat-icon>search</mat-icon>
               </button>
               
-              <mat-form-field *ngIf="showInput3" style="width:1.3cm;" >
+              <mat-form-field *ngIf="showInput3" style="width:1.3cm;">
                 <input matInput (input)="applyFilterr($event, 'title')" placeholder="Filtrer">
-             </mat-form-field>
-  
-               </div>
+              </mat-form-field>
+            </div>
           </mat-header-cell>
           <mat-cell style="padding-right: 20px;" *matCellDef="let row" data-label="title" [style.color]="row.color"> {{employeeTitleMap[row.title]}} </mat-cell>
         </ng-container>
@@ -132,15 +115,14 @@
         <ng-container matColumnDef="status" >
           <mat-header-cell *matHeaderCellDef style="padding-left: 2cm;"> Statut 
             <div>
-              <button mat-icon-button (click)="toggleInput4()">
+              <button [class.transparent-button]="!showInput4" mat-icon-button (click)="toggleInput4()">
                 <mat-icon>search</mat-icon>
               </button>
               
-              <mat-form-field *ngIf="showInput4" style="width:1.3cm;" >
-                <input matInput (input)="applyFilterr($event, 'status')" placeholder="Filtrer">
-             </mat-form-field>
-  
-               </div>
+              <mat-form-field *ngIf="showInput4" style="width:1.3cm;">
+                <input matInput (input)="applyStatusFilter($event, 'status')" placeholder="Filtrer">
+              </mat-form-field>
+            </div>
             </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <button mat-button class="mat-button-as-chip"  [matMenuTriggerFor]="menu" [color]="getStatusColor(row.employeeStatus).color" >{{ getStatusColor(row.employeeStatus).displayText }}</button>
@@ -158,10 +140,12 @@
                   <mat-icon>cancel</mat-icon>
                   <span>Top profiles</span>
                 </button>
+
                 <button mat-menu-item (click)="openPopUpEmployee(row)"  >
                   <mat-icon>cancel</mat-icon>
                   <span>Converti en ressource</span>
                 </button>
+                
                 <button mat-menu-item (click)="changeEmployeeStatus('employeeStatus.DO_NOT_CONTACT', row.id)">
                   <mat-icon>cancel</mat-icon>
                   <span>A ne plus contacter</span>
@@ -178,18 +162,25 @@
          <ng-container matColumnDef="actions" >
            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
            <mat-cell *matCellDef="let row">
-             <button mat-icon-button mat-sm-button color="primary" class="mr-16 "  (click)="updateEmployee(row.id)">
-               <mat-icon>edit</mat-icon>
-             </button>
-             <button mat-icon-button mat-sm-button color="accent" class=" mr-16 " routerLink="/candidat/{{row.id}}" routerLinkActive="router-link-active">
+
+            <button   matTooltip="Voir les détails du candidat" mat-icon-button mat-sm-button  class="mr-16 " routerLink="/candidat/{{row.id}}" routerLinkActive="router-link-active">
                <mat-icon>remove_red_eye </mat-icon>
              </button>
-             <button mat-icon-button mat-sm-button color="warn" (click)="deleteCandidate(row)">
-               <mat-icon>delete</mat-icon>
-             </button>
-            <!--<button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="addResourceType(row)">
-              <mat-icon>add</mat-icon>
-            </button>-->
+
+             <button  class="mr-16 " mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item class="mr-16 " (click)="deleteCandidate(row)">
+                <mat-icon>delete</mat-icon>
+                <span>Supprimer le candidat</span>
+              </button>
+              <button mat-menu-item class="mr-16 " (click)=" updateEmployee(row.id)">
+                <mat-icon>mode_edit</mat-icon>
+                <span>Modifier le candidat</span>
+              </button>
+            </mat-menu>
+             
            </mat-cell>
          </ng-container>
    
@@ -200,4 +191,4 @@
    
      </mat-card-content>
    </mat-card>
-   </div>
+   

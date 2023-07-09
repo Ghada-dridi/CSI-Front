@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReqService } from '../../req.service';
-import { Availability, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
+import { Availability, PaymentType, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { ReqpopComponent } from '../../req-pop/reqpop/reqpop.component';
 import { ProfilePopComponent } from '../../profile-pop/profile-pop.component';
@@ -48,7 +48,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
   getDisplayedColumns() {
     return [
-      'title','requirementType','requirementStatus','candidateNumber','actions',
+      'title','requirementType','requirementStatus','paymentType','actions',
     ];
   }
 
@@ -68,6 +68,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(this.dataSource)
       })
 
   }
@@ -179,12 +180,18 @@ openPopUp2(requirementId: number) {
    [WorkField.FINANCE] :'Finance'
   };
 
+  paymentTypeMap = {
+    [PaymentType.FOR_SETTLEMENT]:'En régie',
+    [PaymentType.IN_PACKAGE]:'En forfait'
+  }
+
   reqTypeMap = {
-    [RequirementType.FOR_SETTLEMENT]:'En régie',
-    [RequirementType.IN_PACKAGE]:'En forfait'
+    [RequirementType.RESOURCE]:'Ressource',
+    [RequirementType.PROJECT]:'Projet'
   }
 
   reqStatusMap = {
+    [RequirementStatus.OPEN]:'Ouverte',
     [RequirementStatus.POSITIONED]:'Positionné',
     [RequirementStatus.WON]:'Gagné',
     [RequirementStatus.LOST] :'Perdu',

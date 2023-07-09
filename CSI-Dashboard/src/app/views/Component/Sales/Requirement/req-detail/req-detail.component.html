@@ -43,7 +43,11 @@
                 </mat-list-item>
                 <mat-list-item>
                   <!--mat-icon class="mr-16" color="primary">category</mat-icon-->
-                  Type : <strong>{{ reqTypeMap[req.requirementType] }}</strong> 
+                  Type opportunité : <strong>{{ reqTypeMap[req.requirementType] }}</strong> 
+                </mat-list-item>
+                <mat-list-item>
+                  <!--mat-icon class="mr-16" color="primary">category</mat-icon-->
+                  Type paiement : <strong>{{ paymentTypeMap[req.paymentType] }}</strong> 
                 </mat-list-item>
               </mat-list>
             </mat-card-content>
@@ -57,10 +61,11 @@
             </mat-card-title>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><!--mat-icon class="mr-16" color="primary">rule</mat-icon--> Budget/jour : <strong>{{ req.budgetPerDay }}</strong></mat-list-item>
+                <mat-list-item><!--mat-icon class="mr-16" color="primary">rule</mat-icon--> Type budgétisation : <strong>{{ budgetingTypeMap[req.budgetingType] }}</strong></mat-list-item>
+                <mat-list-item><!--mat-icon class="mr-16" color="primary">rule</mat-icon--> Taux jounalier moyen : <strong>{{ req.averageDayCost }}</strong></mat-list-item>
                 <mat-list-item><!--mat-icon class="mr-16" color="primary">description</mat-icon--> Devise : <strong>{{ req.currency }}</strong></mat-list-item>
                 <!--mat-list-item><mat-icon class="mr-16" color="primary">schedule</mat-icon> Disponibilité : <strong>{{ availabilityMap[req.availability] }}</strong></mat-list-item-->
-                <mat-list-item><!--mat-icon class="mr-16" color="primary">people</mat-icon--> Nombre de candidats : <strong>{{ req.candidateNumber }}</strong></mat-list-item>
+                <mat-list-item><!--mat-icon class="mr-16" color="primary">people</mat-icon--> Besoin effectif : <strong>{{ req.candidateNumber }}</strong></mat-list-item>
                 <!--mat-list-item><mat-icon class="mr-16" color="primary">attach_money</mat-icon> Budget planifié : <strong>{{ req.plannedBudget }}</strong></mat-list-item-->
                 <!--mat-list-item><mat-icon class="mr-16" color="primary">mail</mat-icon> {{ req.plannedIncome }}</mat-list-item-->
                 <!--mat-list-item><mat-icon class="mr-16">devices</mat-icon> <strong>Provenance:</strong> {{ partner.provenance }}</mat-list-item-->
@@ -78,8 +83,9 @@
               <mat-list>
                 <mat-list-item><!--mat-icon class="mr-16" color="primary">event</mat-icon-->Date création : <strong>{{ req.creationDate }}</strong></mat-list-item>
                 <mat-list-item><!--mat-icon class="mr-16" color="primary">event</mat-icon-->Date réponse : <strong>{{ req.responseDate }}</strong></mat-list-item>
-                <mat-list-item><!--mat-icon class="mr-16" color="primary">calendar_today</mat-icon-->Date début : <strong>{{ req.startDate }}</strong></mat-list-item>
                 <mat-list-item><!--mat-icon class="mr-16" color="primary">date_range</mat-icon-->Date prévu de clôture : <strong>{{ req.closureDate }}</strong></mat-list-item>
+                <mat-list-item *ngIf = req.startDate><!--mat-icon class="mr-16" color="primary">calendar_today</mat-icon-->Date début : <strong>{{ req.startDate }}</strong></mat-list-item>
+                <mat-list-item *ngIf = !req.startDate><!--mat-icon class="mr-16" color="primary">calendar_today</mat-icon-->Démarrage dans : <strong>{{ req.availability }}</strong></mat-list-item>
               </mat-list>
             </mat-card-content>
           </mat-card>

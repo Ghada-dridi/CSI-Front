@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { contact } from 'app/shared/models/contact';
-import { Availability, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
+import { Availability, BudgetingType, PaymentType, RequirementStatus, RequirementType, WorkField, req } from 'app/shared/models/req';
 import { ReqService } from '../req.service';
 import { CompanyStatus, Partner } from 'app/shared/models/Partner';
 import { CrudPartnerService } from '../../partner/crudPartner.service';
@@ -171,12 +171,23 @@ export class ReqDetailComponent implements OnInit {
     [WorkField.FINANCE] :'Finance'
   };
 
+  paymentTypeMap = {
+    [PaymentType.FOR_SETTLEMENT]:'En régie',
+    [PaymentType.IN_PACKAGE]:'En forfait'
+  }
+
   reqTypeMap = {
-    [RequirementType.FOR_SETTLEMENT]:'En régie',
-    [RequirementType.IN_PACKAGE]:'En forfait'
+    [RequirementType.RESOURCE]:'Ressource',
+    [RequirementType.PROJECT]:'Projet'
+  }
+
+  budgetingTypeMap = {
+    [BudgetingType.PROPOSED_BUDGET]:'Budget proposé (client)',
+    [BudgetingType.ESTIMATED_BUDGET]:'Budget estimé'
   }
 
   reqStatusMap = {
+    [RequirementStatus.OPEN]:'Ouverte',
     [RequirementStatus.POSITIONED]:'Positionné',
     [RequirementStatus.WON]:'Gagné',
     [RequirementStatus.LOST] :'Perdu',

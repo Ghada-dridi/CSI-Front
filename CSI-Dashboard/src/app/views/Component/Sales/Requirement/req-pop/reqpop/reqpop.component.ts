@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {  Validators,  FormGroup, FormBuilder } from '@angular/forms';
-import { Availability,WorkField,RequirementStatus,RequirementType} from 'app/shared/models/req';
+import {  Validators,  FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { Availability,WorkField,RequirementStatus,RequirementType, PaymentType, BudgetingType} from 'app/shared/models/req';
 import { Currency, Partner } from 'app/shared/models/Partner';
 import { CrudPartnerService } from '../../../partner/crudPartner.service';
 import { DatePipe } from '@angular/common';
@@ -11,6 +11,7 @@ import { MY_DATE_FORMATS } from '../../../partner/partner-stepper/partner-steppe
 @Component({
   selector: 'app-reqpop',
   templateUrl: './reqpop.component.html',
+  styleUrls: ['./reqpop.component.scss'],
   providers: [
     // Provide custom date format
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
@@ -26,14 +27,35 @@ export class ReqpopComponent implements OnInit {
   WorkField :string []= Object.values(WorkField)
   RequirementStatus: string [] = Object.values(RequirementStatus)
   RequirementType = Object.values(RequirementType)
+  PaymentType = Object.values(PaymentType)
+  budgetingTypes = Object.values(BudgetingType)
   listpartner : Partner [] =[]
   private partnerId : number
- 
+
+  //////////////////////////////////////updates repeat form
+  formProfile = new FormGroup({
+    candidateNumber: new FormControl(''),
+    function: new FormControl(''),
+    experienceYears: new FormControl(''),
+    comment: new FormControl(''),
+    startDate: new FormControl(''),
+    endDate: new FormControl('')
+  });
+
+  public myProfileForm: FormGroup;
+  profiles: FormArray;
+
+  repeatForm: FormGroup;
+  repeatFormUpdated: FormGroup;
+  public showProfilesForm: boolean = false;
+  //////////////////////////////////////end updates repeat form
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ReqpopComponent>,
-    private fb: FormBuilder, private CrudService:CrudPartnerService,
+    private fb: FormBuilder, 
+    private CrudService:CrudPartnerService,
+    private _formBuilder: FormBuilder
     //private datePipe: DatePipe
   ) { }
 
@@ -42,19 +64,46 @@ export class ReqpopComponent implements OnInit {
   buildItemForm(item){
     this.itemForm = this.fb.group({
       title : [item.title || '', Validators.required],
-      budgetPerDay : [item.budgetPerDay || '', Validators.required],
+      budgetingType : [item.budgetingType || '', Validators.required],
+      averageDayCost : [item.averageDayCost || '', Validators.required],
       currency : [item.currency || '', Validators.required], 
       comment : [item.comment || '', Validators.required], 
       candidateNumber : [item.candidateNumber || '', Validators.required],
       requirementType : [item.requirementType || '', Validators.required],
+      paymentType : [item.paymentType || '', Validators.required],
       responseDate : [item.responseDate || '', Validators.required ,],
       startDate: [item.startDate ||'', Validators.required, ],
       expectedEndDate : [item.expectedEndDate || '', Validators.required],
       closureDate : [item.closureDate || '', Validators.required],
       availability : [item.availability || '', Validators.required],
-      partnerNum: [this.data.partnerId, Validators.required]
+      partnerNum: [this.data.partnerId, Validators.required],
+        //////////////////////////////////////updates repeat form
+      profiles: this.fb.array([]),
     })
-    
+    const profilesFormArray = this.itemForm.get('profiles') as FormArray;
+    if (item.profiles && item.profiles.length > 0) {
+      item.profiles.forEach((profile) => {
+        profilesFormArray.push(this.fb.group({
+          candidateNumber: [profile.candidateNumber || ''],
+          function: [profile.function || '', Validators.required],
+          startDate: [profile.startDate || '', Validators.required],
+          endDate: [profile.endDate || ''],
+          experienceYears: [profile.experienceYears || ''],
+          comment: [profile.comment || '']
+        }));
+      });
+    } else {
+      profilesFormArray.push(this.fb.group({
+        candidateNumber: [''],
+        function: ['', Validators.required],
+        startDate: ['', Validators.required],
+        endDate: [''],
+        experienceYears: [''],
+        comment: ['']
+      }));
+        //////////////////////////////////////end updates repeat form
+
+    }
   }
 
 
@@ -71,7 +120,71 @@ this.CrudService.getItems().subscribe((data :any )=>{
     console.log(this.data.isNew)
     console.log(this.data.payload)
     this.isNew = this.data.isNew 
+    //////////////////////////////////////updates repeat form
+    this.myProfileForm = this._formBuilder.group({
+      profiles: this._formBuilder.array([])  // Initialize profiles as an empty FormArray
+    });
+    this.buildItemForm(this.data.payload);
+    this.repeatForm = this._formBuilder.group({
+      repeatArray: this._formBuilder.array([this.createRepeatForm()])
+    });
+    //////////////////////////////////////end updates repeat form
   }
+
+  //////////////////////////////////////updates repeat form
+  get myArrayControls() {
+    return (this.myProfileForm.get('profiles') as FormArray).controls;
+  }
+  createRepeatForm(): FormGroup {
+    return this._formBuilder.group({});
+  }
+  get repeatFormGroup() {
+    return this.repeatForm.get('repeatArray') as FormArray;
+  }
+  handleAddRepeatForm() {
+    this.repeatFormGroup.push(this.createRepeatForm());
+  }
+  handleRemoveRepeatForm(index: number) {
+    this.repeatFormGroup.removeAt(index);
+    if (index > 0) {
+      const repeatArray = this.repeatForm.get('repeatArray') as FormArray;
+      repeatArray.removeAt(index);
+    }
+  }
+  addProfileFormGroup(): void {
+    const profilesFormArray = this.itemForm.get('profiles') as FormArray;
+    profilesFormArray.push(this.fb.group({
+      candidateNumber: [''],
+      function: ['', Validators.required],
+      experienceYears: [''],
+      comment: [''],
+      startDate: [''],
+      endDate: ['']
+    }));
+  }
+  
+  removeProfileFormGroup(index: number): void {
+    const profilesFormArray = this.itemForm.get('profiles') as FormArray;
+    profilesFormArray.removeAt(index);
+  }
+  toggleProfilesForm(): void {
+    const profilesFormArray = this.itemForm.get('profiles') as FormArray;
+    if (profilesFormArray.length === 0) {
+      profilesFormArray.push(this.fb.group({
+        candidateNumber: [''],
+        function: ['', Validators.required],
+        experienceYears: [''],
+        comment: [''],
+        startDate: [''],
+        endDate: ['']
+      }));
+    }
+    this.showProfilesForm = true; // Always set showProfilesForm to true
+  }
+  
+  //////////////////////////////////////end updates repeat form
+
+
 
   submit() {
     console.log((this.itemForm.value))
@@ -81,6 +194,11 @@ this.CrudService.getItems().subscribe((data :any )=>{
   isStartDayVisible(){
     const availability = this.itemForm.get('availability').value
     return this.itemForm.get('availability').value && availability == Availability.FROM
+  }
+
+  isResourcesRequirement(){
+    const requirementType = this.itemForm.get('requirementType').value
+    return this.itemForm.get('requirementType').value && requirementType == RequirementType.RESOURCE
   }
 
   /*get responseDate() {
@@ -109,9 +227,19 @@ this.CrudService.getItems().subscribe((data :any )=>{
    [WorkField.FINANCE] :'Finance'
   }*/
 
+  paymentTypeMap = {
+    [PaymentType.FOR_SETTLEMENT]:'En régie',
+    [PaymentType.IN_PACKAGE]:'En forfait'
+  }
+
   reqTypeMap = {
-    [RequirementType.FOR_SETTLEMENT]:'En régie',
-    [RequirementType.IN_PACKAGE]:'En forfait'
+    [RequirementType.RESOURCE]:'Ressource',
+    [RequirementType.PROJECT]:'Projet'
+  }
+
+  budgetingTypeMap = {
+    [BudgetingType.PROPOSED_BUDGET]:'Budget proposé (client)',
+    [BudgetingType.ESTIMATED_BUDGET]:'Budget estimé'
   }
 
   reqStatusMap = {

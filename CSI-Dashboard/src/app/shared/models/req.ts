@@ -14,10 +14,12 @@ export interface req {
     company : string
     //
     title?: string;
-    budgetPerDay?: number
+    averageDayCost?: number
     currency?: Currency
     candidateNumber?: number
-    requirementType? :RequirementType;
+    budgetingType?: BudgetingType
+    requirementType? :RequirementType
+    paymentType? :PaymentType;
     requirementStatus ?:RequirementStatus,
     expectedEndDate ?:string
     closureDate ?:string
@@ -36,13 +38,23 @@ export enum Availability {
       ASAP="ASAP"
 }
 
-export enum RequirementType {
+export enum PaymentType {
     FOR_SETTLEMENT = "FOR_SETTLEMENT",
     IN_PACKAGE = "IN_PACKAGE"
 }
 
-export enum RequirementStatus {
+export enum RequirementType {
+    RESOURCE = "RESOURCE",
+    PROJECT = "PROJECT"
+}
 
+export enum BudgetingType {
+    PROPOSED_BUDGET = "PROPOSED_BUDGET",
+    ESTIMATED_BUDGET = "ESTIMATED_BUDGET"
+}
+
+export enum RequirementStatus {
+    OPEN = "OPEN",
     POSITIONED ="POSITIONED",
     WON="WON" , 
     IN_PROGRESS="IN_PROGRESS",

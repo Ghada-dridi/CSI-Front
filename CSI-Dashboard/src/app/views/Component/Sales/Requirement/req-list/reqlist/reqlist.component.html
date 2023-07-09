@@ -62,16 +62,16 @@
             <mat-cell *matCellDef="let row" data-label="requirementStatus"> {{reqStatusMap[row.requirementStatus]}} </mat-cell>
           </ng-container>
           
-          <ng-container matColumnDef="candidateNumber">
+          <ng-container matColumnDef="paymentType">
           <mat-header-cell *matHeaderCellDef mat-sort-header > 
             <div style="display: flex; flex-direction: column; margin-top: 12px;" >
-              <span>Nombre de candidats</span>
+              <span>Type paiement opportunité</span>
               <mat-form-field style="width:3cm; text-align: center;" >
-                <input matInput (input)="applyFilterr($event, 'candidateNumber')" placeholder="Filtrer">
+                <input matInput (input)="applyFilterr($event, 'paymentType')" placeholder="Filtrer">
              </mat-form-field>
              </div> 
           </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="candidateNumber"> {{row.candidateNumber}} </mat-cell>
+          <mat-cell *matCellDef="let row" data-label="paymentType"> {{paymentTypeMap[row.paymentType]}} </mat-cell>
         </ng-container>
   
   

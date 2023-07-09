@@ -29,7 +29,7 @@ export class ReqService {
   
     // POST a new item
     addReq(customer: any): Observable<any> {
-      
+      console.log(customer)
       return this.http.post<any>(this.apiUrl, customer).pipe(
         catchError(this.handleError)
       );

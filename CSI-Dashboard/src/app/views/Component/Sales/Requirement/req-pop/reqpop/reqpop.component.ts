@@ -61,50 +61,39 @@ export class ReqpopComponent implements OnInit {
 
 
 
-  buildItemForm(item){
+  buildItemForm(item) {
+    const profiles = item.profiles && item.profiles.length > 0 ? item.profiles : [];
+  
     this.itemForm = this.fb.group({
-      title : [item.title || '', Validators.required],
-      budgetingType : [item.budgetingType || '', Validators.required],
-      averageDayCost : [item.averageDayCost || '', Validators.required],
-      currency : [item.currency || '', Validators.required], 
-      comment : [item.comment || '', Validators.required], 
-      candidateNumber : [item.candidateNumber || '', Validators.required],
-      requirementType : [item.requirementType || '', Validators.required],
-      paymentType : [item.paymentType || '', Validators.required],
-      responseDate : [item.responseDate || '', Validators.required ,],
-      startDate: [item.startDate ||'', Validators.required, ],
-      expectedEndDate : [item.expectedEndDate || '', Validators.required],
-      closureDate : [item.closureDate || '', Validators.required],
-      availability : [item.availability || '', Validators.required],
+      title: [item.title || '', Validators.required],
+      budgetingType: [item.budgetingType || '', Validators.required],
+      averageDayCost: [item.averageDayCost || '', Validators.required],
+      currency: [item.currency || '', Validators.required],
+      comment: [item.comment || '', Validators.required],
+      candidateNumber: [item.candidateNumber || '', Validators.required],
+      requirementType: [item.requirementType || '', Validators.required],
+      paymentType: [item.paymentType || '', Validators.required],
+      responseDate: [item.responseDate || '', Validators.required],
+      startDate: [item.startDate || '', Validators.required],
+      expectedEndDate: [item.expectedEndDate || '', Validators.required],
+      closureDate: [item.closureDate || '', Validators.required],
+      availability: [item.availability || '', Validators.required],
       partnerNum: [this.data.partnerId, Validators.required],
-        //////////////////////////////////////updates repeat form
-      profiles: this.fb.array([]),
-    })
-    const profilesFormArray = this.itemForm.get('profiles') as FormArray;
-    if (item.profiles && item.profiles.length > 0) {
-      item.profiles.forEach((profile) => {
-        profilesFormArray.push(this.fb.group({
-          candidateNumber: [profile.candidateNumber || ''],
-          function: [profile.function || '', Validators.required],
-          startDate: [profile.startDate || '', Validators.required],
-          endDate: [profile.endDate || ''],
-          experienceYears: [profile.experienceYears || ''],
-          comment: [profile.comment || '']
-        }));
-      });
-    } else {
-      profilesFormArray.push(this.fb.group({
-        candidateNumber: [''],
-        function: ['', Validators.required],
-        startDate: ['', Validators.required],
-        endDate: [''],
-        experienceYears: [''],
-        comment: ['']
-      }));
-        //////////////////////////////////////end updates repeat form
-
-    }
+      profiles: this.fb.array(profiles.map(profile => this.buildProfileFormGroup(profile)))
+    });
   }
+  
+  buildProfileFormGroup(profile): FormGroup {
+    return this.fb.group({
+      candidateNumber: [profile.candidateNumber || ''],
+      function: [profile.function || '', Validators.required],
+      startDate: [profile.startDate || '', Validators.required],
+      endDate: [profile.endDate || ''],
+      experienceYears: [profile.experienceYears || ''],
+      comment: [profile.comment || '']
+    });
+  }
+  
 
 
 getpartnern(){

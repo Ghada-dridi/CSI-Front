@@ -1,25 +1,25 @@
 import { TechnicalFile } from "./TechnicalFile";
 export class Employee {
     id?: number;
-     lastName ?:string;
-     firstName?:string;
-     birthDate ?:string;
-     emailOne ?:string;
-     emailTwo?:string;
-     phoneNumberOne ?: number;
-     phoneNumberTwo ?: number;
-     address?:string;
-     postCode ?: number;
-     city ?: string;
-     recommendationMark ?: number;
-     experience ?: number;
-     experienceDetails ?:string;
-     civility?: Civility;
-     title?: Title;
-     employeeStatus?:EmployeeStatus;
-     country?:string;
-     maritalSituation ?:MaritalSituation;
-     technicalfile ?:TechnicalFile ;
+    lastName ?:string;
+    firstName?:string;
+    birthDate ?:string;
+    emailOne ?:string;
+    emailTwo?:string;
+    phoneNumberOne ?: number;
+    phoneNumberTwo ?: number;
+    address?:string;
+    postCode ?: number;
+    city ?: string;
+    recommendationMark ?: number;
+    experience ?: number;
+    experienceDetails ?:string;
+    civility?: Civility;
+    title?: Title;
+    employeeStatus?:EmployeeStatus;
+    country?:string;
+    maritalSituation ?:MaritalSituation;
+    technicalfile ?:TechnicalFile ;
 
 }
 export interface Country {

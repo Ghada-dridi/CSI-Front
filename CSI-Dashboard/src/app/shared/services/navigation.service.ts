@@ -90,8 +90,12 @@ export class NavigationService {
         { name: 'Avenants clients', state: 'endorsement/endorsement-crud' },
         { name: 'Prestation', state: 'benefit/benefit-list' },
         { name: 'Opportunités', state: 'requirement/requirement-crud'},
-        { name: 'Devis & Commandes', state: 'shop/cart' },
-        { name: 'Rapports', state: 'shop/checkout' }
+        { name: 'Employés', state: 'employee/employee-crud' },
+        { name: 'Devis', state: 'quotation/quotation-crud' },
+        { name: 'Commandes', state: 'order/orders-crud' },
+        
+        /*{ name: 'Devis & Commandes', state: 'shop/cart' },
+        { name: 'Rapports', state: 'shop/checkout' }*/
       ]
     },
     {

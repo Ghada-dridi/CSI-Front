@@ -30,7 +30,6 @@ export class ReqlistComponent implements OnInit , OnDestroy {
 
 
   constructor(
-    
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private ReqService: ReqService,
@@ -93,7 +92,7 @@ export class ReqlistComponent implements OnInit , OnDestroy {
   applyFilter(event :Event){
     const FilterValue = (event.target as HTMLInputElement).value ;
      this.dataSource.filter = FilterValue.trim().toLowerCase();
- }
+  }
 
  openPopUp(data:  any , isNew?) {
   let title = isNew ? 'Ajouter opportunité' : 'Mettre à jour opportunité';

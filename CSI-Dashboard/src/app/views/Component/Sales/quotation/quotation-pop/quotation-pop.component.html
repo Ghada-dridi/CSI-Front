@@ -1,0 +1,52 @@
+<mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+</mat-toolbar>
+
+<form [formGroup]="itemForm">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" style="padding-top:50px ;">
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Opportunité</mat-label>
+        <mat-select  [formControlName]="'reqNum'">
+          <mat-option *ngFor="let reqNum of listReq" [value]="reqNum.id">{{ reqNum.title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Prénom</mat-label>
+          <input
+            matInput
+            name="firstName"
+            type="text"
+            [formControlName]="'firstName'"
+            placeholder="Prénom">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nom</mat-label>
+            <input
+              matInput
+              name="lastName"
+              type="text"
+              [formControlName]="'lastName'"
+              placeholder="Nom">
+        </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-16">
+        <button mat-raised-button color="primary" (click)="submit()">Enregistrer</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Annuler</button>
+      </div>
+    </div>
+</form>

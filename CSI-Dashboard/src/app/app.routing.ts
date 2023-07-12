@@ -181,9 +181,14 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/todo/todo.module').then(m => m.TodoModule)
       },
       {
-        path: 'orders',
-        loadChildren: () => import('./views/order/order.module').then(m => m.OrderModule),
-        data: { title: 'Orders', breadcrumb: 'Orders'}
+        path: 'order',
+        loadChildren: () => import('./views/Component/Sales/orders/orders.module').then(m => m.OrdersModule),
+        data: { title: 'Order', breadcrumb: 'Commandes'}
+      },
+      {
+        path: 'quotation',
+        loadChildren: () => import('./views/Component/Sales/quotation/quotation.module').then(m => m.QuotationModule),
+        data: { title: 'Quotation', breadcrumb: 'Devis'}
       },
       {
         path: 'page-layouts',
@@ -240,7 +245,11 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./views/Component/Sales/Requirement/req.module').then(m => m.ReqModule),
         data: { title: 'Requirement', breadcrumb: 'Opportunités'}
       },
-
+      {
+        path: 'employee',
+        loadChildren: () => import('./views/Component/Sales/employee/employee.module').then(m => m.EmployeeModule),
+        data: { title: 'Employee', breadcrumb: 'Employés'}
+      },
       {
         path: 'contact',
         loadChildren: () => import('./views/Component/Sales/contact/contact.module').then(m => m.ContactModule),
